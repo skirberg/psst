@@ -1,0 +1,82 @@
+<script>
+  // The book: every move has a numbered slot by neighborhood. Keep a stub and its sticker lands here.
+  import Sticker from './Sticker.svelte';
+  import { app, serialOf, LEANS_PER_WEEK } from '../lib/state.svelte.js';
+  import { moves, events, fmtDate } from '../lib/core.js';
+  const GROUPS = [
+    ['Little Havana', ['Little Havana']], ['Downtown and Brickell', ['Downtown', 'Brickell']], ['Wynwood, Edgewater, Allapattah', ['Wynwood', 'Edgewater', 'Allapattah']],
+    ['Upper East Side', ['Design District', 'Little River', 'Little Haiti', 'MiMo']], ['The Beach', ['South Beach', 'Mid-Beach', 'North Beach']],
+    ['Gables and the Grove', ['Coral Gables', 'Coconut Grove']], ['The Keys', ['Key Biscayne', 'Virginia Key']], ['South Dade', ['South Miami-Dade']],
+  ];
+  const pages = GROUPS.map(([name, hoods]) => ({ name, list: moves.filter((m) => hoods.includes(m.hood)) })).filter((p) => p.list.length);
+  const held = $derived(events.filter((e) => app.heldEvents.includes(e.id)));
+  let code = $state(''), msg = $state('');
+  function redeem(e) {
+    e.preventDefault();
+    const r = app.redeem(code);
+    msg = r === 'ok' ? 'One more secret unlocked.' : r === 'used' ? 'Already used.' : 'Codes look like PINA-7KQ2X.';
+    if (r === 'ok') code = '';
+  }
+  const locked = (m) => m.secret === 2 && !app.unlocked.includes(m.id);
+</script>
+
+<section class="book">
+  <h1>Kept</h1>
+  <p class="stats"><span>{app.kept.length} of {moves.length}</span><span>{app.leansLeft()} secrets left this week</span></p>
+
+  {#each pages as p (p.name)}
+    <div class="page">
+      <h2>{p.name}<span>{p.list.filter((m) => app.kept.includes(m.id)).length}/{p.list.length}</span></h2>
+      <div class="slots">
+        {#each p.list as m (m.id)}
+          {@const k = app.kept.includes(m.id)}
+          <div class="slot" class:k>
+            {#if k}<button class="sb" onclick={() => (app.where = m.id)} aria-label="{m.place} on the map"><Sticker move={m} size={58} /></button>{:else}<span class="ghost"><Sticker move={m} size={58} outline tilt={false} /></span>{/if}
+            <span class="no">No. {String(serialOf(m)).padStart(3, '0')}</span>
+            {#if k}<span class="clue">{m.place}</span>{:else if locked(m)}<span class="clue">Sealed</span>{/if}
+            {#if k}<button class="went" class:on={app.went.includes(m.id)} onclick={() => app.toggle('went', m.id)}>{app.went.includes(m.id) ? 'Went' : 'Went?'}</button>{/if}
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/each}
+
+  {#if held.length}
+    <div class="page">
+      <h2>Saved events</h2>
+      {#each held as e (e.id)}<p class="held">{fmtDate(e.date, { month: 'short', day: 'numeric' })}: {e.title}, {e.venue}</p>{/each}
+    </div>
+  {/if}
+
+  <form class="code" onsubmit={redeem}>
+    <label for="code">Friend’s code</label>
+    <div class="f"><input id="code" name="code" bind:value={code} placeholder="PINA-7KQ2X…" autocomplete="off" spellcheck="false" /><button>Redeem</button></div>
+    {#if msg}<p class="msg" role="status">{msg}</p>{/if}
+  </form>
+</section>
+
+<style>
+  .book { display: grid; gap: 16px; color: var(--text); }
+  h1 { margin: 0; font: 400 44px/0.95 var(--display); }
+  .stats { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font: 600 14px var(--body); }
+  .page { background: var(--paper); color: var(--ink); border-radius: 4px; padding: 16px; display: grid; gap: 12px; box-shadow: 0 14px 18px -14px rgba(5, 39, 57, 0.45); }
+  h2 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; font: 400 24px/1 var(--display); }
+  h2 span { font: 500 12px var(--mono); font-variation-settings: 'MONO' 1; color: var(--muted); }
+  .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px 8px; }
+  .slot { display: grid; justify-items: center; gap: 3px; text-align: center; padding: 6px 2px; }
+  .ghost { color: var(--muted); }
+  .sb { all: unset; cursor: pointer; border-radius: 12px; }
+  .sb:focus-visible { outline: 3px solid var(--ink); }
+  .no { font: 600 11px var(--mono); font-variation-settings: 'MONO' 1; }
+  .clue { font: 500 12.5px/1.25 var(--body); font-variation-settings: 'CASL' 1; color: var(--muted); }
+  .k .clue { color: var(--ink); }
+  .went { font: 600 12px var(--body); padding: 4px 10px; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); cursor: pointer; }
+  .went.on { background: var(--ink); color: var(--paper); }
+  .held { margin: 0; font-size: 14px; }
+  .code { display: grid; gap: 6px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; }
+  label { font: 600 13px var(--body); color: var(--muted); }
+  .f { display: flex; gap: 8px; }
+  input { flex: 1; min-width: 0; font: 600 15px var(--mono); font-variation-settings: 'MONO' 1; padding: 9px 10px; border: 0; border-bottom: 2px dashed var(--line); background: transparent; color: var(--ink); text-transform: uppercase; }
+  .f button { font: 650 14px var(--body); padding: 9px 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
+  .msg { margin: 0; font-size: 13.5px; }
+</style>

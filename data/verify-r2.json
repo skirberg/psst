@@ -1,0 +1,814 @@
+[
+ {
+  "id": "fiorito-empanada-choclo",
+  "verdict": "keep",
+  "reason": "Open and current. The official site gives Sun\u2013Thu 12\u201310pm and Fri\u2013Sat 12\u201311pm, which matches the windows exactly, so it is open Mon and Tue. Best 19:30 falls inside the hours. The address checks out and Nominatim reverse-geocodes the lat/lng to 5555 NE 2nd Ave, Little Haiti. The official menu lists Empanada de Choclo ('Corn and Mozzarella Cheese', $5) and Empanada de Carne a Cuchillo ($5). It also lists grilled cuts (entra\u00f1a, prime vac\u00edo, bife de chorizo, 16oz ribeye), and the site says 'certified Angus beef'. The site calls itself 'a small, family-owned spot'; it is run by two brothers. Infatuation (Jan 2026) confirms Almacen is 'Fiorito's casual lunch spot across the street'. 'Like dinner at an Argentine friend's house' is opinion but fits New Times' 'homey, no-frills' bodeg\u00f3n. Secret 1 is honest: a well-liked local Argentine spot since 2012 with no Michelin listing.",
+  "evidence": [
+   "http://fioritomiami.com",
+   "http://fioritomiami.com/miami-fiorito-food-menu",
+   "https://www.theinfatuation.com/miami/reviews/fiorito",
+   "https://www.theinfatuation.com/miami/reviews/almacen-by-fiorito",
+   "https://www.theinfatuation.com/miami/neighborhoods/little-haiti",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.827077&lon=-80.191725"
+  ]
+ },
+ {
+  "id": "bar-bucce-shrimp-pie",
+  "verdict": "fix",
+  "reason": "Open and current. The official site footer gives 'Thu\u2013Sat: 12PM \u2013 10:30PM, Sun & Wed: 12PM \u2013 10PM, Closed Monday & Tuesday', which matches the windows exactly. It also says 'Sip & Slice HH Daily: 4PM - 6:30PM', and best 18:00 falls inside both. The address checks out and Nominatim returns 7220 N Miami Ave, Little River. The official menu has the Meatball ($16) and the Shrimp Pie ('Tomato, cream, rock shrimp, sweet onion, stracciatella', $35). The focaccia is listed as 'House Focaccia' with no mention of a filling, while Infatuation (Oct 2025) described it as stuffed with peppers and olives, so I used the menu name. The menu says happy hour is BOGO on house cocktails, wines by the glass and draft beer, 'Bar & Couches Only'. That is a useful door detail, so I added it. The $20 corkage on retail bottles comes from Infatuation (Oct 2025) only; the official site doesn't mention it. 'Shop-price' overstates the deal because you pay the shelf price plus $20, so I reworded the title. Secret 1 is generous: Infatuation rates it 9.1, Time Out gives 5 stars, and it comes from the Macchialina/Pirolo team. The corkage trick is the insider angle, but the place itself is heavily covered, so 0 is more honest.",
+  "evidence": [
+   "https://barbucce.com/",
+   "https://barbucce.com/menu",
+   "https://www.theinfatuation.com/miami/reviews/bar-bucce",
+   "https://www.theinfatuation.com/miami/guides/best-restaurants-little-river-miami",
+   "https://www.timeout.com/miami/restaurants/bar-bucce",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.841422&lon=-80.196882"
+  ],
+  "fixes": {
+   "title": "Retail-shelf wine and a shrimp pie at Bar Bucce",
+   "theMove": "Come for the 'Sip & Slice' happy hour (daily 4 to 6:30pm, buy-one-get-one on house cocktails, wine by the glass and draft beer, bar and couches only). Pull a bottle off the retail shelves and drink it there for a $20 corkage. Order the meatball, the house focaccia and the shrimp pie. Closed Monday and Tuesday.",
+   "secret": 0
+  },
+  "tasteFlag": "Heavily reviewed (Infatuation 9.1, Time Out 5/5), so it isn't a local secret. The corkage-off-the-shelf move is the real insider value."
+ },
+ {
+  "id": "tacos-maria-zeyzey-late",
+  "verdict": "fix",
+  "reason": "Open and current. Tacos Mar\u00eda's site says 'Tuesday 6pm - 10pm, Thursday-Saturday 7pm til late! And check ZeyZey hours! If they are open we are open'. ZeyZey's site gives Tue\u2013Thu 5pm\u201312am and Fri\u2013Sat 5pm\u20133am. The windows (Tue 18\u201322, Thu 19\u201300, Fri/Sat 19\u201303) are a fair reading of both. Best 01:00 sits inside the Fri/Sat window under the project's after-midnight convention, which other entries also use. The address checks out and Nominatim returns 353 NE 61st St. The official menu confirms the Chicharron taco ('Braised & fried duroc porkbelly'), Al Pastor and Esquites. Its homepage calls Tacos Mar\u00eda the 'rebellious little sister of Los F\u00e9lix'. Infatuation (Jan 2026) says the truck sits at ZeyZey's entrance. Two errors need fixing. First, 'Everything comes on nixtamalized corn tortillas' is wrong: the quesadillas use beef-tallow flour tortillas and the esquites come in a cup, so only the tacos are on corn. Second, getIn says it is 'open whenever ZeyZey is', but ZeyZey also opens Wed and Sun and runs past 10pm on Tue, which contradicts the posted hours and the entry's own windows. Secret 1 is fair.",
+  "evidence": [
+   "https://www.tacosmariamiami.com/menu",
+   "https://www.tacosmariamiami.com/",
+   "https://www.zeyzeymiami.com",
+   "https://www.theinfatuation.com/miami/reviews/tacos-maria",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.832731&lon=-80.189052"
+  ],
+  "fixes": {
+   "theMove": "On a Friday or Saturday, step off the dance floor after midnight and order the chicharr\u00f3n tacos (braised and fried pork belly), an al pastor and a cup of esquites. The tacos come on nixtamalized corn tortillas.",
+   "getIn": "The truck sits at ZeyZey's entrance. Posted hours are Tuesday 6 to 10pm and Thursday to Saturday from 7pm 'til late'. On Friday and Saturday that means until ZeyZey closes at 3am."
+  }
+ },
+ {
+  "id": "double-luck-crab-rangoon",
+  "verdict": "fix",
+  "reason": "Open and current. The official site (doubleluckmiami.squarespace.com) gives 'Wednesday - Sunday 5:30pm - 10:00pm' at 1085 NE 79th St, which matches the windows. Best 19:00 is inside. Nominatim returns 1085 NE 79th St. The official April 2026 food menu PDF lists Crab Leg Rangoon, Mapo Tofu, Hunan Steamed Fish (MP) and Hennessy Orange Chicken. Infatuation (Apr 2025) says the fish is 'filleted tableside with a spoon', that 'they light this on fire' (the orange chicken) and that a Cantopop playlist with a Cantonese 'Country Roads' plays. Resy (Dec 2025) confirms it began as a T\u00e2m T\u00e2m pop-up and moved to a permanent home, with the orange chicken flamb\u00e9ed tableside. Secret 1 is not honest: Double Luck is on the 2026 MICHELIN Bib Gourmand list and has been covered by Infatuation, Resy, Axios ('worth the hype') and New Times. The OnlyInYourState source returned 403 on both URL variants, so I replaced it with the official site and the Bib Gourmand page. Hood: Infatuation and Michelin call it Upper East Side; 1085 NE 79th is just north of the MiMo district's 77th St edge. 'MiMo' is acceptable only as the app's loose bucket.",
+  "evidence": [
+   "https://doubleluckmiami.squarespace.com/",
+   "https://doubleluckmiami.squarespace.com/s/Double-Luck-Food-Menu-April-2026.pdf",
+   "https://www.theinfatuation.com/miami/reviews/double-luck-club",
+   "https://blog.resy.com/2025/12/double-luck-chinese-miami/",
+   "https://www.miamiandbeaches.com/restaurants/michelin-bib-gourmand-restaurants-in-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.848284&lon=-80.174794"
+  ],
+  "fixes": {
+   "secret": 0,
+   "sources": [
+    "https://doubleluckmiami.squarespace.com/",
+    "https://www.theinfatuation.com/miami/reviews/double-luck-club",
+    "https://blog.resy.com/2025/12/double-luck-chinese-miami/",
+    "https://www.miamiandbeaches.com/restaurants/michelin-bib-gourmand-restaurants-in-miami"
+   ]
+  },
+  "tasteFlag": "It is on the 2026 Michelin Bib Gourmand list and was widely hyped in 2025, so it is public rather than a locals-only pick. Hood is technically Upper East Side, not MiMo."
+ },
+ {
+  "id": "locura-marina-ceviche-sampler",
+  "verdict": "keep",
+  "reason": "Open and current. The official site lists 'Our New Business Hours': Mon\u2013Wed 9:30am\u20139pm, Thu 9:30am\u20135pm, Fri 9:30am\u20139:30pm, Sat 10am\u20139:30pm, Sun 11am\u20137:30pm, which matches all five windows exactly. Nominatim returns the amenity 'Locura Marina, 7118 Collins Avenue, Miami Beach 33141'. All dish claims rest on Infatuation (May 2025, 8.3) only, because the official menu pages are image-only Wix pages and gave no text. Infatuation names the Ceviche Sampler Mixto with rocoto as the standout, the Causa Sampler ($18), Mazamorra Morada, very big portions ('enough food for a professional athlete') and warm, huggable service. Best 18:30 falls outside the Thursday window (closes 5pm). That is acceptable because theMove explicitly warns 'Thursday it closes at 5pm'; if the app enforces best-in-window strictly, move best to 16:00. Secret 1 is fair: a North Beach neighborhood spot that won New Times' Best Peruvian 2025, well known locally but not hyped.",
+  "evidence": [
+   "https://www.locuramarinarestaurant.com/",
+   "https://www.theinfatuation.com/miami/reviews/locura-marina-miami-beach",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.856537&lon=-80.12065"
+  ]
+ },
+ {
+  "id": "manolo-rene-24h-colada",
+  "verdict": "fix",
+  "reason": "Open and current. The official site lists 188 NE 3rd Ave, says open 24 hours, 'on 3rd Avenue since 1977' and 'oldest food establishment in Downtown Miami', and features the palomilla steak platter and the Cuban sandwich. Infatuation (Mar 12, 2026) backs the colada and Cuban sandwich and the Miami Music Week clubbers, but says 'The only day they close is Christmas', so 'It never closes' is slightly wrong. A 00:00-00:00 window means open all day in core.js openAt, so 'best' 00:30 is valid. Nominatim reverse lookup returns the Manolo & Rene Grill node at 188 NE 3rd Ave. The arena is about 0.6 km away in a straight line, so 'a few blocks' is fine. secret 1 is honest for a 1977 downtown institution.",
+  "evidence": [
+   "https://www.manologrill.com/",
+   "https://www.theinfatuation.com/miami/reviews/manolo-and-rene-cafeteria",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.776078&lon=-80.188771",
+   "https://nominatim.openstreetmap.org/search?format=json&q=Kaseya+Center+Miami"
+  ],
+  "fixes": {
+   "theMove": "After a show at Kaseya Center (a few blocks away), walk over and order a colada and a Cuban sandwich, or a palomilla steak platter if you need a real meal. It's open 24/7 (closed only on Christmas), so it works before doors or at 4am."
+  }
+ },
+ {
+  "id": "cafe-fenicia-muhammara-mixed-grill",
+  "verdict": "fix",
+  "reason": "Hours match the official site exactly (Sun-Thu 5-11pm, Fri-Sat 5pm-12am), and 'best' 18:30 is inside them. Infatuation (Jun 26, 2026, 8.3) supports every dish claim: muhammara first, kibbeh nayyeh, Fenician Mixed Grill with toum, ashta, sand-brewed Lebanese coffee and hookah, plus a small room built for lingering. The coordinate is wrong. It is Nominatim's interpolated point, which reverse-geocodes to 1312 NE Miami Ct at the south end of the block. The restaurant's own Google Maps link (maps.app.goo.gl/EGioa1n1ToDPLGMX9, linked from cafefenicia.com) pins it at 25.7881397,-80.193225, near NE 14th St, about 84 m north. Infatuation's 25.78811,-80.19314 agrees. 'Under a kilometre from the arena' is true in a straight line (about 0.95 km) but the walk is about 1.3 km, so I reworded it. secret 1 is fair for a small, newer room.",
+  "evidence": [
+   "https://www.cafefenicia.com/",
+   "https://maps.app.goo.gl/EGioa1n1ToDPLGMX9",
+   "https://www.theinfatuation.com/miami/reviews/cafe-fenicia",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.787382&lon=-80.193247",
+   "https://nominatim.openstreetmap.org/search?format=json&q=1381+NE+Miami+Ct,+Miami,+FL&addressdetails=1",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.7881147&lon=-80.193144",
+   "https://nominatim.openstreetmap.org/search?format=json&q=Kaseya+Center+Miami"
+  ],
+  "fixes": {
+   "lat": 25.78814,
+   "lng": -80.193225,
+   "why": "A small Lebanese room under Downtown's high-rises that's built for lingering, with hookah and dips. About a 15-minute walk from the arena."
+  }
+ },
+ {
+  "id": "pho-nam-bun-bo-hue",
+  "verdict": "fix",
+  "reason": "The official site gives 270 E Flagler St and 'Thurs - Sun: 5PM - 10PM', so windows [0,4,5,6] 17-22 and 'best' 18:00 are correct. The menu lists B\u00fan B\u00f2 Hu\u1ebf, Vietnamese pizza (b\u00e1nh tr\u00e1ng n\u01b0\u1edbng) and Imperial rolls (ch\u1ea3 gi\u00f2). Infatuation (Sep 8, 2026) supports the scissors, the low sidewalk stools and 'metal carts transport steaming bowls from the kitchen to tables'. Its line 'already our favorite place to grab a heaping bowl of ph\u1edf' is one outlet, so 'critics' favorite' overstates it, and 'food carts at the table' misdescribes the carts. Most tables are kept for walk-ins (reservations page), so 'get there at 5' holds. The coordinate (25.77328) is an old OSM Jar and Fork node and reverse-geocodes to The Atrium, 150 SE 3rd Ave, about 93 m south of Flagler. Infatuation's pin (25.77412,-80.1891) sits on Flagler at 3rd Ave, within about 12 m of Nominatim's 270 E Flagler address node. I kept 'spicy', which describes the dish style and nothing contradicts it.",
+  "evidence": [
+   "https://www.phonammia.com/",
+   "https://www.phonammia.com/menu",
+   "https://www.phonammia.com/reservations",
+   "https://www.theinfatuation.com/miami/reviews/pho-nam-downtown",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.77328&lon=-80.18922",
+   "https://nominatim.openstreetmap.org/search?format=json&q=270+E+Flagler+St,+Miami,+FL&addressdetails=1",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.77412&lon=-80.1891"
+  ],
+  "fixes": {
+   "lat": 25.77412,
+   "lng": -80.1891,
+   "why": "A new Downtown noodle house that is already The Infatuation's favorite bowl of ph\u1edf in Miami. Low sidewalk stools for the wait, and steaming bowls roll out to the tables on metal carts."
+  },
+  "tasteFlag": "secret 1 is generous. The place is weeks old, Infatuation calls it 'trending now' and says it's booked through October, and it's a sister of T\u00e2m T\u00e2m. That reads as public hype, so secret 0 is more honest."
+ },
+ {
+  "id": "river-oyster-bar-happy-hour",
+  "verdict": "keep",
+  "reason": "The official location page gives 33 SE 7th St, Suite 100, Mon-Thu 12-10pm, Fri-Sat 12-10:30pm, Sun 12-9pm and Happy Hour 'Daily | 3 PM - 7 PM'. That matches windows, and 'best' 17:30 falls inside both hours and happy hour. The official menus page lists $2 chef's-selection oysters, La Tropical draft at $5 per pint, the crab cake ($26) and the sea scallop aguachile ($22). The homepage says 'Celebrating 22 years', which backs '22 years in' even though press dates the opening to 2003. Infatuation calls it 'reasonably priced (by Brickell standards)' and 'an uncomplicated restaurant', so 'honest' and 'fair prices for Brickell' hold. Still running in 2026 (wine-night event Jun 30, 2026). Nominatim reverse lookup returns 33 SE 7th St exactly. secret 0 is honest.",
+  "evidence": [
+   "https://www.therivermiami.com/location/the-river-miami/",
+   "https://www.therivermiami.com/menus/",
+   "https://www.therivermiami.com/",
+   "https://www.theinfatuation.com/miami/reviews/the-river-oyster-bar",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.767686&lon=-80.191968"
+  ]
+ },
+ {
+  "id": "lung-yai-one-order-thai",
+  "verdict": "fix",
+  "reason": "Hours match the official site: Tue-Sat lunch 12-3pm and dinner 5-10pm, Sunday dinner only 5-10pm, Monday closed. Michelin's page shows Sunday 16:00, but the official site wins. 'best' 17:00 is valid. The official site supports every getIn rule: no reservations, give name and party size, 'Your party needs to be present in order to sit', 'One time order only'. It also says 'Bangkok-born chef'. Infatuation (May 2025) supports som tam as a 'cooling system', shrimp steamed dumplings, khao soi with beef and the wings. Two parts of 'why' are wrong. First, 'counter': Infatuation says they've 'stopped seating people at the indoor counter' and almost every table is a two-top. Second, the Bib Gourmand: the official site claims Bib in 2022, 2023 and 2025, but the current Michelin page has dLayer distinction='plate' (Selected/Recommended, not Bib), so the wording must not imply a current Bib. Nominatim reverse lookup returns the Lung Yai node at 1731 SW 8th St.",
+  "evidence": [
+   "https://lungyai.com/",
+   "https://www.theinfatuation.com/miami/reviews/lung-yai-thai-tapas",
+   "https://guide.michelin.com/us/en/florida/miami/restaurant/lung-yai-thai-tapas",
+   "https://joinpearl.co/lists/michelin-guide-florida-2026",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.765772&lon=-80.223205"
+  ],
+  "fixes": {
+   "why": "A Bangkok-born chef's tiny Calle Ocho room, a Michelin Bib Gourmand in 2022, 2023 and 2025 and still in the guide, with house rules that keep it honest."
+  },
+  "tasteFlag": "secret 1 is a stretch. It's in Michelin, Infatuation calls it 'the Miami classic it was always destined to be', and weekend waits are common, so it's widely known and secret 0 may be more honest. Still a strong pick."
+ },
+ {
+  "id": "palma-candlelit-counter",
+  "verdict": "keep",
+  "reason": "I couldn't refute it. It is open: the official site is live, shows 'Tasting Menu + A La Carte, Wednesday \u2014 Saturday 6:00pm \u2014 10pm' and links to Resy, and the Michelin listing is active. The windows (days 3-6, 18:00-22:00) match the official site exactly, and best 18:30 falls inside them. The address is right: Nominatim reverse-geocodes the coordinates to 240 NW 8th Ave, 33128. The Infatuation review (Dec 1, 2025) supports $115, the monthly changes, local ingredients, concrete walls, candles melting onto the counter, sitting alone at the counter, a low-intervention list, and a pairing your server will personalize with half-pours. \u00c0 la carte appears on the official site. Kaseya Center is 2.08 km away in a straight line, so 'about 2 km' holds. One caveat: the $115 price comes from Infatuation alone and is 10 months old. The official site shows no tasting price, and an earlier report had $85, so the price has changed before. Re-check it on the next pass.",
+  "evidence": [
+   "https://www.eatpalma.com/",
+   "https://www.theinfatuation.com/miami/reviews/palma-miami",
+   "https://guide.michelin.com/us/en/florida/miami/restaurant/palma",
+   "https://www.theinfatuation.com/miami/guides/little-havana-restaurants",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.776485&lon=-80.207969"
+  ],
+  "tasteFlag": "secret: 1 is generous. The chef won the Michelin Florida Young Chef Award in 2025, and Palma has coverage from Infatuation, Time Out and Miami New Times. Food-savvy locals and visitors know it, so 0 to 1 is honest. It's still a strong non-obvious pick: a strip-mall tasting counter in Little Havana."
+ },
+ {
+  "id": "la-casita-vaca-frita",
+  "verdict": "fix",
+  "reason": "It is open as of 2026. Infatuation's venue data shows closedStatus 'Open', with new photos dated 2026-02-19, the review republished 2026-02-20, and the Coral Gables guide (which lists it) republished in Sept 2026. The coordinates reverse-geocode to 'La Casita Restaurant, 3805 SW 8th St'. Problems: (1) There is no working official source. lacasitacubancuisine.com is a GoDaddy parking page, and lacasitamiami.com (the site Infatuation links) 301-redirects to it. Drop it from sources. (2) That means the hours rest on third-party sources only, and they disagree. Atmosfy says Mon-Thu 11-22, Fri-Sat 11-23, Sun 11-22. Time Out (2018) says Mon-Fri 11-22, Sat 11:30-23, Sun 12-22. The current windows (Fri close 22, Sun open 11) match neither fully, so I used the conservative overlap; best 19:30 still fits. (3) No source mentions flan, so it's removed. Lech\u00f3n asado comes only from Time Out 2018 ('featured regularly'), so it's softened to 'ask if it's on'. (4) 'Family recipes' is unsupported: the Vilari\u00f1o family owns it, but no source mentions recipes. 'White tablecloths' describes the 1990 opening ('white linen'), and the current look isn't confirmed. The why is rewritten around what is sourced. Supported and kept: free buttered bread, vaca frita, boiled yuca with mojo, opened 1990, a weekly ritual for families. Crispy mariquitas are added (Infatuation). Taste is good: a real neighborhood institution, and secret 1 is honest.",
+  "evidence": [
+   "http://lacasitacubancuisine.com/ (GoDaddy parking lander, script redirects to /lander with ap:'parking')",
+   "http://lacasitamiami.com/ (301 to lacasitacubancuisine.com)",
+   "https://www.theinfatuation.com/miami/reviews/la-casita-restaurant",
+   "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables",
+   "https://www.timeout.com/miami/restaurants/la-casita",
+   "https://atmosfy.io/location/coral-gables/la-casita",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.764761&lon=-80.25745"
+  ],
+  "fixes": {
+   "windows": [
+    {
+     "days": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "from": "11:00",
+     "to": "22:00"
+    },
+    {
+     "days": [
+      6
+     ],
+     "from": "11:30",
+     "to": "23:00"
+    },
+    {
+     "days": [
+      0
+     ],
+     "from": "12:00",
+     "to": "22:00"
+    }
+   ],
+   "theMove": "Bring the whole family. Eat the free buttered Cuban bread while it's warm, then order the vaca frita with boiled yuca and mojo, plus a plate of crispy mariquitas for the table. Ask if the lech\u00f3n asado is on.",
+   "why": "On Calle Ocho since 1990 and still a weekly ritual for families and retirees. A Cuban dinner without the tourist lines.",
+   "sources": [
+    "https://www.theinfatuation.com/miami/reviews/la-casita-restaurant",
+    "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables",
+    "https://www.timeout.com/miami/restaurants/la-casita",
+    "https://atmosfy.io/location/coral-gables/la-casita"
+   ]
+  }
+ },
+ {
+  "id": "krus-kitchen-coconut-rice",
+  "verdict": "keep",
+  "reason": "Everything checks out. The official site gives 3413 Main Highway, dinner Tue-Thu and Sun 5:30-10 PM, Fri-Sat 5:30-11 PM, brunch Sat-Sun 11 AM-3:30 PM, closed Mondays. That matches all three windows exactly (days 0,2,3,4 / 5,6 / 0,6), and best 19:00 is inside them. The official site also supports 'Hand-rolled pastas', a 'Natural and biodynamic wine list' and an 'intimate seasonal restaurant'. The Michelin page describes 'the reliably satisfying smoked coconut rice with wild caught crab and cilantro aioli', and Infatuation (June 2025) says 'Always order the coconut rice' and covers the local-farm and careful-seafood sourcing. The Green Star is still current after the June 2026 Florida guide: the official site lists Green Star 2024 and 2025, and the Michelin page fetched today has dLayer['greenstar'] = 'True' plus a live Green Star Community article on Kr\u00fcs. No 2026 closure news turned up. Nominatim forward-geocodes 3413 Main Hwy to 25.7272071, -80.2430803, which matches the entry. The reverse lookup only names the nearby road. secret 1 is honest.",
+  "evidence": [
+   "https://www.kruskitchen.com/",
+   "https://www.kruskitchen.com/menu",
+   "https://guide.michelin.com/us/en/florida/miami/restaurant/krus-kitchen",
+   "https://www.theinfatuation.com/miami/reviews/krus-kitchen",
+   "https://www.theinfatuation.com/miami/guides/coconut-grove-restaurants",
+   "https://nominatim.openstreetmap.org/search?format=json&q=3413+Main+Highway,+Miami,+FL+33133"
+  ],
+  "tasteFlag": "Kr\u00fcs is fairly well known (Michelin Green Star, Infatuation, Time Out), but 'locals know it' (1) fits a small Grove room."
+ },
+ {
+  "id": "hometown-bbq-beef-rib",
+  "verdict": "keep",
+  "reason": "Everything checks out. The official site gives 1200 NW 22nd St #100, Mon-Thu and Sun 11:30AM-9PM, Fri-Sat 11:30AM-10PM. That matches the windows, and best 18:00 is inside. Reservations: 'We accept reservations during our dinner service, for parties of 2-10 starting at 5:00pm. Walk-ins always welcome', and the site calls it 'the second barbecue restaurant from Brooklyn restaurateur Billy Durney.' Every dish claim is on the official 2025 menu image: beef rib PER BONE/58, brisket by the \u00bd pound at 22, smoked wings with 'mole dust served with cilantro, queso fresco, charred poblano crema', and Frito pie at 13. Infatuation says the beef rib 'tastes like brisket, steak, and ribs all at once' and tags it Perfect for Big Groups. The Rubell Museum is at 1100 NW 23rd St, the next block (still operating per Hoodline, June 2026). 2026 diner reviews show it open. The coordinates equal Nominatim's forward geocode of 1200 NW 22nd St. Optional wording nit: 'Dinner reservations open at 5pm' could be read as 'booking opens at 5pm'. The official wording is reservations for dinner service starting at 5pm. secret 0 is honest.",
+  "evidence": [
+   "https://hometownbbqmiami.com/",
+   "https://hometownbbqmiami.com/menu1",
+   "https://images.squarespace-cdn.com/content/v1/5d4edbd5e7d1490001eb0a4d/1b4eda75-1800-4870-8032-c7b514e89a1c/HTRH-MIAMI-memu-2025p1.png",
+   "https://www.theinfatuation.com/miami/reviews/hometown-barbecue",
+   "https://www.theinfatuation.com/miami/guides/best-restaurants-allapattah",
+   "https://hoodline.com/2026/06/rubells-cash-out-on-allapattah-lot-in-15m-neology-deal/",
+   "https://nominatim.openstreetmap.org/search?format=json&q=1200+NW+22nd+Street,+Miami,+FL+33142"
+  ]
+ },
+ {
+  "id": "naomis-garden-jerk-chicken",
+  "verdict": "keep",
+  "reason": "Everything checks out. The official site lists Little Haiti at 650 NW 71st St, 'Everyday: 8 AM\u201311 PM', which matches the window exactly. Best 19:00 is inside. rainOk false makes sense for the garden. The site supports jerk chicken, goat stew, fried snapper, pikliz, 'outdoor seating in the back garden', and Haitian, Caribbean and Jamaican cuisine. It is named for founder Yaron Yemini's mother Naomi, so 'family-named' holds. Infatuation (Mar 10, 2025) covers 'The blue house in Little Haiti', the jerk chicken, 'their spicy pikliz', 'chug an entire cup of soursop juice for some relief', 'Since it's a steam counter' and the flora-filled backyard. The coordinates reverse-geocode to 650 NW 71st St. OSM calls the area Edison Center and one snippet says Liberty City, but the official site and Infatuation both say Little Haiti. A second South Beach location exists, but the Little Haiti original is the garden one, and secret 1 is honest. Good non-obvious local pick.",
+  "evidence": [
+   "https://naomismiami.com/",
+   "https://www.theinfatuation.com/miami/reviews/naomis-garden-restaurant-and-lounge",
+   "https://thelocalpalate.com/articles/naomis-garden-in-miami-serves-up-traditional-haitian-cuisine/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.83953&lon=-80.207925"
+  ]
+ },
+ {
+  "id": "andy-stott-carrier-the-ground-2026-10-02",
+  "verdict": "keep",
+  "reason": "Real and scheduled. DICE lists 'Andy Stott & Carrier' at The Ground Miami (Club Space), 34 NE 11th St, Fri 2 Oct 2026, doors 23:00 to 07:00, from $14.99, eventStatus Scheduled, presented by Club Space. RA (event 2522083) matches: Fri 2 Oct 2026 23:00-07:00, Dub Techno. Lat/lng matches the OSM geocode for Club Space at 34 NE 11th St. You could add time 23:00 and use the DICE event page as the url, but nothing in the entry is wrong. The dice.fm venue page returned 403 to a direct fetch; I read its content through search-tool extracts.",
+  "evidence": [
+   "https://dice.fm/event/6dgdq3-andy-stott-carrier-2nd-oct-the-ground-miami-miami-tickets",
+   "https://ra.co/events/2522083",
+   "https://dice.fm/promoters/club-space-7m3p",
+   "https://www.miamilivingmagazine.com/post/upcoming-miami-concerts-live-performances-september-28-october-5-2026"
+  ]
+ },
+ {
+  "id": "thundercat-miami-beach-bandshell-2026-10-02",
+  "verdict": "keep",
+  "reason": "The official Bandshell event page shows Fri, October 2, doors 7:00 PM, show 8:00 PM, at 7275 Collins Avenue, with no cancel or postpone notice. Oct 2 2026 is a Friday, so the year matches. A search found no cancellation reports (Distracted AF Tour). Lat/lng matches the OSM geocode for North Shore Park Bandshell (25.8581225, -80.1204807).",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/thundercat/",
+   "https://miamibeachbandshell.com/events/"
+  ]
+ },
+ {
+  "id": "ame-hardt-antoine-maceo-plex-club-space-2026-10-03",
+  "verdict": "keep",
+  "reason": "The Club Space official page lists Saturday, October 3, 2026, '\u00c2me (DJ), Hardt Antoine, & Maceo Plex', Terrace, 21+, doors 11:00 PM, ends Sun 2:00 PM, at 34 NE 11th St. It is also on the DICE Club Space venue and bundle listings for Sat 3 Oct. The entry has no time or price. If you add a price, note that clubspace.com says from $30 while the DICE listing says from $20. Lat/lng is correct.",
+  "evidence": [
+   "https://www.clubspace.com/shows/me-dj-hardt-antoine-maceo-plex-3rd-oct-club-space-miami-miami-tickets",
+   "https://www.clubspace.com/shows",
+   "https://dice.fm/bundles/october-2026-at-club-space-27xp"
+  ]
+ },
+ {
+  "id": "black-country-new-road-bandshell-2026-10-09",
+  "verdict": "keep",
+  "reason": "The official Bandshell event page shows Fri, October 9, doors 7:00 PM, show 8:00 PM, at 7275 Collins Avenue, with no cancel or postpone notice. Oct 9 2026 is a Friday. Secondary listings agree (Lily Seabird supporting). Lat/lng is correct.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/black-country-new-road/",
+   "https://miamibeachbandshell.com/events/"
+  ]
+ },
+ {
+  "id": "igor-marijuan-do-not-sit-2026-10-10",
+  "verdict": "keep",
+  "reason": "The DICE event page (presented by Do Not Sit On The Furniture) lists Sat 10 Oct 2026, 22:00 to 05:00, from $24.25, at 423 16th St, Miami Beach 33139, eventStatus Scheduled. RA matches with Sat, 10 Oct 2026 22:00. Lat/lng matches the OSM geocode for the venue (25.7892744, -80.1322871). The venue homepage has no event calendar, so the DICE event page would be a better url. DICE says 21+.",
+  "evidence": [
+   "https://dice.fm/event/v3x2xd-igor-marijuan-all-day-i-dream-10th-oct-do-not-sit-on-the-furniture-miami-beach-tickets",
+   "https://ra.co/events/2515749",
+   "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5",
+   "https://donotsitonthefurniture.com/"
+  ],
+  "tasteFlag": "The 'why' says 'no VIP', but the venue's own DICE copy says table reservations are highly recommended, and listings mention booths and bottle service. Consider softening that claim."
+ },
+ {
+  "id": "miami-beach-salsa-fest-2026-10-11",
+  "verdict": "keep",
+  "reason": "The official Bandshell event page shows Sun, October 11, doors 4:00 PM, show 5:00 PM, free RSVP, at 7275 Collins Avenue, with no cancel notice. Oct 11 2026 is a Sunday. Time 17:00 and 'free (RSVP)' are correct. Lat/lng is correct.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/miami-beach-salsa-fest/",
+   "https://miamibeachbandshell.com/events/"
+  ]
+ },
+ {
+  "id": "iii-points-2026",
+  "verdict": "fix",
+  "reason": "The event itself checks out. The official III Points site gives October 16 + 17, 2026 at Mana Wynwood, 2217 NW 5th Ave, Miami 33127, '5 city blocks' and 13 stages. The address geocodes exactly to the entry's lat/lng (25.7980804, -80.201582). The problem is the second source: the worthavenueyachts.com Miami Art Week page is a yacht-charter page about Art Week (Nov 30 - Dec 6) and never mentions III Points. Replace it with the official guide page.",
+  "evidence": [
+   "https://www.iiipoints.com/guide/",
+   "https://iiipoints.com/",
+   "https://www.iiipoints.com/travel",
+   "https://www.worthavenueyachts.com/event/miami-art-week-2026/"
+  ],
+  "fixes": {
+   "sources": [
+    "https://iiipoints.com/",
+    "https://www.iiipoints.com/guide/"
+   ]
+  }
+ },
+ {
+  "id": "four-tet-floating-points-daphni-club-space-2026-10-17",
+  "verdict": "keep",
+  "reason": "The Club Space official shows page lists Oct 17 (Sat), Terrace, 'Satellite: Disco Lines, Four Tet B2B Floating Points B2B Daphni, horsegiirL, Kettama + MORE', doors 11:00 PM. DICE's 'October 2026 at Club Space' bundle (all Terrace shows) lists it for Sat 17 Oct, from $50. The title is accurate, and the III Points satellite framing is right. Lat/lng is correct.",
+  "evidence": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/clubshows",
+   "https://dice.fm/bundles/october-2026-at-club-space-27xp"
+  ]
+ },
+ {
+  "id": "john-scofield-electrospective-bandshell-2026-10-24",
+  "verdict": "keep",
+  "reason": "The official Bandshell event page shows Sat, October 24 (2026), doors 7:00 PM, show 8:00 PM, all ages, at 7275 Collins Avenue, with no cancel notice. Oct 24 2026 is a Saturday. Lat/lng is correct.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/john-scofields-electrospective/",
+   "https://miamibeachbandshell.com/events/"
+  ]
+ },
+ {
+  "id": "south-beach-seafood-festival-seafood-slam-2026-10-24",
+  "verdict": "keep",
+  "reason": "The official festival site lists the Seafood Slam (flagship) for SAT Oct 24, 1:00-5:00 PM, from $160, within the Oct 21-24, 2026 festival at Lummus Park, Ocean Drive. The festival's press section mentions a 40-restaurant tasting, and Hoodline says more than 40 restaurants, so '40+' is supported. Lat/lng matches the OSM Lummus Park centroid.",
+  "evidence": [
+   "https://sobeseafoodfest.com/",
+   "https://hoodline.com/2026/09/what-to-know-about-the-2026-south-beach-seafood-festival/"
+  ]
+ },
+ {
+  "id": "festival-de-bomba-y-plena-bandshell-2026-10-25",
+  "verdict": "keep",
+  "reason": "The official Bandshell event page shows Sun, October 25 (2026), doors 4:00 PM, show 5:00 PM, free with RSVP, at 7275 Collins Avenue, with no cancel notice. Oct 25 2026 is a Sunday. Time 17:00 and 'free (RSVP)' are correct. Lat/lng is correct.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/3rd-festival-de-bomba-y-plena/",
+   "https://miamibeachbandshell.com/events/"
+  ]
+ },
+ {
+  "id": "bad-gyal-fillmore-2026-10-28",
+  "verdict": "keep",
+  "reason": "Live Nation's event page lists 'Bad Gyal - M\u00e1s Cara World Tour 2026', Wednesday, October 28, 2026, 8:00 PM, at The Fillmore Miami Beach at the Jackie Gleason Theater, with no cancel or reschedule notice. Ticketmaster and the Fillmore venue page agree, and Remezcla reports it as the US tour opener. Lat/lng matches the OSM geocode for 1700 Washington Ave (25.7929298, -80.133107). You could add time 20:00, but nothing is wrong.",
+  "evidence": [
+   "https://www.livenation.com/event/vvG1VZ_amhljrd/bad-gyal-mas-cara-world-tour-2026",
+   "https://www.fillmoremb.com/",
+   "https://www.ticketmaster.com/bad-gyal-mas-cara-world-tour-miami-beach-florida-10-28-2026/event/0D00649B9BADC783"
+  ]
+ },
+ {
+  "id": "viernes-culturales-2026-10-30",
+  "verdict": "keep",
+  "reason": "The official site lists October 30th among the 2026 dates and describes the event as the 'LAST Friday of the month starting at 12pm' on Calle Ocho from 8th to 27th Avenue. Oct 30 2026 is the last Friday of the month. 1637 SW 8th St is the organization's office (Futurama Galleries), which sits inside that stretch. Lat/lng matches the OpenStreetMap geocode of 1637 SW 8th St to the metre. Nothing on the site mentions a cancellation or hiatus.",
+  "evidence": [
+   "https://www.viernesculturales.org/"
+  ],
+  "tasteFlag": "Optional: add time \"12:00\" because the site gives a start time ('starting at 12pm'). The site also mentions a free Little Havana walking tour at 7pm."
+ },
+ {
+  "id": "halloweek-bedouin-troxler-calderone-club-space-2026-10-31",
+  "verdict": "fix",
+  "reason": "Real and on the stated date. Club Space's show page has Saturday, October 31, 2026, Terrace, 21+, doors 11:00 PM, ending Sun 2:00 PM, tickets from $30, at 34 NE 11th St. DICE status is EventScheduled. The official title also includes 'Jamback b2b Toman', which the entry leaves out. A second listing called 'Halloweek: Halloween Night' on the same date points to the same DICE link (bbglrx). It is the placeholder from before the lineup was announced, not a conflict. Lat/lng matches the OSM geocode of Club Space to the metre. Optional extras: time \"23:00\", price \"from $30\".",
+  "evidence": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/halloweek-bedouin-seth-troxler-b2b-victor-calderone-jamback-b2b-toman-31st-oct-club-space-miami-miami-tickets",
+   "https://www.clubspace.com/shows/halloweek-halloween-night-31st-oct-club-space-miami-miami-tickets",
+   "https://dice.fm/event/bbglrx-halloweek-bedouin-seth-troxler-b2b-victor-calderone-jamback-b2b-toman-31st-oct-club-space-miami-miami-tickets"
+  ],
+  "fixes": {
+   "title": "Halloweek: Bedouin + Seth Troxler b2b Victor Calderone + Jamback b2b Toman"
+  }
+ },
+ {
+  "id": "rocky-horror-day-of-the-dead-bandshell-2026-11-01",
+  "verdict": "keep",
+  "reason": "The official Bandshell event page has Sun, November 1, show time 7:00 PM, doors 6:00 PM, 18+, eventStatus EventScheduled. It is O Cinema's annual screening with a D\u00eda de los Muertos celebration at 7275 Collins Ave. Time 19:00 is correct. Lat/lng matches the OSM geocode of the North Shore Park Bandshell to the metre.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/the-rocky-horror-picture-show-day-of-the-dead/",
+   "https://miamibeachbandshell.com/events/"
+  ],
+  "tasteFlag": "Two parts of the 'why' don't match the venue page. 'Throw rice': the venue offers 'FREE movie prop bags while supplies last' and says nothing about rice, which many venues ban, so 'grab a free prop bag' is safer. 'Under the open sky': the venue now describes itself as open-air but covered by a new canopy. Also worth saying it is an 18+ event."
+ },
+ {
+  "id": "808-life-dj-assault-dj-godfather-the-ground-2026-11-07",
+  "verdict": "keep",
+  "reason": "This event was moved. On DICE its eventStatus is EventRescheduled, and it now shows 'Sat 7 Nov, 11:00 pm', doors 23:00 to 05:00, at 34 NE 11th St. Club Space's site still has a stale page for Fri Nov 6 (6th-nov slug) that uses the same DICE link. The site's canonical ItemList and the live DICE event both carry the 7th-nov slug, so the entry's Nov 7 date is the current one. Club Space's page confirms the room is The Ground, 21+, doors 11 PM, ending Sun 5:00 AM, from $10, so the price 'from $10' is correct. Lat/lng matches the OSM geocode of 34 NE 11th St.",
+  "evidence": [
+   "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets",
+   "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-6th-nov-the-ground-miami-miami-tickets",
+   "https://dice.fm/event/pyxgxy-808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets"
+  ],
+  "tasteFlag": "The entry's url (the DICE venue page) returned 403 and could not be checked. Consider switching url to the direct event page (https://dice.fm/event/pyxgxy-808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets) or the Club Space show page, and adding time \"23:00\"."
+ },
+ {
+  "id": "roda-de-samba-soul-samba-bandshell-2026-11-07",
+  "verdict": "keep",
+  "reason": "The official Bandshell page has Sat, November 7, show time 8:00 PM, doors 7:00 PM, all ages, EventScheduled. Presented by Rhythm Foundation, with an opening set by Marcello Bentine. Time 20:00 is correct. Lat/lng matches the OSM geocode of the Bandshell.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/roda-de-samba-with-soul-samba/",
+   "https://miamibeachbandshell.com/events/"
+  ],
+  "tasteFlag": "Worth adding to the price or why: 'Free entry for Miami Beach residents - ID required at the door.' Everyone else buys a ticket."
+ },
+ {
+  "id": "carl-cox-carlita-club-space-2026-11-14",
+  "verdict": "keep",
+  "reason": "Club Space's show page has Saturday, November 14, 2026, Carl Cox + Carlita, Terrace, 21+, doors 11:00 PM, ending Sun 2:00 PM, from $30, at 34 NE 11th St. Its status in the site feed is on-sale. Lat/lng matches the OSM geocode of Club Space.",
+  "evidence": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/carl-cox-carlita-14th-nov-club-space-miami-miami-tickets"
+  ],
+  "tasteFlag": "Optional: time \"23:00\", price \"from $30\"."
+ },
+ {
+  "id": "miami-book-fair-2026",
+  "verdict": "fix",
+  "reason": "The dates (November 15-22, 2026) and venue (Miami Dade College, 300 NE Second Ave, Miami, FL 33132) are confirmed on the official site. Lat/lng matches the OSM geocode of MDC Wolfson Campus to the metre. The 'why' is wrong to call the weekend street fair free. The official street fair page says only Friday Nov 20 is 'Free for Everyone!'. Saturday and Sunday need tickets: Adult $12, Senior $7, Teen $5, kids 12 and under free.",
+  "evidence": [
+   "https://miamibookfair.com/",
+   "https://miamibookfair.com/miami-book-fair/street-fair/",
+   "https://miamibookfair.com/miami-book-fair/exhibitors/become-an-exhibitor/"
+  ],
+  "fixes": {
+   "why": "A week of author talks and readings downtown, building to the three-day street fair (free on Friday, ticketed on the weekend)."
+  }
+ },
+ {
+  "id": "jack-white-fillmore-2026-11-17",
+  "verdict": "keep",
+  "reason": "The Live Nation venue page lists 'JACK WHITE LIVE 2026' on Tuesday Nov 17, 2026 and Wednesday Nov 18, 2026, both at 8 PM, with no cancellation. So date and endDate are both correct. The venue is at 1700 Washington Ave, and lat/lng matches the OSM geocode of the Fillmore Miami Beach at the Jackie Gleason Theater.",
+  "evidence": [
+   "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events"
+  ],
+  "tasteFlag": "Optional: add time \"20:00\" (the official start time for both nights)."
+ },
+ {
+  "id": "chris-lorenzo-club-space-2026-11-20",
+  "verdict": "keep",
+  "reason": "Club Space's show page has Friday, November 20, 2026, Chris Lorenzo, Terrace, 21+, doors 11:00 PM, ending Sat 2:00 PM, from $20, at 34 NE 11th St. The why's claim that John Summit's first Kaseya show is the same night holds: Kaseya lists Fri Nov 20. Lat/lng matches the OSM geocode of Club Space.",
+  "evidence": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/chris-lorenzo-20th-nov-club-space-miami-miami-tickets",
+   "https://www.kaseyacenter.com/events/detail/john-summit"
+  ],
+  "tasteFlag": "Optional: time \"23:00\", price \"from $20\"."
+ },
+ {
+  "id": "john-summit-ctrl-escape-kaseya-2026-11-20",
+  "verdict": "keep",
+  "reason": "The official Kaseya Center page has John Summit's CTRL Escape Tour on Friday, November 20 and Saturday, November 21, 2026. Doors 7:00 PM, show 8:00 PM, '18 and over is recommended but all ages welcome', on sale, nothing cancelled. 'Night 1' and the why's doors/show/18+ details are right. Lat/lng matches the OSM geocode of Kaseya Center, 601 Biscayne Blvd.",
+  "evidence": [
+   "https://www.kaseyacenter.com/events/detail/john-summit"
+  ],
+  "tasteFlag": "time \"19:00\" is the doors time. The Bandshell entries in the same file use show time (for example Rocky Horror 19:00 with doors at 18:00), so for consistency this could be \"20:00\". The why already states both times."
+ },
+ {
+  "id": "madre-cumbia-bandshell-2026-11-20",
+  "verdict": "keep",
+  "reason": "The official Bandshell page has Fri, November 20, show time 8:00 PM, doors 7:00 PM, all ages, EventScheduled. 'Madre Cumbia' features Los Gaiteros de San Jacinto, Fruko & Carmelo Torres, presented by LPR. Time 20:00 is correct. Lat/lng matches the OSM geocode of the Bandshell.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/madre-cumbia/",
+   "https://miamibeachbandshell.com/events/"
+  ],
+  "tasteFlag": "The why is generic. Naming Los Gaiteros de San Jacinto, Fruko and Carmelo Torres (legends of Colombian cumbia) would make the pick much stronger."
+ },
+ {
+  "id": "miami-book-fair-street-fair-2026",
+  "verdict": "fix",
+  "reason": "The dates (Fri Nov 20 to Sun Nov 22, 2026) and the MDC Wolfson Campus location are confirmed, and lat/lng matches the OSM geocode. The 'free' claim is wrong. The official street fair page says 'Friday November 20 Free for Everyone! 10 a.m. - 7 p.m', Saturday Nov 21 10 a.m.-7 p.m., and Sunday Nov 22 10 a.m.-6 p.m. Single-day tickets are Adult $12 | Senior $7 | Teen $5 (13-18), and kids 12 and under are free. Another page's banner says 'Free to walk in', but the street fair's own admissions page shows the weekend is ticketed.",
+  "evidence": [
+   "https://miamibookfair.com/miami-book-fair/street-fair/",
+   "https://miamibookfair.com/miami-book-fair/exhibitors/become-an-exhibitor/",
+   "https://miamibookfair.com/"
+  ],
+  "fixes": {
+   "price": "free Fri; $12 Sat-Sun (teens $5, 12 and under free)",
+   "time": "10:00",
+   "why": "Three-day street fair of indie presses, author stages, food and people-watching downtown. Free on Friday, $12 on the weekend."
+  }
+ },
+ {
+  "id": "marcs-bianca-normandy-isle",
+  "verdict": "fix",
+  "reason": "Every factual claim holds. Official site says Mon-Tue closed, Wed-Sun 4:30-10pm, which matches the window, and best 18:30 falls inside it. The address and coordinates match: Nominatim returns the Marc's node at 966 Normandy Dr. The official menu lists the Artichoke & Stracciatella ('Confit artichoke roasted with breadcrumbs, served over local stracciatella'), the Caesar, the Bianca (round only: fior di latte, ricotta, caramelized onions, sesame seed crust) and the Jersey Cheese. Infatuation (Apr 2025) supports 'add the anchovies for an extra $2, and ask nicely for a side of the thick dressing... a marvelous crust dip'. The current menu does not list an anchovy add-on, so that part is verified only from the 2025 review. Katana (920 71st St) is about 120 m away, so 'steps from Katana' holds. Crust obsession is supported (48-72 hr fermentation). One fix: Miami New Times named Marc's Best Pizza in Best of Miami 2026, so it is now a press-anointed public pick, not 'locals know it'. Set secret to 0.",
+  "evidence": [
+   "https://marcsartisanalpizzeria.com/",
+   "https://marcsartisanalpizzeria.com/menu",
+   "https://www.theinfatuation.com/miami/reviews/marcs-artisanal-pizzeria",
+   "https://www.miaminewtimes.com/best-of-miami/2026/eat-and-drink/best-pizza-40556981 (page title: 'Best Pizza | Marc's Artisanal Pizza')",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.855631&lon=-80.129491",
+   "https://nominatim.openstreetmap.org/search?format=json&q=Katana,+Miami+Beach"
+  ],
+  "fixes": {
+   "secret": 0
+  },
+  "tasteFlag": "Good non-obvious neighborhood pick. 'With no scene' comes from Infatuation's April 2025 'pretty quiet here for now', which predates the 2026 Best Pizza win and may no longer hold. The anchovy add-on is not on the current posted menu."
+ },
+ {
+  "id": "vinya-key-biscayne-skirt-steak",
+  "verdict": "fix",
+  "reason": "Exists and is open: the official page links Fall 2026 food, drink and happy-hour menus (shopify ?v=1790176679). Official hours: Bar & Kitchen Mon-Wed 4-10pm and Thu-Sat 12-11pm, Sunday closed (shop only 10am-6pm), happy hour 4-6pm Mon-Sat. Both windows and 'kitchen closed Sunday' match, and best 17:30 is inside. Address and coordinates match (Nominatim: 328 Crandon Blvd). The Fall 2026 food menu PDF lists 'Corvina Ceviche: Aji Amarillo, Dill, & Tostones', 'Manchego Croquetas: Crispy Ham, Paprika, Caviar (4)' and 'Prime Skirt Steak (8oz): Parmesan Fingerling Potatoes, Chimichurri'. Infatuation's Key Biscayne guide supports skirt steak and 'without having to dress up'. The official page says 'Pay Retail Prices for a Restaurant Experience. Pick any bottle of wine from our shelves and pay a small corkage', so 'pick your wine from the shop' is true but omits the corkage. Small fixes: the official brand name is 'Vinya Wine', not 'Wine & Market' (that is Infatuation's label), and add the corkage note so readers aren't surprised.",
+  "evidence": [
+   "https://www.vinyawine.com/pages/key-biscayne",
+   "https://cdn.shopify.com/s/files/1/0878/2879/1607/files/KB_FOOD_MENU_FALL_2026.pdf?v=1790176679",
+   "https://www.theinfatuation.com/miami/guides/best-restaurants-key-biscayne",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.69549&lon=-80.163633"
+  ],
+  "fixes": {
+   "title": "Happy hour into steak night at Vinya Wine",
+   "place": "Vinya Wine (Key Biscayne)",
+   "theMove": "Come off the beach for happy hour (4 to 6pm, Monday to Saturday) and stay for dinner. Order the corvina ceviche and Manchego croquetas, then the prime skirt steak with chimichurri. Pick any bottle from the shop shelves at retail plus a small corkage. The kitchen is closed Sunday."
+  },
+  "tasteFlag": "Secret 1 is honest: a residents' spot on the island, though it has an Infatuation 7.9 rating. 'Best low-key dinner' on the island is opinion; Infatuation's framing supports it."
+ },
+ {
+  "id": "la-sandwicherie-3am-napoli",
+  "verdict": "keep",
+  "reason": "Open: the official site says 229 14th St is open 'everyday from 7am to 5am', founded 1988, which matches the window and 'open until 5am every night'. Infatuation's Miami Beach casual guide (updated May 18, 2026) still lists it. Address and coordinates match: Nominatim returns the La Sandwicherie node at 229 14th St. The Napoli is on the official menu (prosciutto and fresh mozzarella, $12.30). Infatuation's review supports the Napoli on a baguette, drowning it from the squeeze bottle of vinaigrette, and Mac's Club Deuce across the street. Deuce (222 14th St) turned 100 in Sept 2026 and is open. Miami New Times' listing supports 'French-owned... since 1988... lengthy counter... extends up an alley off 14th Street'. Secret 0 is honest. Best 03:00 is inside the window only if the app reads 07:00 to 05:00 as running past midnight into the next day (same assumption as the Broken Shaker and Saxony windows).",
+  "evidence": [
+   "https://www.lasandwicherie.com",
+   "https://www.theinfatuation.com/miami/reviews/la-sandwicherie",
+   "https://www.theinfatuation.com/miami/guides/casual-restaurants-miami-beach",
+   "https://www.miaminewtimes.com/?p=40318939",
+   "https://www.miaminewtimes.com/?p=40476302",
+   "https://www.axios.com/local/miami/2026/09/04/south-beach-bar-macs-club-deuce-turns-100",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.785522&lon=-80.131401"
+  ],
+  "tasteFlag": "Not a non-obvious pick: it is one of South Beach's most-covered institutions (New Times Best Late-Night Dining 2023, Infatuation). The 3am-after-the-Deuce ritual still makes it a real local move, so keep it, but it shouldn't be presented as a discovery."
+ },
+ {
+  "id": "broken-shaker-griot-backyard",
+  "verdict": "fix",
+  "reason": "Open: the official Freehand page lists Mon-Wed closed, Thu 5pm-12am, Fri-Sat 5pm-1am and Sun 5-11pm, which matches all windows, and best 17:30 is inside. Since 2024 it has been run by Authentic Hospitality (LH Magazine, Nov 2024). Address and coordinates match: Nominatim returns The Broken Shaker at 2727 Indian Creek Dr. The brokenshaker.com menu page confirms happy hour Thu-Sun 5-7pm, 'Griot and Pikliz: Crispy Haitian Style Pork & Spicy Slaw Served with Two Plantains' ($14), Shrimp Ceviche ($15), and the kitchen 'open until 11:45PM Thursday-Saturday'. The official page confirms garden herbs in the cocktails, Resy reservations, and Tales of the Cocktail Best American Hotel Bar. Secret 1 is not honest: this is one of Miami's most famous bars (World's 50 Best Bars 2014 and 2015, two James Beard nominations, GQ's 'coolest backyard in Miami'). Set secret to 0.",
+  "evidence": [
+   "https://freehandhotels.com/miami/broken-shaker/",
+   "https://www.brokenshaker.com/miami-menus/",
+   "https://lhmagazine.co.uk/broken-shaker-a-backyard-oasis-rooted-in-tropical-nostalgia-reinvents-itself-on-miami-beach/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.804542&lon=-80.126349"
+  ],
+  "fixes": {
+   "secret": 0
+  },
+  "tasteFlag": "Famous, not non-obvious. The happy-hour-plus-griot angle gives a fresher reason to go, but don't frame it as insider."
+ },
+ {
+  "id": "saxony-bar-faena-late-jazz",
+  "verdict": "fix",
+  "reason": "Open: the official Faena page lists bar service 10pm-3am and kitchen 10pm-12am, Thursday to Saturday, which matches the window and 'kitchen serves until midnight'. Time Out (5 stars, Mar 3, 2026) also says Thu-Sat 10pm-3am, and Haute Living's Aug 2026 best-speakeasies list includes it. Best 22:30 is inside the window. Address and coordinates match: Nominatim returns Faena Hotel, 3201 Collins Ave. SevenRooms and email reservations, 'Elegant chic, Well-tailored attire, No sandals or beachwear' and valet are all on the official page. Problem: the hotel's copy calls it a 'late-night jazz bar', but both independent 2026 sources describe only DJs ('Live DJs work from a booth positioned at the center of the room'), not live jazz. The title's 'jazz-bar' and the theMove's 'as the DJs take the room late' (implying jazz first, DJs later) are not supported. Haute Living places it in the hotel's basement, which is a useful getIn detail. Fix the copy to promise DJs and classic cocktails, not jazz.",
+  "evidence": [
+   "https://www.faena.com/miami-beach/dining/saxony-bar",
+   "https://www.timeout.com/miami/bars/saxony-bar",
+   "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.807378&lon=-80.123139"
+  ],
+  "fixes": {
+   "title": "A late nightcap at Saxony Bar, the Faena's basement speakeasy",
+   "theMove": "Dress up, reserve, and arrive soon after the 10pm opening on a Thursday to Saturday. Order a classic cocktail and stay for the DJ sets. The kitchen serves until midnight.",
+   "getIn": "In the basement of the Faena Hotel. Book on SevenRooms or by email. Dress code is elegant chic: no sandals or beachwear. Valet available.",
+   "why": "An intimate, golden-age-glamour speakeasy in the basement of Mid-Beach's most theatrical hotel, with DJs and old-school cocktails. Open only three nights a week, late."
+  },
+  "tasteFlag": "Secret 1 is borderline: it has a Time Out 5-star review and a 2026 Haute Living best-speakeasies listing, so 0 is defensible. The id still says 'late-jazz'; rename it if ids are user-visible."
+ },
+ {
+  "id": "rawayana-kaseya-center-2026-12-05",
+  "verdict": "keep",
+  "reason": "The official Kaseya Center news post confirms two shows at Kaseya Center, 601 Biscayne Blvd, on Dec 5 and Dec 6, 2026. The second date was added because of demand, so date and endDate are both right. The post gives no show time. A search excerpt (Live Nation, page not opened) says 8 PM; the entry has no time field, so nothing needs to change. The 'Art Week weekend' line holds: Art Basel Miami Beach public days are Dec 4-6, 2026. Lat/lng exactly match the OSM geocode for Kaseya Center (25.78136, -80.18794). No cancellation notice found. One weakness: the cited source (kaseyacenter.com/events) currently lists only October events, so the news URL is the better source.",
+  "evidence": [
+   "https://www.kaseyacenter.com/news/detail/second-show-added-to-rawayana-donde-es-el-after-tour-coming-to-kaseya-center",
+   "https://www.kaseyacenter.com/events"
+  ]
+ },
+ {
+  "id": "gente-de-zona-kaseya-center-2026-12-11",
+  "verdict": "keep",
+  "reason": "The official Kaseya Center announcement confirms the Gente de Zona 'Isla Viva' Tour at Kaseya Center, 601 Biscayne Blvd, on Friday Dec 11, 2026. Public on-sale was Aug 7. The page gives no time. A search excerpt (Nevarez PR, not opened) says doors 7 PM and show 8 PM; the entry has no time field, so no fix is needed. Venue coordinates are correct. No cancellation or postponement found. The cited generic /events listing does not show this event now, so the news URL is the better source.",
+  "evidence": [
+   "https://www.kaseyacenter.com/news/detail/gente-de-zona-announce-isla-viva-tour-coming-to-kaseya-center",
+   "https://www.kaseyacenter.com/events"
+  ]
+ },
+ {
+  "id": "dolphins-vs-bears-2026-12-13",
+  "verdict": "keep",
+  "reason": "Hard Rock Stadium's official events page lists Dolphins vs Bears on Dec 13, 2026 at 1:00 PM. ESPN's Dolphins schedule shows Week 14, Sun Dec 13, home vs Chicago Bears, 1:00 PM. The address and coordinates match the OSM geocode for Hard Rock Stadium, 347 Don Shula Dr (25.95790, -80.23885). The official miamidolphins.com/schedule page loads its schedule with JavaScript, so its text could not be read. Caveat: Week 14+ Sunday games can be flexed by the NFL, so the time should be rechecked closer to the date.",
+  "evidence": [
+   "https://www.hardrockstadium.com/events/",
+   "https://www.espn.com/nfl/team/schedule/_/name/mia",
+   "https://www.miamidolphins.com/schedule/"
+  ]
+ },
+ {
+  "id": "miami-worldcenter-night-market-2026-12-18",
+  "verdict": "keep",
+  "reason": "The official Miami Worldcenter page says the Night Market runs every Friday, 5-9 PM, free, at The Paseo next to the Historic Pan Am Globe, 850 NE 2nd Avenue, Miami, FL 33132, rain or shine. The linked Eventbrite RSVP shows the series started Friday Sep 18, 2026, repeats every Friday and has no stated end date. Dec 18, 2026 is a Friday. It is covered only as one date in a weekly series: no page lists Dec 18 on its own and no holiday exception is stated. Stored lat/lng match the Nominatim geocode for 850 NE 2nd Ave exactly (25.7822712, -80.1910329). 'World Paseo' geocodes about 120 m away, which is acceptable.",
+  "evidence": [
+   "https://miamiworldcenter.com/events/night-market/",
+   "https://www.eventbrite.com/e/1997909900294"
+  ]
+ },
+ {
+  "id": "matisyahu-bandshell-2026-12-19",
+  "verdict": "keep",
+  "reason": "The official Bandshell event page confirms Saturday, December 19, 2026, doors 6:30 PM, show 7:30 PM, at Miami Beach Bandshell, 7275 Collins Avenue, Miami Beach, FL 33141. It is all ages and rain or shine, presented by GMP Live & Gelb Productions, with tickets via Eventim. No cancellation notice. Coordinates match the OSM geocode for North Shore Park Bandshell, 7275 Collins Ave (25.8581225, -80.1204807).",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/matisyahu/",
+   "https://miamibeachbandshell.com/events/"
+  ],
+  "tasteFlag": "The official page bills this as Matisyahu's annual 'Festival of Light' Hanukkah tour, his third straight year at the Bandshell. The 'why' copy reads like a generic reggae show and misses that hook."
+ },
+ {
+  "id": "ryan-castro-kaseya-center-2026-12-19",
+  "verdict": "keep",
+  "reason": "A Kaseya Center news post dated Sep 28, 2026 announces the Ryan Castro 'Los Chorros Con Richy Tour' at Kaseya Center, 601 Biscayne Blvd, on Saturday Dec 19, 2026. Presale was Sep 29-30 and general on-sale Sep 30 at 1 PM. No show time is listed. The title matches the official tour name. The old /events/detail/ryan-castro URL now redirects to the events list because it was the 2025 Send\u00e9 show, so do not use it. The cited generic /events listing does not show this event now; the news URL is the right source.",
+  "evidence": [
+   "https://www.kaseyacenter.com/news/detail/ryan-castro-announces-his-los-chorros-con-richy-tour-coming-to-kaseya-center",
+   "https://www.kaseyacenter.com/events"
+  ]
+ },
+ {
+  "id": "dolphins-vs-chargers-2026-12-27",
+  "verdict": "keep",
+  "reason": "Hard Rock Stadium's official events page lists Dolphins vs Chargers on Dec 27, 2026 at 1:00 PM. ESPN shows Week 16, Sun Dec 27, home vs Los Angeles Chargers, 1:00 PM. The address and coordinates are correct. Caveat: Dec 26, 2026 is a Saturday, and the NFL often moves some Week 16 games to Saturday or flexes them. Recheck the date and time once the NFL announces Week 16 changes.",
+  "evidence": [
+   "https://www.hardrockstadium.com/events/",
+   "https://www.espn.com/nfl/team/schedule/_/name/mia",
+   "https://www.miamidolphins.com/schedule/"
+  ]
+ },
+ {
+  "id": "heat-vs-hornets-2026-12-27",
+  "verdict": "keep",
+  "reason": "ESPN's regular-season Heat schedule shows Sun Dec 27, 2026 vs Charlotte Hornets, a home game, at 6:00 PM ET. landofbasketball.com shows the same date as a home game at 6:00 PM ET. The Kaseya Center events listing currently shows only October, and nba.com/heat/schedule loads with JavaScript, so neither confirmed it directly. The entry has no time field; 18:00 could be added but is not required. Venue coordinates are correct. The title 'Charlotte Hornets vs Miami HEAT' follows Kaseya Center's naming style.",
+  "evidence": [
+   "https://www.espn.com/nba/team/schedule/_/name/mia/seasontype/2",
+   "https://www.landofbasketball.com/results_by_team/2026_2027_heat.htm",
+   "https://www.kaseyacenter.com/events"
+  ]
+ },
+ {
+  "id": "lettuce-nye-bandshell-2026-12-31",
+  "verdict": "keep",
+  "reason": "The official Bandshell page confirms Lettuce on Thursday, December 31, 2026, doors 7:30 PM, show 8:30 PM, at Miami Beach Bandshell, 7275 Collins Avenue. This is Night 1 of a two-night New Year's stand. Night 2 is a separate listing on Jan 1, 2027 at 7:30 PM (/event/lettuce-2/), so leaving out endDate is correct for the NYE entry. Rain or shine; no cancellation notice. Coordinates are correct.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/lettuce/",
+   "https://miamibeachbandshell.com/events/"
+  ]
+ },
+ {
+  "id": "buena-vista-orchestra-bandshell-2026-11-21",
+  "verdict": "keep",
+  "reason": "The official venue page confirms Buena Vista Orchestra at the Miami Beach Bandshell, 7275 Collins Ave, on Sat Nov 21 2026. Doors 7pm, show 8pm (so 20:00 is right), all ages, 'rain or shine'. Nothing says it is cancelled. Nominatim puts 7275 Collins Ave (North Shore Park Bandshell) at 25.8581225,-80.1204807, which matches the lat/lng.",
+  "evidence": [
+   "https://miamibeachbandshell.com/event/buena-vista-orchestra/",
+   "https://nominatim.openstreetmap.org/search?format=json&q=7275%20Collins%20Avenue%2C%20Miami%20Beach"
+  ]
+ },
+ {
+  "id": "fernando-olaya-do-not-sit-2026-11-21",
+  "verdict": "keep",
+  "reason": "Confirmed. The DICE venue listing has 'Fernando Olaya [The Soundgarden / Balance Music]' on Sat 21 Nov, from $24.25. Its event schema gives startDate 2026-11-21T22:00-05:00, endDate 2026-11-22T05:00 and eventStatus EventScheduled. I saw this in a search excerpt because a direct fetch of DICE returned 403. 19hz, JamBase and Lennox Miami Beach also list it: 10pm-5am, $24.25, 21+, with Jessy Nimni and Lucas Zarate. The address is 423 16th St, and the lat/lng matches Nominatim (25.7892744,-80.1322871). Optional: the specific DICE event is dice.fm/event/6aabf64e76c1150001cda0f0.",
+  "evidence": [
+   "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5 (seen via search excerpt; direct fetch 403)",
+   "https://19hz.info/eventlisting_Miami.php",
+   "https://www.jambase.com/venue/do-not-sit-on-the-furniture (search excerpt)",
+   "https://www.lennoxmiamibeach.com/events/miami-beach/fernando-olaya-the-soundgarden-balance-music-13015854 (search excerpt)",
+   "https://donotsitonthefurniture.com/"
+  ]
+ },
+ {
+  "id": "john-summit-ctrl-escape-kaseya-2026-11-21",
+  "verdict": "keep",
+  "reason": "The Kaseya Center page lists the John Summit CTRL Escape Tour on Fri Nov 20 and Sat Nov 21 2026, so Nov 21 is night 2. Doors 7pm, show 8pm, 'On Sale Now', with no cancellation. The entry's 19:00 is the doors time, which matches the 'why' text. 19hz also lists Nov 21 at Kaseya. The lat/lng matches Nominatim for 601 Biscayne Blvd (25.7813595,-80.1879435).",
+  "evidence": [
+   "https://www.kaseyacenter.com/events/detail/john-summit",
+   "https://19hz.info/eventlisting_Miami.php"
+  ]
+ },
+ {
+  "id": "headache-the-ground-2026-11-22",
+  "verdict": "keep",
+  "reason": "The DICE listing for The Ground shows 'Headache Sun 22 Nov ... $20'. A search excerpt of the DICE event says doors 8PM, 18+, and that the ticket does not include the Terrace. Songkick (Headache calendar) and Concerts50 (8:00 PM) also list Sun Nov 22 at The Ground. The entry has no time; 20:00 could be added but nothing is wrong. Miami Book Fair 2026 runs Nov 15-22 with the Street Fair on Nov 20-22, so 'close out Book Fair weekend' holds. One search summary said $32, but DICE says $20, so keep $20. The lat/lng matches 34 NE 11th St (25.7845551,-80.1931533).",
+  "evidence": [
+   "https://dice.fm/venue/the-ground-miami-qkma (seen via search excerpt; direct fetch 403)",
+   "https://www.songkick.com/artists/516097-headache/calendar",
+   "https://concerts50.com/artists/headache-tour-dates/usa"
+  ]
+ },
+ {
+  "id": "rumble-in-the-jungle-nikki-nair-the-ground-2026-11-27",
+  "verdict": "drop",
+  "reason": "I could not confirm this event, and every primary source contradicts it. The DICE listing for The Ground jumps from Headache (Sun 22 Nov) straight to RAW CUTS (Ground Basel 2026, Thu 3 Dec), with nothing on Nov 27. Nikki Nair's DICE artist page lists only London, Sat 31 Oct. nikkinair.com, Songkick and JamBase show no Miami date. clubspace.com/shows has only Teletech (Terrace) on Fri Nov 27. 19hz lists Teletech at Space, Sander Kleinenberg at Do Not Sit and Space 92 at Kemistry for Nov 27, and nothing at The Ground. The only 'match' was an AI search summary with no source link. Do not swap in the 'Rumble in the Jungle: Taiki Nulight' page: it says Fri 28 Nov, which is 2025 (Nov 28 2026 is a Saturday). 'Nanoos' and the '$10' price had no source anywhere.",
+  "evidence": [
+   "https://dice.fm/venue/the-ground-miami-qkma (seen via search excerpt; direct fetch 403)",
+   "https://dice.fm/artist/nikki-nair-bvmgx (search excerpt)",
+   "https://www.nikkinair.com/",
+   "https://www.songkick.com/artists/10137665-nikki-nair",
+   "https://www.jambase.com/band/nikki-nair",
+   "https://www.clubspace.com/shows",
+   "https://19hz.info/eventlisting_Miami.php"
+  ]
+ },
+ {
+  "id": "viernes-culturales-2026-11-27",
+  "verdict": "keep",
+  "reason": "The official site says the event runs on the last Friday of each month on Calle Ocho (SW 8th St, 8th to 27th Ave). Its 2026 schedule lists November 27; December is TBD. Nov 27 2026 is the last Friday of November. The organization's address is Futurama Galleries, 1637 SW 8th St, and the lat/lng matches Nominatim (25.765906,-80.2216372). The site gives a 12pm start, so the entry could take a time, but nothing is wrong.",
+  "evidence": [
+   "https://www.viernesculturales.org/"
+  ]
+ },
+ {
+  "id": "nada-miami-2026",
+  "verdict": "keep",
+  "reason": "newartdealers.org confirms NADA Miami on December 1-5, 2026 at Ice Palace Studios. Miami & Beaches gives the address as 1400 N Miami Ave, Miami 33136. The lat/lng exactly matches the Nominatim result for that address (25.7891868,-80.1948494).",
+  "evidence": [
+   "https://www.newartdealers.org/",
+   "https://www.miamiandbeaches.com/event/nada-miami/10900"
+  ]
+ },
+ {
+  "id": "design-miami-2026",
+  "verdict": "keep",
+  "reason": "The official fair page headlines Dec 1-6, 2026 at Miami Beach Convention Center (Convention Center Dr & 19th St). Dec 1 is an invite-only preview. Public days are Wed Dec 2 (1-7pm), Thu-Sat Dec 3-5 (11am-7pm) and Sun Dec 6 (11am-6pm). The MBCC page lists Dec 2-6. The entry's Dec 2-6 therefore matches the public days. The lat/lng matches MBCC on Nominatim (25.7955257,-80.133515).",
+  "evidence": [
+   "https://designmiami.com/fair/miami-2026",
+   "https://www.designmiami.com/",
+   "https://www.miamibeachconvention.com/events/design-miami"
+  ],
+  "tasteFlag": "designmiami.com headlines Dec 1-6. The entry correctly uses the public days (Dec 2-6), so the 'why' could say 'public from Dec 2'."
+ },
+ {
+  "id": "untitled-art-miami-beach-2026",
+  "verdict": "keep",
+  "reason": "The official Untitled Art news post says the 15th edition runs Wed Dec 2 through Sun Dec 6, 2026, with a VIP/Press Preview on Tue Dec 1, at 'Ocean Dr and 12th Street'. The lat/lng matches Nominatim for 1200 Ocean Drive (25.7828672,-80.1304226). The url is official, but all three sources are third-party; the official news post would make a better source.",
+  "evidence": [
+   "https://untitledartfairs.com/news/post/untitled-art-announces-2026-miami-beach-guest-curators/",
+   "https://galerieforsblom.com/news/18-galerie-forsblom-at-untitled-art-miami-beach-2026/"
+  ]
+ },
+ {
+  "id": "pinta-miami-2026",
+  "verdict": "keep",
+  "reason": "The official Pinta site confirms Pinta Miami 2026 on December 3-6 at The Hangar, Coconut Grove, and calls it the 20th anniversary. Miami & Beaches gives 3385 Pan American Drive, Miami 33133. Nominatim geocodes 3385 Pan American Dr (Grove Key Marina) to 25.7284643,-80.2339205, which matches the lat/lng.",
+  "evidence": [
+   "https://www.pinta.art/Miami/",
+   "https://www.miamiandbeaches.com/event/pinta-miami/10910"
+  ],
+  "tasteFlag": "The url is the Miami & Beaches listing; the official page is https://www.pinta.art/Miami/."
+ },
+ {
+  "id": "art-basel-miami-beach-2026",
+  "verdict": "keep",
+  "reason": "artbasel.com gives December 4-6, 2026. The at-the-show page lists VIP days as Wed Dec 2 (from 4pm) and Thu Dec 3, and public days as Dec 4-6. The MBCC page lists Dec 2-6 at Miami Beach Convention Center, 1901 Convention Center Dr, which includes the VIP days. The entry's Dec 4-6 and 'Public days only' are correct. The lat/lng matches MBCC.",
+  "evidence": [
+   "https://www.artbasel.com/miami-beach",
+   "https://www.artbasel.com/miami-beach/at-the-show",
+   "https://www.miamibeachconvention.com/events/art-basel-miami-beach"
+  ]
+ },
+ {
+  "id": "music-on-space-basel-2026-12-04",
+  "verdict": "fix",
+  "reason": "The official Club Space event page confirms 'Music On (Space Basel)' on Friday Dec 4 2026, on the Terrace at 34 NE 11th St: 11:00 PM to Saturday 8:00 AM, from $40, 21+, DICE only. The entry is right but has no time or price, so I added both and pointed url at the event page. A search result showing Music On on Dec 5 was the 2025 edition. The lat/lng matches 34 NE 11th St.",
+  "evidence": [
+   "https://www.clubspace.com/shows/-music-on-space-basel-4th-dec-club-space-miami-miami-tickets",
+   "https://www.clubspace.com/shows"
+  ],
+  "fixes": {
+   "time": "23:00",
+   "price": "from $40",
+   "url": "https://www.clubspace.com/shows/-music-on-space-basel-4th-dec-club-space-miami-miami-tickets"
+  }
+ }
+]

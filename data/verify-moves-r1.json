@@ -1,0 +1,780 @@
+[
+ {
+  "id": "az85-poker-chip-biltmore",
+  "verdict": "fix",
+  "reason": "Open and current. Miami New Times' 2026 best-hotel-bars list (published 2026-06-18) supports the red steel doors, the poker-chip entry, the checkered floors, the velvet chairs and the 13th-floor 'Al Capone Suite' stories. It links AZ.85 to the official Biltmore Bar page, which lists an 'AZ-85 Old Fashion'. Lat/lng reverse-geocodes to The Biltmore Bar at 1200 Anastasia Ave. Hours conflict: the official page says Wed and Thu 4pm-12am and Fri and Sat 4pm-1am, while Miami & Beaches says Thu-Sat 4pm-1am. The entry's Thu-Sat windows are the overlap of both sources, so I kept them rather than add Wednesday, because AZ.85 has no hours of its own anywhere. Best time 22:00 falls inside the window. Three copy fixes: 'Thursday or weekend' is wrong because the bar is closed Sunday; 'minutes from the Gables' is wrong because the Biltmore is in Coral Gables; 'real gangster lore' overclaims, since NT says it doesn't matter whether the stories are true. How you actually get a chip (reportedly from bar staff) only appears in TikTok snippets I could not open, so getIn stays as written.",
+  "evidence": [
+   "https://www.miaminewtimes.com/food-drink/best-hotel-bars-in-miami-40559238/",
+   "https://www.biltmorehotel.com/coral-gables-dining/biltmore-bar",
+   "https://www.miamiandbeaches.com/l/eat-and-drink/biltmore-bar/2341",
+   "https://coralgablesmagazine.com/drinking-in-the-gables/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.740896&lon=-80.277706"
+  ],
+  "fixes": {
+   "theMove": "Come late Thursday to Saturday, find the red steel doors, and settle into a velvet chair on the checkered floor. Order the AZ-85 old fashioned and ask about the Capone-era stories of the 13th floor.",
+   "why": "A 1926 hotel's hidden room leaning into its Prohibition-era gangster lore, in the heart of the Gables but nothing like a hotel lobby bar."
+  },
+  "tasteFlag": ""
+ },
+ {
+  "id": "venetian-pool-weekday-opening",
+  "verdict": "fix",
+  "reason": "Open. It reopened Dec 9, 2025 after a renovation that began Oct 2024. The official city page lists Tue-Fri 11am-5:30pm, Sat-Sun 10am-4:30pm and closed Mondays, which matches the windows exactly. Best time 11:00 is at opening. The page supports the ticket booking, the capacity cutoff, the two waterfalls and grottos, outside food with no alcohol, glass or coolers, and the daily aquifer refill. The Miami Herald via AOL confirms it is still drained and refilled daily despite the new recirculation pumps. Lat/lng reverse-geocodes to Venetian Pool at 2701 De Soto Blvd. Two problems with 'why': 'Open since 1923' conflicts with the Herald, which says it first opened in 1924 (the city says enjoyed 'since 1923'), so I made it neutral. 'Locals go weekday mornings' is unsourced, and 11am is barely morning. Heads-up: the city page says the pool is closed Oct 5-6 for maintenance, which makes Tue Oct 6, 2026 a closed day inside the window. The Herald also expects it open only until late 2026 before its usual winter maintenance closure.",
+  "evidence": [
+   "https://www.coralgables.com/venetian-pool",
+   "https://www.aol.com/articles/coral-gables-historic-venetian-pool-100000655.html",
+   "https://www.yahoo.com/news/articles/venetian-pool-reopen-look-ongoing-090000998.html",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.74578&lon=-80.27316"
+  ],
+  "fixes": {
+   "why": "A century-old pool with waterfalls and grottos, refilled daily with spring water from the underground aquifer. A weekday opening beats the weekend crush."
+  },
+  "tasteFlag": "Mainstream: it is Coral Gables' best-known attraction and is featured on the official Greater Miami tourism site. The entry's own secret: 0 admits this. Only the timing angle is local."
+ },
+ {
+  "id": "matheson-atoll-pool-morning",
+  "verdict": "fix",
+  "reason": "The official Miami-Dade page says the lagoon is open seven days a week. The windows match its winter schedule (Mon-Fri 9am-4:30pm, Sat-Sun 9am-5:30pm). Summer hours run one hour later, and no switch date is given, so the winter hours are the safe subset to keep. Best time 09:30 is inside. The page supports parking at '$7 plus tax on weekdays' ($10 weekends and holidays), lifeguards 'on weekends and holidays' (weekday swimming is not prohibited), and calls it a 'natural atoll pool'. The page says 'Floation devices are not allowed on beaches', so 'float' could lead readers to bring floats; I changed it to 'swim' with a no-floats note. Lat/lng lands on RedFish at 9610 Old Cutler Rd, about 86 m from the OSM beach polygon at the atoll, which is acceptable. No 2026 closure found.",
+  "evidence": [
+   "https://www.miamidade.gov/parks/matheson-hammock.asp",
+   "https://www.miamidade.gov/parks/matheson-marina.asp",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.67921&lon=-80.256613",
+   "https://overpass-api.de/api/interpreter"
+  ],
+  "fixes": {
+   "theMove": "Go on a weekday morning when parking is $7 and swim in the natural atoll pool by the bay (no floats allowed). Lifeguards are only on weekends and holidays, so swim with a friend."
+  },
+  "tasteFlag": ""
+ },
+ {
+  "id": "mangrove-through-jrk",
+  "verdict": "fix",
+  "reason": "Open. The official site lists Tue and Wed 5-11pm, Thu 5pm-12am, Fri and Sat 6pm-1am, closed Sun and Mon, plus happy hour Tue-Thu 5-7pm, all matching the entry. Best time 22:00 is inside. The address is 103 NW 1st Ave, and lat/lng matches its geocode exactly. Jrk! is at 95 NW 1st St per eatjrk.com. Time Out supports walking through the front of Jrk! past the counter. Miami & Beaches supports no sign, Jrk! as the fast-casual sister, and DJs after dinner. Errors: (1) the current official menu has 'Stewed Oxtail' (dark island gravy) and 'Lobsta' Mac'. 'Curry oxtail' and 'jerk mac and cheese' come from the 2024 Infatuation review and are no longer on the menu. (2) Reservations run through OpenTable: the official reservations page embeds OpenTable widget rid=1371985. Resy was the 2024 setup. (3) 'Black-owned' is not stated in any source I opened. The Miami Times Black Business Month piece names co-founders Harrison Bernstein (president), Kavan Burke and Kingston-born chef Wayne Sharpe but never says the business is Black-owned, so I removed it. Red Red Wine (white rum, house-made sorrel, ginger, lime) is confirmed on the current menu.",
+  "evidence": [
+   "https://www.mangrove.miami/home",
+   "https://www.mangrove.miami/menu",
+   "https://www.mangrove.miami/reservations",
+   "https://www.mangrove.miami/about",
+   "https://www.theinfatuation.com/miami/reviews/mangrove-x-jrk",
+   "https://www.timeout.com/miami/news/this-new-jamaican-speakeasy-in-downtown-miami-is-a-whole-vibe-020924",
+   "https://www.miamiandbeaches.com/restaurants/miami-hidden-gem-eateries",
+   "https://www.miamitimesonline.com/business/black-business-month-spotlight-jrk-and-mangrove-bring-jamaican-comfort-to-miami/article_40448da4-752d-4d13-8d0b-4635a8829b0e.html",
+   "https://www.eatjrk.com",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.775202&lon=-80.195058"
+  ],
+  "fixes": {
+   "theMove": "Book a late table Friday, eat the stewed oxtail and Lobsta' Mac, order a Red Red Wine (white rum and house-made sorrel), then stay as the DJ takes over. Tue to Thu 5 to 7pm is happy hour.",
+   "getIn": "Enter through Jrk! at 95 NW 1st St and walk past the counter to the back. Reservations on OpenTable.",
+   "why": "No sign out front. A Jamaican room from Kingston-born chef Wayne Sharpe that you only find by walking through its fast-casual sister, Jrk!"
+  },
+  "tasteFlag": ""
+ },
+ {
+  "id": "the-corner-4am-drink",
+  "verdict": "keep",
+  "reason": "Open. The official site, with event screenshots from April and June 2026, lists 1035 N Miami Ave #101 with hours Sun-Thu 4pm-5am and Fri-Sat 4pm-7am, which match the windows exactly. Best time 03:00 is inside the overnight window. The Infatuation best-bars guide (updated 2026-04-17) supports 'open till 7am on Friday and Saturday', a solid 4am cocktail, and a standby away from the dance clubs. Lat/lng sits about 8 m from the OSM 'The Corner' node at 1035 N Miami Ave. The '$20 club beer' line is an opinion comparison, not a factual claim.",
+  "evidence": [
+   "https://www.thecornermiami.com/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.784584&lon=-80.193893",
+   "https://nominatim.openstreetmap.org/search?q=The+Corner,+North+Miami+Avenue,+Miami&format=json"
+  ],
+  "tasteFlag": "Well known in nightlife circles: it is on The Infatuation's best-bars guide and Time Out, so it is the obvious late-night answer rather than a hidden pick, though the after-hours angle is real and it is not touristy."
+ },
+ {
+  "id": "club-space-terrace-sunrise",
+  "verdict": "fix",
+  "reason": "Open and current: the official site lists October 2026 Fri/Sat events (Oct 2, 3, 9, 10, 23, 24, 30), plus Thu/Sun specials around III Points Oct 15-18. It says doors open at 11pm and the club 'closes when it closes'. It also bills 'The 7am Experience' as 'A\u00e7a\u00ed bowls, mimosas, sunrise, and cafecito', which supports theMove. The address and pin match 34 NE 11th St (Nominatim). The 21+ ID rule is backed by Discotech's Terrace listing. A best time of 07:00 falls inside the window. The window's 12:00 close is not refuted, since the official close is variable and a third-party guide says 11am; I left it alone. One fix: the 'why' line 'Few stay for the part that makes it legendary' has no source. The club markets the sunrise itself, so the line is backwards. I rewrote it.",
+  "tasteFlag": "Mainstream. Club Space is Miami's best-known club (DJ Mag Top 100), and the Terrace sunrise is its most famous, heavily marketed feature. The entry admits 'Everyone knows Space'. Not a non-obvious local pick.",
+  "fixes": {
+   "why": "Everyone knows Space. The move is the part the club itself bills as the 7am Experience: the open-air Terrace when daylight hits."
+  },
+  "evidence": [
+   "https://clubspace.com/",
+   "https://themiamiguide.com/venue/club-space-miami/",
+   "https://app.discotech.me/events/38234212-tba-at-space-terrace",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.784555&lon=-80.193153"
+  ]
+ },
+ {
+  "id": "kaona-room-tiki-night",
+  "verdict": "keep",
+  "reason": "The official site gives 'Wed & Thu 6PM - 1AM', 'Fri - Sat 6PM - 2AM', closed Sun-Tue. That matches the windows exactly, and best 21:30 falls inside. The address is 1600 NE 1st Ave, inside The Leinster Irish Pub. Nominatim forward-geocodes 1600 NE 1st Ave to 25.790713,-80.192429, which matches the pin. The Infatuation cocktail guide (May 27, 2026) supports the house orgeat ('a housemade orgeat we could drink by the glass') and a martini with 'a huge ice cube carved into the shape of a diamond'. It also says Miami has only one good tiki bar, Kaona Room, which backs 'why'. No closure found. Optional extra: a getIn line, 'Inside The Leinster Irish Pub', per the official site.",
+  "tasteFlag": "",
+  "evidence": [
+   "https://www.kaonaroom.com/",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.790712&lon=-80.192429",
+   "https://nominatim.openstreetmap.org/search?q=1600+NE+1st+Ave,+Miami&format=json"
+  ]
+ },
+ {
+  "id": "bodega-porta-potty-bar",
+  "verdict": "fix",
+  "reason": "The official South Beach page confirms the address (1220 16th St). Its lounge hours match the windows exactly: Mon-Wed 4pm-1am, Thu-Fri 4pm-3am, Sat 12pm-3am, Sun 12pm-1am. It also confirms 'Happy Hour Daily from 6 pm - 9 pm', the Airstream taco truck, the porta-potty entrance, and 'first come first serve' with reservations 'encouraged' after 9pm and for larger groups. Best 23:30 falls inside every window. The pin matches 1220 16th St (Nominatim). One error in 'why': it says 'on West Ave'. Named roads within 60m of the pin are 16th Street, Alton Road, Alton Court and 15th Terrace (Overpass). Time Out places it 'between Alton Rd and West Ave', so it sits on 16th Street, not West Ave. The SevenRooms page loaded but had no content beyond a heading. Miami New Times returned 403.",
+  "tasteFlag": "Mainstream. Bodega is a multi-location South Florida chain (USA Today, GQ, goop and Airbnb listings). The porta-potty door has been publicized since at least 2015 (Time Out) and draws a 'South Beach scenester' crowd. secret: 2 overstates how hidden it is.",
+  "fixes": {
+   "why": "A taco shack on 16th Street off Alton hiding a full tequila bar. Still the best bathroom-door reveal in Miami Beach."
+  },
+  "evidence": [
+   "https://www.bodegataqueria.com/location/southbeach/",
+   "https://www.sevenrooms.com/events/bodegamiamibeach/Website",
+   "https://www.timeout.com/miami/restaurants/bodega-taqueria-y-tequila",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.788694&lon=-80.141658",
+   "https://overpass-api.de/api/interpreter (way(around:60,25.788694,-80.141658)[highway][name])"
+  ]
+ },
+ {
+  "id": "macs-club-deuce-100",
+  "verdict": "keep",
+  "reason": "The official site says 'Open 8am\u20135am', so 21 hours a day checks out. It gives the address as 222 14th Street, shows a cash-only logo, and lists '2\u20134\u20131 Happy Hour 8am\u20135pm | 7 Days a Week'. It reads 'EST. 1926' and lists a 100th Anniversary Block Party on Sept 5, 2026. The Infatuation review (Aug 10, 2026) backs cash only, the don't-touch-the-blinds rule and La Sandwicherie across the street. Its Summer guide (Aug 31, 2026) confirms the 100th anniversary year. Search coverage (Axios Sept 2026, WSVN) confirms the neon interior and the anniversary. The pin reverse-geocodes to Mac's Club Deuce, 222 14th Street. Best 01:00 falls inside the 08:00-05:00 overnight window.",
+  "tasteFlag": "Iconic rather than hidden. It is a famous Anthony Bourdain favorite and Miami Vice location, featured in every major guide, and its 100th got wide press in Sept 2026. It is still a genuine local dive, but not a non-obvious pick (secret: 0 is honest).",
+  "evidence": [
+   "http://www.macsclubdeuce.com",
+   "https://www.theinfatuation.com/miami/reviews/macs-club-deuce",
+   "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.785291&lon=-80.131474"
+  ]
+ },
+ {
+  "id": "monterrey-bar-record-room",
+  "verdict": "fix",
+  "reason": "The official Standard page and monterreybar.com give 'Daily: 5pm - 12am', which matches the windows, and best 22:00 falls inside. The dress code is 'Cocktail Chic', with gentlemen to avoid sleeveless shirts or sandals. Reservations are on Resy. The bar is in the former Monterrey Motel, opened 1953 at 40 Island Avenue. The official menu lists a Paper Plane ($19) and a Sazerac ($24). The Infatuation guide (May 2026) backs 'a dark, windowless room with a horseshoe bar and a record player'. Two fixes. (1) The pin is off the building. Nominatim reverse returns only the road 'Island Avenue West'. The OSM footprint of The Standard Spa spans lat 25.7917-25.7929, centroid 25.792179,-80.149546, so the current pin sits about 150m south, on the road. (2) Vinyl: Time Out (Mar 3, 2026) says 'the vinyl selection heard on Fridays and Saturdays is top-notch', so 'while the records play' implies something nightly that is only documented for weekends. theMove now points vinyl seekers to Fri/Sat. A '9PM-midnight vinyl' detail appeared only in a search excerpt I could not open, so I left it out. Windows stay daily because the bar is open daily.",
+  "tasteFlag": "Borderline. It is a hidden, windowless room inside a Belle Isle spa hotel, but it ranks #1 on Time Out's Miami speakeasy list and appears on Infatuation's best cocktail bars list. Known among cocktail people, still non-obvious to most visitors.",
+  "fixes": {
+   "lat": 25.792179,
+   "lng": -80.149546,
+   "theMove": "Come Friday or Saturday for the vinyl. Dress up a little (cocktail chic, no sandals), take a seat at the horseshoe bar, and order a classic like a Paper Plane or Sazerac. Book ahead on Resy; it's small."
+  },
+  "evidence": [
+   "https://www.standardhotels.com/miami/features/monterrey-bar",
+   "https://standardhotels.com/miami/features/monterrey-bar",
+   "https://monterreybar.com/",
+   "https://monterreybar.com/menu",
+   "https://www.timeout.com/miami/bars/monterrey-bar",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.790882&lon=-80.148843",
+   "https://nominatim.openstreetmap.org/search?q=The+Standard+Hotel+Miami+Beach&format=json"
+  ]
+ },
+ {
+  "id": "swizzle-rum-cellar",
+  "verdict": "fix",
+  "reason": "Open: official site lists daily 7pm-3am, which matches windows (days 0-6, 19:00-03:00). best 23:00 falls inside. An old Time Out listing (2019) says until 5am, but the official site wins. Address is right, and Nominatim puts the lat/lng at 1120 Collins Ave (OSM now tags the building as Viajero Hostels Miami, the former Stiles Hotel). Infatuation's best-bars guide (updated Apr 17 2026) still says 'three short steps below a hotel lobby', 'hull of an old wooden ship' and singles out the swizzle cocktails, and it is still on the list. Smart casual dress matches the official site. One unsourced detail: 'ask the bartender to pick a rum drink' has no source. Swap it for the sourced namesake swizzles.",
+  "evidence": [
+   "https://www.swizzlerumbardrinkery.com/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.theinfatuation.com/miami/reviews/swizzle-rumbar-drinkery",
+   "https://www.timeout.com/miami/bars/swizzle-rum-bar-drinkery",
+   "https://www.the50.com/discovery/Establishments/US/Miami/Swizzle-Rum-Bar-and-Drinkery.html",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.782202&lon=-80.131572"
+  ],
+  "fixes": {
+   "theMove": "Head down the three short steps below the lobby after 10pm, take a seat at the bar and order one of the namesake swizzles. Smart casual dress."
+  },
+  "tasteFlag": "Widely listed: World's 50 Best Discovery listing, Infatuation's best-bars guide and Time Out. A good small bar, but not a non-obvious find. secret:1 is fair, don't raise it."
+ },
+ {
+  "id": "las-olas-305-cafecito",
+  "verdict": "fix",
+  "reason": "Open: official site hours are Mon-Thu 7am-8pm, Fri-Sat 7am-9pm, Sun 7am-8pm. With 0 = Sunday, the windows [0-4] 07:00-20:00 and [5,6] 07:00-21:00 match. best 15:05 is inside. Address is right and Nominatim returns 644 6th St exactly. Infatuation's Cuban sandwich guide (Aug 28 2026) calls it a South Beach ventanita and says the sandwich is cut into triangles, good for the beach. The review says you can pull up to the sidewalk window for a cafecito. 'Cut extra thin' is not supported (source says triangles). 'Locals stop here between errands, not for photos' has no source, so remove it. 3:05 is the general Miami cafecito ritual, not a Las Olas promotion. That's fine as timing, but don't present it as a house tradition.",
+  "evidence": [
+   "https://lasolascafe.net/",
+   "https://www.theinfatuation.com/miami/guides/best-cuban-sandwiches-miami",
+   "https://www.theinfatuation.com/miami/reviews/las-olas-cafe",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.775728&lon=-80.13484"
+  ],
+  "fixes": {
+   "theMove": "At 3:05pm walk up to the sidewalk ventanita for a cafecito, and take a Cuban sandwich (cut into triangles) to go for the beach.",
+   "why": "A real South Beach ventanita among the tourist cafes: order at the sidewalk window, no table needed."
+  },
+  "tasteFlag": ""
+ },
+ {
+  "id": "casa-rassi-pour-over",
+  "verdict": "fix",
+  "reason": "Hours check out. The hours visible on casarassi.com are Square template placeholders (San Francisco address, 9-5), not real hours. The real hours come from the site's Square store-locations data (square_business_hours): Tue-Sat 08:00-14:00, no Sunday or Monday. With 0 = Sunday, the window [2-6] 08:00-14:00 matches, and best 08:30 is inside. The same data confirms 2216 Park Ave, Miami Beach 33139. Nominatim puts the lat/lng on that building, which OSM tags as a hotel (KAYAK Miami Beach). The site's menu has a 'Casa Rassi @ Night' category, but no evening hours are published, so don't add a window. Infatuation (Aug 2026) supports the pour-over in a wine glass and the matcha-lote with housemade corn milk (spots of summer, Aug 31), plus the br\u00fbl\u00e9ed french toast (breakfast guide, Aug 14). The review calls it a 'hotel lobby cafe', so 'on a quiet residential block' is wrong.",
+  "evidence": [
+   "https://www.casarassi.com/",
+   "https://www.casarassi.com/app/store/api/v28/editor/users/151306229/sites/287395912914234075/store-locations",
+   "https://www.theinfatuation.com/miami/reviews/casa-rassi",
+   "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://www.theinfatuation.com/miami/guides/coffee-shops-miami-for-doing-work",
+   "https://www.theinfatuation.com/miami/guides/new-miami-restaurant-openings",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.798633&lon=-80.130405"
+  ],
+  "fixes": {
+   "why": "The most exciting new coffee bar on the Beach, tucked into a hotel lobby on Park Ave. Closed Sunday and Monday.",
+   "theMove": "Come early (it's open Tuesday to Saturday), order the pour-over (it arrives in a wine glass) and the br\u00fbl\u00e9ed french toast. If you want milk, try the matcha-lote made with house corn milk."
+  },
+  "tasteFlag": ""
+ },
+ {
+  "id": "panamericano-ring-the-bell",
+  "verdict": "fix",
+  "reason": "Open: official site lists Tue-Thu 5pm-12am and Fri-Sat 5pm-2am. With 0 = Sunday, the windows [2,3,4] 17:00-00:00 and [5,6] 17:00-02:00 match, and best 22:00 is inside. Its 2026 copyright and Haute Living's Aug 24 2026 speakeasy list confirm it's active. Address 900 S Miami Ave #260 matches, and Nominatim places the lat/lng on the 900 S Miami Ave building. Infatuation (review and best-bars guide, Apr 2026) supports reservations, ringing a doorbell, and theatrical drinks with candle wishes and blindfolds. Haute Living says there's 'no real indication from the street'. Wrong detail: 'South American spirits'. The official concept is 'celebrating the Americas', and the signature taco martini uses tequila and sotol (Mexico). The official site adds that the entrance is behind Novecento, on the 2nd floor, with a buzzer.",
+  "evidence": [
+   "https://panamericanobar.com/",
+   "https://www.theinfatuation.com/miami/reviews/panamericano-bar",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.764679&lon=-80.193612"
+  ],
+  "fixes": {
+   "theMove": "Reserve, ring the bell, and let the bartender walk you through the spirits-of-the-Americas menu. Pick one of the theatrical drinks; some come with a candle wish or a blindfold.",
+   "getIn": "Hidden entrance behind Novecento in Mary Brickell Village, 2nd floor (#260). Book a reservation and press the buzzer to be let in."
+  },
+  "tasteFlag": "Independent and local, but Haute Living (Aug 2026) calls it 'one of the most talked-about bars in Miami', and it's on Infatuation's best-bars list. secret:2 is a stretch; consider 1."
+ },
+ {
+  "id": "red-phone-booth-dial-in",
+  "verdict": "fix",
+  "reason": "Open: Haute Living (Aug 24 2026), themiamiguide (updated Aug 15 2026) and miamiculinarytours (Aug 10 2026) all describe it as operating. Novacircle lists it as operational with hours Fri-Sat 4pm-2am and all other days 4pm-1am. With 0 = Sunday, that matches windows [0-4] 16:00-01:00 and [5,6] 16:00-02:00, and best 23:00 is inside. The official Miami page is JS-rendered and its hours didn't load. Nominatim puts the lat/lng at 1010 Brickell Ave, but the address is missing Unit 105 (themiamiguide: Suite 105, behind DC Pie Co.; novacircle: Unit 105). Smoked Old Fashioned and the upscale dress code (collared shirts, no shorts or flip-flops) are supported by themiamiguide and miamiculinarytours. Haute Living supports 'step inside, pick up the receiver, and the wall opens'. Unverified: the getIn claim that the site gives the code 'when you sign up with an email or phone number'. The official page only shows a 'Get The Access Code' link, and the form didn't render. Third-party sources say the code can be requested online or come from members or word of mouth.",
+  "evidence": [
+   "https://www.redphonebooth.com/locations/fl/miami",
+   "https://www.redphonebooth.com/get-the-code",
+   "https://www.novacircle.com/spots/north-america/united-states/florida/miami/miami-fl/red-phone-booth-brickell-652a31",
+   "https://themiamiguide.com/red-phone-booth-brickell/",
+   "https://www.miamiculinarytours.com/blog/red-phone-booth-brickell-miamis-hidden-speakeasy-for-craft-cocktails-bites-old-school-vibes/",
+   "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.764139&lon=-80.192326"
+  ],
+  "fixes": {
+   "address": "1010 Brickell Ave Unit 105, Miami, FL 33131",
+   "getIn": "Request the nightly code through 'Get the Access Code' on the official Miami page, or ask a member or your hotel concierge. Dial it inside the red phone booth and the wall opens."
+  },
+  "tasteFlag": "National chain, not a local find: Atlanta (two locations), Nashville, Dallas, Durham and Miami, with Tampa coming, plus paid membership tiers. The phone-booth gimmick is heavily marketed and is on every 2026 Miami speakeasy list. secret:2 is inflated."
+ },
+ {
+  "id": "simpson-park-hammock-walk",
+  "verdict": "fix",
+  "reason": "Open, address and hours check out. The official City of Miami page gives 55 SW 17 Road, open Monday to Sunday 8:00AM to 3:00PM, a half-mile walk along the park path, strangler fig and gumbo limbo among the native species, and calls it 'one of the last remnants of the famous Brickell Hammock'. No 2026 closure was found; the trail only closes temporarily during weather alerts. A forward geocode of '55 SW 17th Rd' returns exactly the entry's lat/lng, which also sits inside the OSM Simpson Park bounding box. The reverse geocode landed on the neighbouring building at 32 SW 17th Rd, which is fine. Best time 10:30 is inside opening hours. Three things need fixing: (a) the free guided walks run only on Saturday and Sunday ('every Saturday and Sunday', 10:30-11:30 and 1:30-2:30, 20 people max, first come), but the entry reads as if they run any day; (b) the official source says 'path', not 'loop'; (c) 'Most people who work there have never been' cannot be verified, so it is removed.",
+  "fixes": {
+   "theMove": "Go mid-morning and walk the half-mile path under strangler figs and gumbo limbo. On Saturdays and Sundays, join the free guided nature walk at 10:30am or 1:30pm (20 people max, first come, first served).",
+   "why": "One of the last remnants of the old Brickell Hammock: a protected patch of native forest a few blocks from the towers."
+  },
+  "tasteFlag": "",
+  "evidence": [
+   "https://www.miami.gov/Parks-Public-Places/Parks-Directory/Simpson-Rockland-Hammock-Preserve-Park",
+   "https://www.miami.gov/Parks-Public-Places/Parks-Directory/Simpson-Park",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.757797&lon=-80.196699",
+   "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=Simpson%20Park%2C%20Miami",
+   "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=55%20SW%2017th%20Rd%2C%20Miami"
+  ]
+ },
+ {
+  "id": "dominoes-maximo-gomez-park",
+  "verdict": "fix",
+  "reason": "Address (801 SW 15th Ave) and hours (9am-6pm daily) match Miami & Beaches. The lat/lng sit inside the OSM bounding box for M\u00e1ximo G\u00f3mez Park, and no 2026 closure or renovation was found. Best time 10:00 is inside opening hours. Three things need fixing. First, the membership claim 'card-carrying members over 50' conflicts between sources: Miami & Beaches says over 50 with a Domino Club card, while WLRN (March 2025, quoting park staff) says over 55 and a City of Miami resident, so the entry should not state an age. Second, WLRN reports the park is opened to the public to play every Friday with just an ID, which is the one genuinely insider detail and is added here. Third, 'Skip the Calle Ocho photo stops' contradicts itself, because Domino Park is itself the best-known Calle Ocho photo stop, so it is cut.",
+  "fixes": {
+   "theMove": "Come mid-morning on a weekday when the regulars are deep in their games. Sit on the perimeter benches and watch quietly; the tables are for registered members. On Fridays the park has been opened for the public to play: bring an ID.",
+   "why": "The neighborhood's living room, and mornings are when it's real."
+  },
+  "tasteFlag": "Mainstream/touristy: one of Little Havana's best-known sights, promoted by the official Miami & Beaches tourism site as a 'popular hangout' and a standard stop on Calle Ocho tours. secret:0 already reflects this.",
+  "evidence": [
+   "https://www.miamiandbeaches.com/l/parks-and-recreation/domino-park/5611",
+   "https://www.wlrn.org/arts-culture/2025-03-11/miami-domino-park-latino-communities",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.765589&lon=-80.219408&zoom=18",
+   "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=Maximo%20Gomez%20Park%2C%20Miami"
+  ]
+ },
+ {
+  "id": "cafe-la-trova-back-bar",
+  "verdict": "fix",
+  "reason": "Open, and the address is right: the coordinates reverse-geocode to 'Cafe La Trova, 971 SW 8th Street'. Hours match the official location page (Sunday to Thursday 4pm-12am, Friday and Saturday 4pm-2am). The core premise is wrong, though. The official page lists the live 'La Trova Style Music' band in the main room (Sunday to Wednesday 7-10pm, Thursday 7-11pm, Friday and Saturday 7:30pm-12am). The back room is the '80's 305 Bar', and the only programming listed for it is 'LIVE DJ @ our 80's 305 Bar Friday & Saturday: 12am-2am'. Time Out says to head to the 80s 305 Bar 'when the bongo player packs up'. So 'take a spot in the mirrored back bar... watch the cantineros play along with the house band' and 'the same house band' are not supported, and nothing I opened shows the back bar open Sunday to Thursday. The Infatuation (May 2026) does support the 'heavily mirrored back bar' with more personal space, the cantineros, bartenders who 'occasionally whip out instruments to play along' with the house band, and the hard-shaken classic daiquiri. The move is reframed around those supported details. Best time 22:00 is exactly when the band stops Sunday to Wednesday, so it moves to 21:00, which falls within band hours every night.",
+  "fixes": {
+   "title": "A shaken daiquiri and the house band at Caf\u00e9 La Trova",
+   "theMove": "Get a spot at the bar while the house band plays and order the classic daiquiri, shaken so hard there are chips of ice on top. Watch for cantineros grabbing instruments to play along. On a Friday or Saturday, stay past midnight and move to the mirrored '80s 305 Bar in the back, where a DJ plays until 2am.",
+   "why": "Iconic, and it earns it: cantinero-style cocktails and a live Cuban band every night, plus a mirrored '80s back bar that keeps weekends going.",
+   "best": "21:00"
+  },
+  "tasteFlag": "Mainstream: a regular on North America's 50 Best Bars, five stars in Time Out, and in every Little Havana guide; packed with visitors. secret:0 already reflects this.",
+  "evidence": [
+   "https://www.cafelatrova.com",
+   "https://www.cafelatrova.com/location/cafe-la-trova/",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://www.theinfatuation.com/miami/reviews/cafe-la-trova",
+   "https://www.timeout.com/miami/restaurants/cafe-la-trova",
+   "https://timeout.com/miami/bars/best-little-havana-bars-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.766183&lon=-80.210473&zoom=18"
+  ]
+ },
+ {
+  "id": "sanguich-cubano-lunch",
+  "verdict": "fix",
+  "reason": "Open, and the address is right: the official locations page lists Calle Ocho at 2057 SW 8th St, 'Open Every Day from 10 AM - 6 PM', which matches the windows. Some third-party listings, such as Time Out, show older and longer hours. A forward geocode of 2057 SW 8th St returns exactly the entry's lat/lng. Best time 11:30 is inside opening hours. 'Everything in it is made in-house' is false: Food Republic (April 2026) says the Swiss cheese is Ammerl\u00e4nder imported from Germany. The Infatuation (updated 28 August 2026) supports a narrower claim: 'They cure their own ham, make their own mustard, brine their own pickles', and it calls Sanguich the best cuban sandwich in Miami. I found no source for a 'lunch line', so that is softened. Bread being made in-house is not claimed.",
+  "fixes": {
+   "theMove": "Get there before noon and order the cubano. They cure the ham in-house and make their own mustard and pickles. Eat it hot.",
+   "why": "Not Versailles. A Calle Ocho sandwich shop that cures its own ham and makes what The Infatuation calls the best cubano in Miami."
+  },
+  "tasteFlag": "Mainstream: a heavily covered brand with five locations, including Bayside Marketplace and Aventura Mall, and the top pick in The Infatuation's cubano guide. A strong pick but not non-obvious. secret:0 already reflects this.",
+  "evidence": [
+   "https://sanguich.com/",
+   "https://sanguich.com/locations/",
+   "https://sanguich.com/ingredients/",
+   "https://www.theinfatuation.com/miami/guides/best-cuban-sandwiches-miami",
+   "https://www.theinfatuation.com/miami/reviews/sanguich-de-miami",
+   "https://www.foodrepublic.com/2148383/miami-cuban-sandwich-restaurant-sanguich/",
+   "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=2057%20SW%208th%20St%2C%20Miami%2C%20FL",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.765386&lon=-80.228607&zoom=18"
+  ]
+ },
+ {
+  "id": "zeyzey-bungalow-dance",
+  "verdict": "keep",
+  "reason": "Open and active: Songkick lists shows on 13 November 2026 (The Altons) and 12 December 2026. The official site gives 353 NE 61st, Little Haiti, and the coordinates reverse-geocode to 353 NE 61st Street. Official hours are 'Tue \u2013 Thu: 5pm \u2013 12am Fri Sat: 5pm \u2013 3am Sun: 5pm \u2013 11pm', closed Monday, which matches the windows exactly with 0 = Sunday. The Infatuation's best-bars guide (updated 17 April 2026, where ZeyZey is listed first) supports every claim: 'a converted bungalow that feels like one big house party', 'live cumbia, funky DJ sets', and 'Sometimes the concerts are free. If not, tickets are usually a reasonable $12 to $45.' Time Out and Tigre Sounds describe the backyard stage under a banyan, a shipping-container bar, and outdoor performances on Friday and Saturday nights. 'Best' and 'a city short on venues' are opinion. One schema edge: best 23:30 is after Sunday's 11pm close. It is inside the Friday/Saturday windows that theMove targets, so this is not a factual error, but it should be handled if the app checks best against every window.",
+  "tasteFlag": "",
+  "evidence": [
+   "https://zeyzeymiami.com/",
+   "https://zeyzeymiami.com/tickets/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://timeout.com/miami/nightlife/zeyzey",
+   "https://tigresounds.com/zeyzey-opens-in-little-haiti/",
+   "https://www.songkick.com/venues/4621574-zeyzey-miami",
+   "https://songkick.com/concerts/43288987-altons-at-zeyzey",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.832731&lon=-80.189052&zoom=18"
+  ]
+ },
+ {
+  "id": "sweat-records-dig",
+  "verdict": "keep",
+  "reason": "Official site lists 5505 NE 2nd Ave, Miami 33137 with hours Sun-Tue noon-5pm and Wed-Sat noon-7pm. With 0 = Sunday, that matches windows [0,1,2] 12-17 and [3,4,5,6] 12-19 exactly. Best time 16:00 falls inside both windows. Nominatim puts the coordinates on the Sweat Records building at 5505 NE 2nd Ave in Little Haiti. The move text makes no hard factual claims beyond an independent record store, which the official site supports. Search results show 2026 activity (a March 2026 New Times event at the store; Best of Miami 2026 for its label) and say an old relocation plan was cancelled. I only saw those in search snippets, though: the New Times page returned 403, so none of it is listed as evidence.",
+  "evidence": [
+   "https://www.sweatrecordsmiami.com/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.826404&lon=-80.191636"
+  ],
+  "tasteFlag": "Miami's best-known indie record store, a 20-year institution. Obvious to locals but not touristy."
+ },
+ {
+  "id": "magic-13-backyard-saturday",
+  "verdict": "keep",
+  "reason": "Official hours match all windows: Mon-Wed 4-11pm, Thu 4pm-1am, Fri 4pm-2am, Sat noon-2am, Sun noon-11pm. Best time 14:00 is inside the Saturday and Sunday windows only, since weekdays open at 4pm. That is right for a move framed as Saturday or Sunday after noon, and core.js only schedules a move when it is open at that time. Nominatim puts the coordinates at 340 NE 61st St, Little Haiti. Infatuation's Feb 2026 guide supports 'big backyard organized around a top-notch tree', 'a small meat-centric food menu' and families. 'Not influencers' is opinion. No closure news found.",
+  "evidence": [
+   "https://magic13brewing.com/",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://www.theinfatuation.com/miami/reviews/magic-13-brewing-co",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.832296&lon=-80.189279"
+  ],
+  "tasteFlag": ""
+ },
+ {
+  "id": "sunnys-martini-at-opening",
+  "verdict": "fix",
+  "reason": "Open as of May 2026. Official globals.json gives Sunday-Saturday 5:30-11pm at 7357 NW Miami Ct, matching the window and best time 17:30. Nominatim confirms the coordinates. The official FAQ says the indoor bar and terrace are entirely for walk-ins, and the official cocktail menu has a MARTINI section. Two claims are wrong or unsupported. (1) 'Frozen martini': every opened source says ice cold or freezing cold, and Infatuation (May 2026) says 'always served freezing cold'. No frozen martini is on the menu. (2) 'Semicircular indoor bar': no source I opened describes the bar's shape. Infatuation also says the indoor bar starts seating walk-ins at exactly 5:15pm, so 'be at the door when it opens' at 5:30 is slightly late. Best time stays 17:30 because the official opening is 5:30 and the app needs the move open at the best time. The early-arrival advice goes in the text.",
+  "evidence": [
+   "https://sunnysmia.com/",
+   "https://sunnysmia.com/data/globals.json",
+   "https://sunnysmia.com/data/pages/faq.json",
+   "https://sunnysmia.com/data/pages/about.json",
+   "https://sunnysmia.com/data/menus/cocktails.json",
+   "https://www.theinfatuation.com/miami/reviews/sunnys-steakhouse",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-sunnys-closed",
+   "https://blog.resy.com/2024/10/sunnys-steakhouse-miami-restaurant/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.842945&lon=-80.19685"
+  ],
+  "fixes": {
+   "title": "Walk in for an ice-cold martini when Sunny's opens",
+   "theMove": "No reservation? Be at the door by 5:15pm, when the indoor bar starts seating walk-ins, or take a terrace table (the bar and terrace are walk-in only). Order from the martini section of the menu, served ice cold."
+  },
+  "tasteFlag": "The most mainstream pick of these five: Robb Report's Best New Restaurant in America, Cond\u00e9 Nast best new restaurants, and on nearly every Infatuation and Time Out list. The walk-in bar tactic is the only insider angle."
+ },
+ {
+  "id": "kaiju-mezzanine-cocktails",
+  "verdict": "keep",
+  "reason": "Official site gives Tue-Thu and Sun 6pm-1am, Fri-Sat 7pm-2am, and 'The Citadel 8300 NE 2nd Ave, Mezzanine level'. That matches windows [0,2,3,4] 18-01 and [5,6] 19-02 (closed Monday), and best time 22:30 is inside. Nominatim puts the coordinates at 8300 NE 2nd Ave. Time Out (April 2, 2026) confirms it is operating, ranked No. 70 in North America's 50 Best, in an 'industrial second-floor space' above the Citadel food hall, with drinks 'presented like collectible trading cards'. The official site lists Kappa among the current menu monsters and describes a playable trading card game. Infatuation's best cocktail bars guide (May 27, 2026) supports the complimentary 'sip of the milk punch of the week' and the Kappa as a southside take with shiso, cardamom, cucumber and toasted rice syrup. The Citadel site confirms the food hall is open and Bar Kaiju is in it. Note: the menu rotates. An older source gave Kappa a different spec (gin, coconut, cucumber, shiso, nori), so recheck the spec periodically.",
+  "evidence": [
+   "https://www.barkaiju.com/",
+   "https://thecitadelmiami.com/",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://www.theinfatuation.com/miami/reviews/kaiju",
+   "https://timeout.com/miami/news/this-miami-bar-was-just-ranked-one-of-the-best-in-north-america-040226",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.852311&lon=-80.193063"
+  ],
+  "tasteFlag": "Physically hidden but publicly famous: No. 70 in North America's 50 Best (2026), Bon App\u00e9tit best new bars, Spirited Awards nominations. It appears on every best-bars list."
+ },
+ {
+  "id": "conventillo-hidden-patio",
+  "verdict": "keep",
+  "reason": "Official site gives 749 NE 79th St, 'positioned behind Battubelin'. Hours are Mon-Thu 6pm-1am, Fri-Sat 6pm-2am, closed Sunday, matching windows [1,2,3,4] 18-01 and [5,6] 18-02, and best time 18:30 is inside. Happy hour is daily 6-8pm. Reservations are required only for 6 or more and parties of 5 or fewer can walk in, which matches 'walk-ins are fine under six people'. Food comes from the adjoining Battubelin kitchen. Nominatim puts the coordinates on Battubelin, 749 NE 79th St. Infatuation's review and guide (both Feb 2, 2026) confirm it is operating as an outdoor bar 'attached to the back of the Italian restaurant Battubelin, not visible from the street' that uses Battubelin's kitchen. Minor note: category 'speakeasy' is a stretch for a garden patio bar with its own website and press, but that is not a factual claim, so no fix.",
+  "evidence": [
+   "https://www.thisconventillo.com/",
+   "https://www.theinfatuation.com/miami/reviews/conventillo",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.848124&lon=-80.181253"
+  ],
+  "tasteFlag": ""
+ },
+ {
+  "id": "el-bagel-morningside-picnic",
+  "verdict": "fix",
+  "reason": "Open and correct. The official site lists MiMo, 6910 Biscayne Blvd, open 8am-2pm every day except Tuesday, which matches the windows. Best (08:00) falls inside the hours. Nominatim puts lat/lng exactly at 6910 Biscayne Blvd. Infatuation (Aug 2026) supports the King Guava with guava jam, potato sticks and a fried egg; StarChefs adds cream cheese on a salt bagel. Infatuation also supports 'they sell out a lot (especially on weekends)', mostly takeout, and the Legion Park or Morningside Park picnic idea. One practical problem: Morningside Park is about 1.7 km straight-line from the shop, a 20-25 minute walk, so 'walk it to a bench' undersells the trip. Legion Park, also on the bay, is 0.44 km away. Fix adds the distance and the closer option.",
+  "evidence": [
+   "https://www.elbagel.com/",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://starchefs.com/recipes/king-guava",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.83931&lon=-80.184597",
+   "https://nominatim.openstreetmap.org/search?format=json&q=Morningside+Park,+Miami,+FL&limit=3",
+   "https://nominatim.openstreetmap.org/search?format=json&q=Legion+Park,+Miami,+FL&limit=2"
+  ],
+  "fixes": {
+   "theMove": "Get there at 8am (it sells out, especially weekends) and order the King Guava: cream cheese, guava jam, potato sticks and a fried egg. Take it to a bench in Morningside Park by the bay, about a 25-minute walk or 5-minute drive south. Short on time? Legion Park, also on the bay, is three blocks away. Closed Tuesday."
+  },
+  "tasteFlag": "Well covered: Infatuation's breakfast guide, Time Out and OAD Cheap Eats all feature it, and the park-picnic pairing comes straight from Infatuation. Still a local favorite rather than a tourist trap."
+ },
+ {
+  "id": "legion-park-saturday-market",
+  "verdict": "keep",
+  "reason": "All checks pass on the Urban Oasis Project page. It lists Legion Park Farmers Market at 6601 Biscayne Blvd, Saturdays 9am-2pm, year-round and rain or shine, which matches the windows and the 09:00 best time. It also confirms 'Free parking in main park lot, 6447 NE 7th Ave', SNAP doubling at all markets, and that SNAP purchases of Florida-grown produce are doubled. Urban Oasis Project is a 501(c)(3) nonprofit, and the page names its Florida produce farms. Miami & Beaches confirms Saturday 9-2 at Biscayne Blvd and NE 66th St, run by Urban Oasis, and advises arriving early for parking. Nominatim's reverse result for the lat/lng is the market node itself ('Upper East Side Farmers Market', its former name) on Biscayne Blvd.",
+  "evidence": [
+   "https://www.urbanoasisproject.org/farmers-markets.html",
+   "https://www.miamiandbeaches.com/restaurants/best-miami-farmers-markets",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.836659&lon=-80.184084"
+  ],
+  "tasteFlag": ""
+ },
+ {
+  "id": "lagniappe-weeknight-backyard",
+  "verdict": "fix",
+  "reason": "Open: the official site has a current music schedule (Fri 10/02, Sat 10/03, Sun 10/04 2026). The site's hours are Sun-Thu 6pm-2am and Fri-Sat 6pm-3am, which match the windows, and it says no reservations. Nominatim puts lat/lng at 3425 NE 2nd Ave. Three corrections: (1) the Infatuation review says the wine is in 'fridges full of wine outside' that you take to the register, not in a fridge inside; (2) music runs every night 9pm-midnight, so a 20:30 arrival is before the band, not 'while the band plays'; (3) the current schedule mixes jazz with blues, soul and Brazilian jazz, so 'live jazz' alone overstates it. Supported as written: mismatched furniture (Infatuation review), string lights (Infatuation best-bars guide, plus the Zagat quote on the official wine page), and packed winter Saturdays (Infatuation, Feb 2026).",
+  "evidence": [
+   "https://www.lagniappehouse.com/",
+   "https://www.lagniappehouse.com/music-schedule.html",
+   "https://www.lagniappehouse.com/wine.html",
+   "https://www.lagniappehouse.com/food.html",
+   "https://www.theinfatuation.com/miami/reviews/lagniappe",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.809047&lon=-80.191005"
+  ],
+  "fixes": {
+   "theMove": "Go on a weeknight and arrive around 8:30pm to claim one of the mismatched tables under the string lights out back before the 9pm set. Grab a bottle from the self-serve wine fridges, add cheese, pay at the register, and stay while the band plays until midnight. No reservations.",
+   "why": "Packed on winter Saturdays, magic on a Tuesday. Still Miami's best backyard wine bar, with live jazz, blues or Brazilian sets every night."
+  },
+  "tasteFlag": "Mainstream: Infatuation calls it 'Miami's worst-kept secret' and it appears on every best-bars and best-wine-bars list. secret:0 is honest; the weeknight timing is the only insider angle."
+ },
+ {
+  "id": "zak-the-baker-early",
+  "verdict": "fix",
+  "reason": "Open: the official site lists 295 NW 26th St, Sunday-Friday 7am-5pm, closed Saturday, which matches the windows. Best (07:30) is inside the hours, and Nominatim puts lat/lng at 295 NW 26th St. The FAQ supports the early angle ('two pastry bakes per day, 7am and 12pm'). Kosher status is confirmed by a 2026 certificate. Infatuation (Aug 2026) lists croissants, boureka and babka. Two corrections: (1) the kosher page says it is also closed 'all major Jewish holidays (Rosh Hashana, Yom Kippur, Pesach, Sukkot, & Shavuot)', which matters now since the date falls in the Sukkot/Shemini Atzeret/Simchat Torah window, and 'Closed Saturday' alone is incomplete; (2) the visit page describes a full-service caf\u00e9 with table reservations (recommended for weekend mornings), so 'take a table and order from the case' mixes up the two ways to order.",
+  "evidence": [
+   "https://zakthebaker.com/",
+   "https://zakthebaker.com/visit-us/",
+   "https://zakthebaker.com/faq/",
+   "https://zakthebaker.com/kosher/",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.801658&lon=-80.200828"
+  ],
+  "fixes": {
+   "theMove": "Get there around 7:30am, just after the first pastry bake (7am) and before the Wynwood crowd. Pick a croissant, a boureka or a slice of babka from the pastry case, or sit down in the full-service caf\u00e9 (walk-ins welcome; book ahead for weekend mornings). Closed Saturdays and major Jewish holidays."
+  },
+  "tasteFlag": "Mainstream: one of Wynwood's best-known food stops and on every breakfast and bakery guide. secret:0 is honest; going early is the only insider angle."
+ },
+ {
+  "id": "dantes-hifi-listening-seat",
+  "verdict": "fix",
+  "reason": "Open: the Tock page shows 519 NW 26th St and 'Today 7:00 PM - 3:00 AM' on Friday 2026-10-02. Nominatim puts lat/lng at 519 NW 26th St. The windows are wrong: Zona and a Yelp listing updated Sept 2026 both give Tue-Wed and Sun 7pm-2am, Thu-Sat 7pm-3am, closed Monday, but the entry closes every day at 3am. A Fusicology event listing shows Friday closing at 2am, but Tock's own 3am Friday reading outweighs it. Tock confirms both reservation types are 1.5-hour seatings: standard at $25 per person prepaid, and late night at a $50 per person deposit. Tock gives no exact start time for late night, so 'after 10pm' is replaced with 'late-night seating'. Infatuation's best-bars guide (Apr 2026) supports the wasabi peas, cocktails, rotating DJs, record collection and sound system. Time Out supports the Japanese listening-bar lineage. The Haute Living source returned 403 and was not used. Best (23:00) is inside the corrected windows.",
+  "evidence": [
+   "https://www.exploretock.com/danteshifi/",
+   "https://danteshifi.com/",
+   "https://getzona.app/venue/dante-s-hifi",
+   "https://www.fusicology.com/events/this-week-dantes-miami/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.timeout.com/miami/bars/dantes-hifi",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.801136&lon=-80.203715"
+  ],
+  "fixes": {
+   "windows": [
+    {
+     "days": [
+      0,
+      2,
+      3
+     ],
+     "from": "19:00",
+     "to": "02:00"
+    },
+    {
+     "days": [
+      4,
+      5,
+      6
+     ],
+     "from": "19:00",
+     "to": "03:00"
+    }
+   ],
+   "theMove": "Book the 90-minute late-night seating on Tock ($50 per person deposit), order a cocktail and wasabi peas, and let the DJ work through the vinyl collection on the hi-fi system. Closed Monday."
+  },
+  "tasteFlag": "Fairly well known: it is on Infatuation's best-bars list and reviewed by Time Out, so secret:1 overstates it. Still music-first rather than a scene bar, so it fits as a pick."
+ },
+ {
+  "id": "coyo-taco-back-lounge",
+  "verdict": "fix",
+  "reason": "It's still open. The official Wynwood page lists 2300 NW 2nd Ave, with the restaurant open 11am-2am Mon-Wed and 11am-3am Thu-Sun. Lounge hours are 9pm-2am Mon-Wed and 9pm-3am Thu-Sun. Those match the windows exactly, the 00:30 best time sits inside them, and the claims 'Lounge opens at 9pm' and 'till 3am Thursday to Sunday' are correct. 2026 news covers the brand expanding to Bayside, not the Wynwood original closing. Miami New Times confirms the 'employees only' door into a speakeasy-style bar, and The Infatuation confirms counter ordering and the bar in back. Nominatim puts the pin at 2300 NW 2nd Ave. OSM tags a stale POI name ('Mad Butcher') at the same house number, but the address is right. The one problem is that the same New Times source says most locals and tourist-minded drinkers already know about this door. That contradicts secret: 2, so lower it.",
+  "evidence": [
+   "https://www.coyo-taco.com/restaurants/wynwood",
+   "https://www.miaminewtimes.com/food-drink/miamis-secret-bars-and-speakeasies-13067807/",
+   "https://www.theinfatuation.com/miami/reviews/coyo-taco",
+   "https://hoodline.com/2026/02/coyo-taco-brings-wynwood-heat-to-bayside-marketplace-waterfront/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.799604&lon=-80.199237"
+  ],
+  "fixes": {
+   "secret": 1
+  },
+  "tasteFlag": "This is a well-publicized 'hidden' bar. Miami New Times says most locals and tourists already know the employees-only door, and it shows up on every Miami speakeasy listicle. It still works as a late-night move, but it isn't a secret."
+ },
+ {
+  "id": "ica-miami-free-afternoon",
+  "verdict": "keep",
+  "reason": "The official visit page gives 61 NE 41st St and Wed-Sun 11am-6pm. It's closed Mon, Tue and major federal holidays, and admission is free. The tickets page confirms free timed tickets, and the visit page says advance tickets are 'highly recommended'. The windows (Sun and Wed-Sat, 11:00-18:00) match, and 14:00 is inside them. Nominatim puts the pin on ICA Miami at 61 NE 41st St. 'Closed Monday and Tuesday' is correct. 'Quiet on weekday afternoons' is opinion, not a factual claim. There was an Aug 5-8, 2026 closure, which is past, and I found no fall 2026 closure notice.",
+  "evidence": [
+   "https://icamiami.org/visit/",
+   "https://icamiami.org/tickets/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.814359&lon=-80.194298"
+  ],
+  "tasteFlag": "A headline Design District museum (secret: 0) that's in every Miami guide. Free and high quality, but not a non-obvious local pick."
+ },
+ {
+  "id": "jass-kitchen-candlelit-jazz",
+  "verdict": "fix",
+  "reason": "It's open. The official site lists 190 NE 46th St, with hours Tue-Wed 4-10:30pm, Thu-Fri 4-11:30pm, Sat 10am-11:30pm and Sun 10am-10:30pm, closed Monday. That matches the windows exactly. The venue's own music calendar lists the Oct 2 and Oct 3, 2026 sets as 8:00-11:00pm. The Infatuation (Feb 2026) said 'around 8:30pm', but the venue's current calendar is the primary source, so 'music starts around 8:30pm' should become 8pm and best moves to 20:00. 'Live jazz most nights' overclaims. The venue describes nightly concerts of jazz, world, folk, Turkish and Latin music, recent acts were soul and bossa nova, and The Infatuation says 'often jazz'. So soften the title and why. The Infatuation supports the brick dining room, real candles, a bottle of wine for about $60, Resy reservations and the Lagniappe comparison. Nominatim lands on 190 NE 46th St. OSM still shows the prior tenant's name, but the address is right.",
+  "evidence": [
+   "https://www.jasskitchenmiami.com/",
+   "https://www.jasskitchenmiami.com/music-calendar-ultimate-guide-jass-kitchen/",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.817736&lon=-80.19172"
+  ],
+  "fixes": {
+   "title": "Candlelit dinner and live music at Jass Kitchen",
+   "best": "20:00",
+   "theMove": "Book for around 8pm, when live music usually starts (the venue's calendar lists sets from 8 to 11pm, so check it for the night's act), split a bottle of wine, and eat dinner in the brick room by candlelight.",
+   "why": "Like a sit-down Lagniappe: real candles, live music most nights (often jazz), and a table you can actually reserve."
+  },
+  "tasteFlag": "It's getting more press (Cosmopolitan's 50 Best Date Night Spots 2026, an Infatuation guide), but it's still a small neighborhood room that most visitors don't know. Acceptable as a local pick."
+ },
+ {
+  "id": "rubell-3pm-free-tour",
+  "verdict": "keep",
+  "reason": "The official visit page gives 1100 NW 23rd St and these hours: Wed-Thu and Sun 11:30am-5:30pm, Fri-Sat 11:30am-7:30pm, closed Mon-Tue. That matches the windows exactly, and 15:00 is inside them. The page also confirms 'Complimentary guided tours at 3pm from Wednesday to Sunday' and that the museum is cashless ('Credit or debit cards only; no cash accepted'). Adult admission is $18. The museum's Miami page lists 'Yayoi Kusama' among current exhibitions, and The Fader (Aug 27, 2026) confirms two Kusama Infinity Rooms are on view. Nominatim puts the pin on the museum at 1100 NW 23rd St. One live note: the site says the museum closes early at 5:30pm on Saturday, Oct 3 (tomorrow). That's a one-off and doesn't affect the 3pm tour or the standing windows.",
+  "evidence": [
+   "https://rubellmuseum.org/miami/visit-miami",
+   "https://rubellmuseum.org/miami",
+   "https://www.thefader.com/2026/08/27/where-to-see-yayoi-kusama-art-in-us",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.798696&lon=-80.214258"
+  ],
+  "tasteFlag": "A major, widely covered museum (secret: 0). The free 3pm tour is a useful tip, but this isn't a non-obvious local pick."
+ },
+ {
+  "id": "cape-florida-lighthouse-climb",
+  "verdict": "fix",
+  "reason": "The official Cape Florida Light page says tower tours run 10am-12pm, five days a week, closed Tuesdays and Wednesdays. The park amenities page says Thursday through Monday, and the climb is 109 spiral steps. The windows (Thu-Mon, 10:00-12:00) and the 10:00 best time match. Two things are wrong. First, there is no single '10am tour': tours run throughout 10am to noon. Second, 'free view' is misleading. The climb is free with park entry, but entry costs $8 per vehicle, $4 single occupant, or $2 on foot or bike. The park page confirms it closes when full on busy weekends and holidays. The Miami & Beaches page confirms 'oldest standing structure in Miami-Dade County' and that you can see Stiltsville from the top, so add the word 'standing'. The pin sits on the lighthouse itself (Cape Florida Park Blvd), not at the 1200 S Crandon Blvd park gate. That's more useful for this move, so leave it.",
+  "evidence": [
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/cape-florida-light",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/experiences-amenities-0",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/hours-and-fees-bill-baggs",
+   "https://www.miamiandbeaches.com/event/miamis-icon-200-years-of-cape-florida-lighthouse/37086",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.666588&lon=-80.155965"
+  ],
+  "fixes": {
+   "theMove": "Get to the park early (it closes when full on weekends), then join a tower tour (they run 10am to noon, Thursday to Monday) up the 109 steps. Look south from the top for the stilt houses of Stiltsville. Tower closed Tue and Wed.",
+   "why": "The oldest standing structure in Miami-Dade, and the best view of Stiltsville without a boat. The climb is free with park entry ($8 per car, $2 on foot or bike)."
+  },
+  "tasteFlag": "A headline state-park attraction that's in every guidebook (secret: 0). The Stiltsville angle and the morning-only tower window add value, but it isn't a non-obvious local pick."
+ },
+ {
+  "id": "the-cleat-no-name-harbor-sunset",
+  "verdict": "fix",
+  "reason": "It exists and is open. The official page (lighthouserestaurants.com/the-cleat) gives the same hours as the windows: closed Monday, Tue-Wed 3-8pm, Thu-Fri 3-10pm, Sat 2-10pm, Sun 2-8pm. The address checks out (official: 1200 Crandon Blvd, inside Bill Baggs). The Infatuation best-bars guide (updated Apr 17, 2026) still lists it. 'Tables right on the sand' and the sunset view are supported by Miami New Times (June 2025 piece and Best Waterfront Bar 2022). 'Best waterfront view of any bar in the entire city' is Infatuation's own line. Three things need fixing. (1) lat/lng is exactly the OSM 'No Name Harbor' dock node, which sits in the harbor water. The Google pin for 'The Cleat Mia' (via Wanderlog) is 25.676248,-80.164032, about 130 m away at the harbor mouth. (2) Florida State Parks says the park is open '8 a.m. until sundown' at $8 per vehicle, and the move depends on driving in. The bar's hours to 8 or 10pm overstate drive-in access after dark, so theMove must tell people to get through the gate before sundown. (3) best 18:45 equals '30 min before sunset' only in early October. Computed sunset is 19:07 on Oct 2, 18:40 on Oct 31 and 17:40 from Nov 1, so 18:45 is after dark in November. Use 18:30 for October; it should drop to about 17:10 after Nov 1, or be derived from sunset.",
+  "evidence": [
+   "https://lighthouserestaurants.com/the-cleat",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.theinfatuation.com/miami/reviews/the-cleat",
+   "https://www.theinfatuation.com/miami/guides/miami-bars-outdoor-seating",
+   "https://www.miaminewtimes.com/food-drink/miami-completely-snubbed-on-best-beach-bars-ranking-23290528/",
+   "https://miaminewtimes.com/best-of/2022/eat-and-drink/best-waterfront-bar-14715440",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/hours-and-fees-bill-baggs",
+   "https://wanderlog.com/place/details/1037966",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.676769&lon=-80.162825",
+   "https://nominatim.openstreetmap.org/search?format=json&q=No+Name+Harbor&viewbox=-80.18,25.70,-80.14,25.66&bounded=1&limit=5",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.676248&lon=-80.164032&zoom=18"
+  ],
+  "fixes": {
+   "lat": 25.676248,
+   "lng": -80.164032,
+   "best": "18:30",
+   "theMove": "Pay the Bill Baggs park entry ($8 per car) and get through the gate before sundown, because the park closes to cars at dusk. Drive to No Name Harbor and take a table on the sand facing the bay about 30 minutes before sunset. Order a cold drink and a snack. Closed Monday.",
+   "sources": [
+    "https://lighthouserestaurants.com/the-cleat",
+    "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+    "https://www.miaminewtimes.com/food-drink/miami-completely-snubbed-on-best-beach-bars-ranking-23290528/",
+    "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/hours-and-fees-bill-baggs"
+   ]
+  },
+  "tasteFlag": "Hard to find, but well covered by the press: Infatuation best bars (Apr 2026), New Times Best Waterfront Bar 2022 and Best-Kept Secret 2024. Locals know it, so it is a semi-secret rather than a true insider find. It is not touristy, so it is acceptable."
+ },
+ {
+  "id": "donut-gallery-teds-special",
+  "verdict": "keep",
+  "reason": "All checks pass. The schema.org data on the official site says open every day 06:00-15:00, which matches the windows, and best 07:00 falls inside. Nominatim puts lat/lng exactly at 83 Harbor Drive, Key Biscayne. Infatuation's breakfast guide (updated Aug 14, 2026) and its review confirm 'since 1972' and the 'low vinyl stools that overlook a griddle'. They describe the Ted's special as an open-faced sandwich with ham, bacon, tomato, American cheese and two fried eggs on an English muffin, matching theMove. They also say 'the counter's footrest has indented footprints from regulars', which supports the counter-rail footprints. Time Out (2018) also lists 'Daily 6am-3pm'.",
+  "evidence": [
+   "http://donutgallerydiner.com",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://www.theinfatuation.com/miami/reviews/donut-gallery-diner",
+   "https://www.timeout.com/miami/restaurants/donut-gallery-diner",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.700122&lon=-80.163077"
+  ],
+  "tasteFlag": ""
+ },
+ {
+  "id": "virginia-key-beach-sunrise",
+  "verdict": "fix",
+  "reason": "The park exists and is open. The official site says 'Open 7:00 am - Sunset, seven days a week (except Thanksgiving and Christmas)' and 'Established in 1945 as a beach for African Americans during segregation', which supports the why. Nominatim resolves lat/lng to Historic Virginia Key Beach Park, 4020 Virginia Beach Dr. best 07:15 is inside the hours. The window's 17:30 close is a conservative stand-in for 'sunset' (about 19:07 today, about 17:30 in December). It never sends anyone to a closed park, so it is not blocking. The issue is the sunrise claim. Computed Miami sunrise is 07:12-07:27 in October, so 'walk to the water as the sun comes up' after the 7am opening works then. From Nov 1 to about Dec 21, sunrise is 06:28-07:02, so the sun is already up before the gate opens, and the claim is false for most of fall. Reworded below. Also note: on Monday Oct 12, 2026, 8am-2pm, a ticketed Carnival fete (Stink and Dutty) takes over the park, so skip that morning. The park was also closed Jan 26-Feb 12, 2026 for events, which shows event closures happen.",
+  "evidence": [
+   "https://www.virginiakeybeachpark.net/",
+   "https://virginiakeybeachpark.net/newsletter/january-2026/",
+   "https://virginiakeybeachpark.net/events/",
+   "https://virginiakeybeachpark.net/events/park-closure-2/",
+   "https://www.miamiandbeaches.com/event/stink-and-dutty-miami-carnival/42234",
+   "https://wsvn.com/news/local/miami-dade/no-swim-advisory-issued-for-key-biscayne-venetian-islands-parts-of-south-beach-following-rainfall/",
+   "https://wsvn.com/news/local/no-swim-advisory-lifted-for-3-miami-dade-beaches/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.736387&lon=-80.156182"
+  ],
+  "fixes": {
+   "theMove": "Be at the gate when it opens at 7am and walk straight to the water. In October the sun rises over the Atlantic just after opening; from November it is already up, so you get the first quiet hour of light instead. Swim before the heat sets in."
+  },
+  "tasteFlag": ""
+ },
+ {
+  "id": "deering-estate-mangrove-morning",
+  "verdict": "fix",
+  "reason": "Hours, tours and address check out. The official plan-your-visit page says '10 AM - 5 PM (no admission after 4 PM)', open daily except Thanksgiving and Christmas. It lists the Guided Museum Tour daily at 11:30am and Nature Preserve Tours 'daily at 12:30 PM, October - May', both included with admission, and the Mangrove Boardwalk open 10-5. Address is 16701 SW 72 Ave, Palmetto Bay; Nominatim resolves lat/lng to that address; best 10:00 is inside the hours. Three fixes. (1) 'national landmark' is wrong. The estate is on the National Register of Historic Places (ref 86000325, 1986) and is not a designated National Historic Landmark. (2) No source confirms the boardwalk reaches the bay. Official and secondary sources only say it runs through the mangrove forest, so 'to the bay' is removed. (3) The Stone House, the main historic building, has been closed for renovation since April 28, 2025. The 11:30 tour still runs per the official page, but visitors should know. Wikipedia supports the hardwood hammock.",
+  "evidence": [
+   "https://deeringestate.org/visit/plan-your-visit/",
+   "https://en.wikipedia.org/wiki/Charles_Deering_Estate",
+   "https://wildsouthflorida.com/deering.estate.html",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.615703&lon=-80.306734"
+  ],
+  "fixes": {
+   "theMove": "Arrive at 10am and walk the mangrove boardwalk, then take the 11:30 museum tour (the Stone House is closed for restoration) and the 12:30 nature preserve tour (October to May). Both tours are included with admission. Last entry is 4pm.",
+   "why": "A historic bayfront estate on the National Register of Historic Places, with tropical hardwood hammock and mangroves. Old Miami, far from the crowds."
+  },
+  "tasteFlag": "A well-known, ticketed county attraction (secret 0). It is a solid local staple but not a non-obvious pick."
+ },
+ {
+  "id": "robert-is-here-fruit-stop",
+  "verdict": "keep",
+  "reason": "The live official site (fetched today, Oct 2, 2026) says 'Open everyday from 9am-6pm. We are closed Thanksgiving and Christmas Day', with the address 19200 SW 344th St, Homestead. That matches the windows, and best 10:00 is inside. The site advertises fresh-fruit shakes ('Hand-cut fruit, blended to perfection. Our shakes and smoothies are iconic') and in-season tropical fruit, which supports theMove. Nominatim puts lat/lng at 19200 SW 344th St. One real open question: Art of Eating (Feb 2024) says the owner 'now shuts down in September and October'. The current official site lists no seasonal closure, and search excerpts I did not open (a Facebook 'Happy October... open everyday' post, TripAdvisor and Yelp hours, Farm Hop pickup days Oct 1-4, 2026) suggest it is open now. The live primary source wins. The Instagram bio (search excerpt) says weekends open at 8am, and the 9am windows sit inside that.",
+  "evidence": [
+   "https://www.robertishere.com/",
+   "https://artofeating.substack.com/p/achingly-ripe-tropical-fruit-in-homestead",
+   "https://www.cbsnews.com/miami/news/homesteads-iconic-robert-is-here-fruit-stand-facing-existential-challenges",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.445869&lon=-80.502069"
+  ],
+  "tasteFlag": "Mainstream. It is the best-known roadside stop on the road to the Everglades and Keys, with TripAdvisor reviewers calling it a 'tourist magnet' and coverage from Food Network, NBC and Fox. Wanderlog ranks it #3 of things to do in Homestead. Worth doing, but it is not an insider pick."
+ },
+ {
+  "id": "barnacle-house-tour",
+  "verdict": "fix",
+  "reason": "Open and current: the official Florida State Parks pages (main page dated 2026-10-01) give Thursday to Monday, 9am to 5pm, closed Tuesday, Wednesday, Christmas and New Year's Day. That matches days [0,1,4,5,6], assuming 0 = Sunday, which is the only reading where 'closed Tue/Wed' works and is consistent across all three entries. House tours run at 10am, 11:30am, 1pm and 2:30pm, so best 10:00 is inside hours. The address 3485 Main Hwy is correct. Built in 1891 on Biscayne Bay is confirmed by thebarnacle.org. The lawn-to-bay view is confirmed by TCLF ('wide views of the bay across an expanse of lawn'). Two problems. (1) '$2 at the gate' merges two fees. $2 is day-use entry only: exact change in the honor box, at the Carriage House Gift Shop, or online. The official page says admission does not cover the house interior. The tour is a separate $3 ticket (ages 13+) from the gift shop, capped at 10 people. (2) The lat/lng is outside the park. It reverse-geocodes to 3498 Main Hwy, about 45m west of the park boundary on the Coconut Grove Playhouse side of the street. A point-in-polygon test against the OSM park outline says it is outside. The OSM 3485 address node (25.726466,-80.244197) is also just outside and reverse-geocodes to 3484. The corrected point 25.7263,-80.24395 is inside the park outline at the Main Hwy frontage (reverse: Commodore Trail). I added getIn from the official fee page: no vehicle entry, metered street parking.",
+  "evidence": [
+   "https://www.floridastateparks.org/parks-and-trails/barnacle-historic-state-park",
+   "https://www.floridastateparks.org/parks-and-trails/barnacle-historic-state-park/hours-fees",
+   "https://www.floridastateparks.org/parks-and-trails/barnacle-historic-state-park/experiences-amenities",
+   "https://coconutgrove.com/business/the-barnacle-historic-state-park/",
+   "https://www.thebarnacle.org/history",
+   "https://www.tclf.org/landscapes/barnacle-historic-state-park",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.726005&lon=-80.24455",
+   "https://nominatim.openstreetmap.org/search?format=json&q=The+Barnacle+Historic+State+Park&polygon_geojson=1",
+   "https://nominatim.openstreetmap.org/search?format=json&q=3485+Main+Highway,+Miami,+FL",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.72630&lon=-80.24395&zoom=17"
+  ],
+  "fixes": {
+   "lat": 25.7263,
+   "lng": -80.24395,
+   "theMove": "Pay the $2 entry (exact change in the honor box, or at the Carriage House gift shop), then buy a $3 ticket there for the 10am house tour. Tours cap at 10 people, so arrive a little before. Afterward, walk the lawn down to the bayfront. Closed Tuesday and Wednesday.",
+   "getIn": "Walk or bike in from Main Highway; no cars inside the park, so use the metered street parking nearby."
+  },
+  "tasteFlag": ""
+ },
+ {
+  "id": "maes-room-courtyard-martini",
+  "verdict": "fix",
+  "reason": "Open as of fall 2026: the official Instagram @maesinthegrove posted Sept 9, Sept 29 and Oct 1, 2026, and its bio reads 'Monday\u2013Saturday starting at 5PM'. The official site maesmiami.com gives Mon\u2013Wed 5PM\u20131AM, Thu\u2013Sat 5PM\u20132AM, Sunday closed, walk-ins only, happy hour Mon\u2013Sat 5\u20137PM with $9 cocktails. The data's 2:00/3:00 closing times come from the coconutgrove.com listing, which conflicts with the official site. I went with the official site. The address (3444 Main Hwy Ste 17) and coordinates (the OSM node at 3444 Main Hwy) are fine. Confirmed claims: 'courtyard behind Chug's Diner' (Miami New Times 2025; Herald article via AOL); seat-only with no standing room and martinis served frost-bitten from the freezer (Infatuation Best Bars, July 2026, and Infatuation review). Wrong claims: the food does not come from Chug's Diner. It comes from Chuggie's (Suite 15), ordered by scanning the QR code on the back of Mae's menu (IG post of Sept 29, 2026). 'The O.G.' is on Chuggie's menu. Chuggie's kitchen closes at 10pm Sun\u2013Wed and 11pm Thu\u2013Sat, so best 22:30 would leave no burger Mon\u2013Wed. I moved best to 18:30. That is inside happy hour, early enough to get a seat (Infatuation says get there early), and Chuggie's is open. I also added the kitchen cutoff to theMove. In why, 'you always get a seat' overstates it, since you may wait outside. I reworded it. Sources should add maesmiami.com, the Chuggie's menu and the Sept 29 IG post.",
+  "evidence": [
+   "https://coconutgrove.com/business/maes-room/",
+   "https://maesmiami.com/",
+   "https://maesmiami.com/experience/",
+   "https://www.instagram.com/maesinthegrove/",
+   "https://www.instagram.com/maesinthegrove/p/Dd4yEH3HxBX/",
+   "https://www.instagram.com/maesinthegrove/p/DdFGJeFDzb4/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.theinfatuation.com/miami/reviews/maes-room",
+   "https://www.miaminewtimes.com/food-drink/first-coconut-grove-speakeasy-opening-this-fall-40491437/",
+   "https://www.aol.com/articles/burgers-bbq-bar-corner-coconut-093000167.html",
+   "https://www.axios.com/local/miami/2025/10/01/coconut-grove-restaurants-opening",
+   "https://chuggiesmiami.com/",
+   "https://chuggiesmiami.com/menu/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.727493&lon=-80.243396"
+  ],
+  "fixes": {
+   "windows": [
+    {
+     "days": [
+      1,
+      2,
+      3
+     ],
+     "from": "17:00",
+     "to": "01:00"
+    },
+    {
+     "days": [
+      4,
+      5,
+      6
+     ],
+     "from": "17:00",
+     "to": "02:00"
+    }
+   ],
+   "best": "18:30",
+   "theMove": "Find the courtyard behind Chug's Diner. There's no standing room, so come early (happy hour is 5 to 7pm with $9 cocktails) or wait for a seat. Order a cold martini, then scan the QR code on the back of the menu to get Chuggie's O.G. burger sent over from next door. Chuggie's kitchen closes at 10pm Monday to Wednesday and 11pm Thursday to Saturday. Walk-ins only. Closed Sunday.",
+   "why": "A tiny cocktail den in a Grove courtyard where everyone inside has a seat and nobody steps on your shoes.",
+   "sources": [
+    "https://maesmiami.com/",
+    "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+    "https://www.miaminewtimes.com/food-drink/first-coconut-grove-speakeasy-opening-this-fall-40491437/",
+    "https://chuggiesmiami.com/menu/",
+    "https://www.instagram.com/maesinthegrove/p/Dd4yEH3HxBX/"
+   ]
+  },
+  "tasteFlag": "Not really secret. It is on The Infatuation's current Best Bars in Miami list (8.2) and has had Herald, Axios and New Times coverage since opening. It is still a neighborhood cocktail bar rather than a tourist spot, but secret:1 is generous."
+ },
+ {
+  "id": "katana-sushi-boats",
+  "verdict": "fix",
+  "reason": "Open: the official site (katanamiamibeach.com now redirects to katanajapaneserestaurant.com) gives 'Open Everyday 6PM - 12AM, last call 11:30PM' and an average wait of 45\u201360 minutes. The contact page says 'No reservations', about 30 seats, and parties of 5+ go to sister restaurant Shima. Windows and best 18:00 are correct. The address 920 71st St is right, and the coordinates match the OSM 'Katana' node exactly, placed on the Isle of Normandy, which confirms 'Normandy Isle'. Three claims are stale, coming from a 2022 Infatuation review. (1) The take-a-ticket, listen-for-your-number system: Miami New Times (2026) says you put your name down, leave your phone number, and get a call, with about five minutes to claim the seat before it goes to the next person. (2) 'Arrive right at 6pm': New Times advises arriving 30 minutes before opening to make the first seating. Best stays 18:00 because it must sit inside the open hours. (3) 'Plates start at $1.50': New Times 2026 says dishes start around $2.90 (tamago or shrimp) and go up to about $12 (uni), priced by plate color. Also, the spots-of-summer-miami source covers Katana Coral Way, a different location, so I replaced it.",
+  "evidence": [
+   "https://www.katanajapaneserestaurant.com/",
+   "https://www.katanamiamibeach.com/contact",
+   "https://www.theinfatuation.com/miami/reviews/katana",
+   "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
+   "https://www.miaminewtimes.com/food-drink/this-33-year-old-miami-sushi-spot-still-has-a-two-hour-wait-40546621",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.85548&lon=-80.128284",
+   "https://nominatim.openstreetmap.org/search?format=json&q=Katana,+Miami+Beach"
+  ],
+  "fixes": {
+   "theMove": "Get there around 5:30pm, before the 6pm opening, and put your name and phone number on the list. When they call, you have about five minutes to claim your seat or it goes to the next person. Then pull plates off the little boats; price goes by plate color, from about $2.90 (tamago, shrimp) up to about $12 (uni).",
+   "sources": [
+    "https://www.katanajapaneserestaurant.com/",
+    "https://www.katanamiamibeach.com/contact",
+    "https://www.miaminewtimes.com/food-drink/this-33-year-old-miami-sushi-spot-still-has-a-two-hour-wait-40546621",
+    "https://www.theinfatuation.com/miami/reviews/katana"
+   ]
+  },
+  "tasteFlag": "An institution, not a secret. New Times (2026) says practically everyone knows about it and the wait can hit two hours, and The Infatuation calls it everyone's favorite sushi-boat spot (there is now a second location on Coral Way). It is a genuine locals' place and not touristy, but secret:1 overstates it."
+ }
+]

@@ -1,0 +1,874 @@
+[
+ {
+  "id": "andy-stott-carrier-the-ground-2026-10-02",
+  "title": "Andy Stott & Carrier",
+  "date": "2026-10-02",
+  "venue": "The Ground (Club Space)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "price": "from $14.99",
+  "url": "https://dice.fm/venue/the-ground-miami-qkma",
+  "why": "Modern Love's dub-techno heavyweight in Space's small downstairs room. Heavy bass, low ceilings, no fluff.",
+  "energy": 4,
+  "sources": [
+   "https://dice.fm/venue/the-ground-miami-qkma",
+   "https://dice.fm/event/6dgdq3-andy-stott-carrier-2nd-oct-the-ground-miami-miami-tickets",
+   "https://ra.co/events/2522083",
+   "https://dice.fm/promoters/club-space-7m3p",
+   "https://www.miamilivingmagazine.com/post/upcoming-miami-concerts-live-performances-september-28-october-5-2026"
+  ]
+ },
+ {
+  "id": "thundercat-miami-beach-bandshell-2026-10-02",
+  "title": "Thundercat",
+  "date": "2026-10-02",
+  "time": "20:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/thundercat/",
+  "why": "Bass wizard Thundercat under the stars at the open-air North Beach shell. Jazz-funk, zero arena energy.",
+  "energy": 3,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/thundercat/"
+  ]
+ },
+ {
+  "id": "ame-hardt-antoine-maceo-plex-club-space-2026-10-03",
+  "title": "Âme (DJ), Hardt Antoine & Maceo Plex",
+  "date": "2026-10-03",
+  "venue": "Club Space (Terrace)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "url": "https://www.clubspace.com/shows",
+  "why": "Three techno lifers on the Terrace. Space rules apply: show up late, stay for the sunrise.",
+  "energy": 5,
+  "sources": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/me-dj-hardt-antoine-maceo-plex-3rd-oct-club-space-miami-miami-tickets",
+   "https://dice.fm/bundles/october-2026-at-club-space-27xp"
+  ]
+ },
+ {
+  "id": "black-country-new-road-bandshell-2026-10-09",
+  "title": "Black Country, New Road",
+  "date": "2026-10-09",
+  "time": "20:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/black-country-new-road/",
+  "why": "UK art-rock collective with violins and sax. A rare Miami stop for a band this left-field.",
+  "energy": 3,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/black-country-new-road/"
+  ]
+ },
+ {
+  "id": "igor-marijuan-do-not-sit-2026-10-10",
+  "title": "Igor Marijuan [All Day I Dream]",
+  "date": "2026-10-10",
+  "time": "22:00",
+  "venue": "Do Not Sit On The Furniture",
+  "address": "423 16th St, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.789274,
+  "lng": -80.132287,
+  "category": "club",
+  "price": "from $24.25",
+  "url": "https://donotsitonthefurniture.com/",
+  "why": "Melodic house in a tiny room with no VIP. The anti-South Beach South Beach night.",
+  "energy": 4,
+  "sources": [
+   "https://donotsitonthefurniture.com/",
+   "https://www.timeout.com/miami/nightlife/do-not-sit-on-the-furniture",
+   "https://dice.fm/event/v3x2xd-igor-marijuan-all-day-i-dream-10th-oct-do-not-sit-on-the-furniture-miami-beach-tickets",
+   "https://ra.co/events/2515749",
+   "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5"
+  ]
+ },
+ {
+  "id": "miami-beach-salsa-fest-2026-10-11",
+  "title": "Miami Beach Salsa Fest",
+  "date": "2026-10-11",
+  "time": "17:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "culture",
+  "price": "free (RSVP)",
+  "url": "https://miamibeachbandshell.com/event/miami-beach-salsa-fest/",
+  "why": "Free Sunday salsa by the ocean. Bring dance shoes or just watch the regulars show off.",
+  "energy": 4,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/miami-beach-salsa-fest/"
+  ]
+ },
+ {
+  "id": "iii-points-2026",
+  "title": "III Points 2026",
+  "date": "2026-10-16",
+  "endDate": "2026-10-17",
+  "venue": "Mana Wynwood",
+  "address": "2217 NW 5th Ave, Miami, FL 33127",
+  "hood": "Wynwood",
+  "lat": 25.79808,
+  "lng": -80.201582,
+  "category": "festival",
+  "url": "https://iiipoints.com/",
+  "why": "Miami's own music-and-art festival: 13 stages across five Wynwood blocks, heavy on electronic and left-field acts.",
+  "energy": 5,
+  "sources": [
+   "https://iiipoints.com/",
+   "https://www.worthavenueyachts.com/event/miami-art-week-2026/",
+   "https://www.iiipoints.com/guide/",
+   "https://www.iiipoints.com/travel"
+  ]
+ },
+ {
+  "id": "four-tet-floating-points-daphni-club-space-2026-10-17",
+  "title": "Satellite: Disco Lines, Four Tet b2b Floating Points b2b Daphni + more",
+  "date": "2026-10-17",
+  "venue": "Club Space (Terrace)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "url": "https://www.clubspace.com/shows",
+  "why": "III Points satellite night with a dream three-way b2b on the Terrace.",
+  "energy": 5,
+  "sources": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/clubshows",
+   "https://dice.fm/bundles/october-2026-at-club-space-27xp"
+  ]
+ },
+ {
+  "id": "john-scofield-electrospective-bandshell-2026-10-24",
+  "title": "John Scofield's \"Electrospective\"",
+  "date": "2026-10-24",
+  "time": "20:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/john-scofields-electrospective/",
+  "why": "Jazz guitar legend plugs in for an electric career retrospective, outdoors by the beach.",
+  "energy": 2,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/john-scofields-electrospective/"
+  ]
+ },
+ {
+  "id": "south-beach-seafood-festival-seafood-slam-2026-10-24",
+  "title": "South Beach Seafood Festival: Seafood Slam",
+  "date": "2026-10-24",
+  "time": "13:00",
+  "venue": "Lummus Park",
+  "address": "Lummus Park, Ocean Drive, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.780613,
+  "lng": -80.129893,
+  "category": "food",
+  "price": "from $160",
+  "url": "https://sobeseafoodfest.com/",
+  "why": "All-you-can-sample seafood from 40+ local spots on the sand, timed to stone crab season.",
+  "energy": 3,
+  "sources": [
+   "https://sobeseafoodfest.com/",
+   "https://hoodline.com/2026/09/what-to-know-about-the-2026-south-beach-seafood-festival/"
+  ]
+ },
+ {
+  "id": "festival-de-bomba-y-plena-bandshell-2026-10-25",
+  "title": "3rd Festival de Bomba y Plena",
+  "date": "2026-10-25",
+  "time": "17:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "culture",
+  "price": "free (RSVP)",
+  "url": "https://miamibeachbandshell.com/event/3rd-festival-de-bomba-y-plena/",
+  "why": "Free Puerto Rican drum-and-dance traditions live. Community energy you won't find at a club.",
+  "energy": 4,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/3rd-festival-de-bomba-y-plena/"
+  ]
+ },
+ {
+  "id": "bad-gyal-fillmore-2026-10-28",
+  "title": "Bad Gyal: Más Cara World Tour",
+  "date": "2026-10-28",
+  "venue": "The Fillmore Miami Beach",
+  "address": "1700 Washington Ave, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.79293,
+  "lng": -80.133107,
+  "category": "concert",
+  "url": "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events",
+  "why": "Catalan dancehall-reggaeton star in a 2,700-cap theater. Perreo with good sightlines.",
+  "energy": 4,
+  "sources": [
+   "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events",
+   "https://www.songkick.com/venues/244628-fillmore-miami-beach-at-jackie-gleason-theater",
+   "https://www.livenation.com/event/vvG1VZ_amhljrd/bad-gyal-mas-cara-world-tour-2026",
+   "https://www.fillmoremb.com/",
+   "https://www.ticketmaster.com/bad-gyal-mas-cara-world-tour-miami-beach-florida-10-28-2026/event/0D00649B9BADC783"
+  ]
+ },
+ {
+  "id": "viernes-culturales-2026-10-30",
+  "title": "Viernes Culturales",
+  "date": "2026-10-30",
+  "venue": "Calle Ocho (SW 8th St, 8th to 27th Ave)",
+  "address": "1637 SW 8th St, Miami, FL 33135",
+  "hood": "Little Havana",
+  "lat": 25.765906,
+  "lng": -80.221637,
+  "category": "culture",
+  "price": "free",
+  "url": "https://www.viernesculturales.org/",
+  "why": "Little Havana's last-Friday street party: galleries, dominoes, live music and cafecito on Calle Ocho.",
+  "energy": 3,
+  "sources": [
+   "https://www.viernesculturales.org/"
+  ]
+ },
+ {
+  "id": "halloweek-bedouin-troxler-calderone-club-space-2026-10-31",
+  "title": "Halloweek: Bedouin + Seth Troxler b2b Victor Calderone + Jamback b2b Toman",
+  "date": "2026-10-31",
+  "venue": "Club Space (Terrace)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "url": "https://www.clubspace.com/shows",
+  "why": "Halloween night on the Terrace. Costumes mandatory in spirit, sunrise guaranteed.",
+  "energy": 5,
+  "sources": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/halloweek-bedouin-seth-troxler-b2b-victor-calderone-jamback-b2b-toman-31st-oct-club-space-miami-miami-tickets",
+   "https://www.clubspace.com/shows/halloweek-halloween-night-31st-oct-club-space-miami-miami-tickets",
+   "https://dice.fm/event/bbglrx-halloweek-bedouin-seth-troxler-b2b-victor-calderone-jamback-b2b-toman-31st-oct-club-space-miami-miami-tickets"
+  ]
+ },
+ {
+  "id": "rocky-horror-day-of-the-dead-bandshell-2026-11-01",
+  "title": "The Rocky Horror Picture Show & Day of the Dead",
+  "date": "2026-11-01",
+  "time": "19:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "film",
+  "url": "https://miamibeachbandshell.com/event/the-rocky-horror-picture-show-day-of-the-dead/",
+  "why": "Cult-movie singalong meets Día de Muertos under the open sky. Dress up, throw rice.",
+  "energy": 3,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/the-rocky-horror-picture-show-day-of-the-dead/"
+  ]
+ },
+ {
+  "id": "808-life-dj-assault-dj-godfather-the-ground-2026-11-07",
+  "title": "808 Life: DJ Assault + DJ Godfather",
+  "date": "2026-11-07",
+  "venue": "The Ground (Club Space)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "price": "from $10",
+  "url": "https://dice.fm/venue/the-ground-miami-qkma",
+  "why": "Detroit ghettotech originators in a tiny room. Fast, filthy and cheap.",
+  "energy": 5,
+  "sources": [
+   "https://dice.fm/venue/the-ground-miami-qkma",
+   "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets",
+   "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-6th-nov-the-ground-miami-miami-tickets",
+   "https://dice.fm/event/pyxgxy-808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets"
+  ]
+ },
+ {
+  "id": "roda-de-samba-soul-samba-bandshell-2026-11-07",
+  "title": "Roda de Samba with Soul Samba",
+  "date": "2026-11-07",
+  "time": "20:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/roda-de-samba-with-soul-samba/",
+  "why": "Brazilian samba circle by the beach. Loose, joyful, impossible to stand still.",
+  "energy": 4,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/roda-de-samba-with-soul-samba/"
+  ]
+ },
+ {
+  "id": "carl-cox-carlita-club-space-2026-11-14",
+  "title": "Carl Cox + Carlita",
+  "date": "2026-11-14",
+  "venue": "Club Space (Terrace)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "url": "https://www.clubspace.com/shows",
+  "why": "The godfather of the long set on Miami's best terrace.",
+  "energy": 5,
+  "sources": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/carl-cox-carlita-14th-nov-club-space-miami-miami-tickets"
+  ]
+ },
+ {
+  "id": "miami-book-fair-2026",
+  "title": "Miami Book Fair 2026",
+  "date": "2026-11-15",
+  "endDate": "2026-11-22",
+  "venue": "Miami Dade College, Wolfson Campus",
+  "address": "300 NE 2nd Ave, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.77843,
+  "lng": -80.190581,
+  "category": "culture",
+  "url": "https://miamibookfair.com/",
+  "why": "A week of author talks and readings downtown, building to the three-day street fair (free on Friday, ticketed on the weekend).",
+  "energy": 2,
+  "sources": [
+   "https://miamibookfair.com/",
+   "https://miamibookfair.com/miami-book-fair/street-fair/",
+   "https://miamibookfair.com/miami-book-fair/exhibitors/become-an-exhibitor/"
+  ]
+ },
+ {
+  "id": "jack-white-fillmore-2026-11-17",
+  "title": "Jack White Live 2026",
+  "date": "2026-11-17",
+  "endDate": "2026-11-18",
+  "venue": "The Fillmore Miami Beach",
+  "address": "1700 Washington Ave, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.79293,
+  "lng": -80.133107,
+  "category": "concert",
+  "url": "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events",
+  "why": "Two nights of raw garage-blues in a 2,700-seat theater, not an arena.",
+  "energy": 4,
+  "sources": [
+   "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events",
+   "https://www.songkick.com/venues/244628-fillmore-miami-beach-at-jackie-gleason-theater"
+  ]
+ },
+ {
+  "id": "chris-lorenzo-club-space-2026-11-20",
+  "title": "Chris Lorenzo",
+  "date": "2026-11-20",
+  "venue": "Club Space (Terrace)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "url": "https://www.clubspace.com/shows",
+  "why": "Bass-house Friday on the Terrace, same night as Summit's first Kaseya show.",
+  "energy": 5,
+  "sources": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/chris-lorenzo-20th-nov-club-space-miami-miami-tickets",
+   "https://www.kaseyacenter.com/events/detail/john-summit"
+  ]
+ },
+ {
+  "id": "john-summit-ctrl-escape-kaseya-2026-11-20",
+  "title": "John Summit: CTRL Escape Tour (night 1)",
+  "date": "2026-11-20",
+  "time": "19:00",
+  "venue": "Kaseya Center",
+  "address": "601 Biscayne Blvd, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.78136,
+  "lng": -80.187944,
+  "category": "concert",
+  "url": "https://www.kaseyacenter.com/events/detail/john-summit",
+  "why": "Chicago house star's arena tour, night one. Doors 7pm, show 8pm; 18+ recommended.",
+  "energy": 5,
+  "sources": [
+   "https://www.kaseyacenter.com/events/detail/john-summit",
+   "https://www.miamiandbeaches.com/event/john-summit-ctrl-escape-tour/40578",
+   "https://songkick.com/concerts/42975394-john-summit-at-kaseya-center"
+  ]
+ },
+ {
+  "id": "madre-cumbia-bandshell-2026-11-20",
+  "title": "Madre Cumbia",
+  "date": "2026-11-20",
+  "time": "20:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/madre-cumbia/",
+  "why": "Cumbia night under the shell. A Friday that's more dance floor than club line.",
+  "energy": 4,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/madre-cumbia/"
+  ]
+ },
+ {
+  "id": "miami-book-fair-street-fair-2026",
+  "title": "Miami Book Fair Street Fair",
+  "date": "2026-11-20",
+  "endDate": "2026-11-22",
+  "venue": "Miami Dade College, Wolfson Campus",
+  "address": "300 NE 2nd Ave, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.77843,
+  "lng": -80.190581,
+  "category": "festival",
+  "price": "free Fri; $12 Sat-Sun (teens $5, 12 and under free)",
+  "url": "https://miamibookfair.com/",
+  "why": "Three-day street fair of indie presses, author stages, food and people-watching downtown. Free on Friday, $12 on the weekend.",
+  "energy": 3,
+  "sources": [
+   "https://miamibookfair.com/",
+   "https://miamibookfair.com/miami-book-fair/street-fair/",
+   "https://miamibookfair.com/miami-book-fair/exhibitors/become-an-exhibitor/"
+  ],
+  "time": "10:00"
+ },
+ {
+  "id": "buena-vista-orchestra-bandshell-2026-11-21",
+  "title": "Buena Vista Orchestra",
+  "date": "2026-11-21",
+  "time": "20:00",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/buena-vista-orchestra/",
+  "why": "Classic Cuban son played outdoors. A gentle Saturday before (or instead of) the club.",
+  "energy": 2,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/buena-vista-orchestra/"
+  ]
+ },
+ {
+  "id": "fernando-olaya-do-not-sit-2026-11-21",
+  "title": "Fernando Olaya [The Soundgarden / Balance Music]",
+  "date": "2026-11-21",
+  "time": "22:00",
+  "venue": "Do Not Sit On The Furniture",
+  "address": "423 16th St, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.789274,
+  "lng": -80.132287,
+  "category": "club",
+  "price": "from $24.25",
+  "url": "https://donotsitonthefurniture.com/",
+  "why": "Deep, hypnotic house in Miami Beach's most intimate booth. Small room, big sound system.",
+  "energy": 4,
+  "sources": [
+   "https://donotsitonthefurniture.com/",
+   "https://www.timeout.com/miami/nightlife/do-not-sit-on-the-furniture",
+   "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5 (seen via search excerpt; direct fetch 403)",
+   "https://19hz.info/eventlisting_Miami.php",
+   "https://www.jambase.com/venue/do-not-sit-on-the-furniture (search excerpt)",
+   "https://www.lennoxmiamibeach.com/events/miami-beach/fernando-olaya-the-soundgarden-balance-music-13015854 (search excerpt)"
+  ]
+ },
+ {
+  "id": "john-summit-ctrl-escape-kaseya-2026-11-21",
+  "title": "John Summit: CTRL Escape Tour (night 2)",
+  "date": "2026-11-21",
+  "time": "19:00",
+  "venue": "Kaseya Center",
+  "address": "601 Biscayne Blvd, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.78136,
+  "lng": -80.187944,
+  "category": "concert",
+  "url": "https://www.kaseyacenter.com/events/detail/john-summit",
+  "why": "Night two of the CTRL Escape run at Kaseya. Doors 7pm, show 8pm.",
+  "energy": 5,
+  "sources": [
+   "https://www.kaseyacenter.com/events/detail/john-summit",
+   "https://www.miamiandbeaches.com/event/john-summit-ctrl-escape-tour/40578",
+   "https://19hz.info/eventlisting_Miami.php"
+  ]
+ },
+ {
+  "id": "headache-the-ground-2026-11-22",
+  "title": "Headache",
+  "date": "2026-11-22",
+  "venue": "The Ground (Club Space)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "price": "$20",
+  "url": "https://dice.fm/venue/the-ground-miami-qkma",
+  "why": "Sunday-night curveball in Space's live room to close out Book Fair weekend.",
+  "energy": 3,
+  "sources": [
+   "https://dice.fm/venue/the-ground-miami-qkma",
+   "https://dice.fm/venue/the-ground-miami-qkma (seen via search excerpt; direct fetch 403)",
+   "https://www.songkick.com/artists/516097-headache/calendar",
+   "https://concerts50.com/artists/headache-tour-dates/usa"
+  ]
+ },
+ {
+  "id": "viernes-culturales-2026-11-27",
+  "title": "Viernes Culturales",
+  "date": "2026-11-27",
+  "venue": "Calle Ocho (SW 8th St, 8th to 27th Ave)",
+  "address": "1637 SW 8th St, Miami, FL 33135",
+  "hood": "Little Havana",
+  "lat": 25.765906,
+  "lng": -80.221637,
+  "category": "culture",
+  "price": "free",
+  "url": "https://www.viernesculturales.org/",
+  "why": "Walk off Thanksgiving on Calle Ocho: open galleries, music and street life on the last Friday.",
+  "energy": 3,
+  "sources": [
+   "https://www.viernesculturales.org/"
+  ]
+ },
+ {
+  "id": "nada-miami-2026",
+  "title": "NADA Miami 2026",
+  "date": "2026-12-01",
+  "endDate": "2026-12-05",
+  "venue": "Ice Palace Studios",
+  "address": "1400 N Miami Ave, Miami, FL 33136",
+  "hood": "Overtown",
+  "lat": 25.789187,
+  "lng": -80.194849,
+  "category": "art",
+  "url": "https://www.newartdealers.org/",
+  "why": "The Art Week fair where emerging galleries take risks. Easier to love than Basel, cheaper to see.",
+  "energy": 3,
+  "sources": [
+   "https://www.newartdealers.org/",
+   "https://www.miamiandbeaches.com/event/nada-miami/10900"
+  ]
+ },
+ {
+  "id": "design-miami-2026",
+  "title": "Design Miami 2026",
+  "date": "2026-12-02",
+  "endDate": "2026-12-06",
+  "venue": "Miami Beach Convention Center",
+  "address": "1901 Convention Center Dr, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.795526,
+  "lng": -80.133515,
+  "category": "art",
+  "url": "https://www.designmiami.com/",
+  "why": "Collectible furniture and lighting fair next to Basel. Wildest chairs you'll ever be told not to sit in.",
+  "energy": 2,
+  "sources": [
+   "https://www.designmiami.com/",
+   "https://www.miamibeachconvention.com/events/design-miami",
+   "https://designmiami.com/fair/miami-2026"
+  ]
+ },
+ {
+  "id": "untitled-art-miami-beach-2026",
+  "title": "Untitled Art, Miami Beach 2026",
+  "date": "2026-12-02",
+  "endDate": "2026-12-06",
+  "venue": "Untitled Art pavilion on the beach",
+  "address": "Ocean Dr & 12th St, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.782867,
+  "lng": -80.130423,
+  "category": "art",
+  "url": "https://untitledartfairs.com/",
+  "why": "Art fair in a tent on the sand at 12th Street. Sharp curation and the best light of Art Week.",
+  "energy": 3,
+  "sources": [
+   "https://kavigupta.com/art-fairs/222-untitled-art-miami-beach-2026/",
+   "https://artefuse.com/untitled-miami-beach-announces-its-exhibitors-for-2026/",
+   "https://www.worthavenueyachts.com/event/miami-art-week-2026/",
+   "https://untitledartfairs.com/news/post/untitled-art-announces-2026-miami-beach-guest-curators/",
+   "https://galerieforsblom.com/news/18-galerie-forsblom-at-untitled-art-miami-beach-2026/"
+  ]
+ },
+ {
+  "id": "pinta-miami-2026",
+  "title": "Pinta Miami 2026",
+  "date": "2026-12-03",
+  "endDate": "2026-12-06",
+  "venue": "The Hangar",
+  "address": "3385 Pan American Dr, Miami, FL 33133",
+  "hood": "Coconut Grove",
+  "lat": 25.728464,
+  "lng": -80.23392,
+  "category": "art",
+  "url": "https://www.miamiandbeaches.com/event/pinta-miami/10910",
+  "why": "Latin American art fair's 20th edition in a Grove waterfront hangar. Away from the Beach crush.",
+  "energy": 2,
+  "sources": [
+   "https://www.miamiandbeaches.com/event/pinta-miami/10910",
+   "https://www.pinta.art/Miami/"
+  ]
+ },
+ {
+  "id": "art-basel-miami-beach-2026",
+  "title": "Art Basel Miami Beach 2026",
+  "date": "2026-12-04",
+  "endDate": "2026-12-06",
+  "venue": "Miami Beach Convention Center",
+  "address": "1901 Convention Center Dr, Miami Beach, FL 33139",
+  "hood": "Miami Beach",
+  "lat": 25.795526,
+  "lng": -80.133515,
+  "category": "art",
+  "url": "https://www.artbasel.com/miami-beach",
+  "why": "The main event of Art Week. Public days only; go early Friday before the crowds peak.",
+  "energy": 3,
+  "sources": [
+   "https://www.artbasel.com/miami-beach",
+   "https://www.artbasel.com/miami-beach/at-the-show",
+   "https://www.miamibeachconvention.com/events/art-basel-miami-beach"
+  ]
+ },
+ {
+  "id": "music-on-space-basel-2026-12-04",
+  "title": "Music On (Space Basel)",
+  "date": "2026-12-04",
+  "venue": "Club Space (Terrace)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "club",
+  "url": "https://www.clubspace.com/shows/-music-on-space-basel-4th-dec-club-space-miami-miami-tickets",
+  "why": "The Music On party takes the Terrace on Basel Friday. The art crowd's real afterparty.",
+  "energy": 5,
+  "sources": [
+   "https://www.clubspace.com/shows",
+   "https://www.clubspace.com/shows/-music-on-space-basel-4th-dec-club-space-miami-miami-tickets"
+  ],
+  "time": "23:00",
+  "price": "from $40"
+ },
+ {
+  "id": "rawayana-kaseya-center-2026-12-05",
+  "title": "Rawayana: ¿Dónde Es El After? World Tour",
+  "date": "2026-12-05",
+  "endDate": "2026-12-06",
+  "venue": "Kaseya Center",
+  "address": "601 Biscayne Blvd, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.78136,
+  "lng": -80.187944,
+  "category": "concert",
+  "url": "https://www.kaseyacenter.com/events",
+  "why": "Venezuelan funk-pop band booked for two arena nights during Art Week weekend.",
+  "energy": 4,
+  "sources": [
+   "https://www.kaseyacenter.com/events",
+   "https://www.kaseyacenter.com/news/detail/second-show-added-to-rawayana-donde-es-el-after-tour-coming-to-kaseya-center"
+  ]
+ },
+ {
+  "id": "gente-de-zona-kaseya-center-2026-12-11",
+  "title": "Gente de Zona: Isla Viva Tour",
+  "date": "2026-12-11",
+  "venue": "Kaseya Center",
+  "address": "601 Biscayne Blvd, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.78136,
+  "lng": -80.187944,
+  "category": "concert",
+  "url": "https://www.kaseyacenter.com/events",
+  "why": "Cuban reggaeton-son hitmakers in the downtown arena. A very Miami Friday.",
+  "energy": 4,
+  "sources": [
+   "https://www.kaseyacenter.com/events",
+   "https://www.kaseyacenter.com/news/detail/gente-de-zona-announce-isla-viva-tour-coming-to-kaseya-center"
+  ]
+ },
+ {
+  "id": "dolphins-vs-bears-2026-12-13",
+  "title": "Miami Dolphins vs Chicago Bears",
+  "date": "2026-12-13",
+  "time": "13:00",
+  "venue": "Hard Rock Stadium",
+  "address": "347 Don Shula Dr, Miami Gardens, FL 33056",
+  "hood": "Miami Gardens",
+  "lat": 25.957903,
+  "lng": -80.23885,
+  "category": "sports",
+  "url": "https://www.miamidolphins.com/schedule/",
+  "why": "December football in shorts. Cold-weather Bears fans melting in the stands is half the show.",
+  "energy": 4,
+  "sources": [
+   "https://www.miamidolphins.com/schedule/",
+   "https://www.espn.com/nfl/team/schedule/_/name/mia",
+   "https://www.hardrockstadium.com/",
+   "https://www.hardrockstadium.com/events/"
+  ]
+ },
+ {
+  "id": "miami-worldcenter-night-market-2026-12-18",
+  "title": "Night Market at Miami Worldcenter",
+  "date": "2026-12-18",
+  "time": "17:00",
+  "venue": "The Paseo at Miami Worldcenter",
+  "address": "850 NE 2nd Ave, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.782271,
+  "lng": -80.191033,
+  "category": "market",
+  "price": "free",
+  "url": "https://miamiworldcenter.com/events/night-market/",
+  "why": "Weekly Friday maker market by the old Pan Am globe. Free, easy pre-holiday browse with bites.",
+  "energy": 2,
+  "sources": [
+   "https://miamiworldcenter.com/events/night-market/",
+   "https://www.eventbrite.com/e/1997909900294"
+  ]
+ },
+ {
+  "id": "matisyahu-bandshell-2026-12-19",
+  "title": "Matisyahu",
+  "date": "2026-12-19",
+  "time": "19:30",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/matisyahu/",
+  "why": "Reggae-rock on the beach on a warm December night. Easy vibes, open sky.",
+  "energy": 3,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/matisyahu/"
+  ]
+ },
+ {
+  "id": "ryan-castro-kaseya-center-2026-12-19",
+  "title": "Ryan Castro: Los Chorros Con Richy Tour",
+  "date": "2026-12-19",
+  "venue": "Kaseya Center",
+  "address": "601 Biscayne Blvd, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.78136,
+  "lng": -80.187944,
+  "category": "concert",
+  "url": "https://www.kaseyacenter.com/events",
+  "why": "Medellín reggaeton star's arena show. A pre-holiday perreo for the whole city.",
+  "energy": 5,
+  "sources": [
+   "https://www.kaseyacenter.com/events",
+   "https://www.kaseyacenter.com/news/detail/ryan-castro-announces-his-los-chorros-con-richy-tour-coming-to-kaseya-center"
+  ]
+ },
+ {
+  "id": "dolphins-vs-chargers-2026-12-27",
+  "title": "Miami Dolphins vs Los Angeles Chargers",
+  "date": "2026-12-27",
+  "time": "13:00",
+  "venue": "Hard Rock Stadium",
+  "address": "347 Don Shula Dr, Miami Gardens, FL 33056",
+  "hood": "Miami Gardens",
+  "lat": 25.957903,
+  "lng": -80.23885,
+  "category": "sports",
+  "url": "https://www.miamidolphins.com/schedule/",
+  "why": "Late-season home game between Christmas and New Year's. Tailgate starts early.",
+  "energy": 4,
+  "sources": [
+   "https://www.miamidolphins.com/schedule/",
+   "https://www.espn.com/nfl/team/schedule/_/name/mia",
+   "https://www.hardrockstadium.com/",
+   "https://www.hardrockstadium.com/events/"
+  ]
+ },
+ {
+  "id": "heat-vs-hornets-2026-12-27",
+  "title": "Charlotte Hornets vs Miami HEAT",
+  "date": "2026-12-27",
+  "venue": "Kaseya Center",
+  "address": "601 Biscayne Blvd, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.78136,
+  "lng": -80.187944,
+  "category": "sports",
+  "url": "https://www.kaseyacenter.com/events",
+  "why": "Post-Christmas HEAT game downtown. Easy plan for visiting family.",
+  "energy": 3,
+  "sources": [
+   "https://www.kaseyacenter.com/events",
+   "https://www.espn.com/nba/team/schedule/_/name/mia/seasontype/2",
+   "https://www.landofbasketball.com/results_by_team/2026_2027_heat.htm"
+  ]
+ },
+ {
+  "id": "lettuce-nye-bandshell-2026-12-31",
+  "title": "Lettuce (New Year's Eve)",
+  "date": "2026-12-31",
+  "time": "20:30",
+  "venue": "Miami Beach Bandshell",
+  "address": "7275 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.858123,
+  "lng": -80.120481,
+  "category": "concert",
+  "url": "https://miamibeachbandshell.com/event/lettuce/",
+  "why": "Funk heavyweights ring in 2027 outdoors by the ocean. NYE without bottle service.",
+  "energy": 4,
+  "sources": [
+   "https://miamibeachbandshell.com/events/",
+   "https://miamibeachbandshell.com/event/lettuce/"
+  ]
+ }
+]

@@ -1,0 +1,746 @@
+<title>psst. Miami Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,300..900&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a long text from the friend who knows. Sticky index on the left, one reading column, full-bleed moments for the live demos. */
+:root{
+  --bg:#F4F9F8;          /* salt: hard Miami daylight, faint bay bias */
+  --surface:#FFFFFF;
+  --ink:#151229;         /* after-hours ink */
+  --muted:#59617A;
+  --line:#D9E3E4;
+  --mango:#E2650A;       /* signal */
+  --hibiscus:#D81F5C;
+  --bay:#00857C;
+  --sun:#FFC53D;
+  --chip:#E8F3F1;
+  --display:"Anybody", "Arial Black", system-ui, sans-serif;
+  --body:"Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F0B21; --surface:#19142F; --ink:#F2EFFF; --muted:#A9A5C6; --line:#2C2650;
+    --mango:#FF9440; --hibiscus:#FF5A8F; --bay:#33D6C4; --sun:#FFD45C; --chip:#221C40;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F0B21; --surface:#19142F; --ink:#F2EFFF; --muted:#A9A5C6; --line:#2C2650;
+  --mango:#FF9440; --hibiscus:#FF5A8F; --bay:#33D6C4; --sun:#FFD45C; --chip:#221C40;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:20px;padding-block:0 80px;-webkit-font-smoothing:antialiased}
+a{color:var(--bay);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--mango);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:48px}
+@media (min-width:1000px){.wrap{grid-template-columns:190px minmax(0,1fr)}}
+nav.toc{display:none}
+@media (min-width:1000px){
+  nav.toc{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 28px);align-self:start;padding-top:36px;font-family:var(--mono);font-size:12.5px}
+  nav.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 0}
+  nav.toc a:hover{color:var(--ink)}
+}
+main{min-width:0;display:grid;gap:88px}
+section{display:grid;gap:22px;min-width:0}
+.prose{max-width:68ch}
+h1,h2,h3{font-family:var(--display);line-height:1.02;text-wrap:balance;margin:0}
+h2{font-size:clamp(34px,5.2vw,54px);font-weight:800;font-variation-settings:"wdth" 112;letter-spacing:-.01em}
+h3{font-size:21px;font-weight:750;font-variation-settings:"wdth" 100}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--hibiscus)}
+.lede{font-size:21px;line-height:1.5;color:var(--ink)}
+.muted{color:var(--muted)}
+.small{font-size:14.5px}
+.stack{display:grid;gap:14px}
+
+/* HERO */
+header.hero{max-width:1120px;margin:0 auto;padding-block:56px 32px;display:grid;gap:22px}
+.logo{display:flex;align-items:flex-end;gap:.02em;font-family:var(--display);font-weight:900;font-size:clamp(96px,22vw,232px);line-height:.8;letter-spacing:-.03em;font-variation-settings:"wdth" 100;color:var(--ink)}
+.logo .word{display:inline-block;animation:lean 2.4s cubic-bezier(.2,.8,.2,1) .3s both}
+.logo svg{width:.30em;height:.42em;flex:none;margin-bottom:.02em;margin-left:-.05em}
+@keyframes lean{0%{font-variation-settings:"wdth" 55}45%{font-variation-settings:"wdth" 150}100%{font-variation-settings:"wdth" 100}}
+.tag{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.6vw,38px);font-variation-settings:"wdth" 120;line-height:1.1}
+.livechip{display:inline-flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 16px;width:fit-content;max-width:100%}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--hibiscus);box-shadow:0 0 0 0 var(--hibiscus);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--hibiscus) 60%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+
+/* BET */
+.bet{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.bet div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:6px;align-content:start}
+.bet b{font-family:var(--display);font-size:20px;font-variation-settings:"wdth" 110;line-height:1.1}
+
+/* TABLES */
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:640px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td b{font-weight:650}
+.win td{background:color-mix(in srgb,var(--sun) 18%,transparent)}
+.score{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pips{display:inline-flex;gap:3px;vertical-align:middle}
+.pips i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.pips i.on{background:var(--mango)}
+.label{display:inline-block;font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.l-live{background:color-mix(in srgb,var(--bay) 18%,transparent);color:var(--bay)}
+.l-sched{background:color-mix(in srgb,var(--sun) 30%,transparent);color:var(--ink)}
+.l-hand{background:color-mix(in srgb,var(--hibiscus) 15%,transparent);color:var(--hibiscus)}
+
+/* CONCEPT CARDS */
+.concepts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.concept{border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:8px;align-content:start;background:var(--surface)}
+.concept .k{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.concept h3{font-size:22px}
+.concept.pick{border:2px solid var(--mango)}
+
+/* BRAND */
+.swatches{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.sw{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.sw .c{height:84px}
+.sw .t{padding:10px 12px;display:grid;gap:2px}
+.sw .t b{font-size:15px}
+.sw .t span{font-size:13px;color:var(--muted);line-height:1.35}
+.typespec{display:grid;gap:12px}
+.typespec > div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:6px}
+.spec-d{font-family:var(--display);font-size:clamp(36px,6vw,60px);font-weight:850;line-height:1;font-variation-settings:"wdth" 130}
+.spec-b{font-family:var(--body);font-size:20px}
+.spec-m{font-family:var(--mono);font-size:16px}
+.voice{display:grid;gap:10px}
+.bubble{background:var(--surface);border:1px solid var(--line);border-radius:20px 20px 20px 6px;padding:12px 16px;max-width:520px;font-size:16px}
+.bubble small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:2px}
+
+/* MOVE CARD */
+.movegrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:start}
+.move{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;display:grid;gap:12px}
+.move .top{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.move h3{font-size:26px;font-variation-settings:"wdth" 118}
+.move .meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14.5px}
+.move .meta span:nth-child(odd){font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:2px}
+.move .themove{border-left:3px solid var(--mango);padding-left:12px}
+.lean{position:relative;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.lean .secret{transition:filter .5s ease}
+.lean:not(.open) .secret{filter:blur(9px)}
+.lean .hint{position:absolute;inset:auto 16px 16px 16px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:999px;justify-content:center}
+.lean.open .hint{display:none}
+.lean .ring{width:18px;height:18px;border-radius:50%;background:conic-gradient(var(--sun) calc(var(--p,0)*1turn),transparent 0);border:2px solid var(--sun)}
+
+/* NIGHT MAP */
+.demo{background:#0B0820;border-radius:26px;overflow:hidden;display:grid;color:#F2EFFF}
+.demo canvas{width:100%;display:block;aspect-ratio:4/3;max-width:100%}
+@media (max-width:640px){.demo canvas{aspect-ratio:4/5}}
+.demo .ctrl{display:grid;gap:12px;padding:16px 18px 20px;background:rgba(10,8,30,.92)}
+.demo .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.demo button{font:600 14px var(--body);background:#FFC53D;color:#151229;border:0;border-radius:999px;padding:9px 16px;cursor:pointer}
+.demo input[type=range]{flex:1;min-width:180px;accent-color:#FFC53D}
+.demo .clock{font-family:var(--mono);font-size:22px;font-variant-numeric:tabular-nums;min-width:96px}
+.demo .read{font-size:15px;color:#D9D5F2}
+.demo .read b{color:#fff}
+
+/* ENERGY */
+.energy{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;overflow-x:auto}
+.energy svg{width:100%;min-width:640px;height:auto;display:block}
+.days{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.days div{border-top:2px solid var(--ink);padding-top:8px;font-size:14.5px}
+.days b{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+
+/* FLOW */
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.flow span{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:14.5px}
+.flow i{font-style:normal;color:var(--muted);font-family:var(--mono)}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.55;margin:0}
+.tabs{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.tabs div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:4px}
+.tabs b{font-family:var(--display);font-size:22px;font-variation-settings:"wdth" 120}
+ol.moments{margin:0;padding-left:22px;display:grid;gap:12px}
+ol.moments li::marker{font-family:var(--mono);color:var(--mango)}
+ul.clean{margin:0;padding-left:20px;display:grid;gap:8px}
+.timeline{display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.timeline div{position:relative;padding:0 0 18px 20px;display:grid;gap:2px}
+.timeline div::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--mango)}
+.timeline div.goal::before{background:var(--hibiscus);border-color:var(--hibiscus)}
+.timeline .when{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.decide{display:grid;gap:10px}
+.decide div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+footer{font-size:14px;color:var(--muted)}
+footer ol{padding-left:20px;display:grid;gap:4px}
+@media (prefers-reduced-motion:reduce){
+  .logo .word,.dot{animation:none}
+  .lean .secret{transition:none}
+}
+</style>
+
+<header class="hero">
+  <div class="logo" aria-label="psst. Miami">
+    <span class="word">psst</span>
+    <svg viewBox="0 0 60 84" aria-hidden="true">
+      <g fill="var(--bay)">
+        <path d="M30 4c3 7 3 14 0 22-3-8-3-15 0-22z"/>
+        <path d="M30 26c-6-6-13-9-21-9 5 5 12 8 21 9z"/>
+        <path d="M30 26c6-6 13-9 21-9-5 5-12 8-21 9z"/>
+        <path d="M30 26c-3-8-9-13-16-15 3 6 9 11 16 15z"/>
+        <path d="M30 26c3-8 9-13 16-15-3 6-9 11-16 15z"/>
+      </g>
+      <ellipse cx="30" cy="54" rx="19" ry="26" fill="var(--sun)"/>
+      <g stroke="var(--mango)" stroke-width="2" fill="none" opacity=".9">
+        <path d="M14 40l30 30M12 52l22 22M20 32l30 30M30 30l20 20"/>
+        <path d="M46 40L16 70M48 52L26 74M40 32L10 62M30 30L10 50"/>
+      </g>
+    </svg>
+  </div>
+  <p class="tag">The friend who knows Miami.</p>
+  <p class="lede prose">This is the playbook for a city guide people actually open twice: what it is, why it beats Google, how it looks and feels, how it gets its secrets, how it's built, and how it ships before your friend lands on Nov 20.</p>
+  <div class="livechip" id="livechip"><span class="dot" aria-hidden="true"></span><span id="mtime">Miami</span><span id="msun"></span><span id="mmode"></span></div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Sections">
+  <a href="#bet">The bet</a>
+  <a href="#why">Why us over Google</a>
+  <a href="#brainstorm">8 ideas, scored</a>
+  <a href="#pick">The pick</a>
+  <a href="#brand">Brand</a>
+  <a href="#product">Product</a>
+  <a href="#nightmap">Demo: night map</a>
+  <a href="#moves">The move</a>
+  <a href="#stay">Demo: her weekend</a>
+  <a href="#content">Getting the secrets</a>
+  <a href="#stack">Stack and why</a>
+  <a href="#growth">Why people come back</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#risks">Risks</a>
+  <a href="#decide">Your calls</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<main>
+
+<section id="bet">
+  <p class="eyebrow">The bet</p>
+  <h2>Sell moves, at the right moment.</h2>
+  <p class="prose">Every guide sells places. Places are a commodity: Google has all of them. What nobody gives you is the move: the right place, at the right hour, in today's weather, with exactly what to order or who to ask for, next to whatever is happening in the city that week. That's what a friend who lives here texts you. That's the product.</p>
+  <div class="bet">
+    <div><b>Right time</b><span class="muted small">Every recommendation knows the hour, the weather, sunset and what's on tonight.</span></div>
+    <div><b>The exact move</b><span class="muted small">What to order, where to sit, how to get in. Names alone are useless.</span></div>
+    <div><b>One city, deep</b><span class="muted small">Miami first, picked by locals with taste. Built so any city can follow.</span></div>
+    <div><b>Made to share</b><span class="muted small">Plans for a group, a link that works on any phone, no app to install.</span></div>
+  </div>
+</section>
+
+<section id="why">
+  <p class="eyebrow">Strategy</p>
+  <h2>Why anyone would use us over Google.</h2>
+  <p class="prose">I looked at who already does this. The category is real and crowded, so the edge has to be sharp. Here's what each player is good at and the gap we take.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Who</th><th>Good at</th><th>The gap we take</th></tr></thead>
+    <tbody>
+      <tr><td><b>Google Maps</b></td><td>Every place, hours, directions</td><td>Ranks by review volume, so the mainstream wins. No taste, no timing.</td></tr>
+      <tr><td><b>TikTok, Instagram</b></td><td>Discovery, vibes, what's new</td><td>Chaotic, unsearchable, and a viral spot is packed by the time you go. No plan.</td></tr>
+      <tr><td><b>The Infatuation, Eater</b></td><td>Restaurant editorial</td><td>Mostly food lists. They don't know there's a storm at 4 or a pop-up tonight.</td></tr>
+      <tr><td><b>Places (from Raya's team)</b></td><td>Curator-picked spots worldwide, beautiful app</td><td>Now an annual subscription and global. We go deep on one city, free, with events and timing built in.</td></tr>
+      <tr><td><b>The Secret App, Spotted by Locals</b></td><td>Insider tips from locals in many cities</td><td>Breadth over depth. We add the hour, the weather, the week's events and group plans.</td></tr>
+      <tr><td><b>Resident Advisor, Dice, Partiful, Posh</b></td><td>Tickets and invites</td><td>Each is a silo and only covers the party. Nobody plans the day around it.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose"><b>Why a website and not an app:</b> a visitor here for four days won't install anything. A link opens on any phone, shares in any group chat and gets found on Google. It installs to the home screen like an app for the people who want push alerts (iPhone supports this for home-screen web apps since iOS 16.4). If people come back weekly, we earn a native app later.</p>
+</section>
+
+<section id="brainstorm">
+  <p class="eyebrow">Brainstorm</p>
+  <h2>8 ideas, scored the same way.</h2>
+  <p class="prose">I scored every idea, including the two I already pitched, on five things that decide whether this works: would a local open it every week, is it memorable in five seconds, does it work in other cities, can it ship before Nov 20, and does it give you the feeling of being let in on something.</p>
+  <div class="concepts">
+    <div class="concept"><span class="k">A · round 3</span><h3>Hotel Piña</h3><p class="small">Site as a Miami Beach hotel. Floors are categories, the secret basement is the speakeasies.</p><p class="small muted">Gorgeous world. But locals don't "check in" to their own city every week, and every visit pays a metaphor tax.</p></div>
+    <div class="concept"><span class="k">B · round 2</span><h3>Ventanita</h3><p class="small">Order recommendations at a Cuban coffee window.</p><p class="small muted">Very Miami, charming once. Too narrow for nightlife and doesn't travel to other cities.</p></div>
+    <div class="concept"><span class="k">C</span><h3>The Friend</h3><p class="small">The whole product is a text thread with the most plugged-in person in Miami.</p><p class="small muted">Nails the feeling. As the whole interface it slides into chatbot territory, so it becomes the voice and the "ask" box instead.</p></div>
+    <div class="concept"><span class="k">D</span><h3>Night Map</h3><p class="small">Miami from above, glowing where the energy is right now. Drag through 24 hours and watch it move.</p><p class="small muted">Useful and jaw-dropping at the same time. Needs dense data to feel alive.</p></div>
+    <div class="concept"><span class="k">E</span><h3>Flyer Wall</h3><p class="small">This week's parties and pop-ups as a wall of pasted flyers. Tear one off to save it.</p><p class="small muted">Street-real and promoters will submit for free. Covers events, not places.</p></div>
+    <div class="concept"><span class="k">F</span><h3>Mixtape</h3><p class="small">Plan a day like a DJ builds a set: warm-up, build, peak, cool-down. Every plan has an energy curve.</p><p class="small muted">A genuinely new way to plan. Fits a John Summit weekend perfectly.</p></div>
+    <div class="concept"><span class="k">G</span><h3>Sticker Book</h3><p class="small">Each spot has its own sticker. Go there, collect it, unlock deeper secrets.</p><p class="small muted">Great retention layer. Check-in apps get old, so it stays light.</p></div>
+    <div class="concept"><span class="k">H</span><h3>Pirate Radio</h3><p class="small">Tune a dial across neighborhoods, each with its own sound.</p><p class="small muted">Sound-first sites get muted in ten seconds. Killed.</p></div>
+  </div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Idea</th><th>Locals use weekly</th><th>Memorable</th><th>Other cities</th><th>Ships by Nov 20</th><th>Let-in feeling</th><th>Total /25</th></tr></thead>
+    <tbody id="scoretable"></tbody>
+  </table></div>
+  <p class="prose muted small">Scores are my judgment, written down so you can argue with them.</p>
+</section>
+
+<section id="pick">
+  <p class="eyebrow">The pick</p>
+  <h2>psst.</h2>
+  <p class="prose lede">The top four ideas each do one job well. So instead of choosing one gimmick, they become one product with one promise: <b>the friend who knows</b>.</p>
+  <div class="tabs">
+    <div><span class="eyebrow">C becomes</span><b>the voice</b><span class="small muted">Every line reads like a text from your plugged-in friend. Plus an "ask psst." box.</span></div>
+    <div><span class="eyebrow">D becomes</span><b>Now</b><span class="small muted">The home screen: the night map, live.</span></div>
+    <div><span class="eyebrow">F becomes</span><b>Plan</b><span class="small muted">Pick dates, get a stay with an energy curve.</span></div>
+    <div><span class="eyebrow">E becomes</span><b>Wall</b><span class="small muted">Events, parties and pop-ups this week.</span></div>
+    <div><span class="eyebrow">G becomes</span><b>Stickers</b><span class="small muted">A light layer that unlocks secrets.</span></div>
+  </div>
+  <p class="prose"><b>Why the name.</b> "psst." is the sound someone makes right before they tell you something good. It's the whole feeling in four letters, it works in any language and any city (psst. Miami, psst. New York), and the period makes it a statement. Names I weighed and passed on: <i>Lowkey</i> (close second, describes the spots but not the act of being told), <i>Ahorita</i> (funny, very Miami, but locks us to one city), <i>The Plug</i> (too many readings), <i>Off Collins</i> and <i>Hotel Piña</i> (my earlier rounds).</p>
+  <p class="prose"><b>Your pineapple stays.</b> It's the period in the logo. Each city gets its own emblem in that spot, and Miami's is the pineapple, the old symbol of a host who went to absurd lengths to welcome you. That is literally our job.</p>
+</section>
+
+<section id="brand">
+  <p class="eyebrow">Brand</p>
+  <h2>How it should feel: leaning in.</h2>
+  <p class="prose">Three words: <b>let in, warm, mischievous</b>. Like the moment a bartender slides you something that isn't on the menu. Every design choice below serves that.</p>
+
+  <h3>Logo</h3>
+  <p class="prose">The word is set in a font that can stretch its width. The wordmark stretches out wide and snaps back, like someone leaning in to tell you something. You saw it at the top of this page. The pineapple sits in the period. In the app, the period pulses when something is happening near you right now.</p>
+
+  <h3>Color: taken from Miami's real light</h3>
+  <p class="prose">I skipped the Miami Vice pink and teal because every Miami thing uses it. These come from what the sun actually hits here. The app runs a day palette and a night palette and switches with the real time in Miami, so the color tells you the moment you're in. This page follows your device theme instead.</p>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:#F4F9F8"></div><div class="t"><b>Salt</b><span>Hard noon light on white stucco. Day background.</span></div></div>
+    <div class="sw"><div class="c" style="background:#0F0B21"></div><div class="t"><b>After Hours</b><span>Indigo, the sky over the bay at 2am. Night background.</span></div></div>
+    <div class="sw"><div class="c" style="background:#E2650A"></div><div class="t"><b>Mango</b><span>The signal color. Live things, the move, the call to act.</span></div></div>
+    <div class="sw"><div class="c" style="background:#D81F5C"></div><div class="t"><b>Hibiscus</b><span>Secrets and unlocks. Used rarely so it stays special.</span></div></div>
+    <div class="sw"><div class="c" style="background:#00857C"></div><div class="t"><b>Bay</b><span>Biscayne water. Links, maps, anything outdoors.</span></div></div>
+    <div class="sw"><div class="c" style="background:#FFC53D"></div><div class="t"><b>Pineapple</b><span>The emblem, highlights, the winning row.</span></div></div>
+  </div>
+  <p class="prose small muted">Every text color is checked against its background for readability (WCAG AA). Mango and Hibiscus get brighter at night so they still glow.</p>
+
+  <h3>Type</h3>
+  <div class="typespec">
+    <div><span class="eyebrow">Display · Anybody</span><span class="spec-d">Tonight, 11:40</span><span class="small muted">Picked because it has a width axis from very narrow to very wide. That axis is the "lean in" animation, and squeezing or stretching it lets long Miami names fit. It's free on Google Fonts and isn't the font every startup uses.</span></div>
+    <div><span class="eyebrow">Body · Figtree</span><span class="spec-b">Sit at the bar and ask what's not on the menu.</span><span class="small muted">Friendly and very readable on a phone at 2am. It's warmer than Inter, the default everyone ships.</span></div>
+    <div><span class="eyebrow">Data · DM Mono</span><span class="spec-m">SUNSET 17:31 · 82°F · RAIN 40%</span><span class="small muted">For times, weather, prices and the receipts you share. It reads like a ticket stub.</span></div>
+  </div>
+
+  <h3>Voice</h3>
+  <div class="voice">
+    <div class="bubble"><small>Push, 2:58pm</small>psst. Storm rolls in at 4. Skip the beach, hit the 3:05 cafecito, go back for sunset.</div>
+    <div class="bubble"><small>On a spot</small>Sit at the bar, not a table. Ask for the thing that isn't written down.</div>
+    <div class="bubble"><small>Empty state</small>Nothing secret near you yet. Give it a block.</div>
+    <div class="bubble"><small>Unlock</small>You've got two leans left this week. Use them wisely.</div>
+  </div>
+
+  <h3>Photos, sound, motion</h3>
+  <ul class="clean prose">
+    <li><b>Photos: flash at night, hard sun by day, no stock.</b> We shoot on phones with one recipe (4:5, direct flash after dark). It looks real because it is, and it's how nightlife actually looks. Every photo runs through the same processing so the whole site matches.</li>
+    <li><b>Sound:</b> off by default. One soft whisper when you unlock a secret, nothing else.</li>
+    <li><b>Motion:</b> springy and quick. Taps answer in under a quarter second, and only the signature moments run longer (under a second). Nothing blocks you, and reduced-motion settings get simple fades.</li>
+  </ul>
+</section>
+
+<section id="product">
+  <p class="eyebrow">Product</p>
+  <h2>Five tabs. Four kinds of people.</h2>
+  <div class="tabs">
+    <div><b>Now</b><span class="small muted">The night map plus the best moves for this exact hour and weather.</span></div>
+    <div><b>Plan</b><span class="small muted">Any dates, a flight number, your energy. Get a stay you can share.</span></div>
+    <div><b>Wall</b><span class="small muted">Parties, shows, pop-ups this week. Subscribe it to your calendar.</span></div>
+    <div><b>Map</b><span class="small muted">Every move, filtered by vibe, cost, open now, rain-safe.</span></div>
+    <div><b>You</b><span class="small muted">Saved moves, stickers, unlocked secrets, your plans.</span></div>
+  </div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Who</th><th>What they open it for</th><th>What we show first</th></tr></thead>
+    <tbody>
+      <tr><td><b>The visitor with dates</b> (your friend)</td><td>"I'm there Nov 20 to 24 for John Summit."</td><td>Their stay: weather for those days, sunsets, the show, a plan with an energy curve, a link for the group chat.</td></tr>
+      <tr><td><b>The local, tonight</b> (you)</td><td>"What's good tonight that isn't the usual?"</td><td>Now: what's on in the next 6 hours, new openings, one locked secret nearby.</td></tr>
+      <tr><td><b>The group</b></td><td>"Six of us, Saturday, two want to dance."</td><td>A shared plan everyone can vote on, with the energy curve so the night builds right.</td></tr>
+      <tr><td><b>The curious, far away</b></td><td>"I might go to Miami someday."</td><td>The best moves as beautiful, findable pages. This is how Google sends us people.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Six signature moments</h3>
+  <ol class="moments prose">
+    <li><b>The night map.</b> The home screen glows where Miami's energy is right now. Drag the clock and watch it flow from Grove breakfasts to downtown at sunrise. There's a working sketch below.</li>
+    <li><b>Lean in.</b> Secret moves are blurred. Press and hold, the logo stretches like a whisper, and it reveals. You get a few a week, and more by going places or sharing. Try it below.</li>
+    <li><b>Storm swap.</b> When the real forecast turns, your plan offers indoor swaps and a push tells you before the rain does.</li>
+    <li><b>Flight-aware landing.</b> Type your flight. psst. plans your first night around when you actually land and your last morning around your departure.</li>
+    <li><b>The receipt.</b> Any plan prints as a receipt-style image with times, moves and a secret password at the bottom. It's made for the group chat, and the password spreads the secrets by word of mouth.</li>
+    <li><b>The wall.</b> Event flyers you can drag and tear off to save. Promoters submit their own, which keeps it fresh for free.</li>
+  </ol>
+</section>
+
+<section id="nightmap">
+  <p class="eyebrow">Working sketch</p>
+  <h2>The night map, live.</h2>
+  <p class="prose">This opens on the real time in Miami. Drag the clock or hit play. It's a rough sketch: the geography is stylized and the intensities are made up for the demo. The real one runs on our data over a real map.</p>
+  <div class="demo">
+    <canvas id="map" role="img" aria-label="Stylized map of Miami neighborhoods glowing by time of day"></canvas>
+    <div class="ctrl">
+      <div class="row">
+        <span class="clock" id="clock">--:--</span>
+        <label for="hour" class="sr" style="position:absolute;left:-9999px">Hour of day</label>
+        <input type="range" id="hour" min="0" max="23.75" step="0.25" value="21">
+        <button type="button" id="play">Play the day</button>
+      </div>
+      <p class="read" id="read" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section id="moves">
+  <p class="eyebrow">The core unit</p>
+  <h2>The move.</h2>
+  <p class="prose">Everything in psst. is built from one object. A move is a place plus when it's best, what the weather allows, how much energy it takes and exactly what to do there. Getting this right is what lets the app answer "what now?" and Google can't.</p>
+  <div class="movegrid">
+    <article class="move">
+      <div class="top"><span class="label l-sched">lowkey</span><span class="score small">example</span></div>
+      <h3>The 3:05 cafecito</h3>
+      <div class="meta">
+        <span>WHERE</span><span>Any good ventanita, Little Havana</span>
+        <span>WHEN</span><span>Daily, best at 3:05pm (the 305, get it)</span>
+        <span>ENERGY</span><span><span class="pips"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>
+        <span>COST</span><span>$</span>
+        <span>RAIN</span><span>Fine, it's a window</span>
+      </div>
+      <p class="themove">Order a colada, not a cafecito. It comes with tiny cups. Pour for whoever is next to you at the counter.</p>
+    </article>
+    <article class="move lean" id="lean" tabindex="0" role="button" aria-label="Secret move. Press and hold, or press Enter, to reveal.">
+      <div class="top"><span class="label l-hand">lean in</span><span class="score small">from a 2026 list · not yet checked by us</span></div>
+      <div class="secret">
+        <h3>Bar AZ.85</h3>
+        <div class="meta">
+          <span>WHERE</span><span>The Biltmore, Coral Gables</span>
+          <span>WHEN</span><span>Late. Dress for it.</span>
+          <span>GET IN</span><span>Behind red steel doors. You need a poker chip.</span>
+        </div>
+        <p class="themove">The room leans into the hotel's old gambling-and-mobsters past. Go after dinner, not before.</p>
+      </div>
+      <div class="hint"><span class="ring" id="ring"></span>Press and hold to lean in</div>
+    </article>
+  </div>
+  <pre aria-label="Move data shape">type Move = {
+  id: string
+  title: string                 // "The 3:05 cafecito"
+  place: { name: string; lat: number; lng: number; hood: string }
+  windows: { days: Day[]; from: string; to: string; best?: string }[]
+  energy: 1 | 2 | 3 | 4 | 5     // chill to peak, powers the energy curve
+  cost: 1 | 2 | 3 | 4
+  weather: { rainOk: boolean; heatOk: boolean }
+  secret: 0 | 1 | 2             // public, lowkey, lean-in
+  theMove: string               // what to order, where to sit, who to ask
+  getIn?: string                // door, password, reservation trick
+  curator: string
+  verifiedOn: string            // hidden automatically after 90 days unchecked
+}
+
+// "What now?" ranking, run on every open
+score = openNow × (bestTimeFit + energyFit + weatherFit + nearby + freshness) × secretBoost</pre>
+</section>
+
+<section id="stay">
+  <p class="eyebrow">Working sketch</p>
+  <h2>Her weekend as an energy curve.</h2>
+  <p class="prose">This is how Plan turns dates into a stay, using your friend's trip. John Summit plays Kaseya Center on <b>both Nov 20 and 21</b>, doors at 7pm, so she has to pick a night. This sketch assumes Friday. Sunset in late November is around 5:30pm because the clocks have changed, a detail most guides get wrong. The stops are placeholders until the real moves are curated.</p>
+  <div class="energy"><svg id="curve" viewBox="0 0 820 300" role="img" aria-label="Energy over five days from Friday Nov 20 to Tuesday Nov 24, peaking at the John Summit show Friday night"></svg></div>
+  <div class="days">
+    <div><b>Fri 20</b><br>Land, ventanita, sunset at 5:30, dinner near the arena, John Summit, after-party.</div>
+    <div><b>Sat 21</b><br>Slow brunch, Virginia Key swim, sunset, dinner, a speakeasy (or show night two).</div>
+    <div><b>Sun 22</b><br>Coconut Grove morning, 3:05 cafecito, dinner, Little River late.</div>
+    <div><b>Mon 23</b><br>Slow start, boat day, rooftop sunset, the last big dinner.</div>
+    <div><b>Tue 24</b><br>Breakfast near MIA, fly out.</div>
+  </div>
+</section>
+
+<section id="content">
+  <p class="eyebrow">The hard part</p>
+  <h2>How we actually get the secrets.</h2>
+  <p class="prose">Design gets people in. Content is the only thing that brings them back, and it's where every guide like this dies. So the content engine gets as much design as the interface.</p>
+  <h3>Five sources of taste</h3>
+  <ul class="clean prose">
+    <li><b>You and five friends.</b> Twenty moves each gets us to about 120 to launch.</li>
+    <li><b>Local hosts.</b> Bartenders, DJs, chefs, tattoo artists, surfers each give their five moves under their name. They share their page, which is free distribution.</li>
+    <li><b>Promoters.</b> A free "put your flyer on the wall" form. They want the reach, we get every pop-up.</li>
+    <li><b>Research.</b> I comb local press, Reddit and Instagram for candidates and draft them as moves for review.</li>
+    <li><b>Users.</b> "Went" and "still good?" taps keep moves honest without turning into Yelp.</li>
+  </ul>
+  <h3>The pipeline</h3>
+  <div class="flow">
+    <span>Candidates</span><i>→</i><span>Claude drafts the move</span><i>→</i><span>You swipe yes / no (10 min a week, on your phone)</span><i>→</i><span>Open-or-closed check + date stamp</span><i>→</i><span>Live</span><i>→</i><span>Hidden at 90 days unless re-checked</span>
+  </div>
+  <p class="prose small muted">AI drafts, a human with taste decides, and nothing goes public unedited. That's the line between a guide and slop.</p>
+  <h3>Live data, labeled honestly</h3>
+  <div class="tablebox"><table>
+    <thead><tr><th>What</th><th>Source</th><th>How</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Concerts, shows, sports</td><td>Ticketmaster Discovery</td><td><span class="label l-live">live API</span></td><td>Free key, 5,000 calls a day</td></tr>
+      <tr><td>Club nights, DJs</td><td>Resident Advisor</td><td><span class="label l-sched">scheduled pull</span></td><td>No official API; there's an unofficial public data feed. Pulled nightly and politely, if their terms allow</td></tr>
+      <tr><td>Parties, pop-ups</td><td>Dice, Posh, Partiful, Eventbrite, Instagram</td><td><span class="label l-hand">hand-curated</span></td><td>No public feeds (Eventbrite shut its search API in 2020). The flyer form fills this in</td></tr>
+      <tr><td>Weather, 16 days</td><td>Open-Meteo</td><td><span class="label l-live">live API</span></td><td>Free while non-commercial, $29 a month once it makes money. Beyond 16 days we show typical weather</td></tr>
+      <tr><td>Sunrise, sunset</td><td>Calculated</td><td><span class="label l-live">math</span></td><td>No API needed. The chip at the top of this page does it already</td></tr>
+      <tr><td>Your flight</td><td>AeroDataBox</td><td><span class="label l-live">live API</span></td><td>Free tier exists. Exact limits to confirm when building</td></tr>
+      <tr><td>Planes over Miami</td><td>OpenSky</td><td><span class="label l-live">live API</span></td><td>Free live positions, no schedules. Pure atmosphere for the night map sky</td></tr>
+      <tr><td>The moves</td><td>Us</td><td><span class="label l-hand">hand-curated</span></td><td>Each one dated, each one re-checked</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="stack">
+  <p class="eyebrow">Engineering</p>
+  <h2>The stack, and why each piece.</h2>
+  <p class="prose">The rule I used: pick the idea first, then the tool that serves it, and say what lost. I also changed one answer from last round, and the reason is below.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Layer</th><th>Pick</th><th>Also considered</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><b>Framework</b></td><td>SvelteKit</td><td>Astro, Next.js, Nuxt</td><td>Last round I said Astro, which is right for a magazine. psst. turned out to be an app: live clock, map, plans, saved state. SvelteKit ships a tiny runtime, has animation built in, and still prerenders every move as its own page for Google. Next.js is React-heavy and it's what your other sites use.</td></tr>
+      <tr><td><b>Hosting</b></td><td>Cloudflare, on a personal account</td><td>Vercel (your company account, off limits), Netlify, Fly</td><td>Hosting, database, image storage and nightly jobs in one place with a generous free tier. Fast everywhere. You create the account, I never touch Vercel.</td></tr>
+      <tr><td><b>Database</b></td><td>Cloudflare D1 (SQLite)</td><td>Supabase/Postgres, Turso</td><td>We have hundreds of moves, not millions. SQLite at the edge is fast and nearly free. Postgres would be power we don't need yet.</td></tr>
+      <tr><td><b>Map</b></td><td>MapLibre + Protomaps</td><td>Google Maps, Mapbox, Leaflet</td><td>Google Maps makes us look like the thing we're beating. Mapbox costs per view. MapLibre is open source with full style control. Protomaps is a single map file we host ourselves, no per-view bill.</td></tr>
+      <tr><td><b>The glow</b></td><td>Custom shader layer on the map</td><td>three.js, deck.gl, Pixi</td><td>I dropped three.js. 3D isn't the idea, it would be decoration and weight. The signature is a 2D glow that moves with time, which is one small custom layer.</td></tr>
+      <tr><td><b>Motion</b></td><td>GSAP + Svelte's built-in transitions</td><td>Framer Motion, Anime.js</td><td>GSAP is now completely free, plugins included, after Webflow bought it. Its drag and text-splitting tools power the flyer wall and the lean-in. Framer Motion is tied to React.</td></tr>
+      <tr><td><b>Small animations</b></td><td>Rive</td><td>Lottie, plain CSS</td><td>Rive animations react to input (hold, tilt, tap) instead of just playing back. That's what makes the stickers and the pineapple feel alive.</td></tr>
+      <tr><td><b>Ask psst.</b></td><td>Claude API: Haiku 4.5 to understand the question, Sonnet 5.5 to draft moves</td><td>A general chatbot</td><td>It can only answer from our own moves, so it never invents a place. Cheap per question.</td></tr>
+      <tr><td><b>Share images</b></td><td>Satori</td><td>Screenshots, canvas</td><td>Turns a plan into the receipt image on the server, sharp in every group chat preview.</td></tr>
+      <tr><td><b>Push, email</b></td><td>Web push, plus a weekly email</td><td>A native app</td><td>No install needed. The Thursday email works for people who never install anything.</td></tr>
+      <tr><td><b>Analytics</b></td><td>PostHog</td><td>Google Analytics</td><td>Tracks the one number that matters (moves people actually took), with privacy settings we control.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Quality bar</h3>
+  <ul class="clean prose">
+    <li>The first screen loads in under 2 seconds on a mid-range Android on 4G. The map loads after the page is usable.</li>
+    <li>It works without the map: every map view has a plain list version, for speed and for screen readers.</li>
+    <li>Readable contrast everywhere, everything works by keyboard, and reduced-motion settings are respected.</li>
+    <li>Built city-agnostic from day one: city is just a field, so New York is content work, not a rebuild.</li>
+  </ul>
+</section>
+
+<section id="growth">
+  <p class="eyebrow">Engagement</p>
+  <h2>Why people come back.</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Loop</th><th>How it works</th><th>Why it sticks</th></tr></thead>
+    <tbody>
+      <tr><td><b>Thursday drop</b></td><td>Five moves for the weekend, by email and as an Instagram post made from the same data</td><td>A habit with a day attached</td></tr>
+      <tr><td><b>Calendar feed</b></td><td>Subscribe the Wall to Apple or Google Calendar</td><td>We live inside their calendar, for free</td></tr>
+      <tr><td><b>Receipt passwords</b></td><td>Every shared plan carries a password that unlocks one secret</td><td>Secrets spread by word of mouth, the way real ones do</td></tr>
+      <tr><td><b>Host pages</b></td><td>Locals publish their five moves under their name</td><td>They share it to their own followers</td></tr>
+      <tr><td><b>Flyer form</b></td><td>Promoters post their own events</td><td>Fresh content we don't have to chase</td></tr>
+      <tr><td><b>Stickers</b></td><td>Go to a move, collect its sticker, unlock deeper ones</td><td>A reason to go, not just save</td></tr>
+      <tr><td><b>Pages Google can find</b></td><td>Every move and event has its own page, tagged so Google understands it</td><td>People searching "speakeasy Miami" find us</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose"><b>The number that matters: moves taken per week.</b> Saves and pageviews are vanity. If people go, it works. Money comes later and stays out of the picks: ticket links, a paid concierge tier, psst. nights at partner spots. Never paid placement, because the moment picks are for sale the friend becomes an ad.</p>
+</section>
+
+<section id="roadmap">
+  <p class="eyebrow">Roadmap</p>
+  <h2>From today to her landing.</h2>
+  <p class="prose">Seven weeks. Each step ends with something you can tap on your phone and approve before I keep going.</p>
+  <div class="timeline">
+    <div><span class="when">Oct 5 – 9</span><b>Brand and three key screens</b><span class="small muted">Logo, colors, type, Now / Plan / a move page, built as real screens. Plus your swipe tool for picking moves.</span></div>
+    <div><span class="when">Oct 12 – 23</span><b>The core app and 120 moves</b><span class="small muted">Now, Map, move pages, Plan. You and friends fill moves, I research and draft.</span></div>
+    <div><span class="when">Oct 26 – 30</span><b>Live data</b><span class="small muted">Weather, Ticketmaster, flights, the Wall and the flyer form.</span></div>
+    <div><span class="when">Nov 2 – 6</span><b>Signature moments</b><span class="small muted">Night map glow, lean-in, storm swap, the receipt, home-screen install.</span></div>
+    <div><span class="when">Nov 9 – 13</span><b>Real-phone testing</b><span class="small muted">Speed, accessibility, ten friends try it and break it.</span></div>
+    <div class="goal"><span class="when">Fri Nov 20</span><b>She lands with her stay already in her pocket</b><span class="small muted">We watch what she actually uses, and that decides v2.</span></div>
+  </div>
+</section>
+
+<section id="risks">
+  <p class="eyebrow">Risks</p>
+  <h2>What could kill it, and the fix.</h2>
+  <div class="tablebox"><table>
+    <thead><tr><th>Risk</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td><b>Crowded category</b> (Places, Secret App, Spotted by Locals)</td><td>Don't fight on "curated spots." Win on timing, events and plans, in one city, free.</td></tr>
+      <tr><td><b>Not enough content at launch</b></td><td>120 moves before anyone sees it. The night map only shows once a neighborhood has enough moves to glow.</td></tr>
+      <tr><td><b>Stale picks</b></td><td>Every move has a check date and hides itself at 90 days.</td></tr>
+      <tr><td><b>Secret spots get overrun</b></td><td>Lean-ins are limited per person per week. Some spots stay word-of-mouth only.</td></tr>
+      <tr><td><b>Looks like AI slop</b></td><td>Real photos, real names of the locals who picked each move, and no AI text goes live unedited.</td></tr>
+      <tr><td><b>Too clever to use</b></td><td>Every signature moment is a shortcut. A plain list is always one tap away.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="decide">
+  <p class="eyebrow">Your calls</p>
+  <h2>Five things only you can decide.</h2>
+  <div class="decide">
+    <div><b>1. Name.</b> psst. (my pick), Lowkey, or something you love more.</div>
+    <div><b>2. Open or invite-only at first.</b> I'd start invite-only for 50 people. It protects the secrets and makes getting in feel like something.</div>
+    <div><b>3. A personal Cloudflare account.</b> You create it (I can't make accounts), and nothing touches your company Vercel.</div>
+    <div><b>4. Five locals with taste.</b> Names of friends who'd give us their five moves.</div>
+    <div><b>5. A small monthly budget.</b> The domain and AI calls. A few dollars to start, and I'll show real numbers before anything is spent.</div>
+  </div>
+</section>
+
+<footer id="sources">
+  <p><b>Sources checked for this playbook</b></p>
+  <ol>
+    <li><a href="https://songkick.com/concerts/42975394-john-summit-at-kaseya-center">John Summit, Kaseya Center, Nov 20 (Songkick)</a> and <a href="https://songkick.com/concerts/43227714-john-summit-at-kaseya-center">Nov 21</a></li>
+    <li><a href="https://www.miamiandbeaches.com/event/john-summit-ctrl-escape-tour/40578">CTRL Escape Tour (Miami &amp; Beaches)</a></li>
+    <li><a href="https://apps.apple.com/us/app/places-curated-travel-guide/id6446208302">Places by Raya's team (App Store)</a></li>
+    <li><a href="https://apps.apple.com/cl/app/the-secret-app/id1612636662">The Secret App</a> and <a href="https://www.spottedbylocals.com/blog/uncover-local-treasures-and-authentic-experiences-introducing-our-new-travel-guide-app/">Spotted by Locals</a></li>
+    <li><a href="https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/">Best speakeasies in Miami 2026 (Haute Living)</a></li>
+    <li><a href="https://developer.ticketmaster.com/products-and-docs/apis/getting-started/">Ticketmaster API limits</a></li>
+    <li><a href="https://community.make.com/t/eventbrite-api-depreciated/80369">Eventbrite search API shutdown</a></li>
+    <li><a href="https://open-meteo.com/en/pricing">Open-Meteo pricing</a> and <a href="https://open-meteo.com/en/terms">terms</a></li>
+    <li><a href="https://pub.dev/packages/aerodatabox">AeroDataBox</a></li>
+    <li><a href="https://protomaps.com/faq">Protomaps</a></li>
+    <li><a href="https://webflow.com/updates/gsap-becomes-free">GSAP is now free</a></li>
+    <li><a href="https://documentation.onesignal.com/docs/web-push-for-ios">Web push on iPhone</a></li>
+    <li><a href="https://www.jumeirah.com/en/article/stories/global/why-the-pineapple-became-the-worlds-most-enduring-symbol-of-hospitality">Why the pineapple means welcome</a></li>
+  </ol>
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var TZ = "America/New_York", LAT = 25.7617, LNG = -80.1918;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function fmt(d){ return d.toLocaleTimeString("en-US",{timeZone:TZ,hour:"numeric",minute:"2-digit"}).toLowerCase().replace(" ",""); }
+  function miamiHour(){
+    var p = new Intl.DateTimeFormat("en-US",{timeZone:TZ,hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date());
+    var h=0,m=0; p.forEach(function(x){ if(x.type==="hour") h=+x.value%24; if(x.type==="minute") m=+x.value; });
+    return h + m/60;
+  }
+  // Sunrise equation (good to a minute or two)
+  function sunTimes(){
+    var rad=Math.PI/180, Jd = Date.now()/86400000 + 2440587.5;
+    var n = Math.ceil(Jd - 2451545.0 + 0.0008);
+    var Js = n - LNG/360;
+    var M = (357.5291 + 0.98560028*Js) % 360;
+    var C = 1.9148*Math.sin(M*rad) + 0.02*Math.sin(2*M*rad) + 0.0003*Math.sin(3*M*rad);
+    var L = (M + C + 180 + 102.9372) % 360;
+    var Jt = 2451545 + Js + 0.0053*Math.sin(M*rad) - 0.0069*Math.sin(2*L*rad);
+    var sd = Math.sin(L*rad)*Math.sin(23.4397*rad), cd = Math.cos(Math.asin(sd));
+    var w = Math.acos((Math.sin(-0.833*rad) - Math.sin(LAT*rad)*sd)/(Math.cos(LAT*rad)*cd))/rad;
+    var toDate = function(J){ return new Date((J - 2440587.5)*86400000); };
+    return { rise: toDate(Jt - w/360), set: toDate(Jt + w/360) };
+  }
+  try{
+    var st = sunTimes(), now = new Date();
+    document.getElementById("mtime").textContent = "Miami " + fmt(now);
+    document.getElementById("msun").textContent = "sunset " + fmt(st.set);
+    var hOf=function(d){ var q=new Intl.DateTimeFormat("en-US",{timeZone:TZ,hour:"numeric",minute:"numeric",hour12:false}).formatToParts(d),h=0,m=0; q.forEach(function(x){ if(x.type==="hour") h=+x.value%24; if(x.type==="minute") m=+x.value; }); return h+m/60; };
+    var hn=miamiHour(), night = hn < hOf(st.rise) || hn > hOf(st.set);
+    document.getElementById("mmode").textContent = night ? "the app is in night mode" : "the app is in day mode";
+  }catch(e){}
+
+  // Scores
+  var rows = [
+    ["A · Hotel Piña",[2,5,3,2,4]],["B · Ventanita",[2,4,1,3,3]],["C · The Friend",[4,3,5,4,5]],["D · Night Map",[4,5,5,3,3]],
+    ["E · Flyer Wall",[4,4,4,4,3]],["F · Mixtape",[3,4,5,4,3]],["G · Sticker Book",[3,3,5,4,3]],["H · Pirate Radio",[1,4,3,2,3]]
+  ];
+  var tb = document.getElementById("scoretable");
+  rows.sort(function(a,b){ return sum(b[1])-sum(a[1]); });
+  function sum(a){ return a.reduce(function(x,y){return x+y;},0); }
+  rows.forEach(function(r,i){
+    var tr = document.createElement("tr"); if(i<4) tr.className="win";
+    var html = "<td><b>"+r[0]+"</b></td>";
+    r[1].forEach(function(v){ var p=""; for(var k=0;k<5;k++) p+='<i class="'+(k<v?"on":"")+'"></i>'; html += '<td><span class="pips" aria-label="'+v+' of 5">'+p+'</span></td>'; });
+    html += '<td class="score"><b>'+sum(r[1])+'</b></td>';
+    tr.innerHTML = html; tb.appendChild(tr);
+  });
+
+  // Lean in
+  var lean = document.getElementById("lean"), ring = document.getElementById("ring"), t0=0, raf=0, HOLD=900;
+  function step(){ var p=Math.min(1,(performance.now()-t0)/HOLD); ring.style.setProperty("--p",p); if(p>=1){ open(); return; } raf=requestAnimationFrame(step); }
+  function open(){ lean.classList.add("open"); lean.setAttribute("aria-label","Secret move revealed: Bar AZ.85"); }
+  function start(e){ if(lean.classList.contains("open")) return; if(e) e.preventDefault(); t0=performance.now(); cancelAnimationFrame(raf); raf=requestAnimationFrame(step); }
+  function stop(){ cancelAnimationFrame(raf); if(!lean.classList.contains("open")) ring.style.setProperty("--p",0); }
+  lean.addEventListener("pointerdown",start); lean.addEventListener("pointerup",stop); lean.addEventListener("pointerleave",stop); lean.addEventListener("pointercancel",stop);
+  lean.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); }});
+
+  // Night map
+  var hoods = [
+    ["Little River",.48,.12,[[20,2.5,.8,"warehouse dinners"],[1,2,.55,"listening bars"]]],
+    ["Little Haiti",.43,.21,[[11,3,.5,"record shops and botánicas"],[21,2,.6,"live music"]]],
+    ["Design District",.40,.30,[[13,3,.6,"design and a long lunch"]]],
+    ["Wynwood",.42,.40,[[14,3,.55,"galleries and studios"],[22.5,2,.8,"bars off the main drag"]]],
+    ["Downtown",.49,.51,[[22,2,.75,"arena shows"],[4.5,2.2,1,"afterhours till sunrise"]]],
+    ["Brickell",.45,.60,[[12.5,2,.5,"power lunch"],[21,2,.8,"rooftops"]]],
+    ["Little Havana",.29,.57,[[8,1.6,.6,"ventanita breakfast"],[15.08,1.1,.75,"the 3:05 cafecito"],[22,2,.65,"live salsa"]]],
+    ["Coral Gables",.14,.74,[[13,3,.5,"Venetian Pool afternoons"],[20.5,2,.6,"old-hotel bars"]]],
+    ["Coconut Grove",.30,.81,[[9,2,.8,"bayfront breakfast"],[19,2,.5,"dinner under the banyans"]]],
+    ["Key Biscayne",.63,.84,[[11,3,.9,"swim and paddle"],[18,1.2,.6,"sunset off the causeway"]]],
+    ["South Beach",.77,.52,[[15,3,.6,"beach afternoon"],[0.5,2.5,.85,"hotel bars and clubs"]]],
+    ["North Beach",.78,.17,[[7,2,.6,"sunrise swim"],[17,2,.5,"bandshell shows"]]]
+  ];
+  var sky = [[0,[11,8,32]],[5,[27,19,64]],[6.6,[236,150,110]],[9,[120,196,222]],[13,[104,190,226]],[16.5,[238,160,100]],[17.8,[190,72,122]],[19.2,[42,24,80]],[24,[11,8,32]]];
+  function lerp(a,b,t){ return a+(b-a)*t; }
+  function skyAt(h){ for(var i=0;i<sky.length-1;i++){ var a=sky[i],b=sky[i+1]; if(h>=a[0]&&h<=b[0]){ var t=(h-a[0])/(b[0]-a[0]); return [0,1,2].map(function(k){return Math.round(lerp(a[1][k],b[1][k],t));}); } } return sky[0][1]; }
+  function hd(a,b){ var d=Math.abs(a-b)%24; return d>12?24-d:d; }
+  function level(p,h){ var best=0,label="",tot=0; p.forEach(function(k){ var v=k[2]*Math.exp(-Math.pow(hd(h,k[0]),2)/(2*k[1]*k[1])); tot+=v; if(v>best){best=v;label=k[3];} }); return {v:Math.min(1,tot),label:label}; }
+  function lum(c){ return (0.299*c[0]+0.587*c[1]+0.114*c[2])/255; }
+
+  var cv=document.getElementById("map"), ctx=cv.getContext("2d"), slider=document.getElementById("hour"), clock=document.getElementById("clock"), read=document.getElementById("read"), play=document.getElementById("play");
+  var H = Math.round(miamiHour()*4)/4; slider.value = H;
+  function size(){ var r=cv.getBoundingClientRect(), d=window.devicePixelRatio||1; cv.width=Math.round(r.width*d); cv.height=Math.round(r.height*d); draw(); }
+  function poly(pts,W,Hh){ ctx.beginPath(); pts.forEach(function(p,i){ var x=p[0]*W,y=p[1]*Hh; i?ctx.lineTo(x,y):ctx.moveTo(x,y); }); ctx.closePath(); }
+  function draw(){
+    var W=cv.width,Hh=cv.height,h=+slider.value, s=skyAt(h), L=lum(s), dark=L<.45, d=window.devicePixelRatio||1;
+    ctx.globalCompositeOperation="source-over";
+    var g=ctx.createLinearGradient(0,0,W,Hh); g.addColorStop(0,"rgb("+s.join(",")+")"); g.addColorStop(1,"rgb("+s.map(function(v){return Math.round(v*.72);}).join(",")+")");
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,Hh);
+    var land = dark ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.38)";
+    ctx.fillStyle=land;
+    poly([[0,0],[.56,0],[.55,.2],[.53,.4],[.52,.55],[.47,.63],[.42,.72],[.36,.86],[.30,1],[0,1]],W,Hh); ctx.fill();
+    poly([[.74,0],[.81,0],[.80,.3],[.79,.6],[.76,.67],[.73,.6],[.74,.3]],W,Hh); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(.63*W,.85*Hh,.022*W,.07*Hh,0.2,0,Math.PI*2); ctx.fill();
+    ctx.globalCompositeOperation = dark ? "lighter" : "source-over";
+    var R=Math.min(W,Hh), scored=[];
+    hoods.forEach(function(n){
+      var lv=level(n[3],h); scored.push([n[0],lv.v,lv.label]);
+      var x=n[1]*W,y=n[2]*Hh, r=(0.05+0.17*lv.v)*R;
+      var gg=ctx.createRadialGradient(x,y,0,x,y,r);
+      var c1 = dark ? "255,90,143" : "226,101,10", c2 = dark ? "255,197,61" : "255,197,61";
+      gg.addColorStop(0,"rgba("+c2+","+(0.25+0.7*lv.v)+")"); gg.addColorStop(0.35,"rgba("+c1+","+(0.15+0.5*lv.v)+")"); gg.addColorStop(1,"rgba("+c1+",0)");
+      ctx.fillStyle=gg; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalCompositeOperation="source-over";
+    ctx.font = "600 "+Math.round(11.5*d)+"px Figtree, system-ui, sans-serif"; ctx.textAlign="center";
+    hoods.forEach(function(n){
+      var x=n[1]*W,y=n[2]*Hh;
+      ctx.fillStyle = dark ? "#FFFFFF" : "#151229";
+      ctx.beginPath(); ctx.arc(x,y,2.6*d,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = dark ? "rgba(255,255,255,0.92)" : "rgba(21,18,41,0.9)";
+      ctx.fillText(n[0], x, y - 8*d);
+    });
+    var hh=Math.floor(h), mm=Math.round((h-hh)*60), ap=hh<12?"am":"pm", h12=hh%12===0?12:hh%12;
+    clock.textContent = h12+":"+(mm<10?"0":"")+mm+ap;
+    scored.sort(function(a,b){return b[1]-a[1];});
+    read.innerHTML = "Where it's at: " + scored.slice(0,3).map(function(s){ return "<b>"+s[0]+"</b> for "+s[2]; }).join(", ") + ".";
+  }
+  slider.addEventListener("input",draw);
+  var playing=false, last=0;
+  function tick(ts){ if(!playing) return; if(!last) last=ts; var v=+slider.value + (ts-last)/1000*1.6; last=ts; if(v>23.75) v=0; slider.value=v; draw(); requestAnimationFrame(tick); }
+  play.addEventListener("click",function(){ playing=!playing; play.textContent = playing ? "Pause" : "Play the day"; last=0; if(playing) requestAnimationFrame(tick); });
+  if(reduce){ play.textContent="Step +1 hour"; play.onclick=null; play.replaceWith(play.cloneNode(true)); play=document.getElementById("play"); play.addEventListener("click",function(){ var v=+slider.value+1; if(v>23.75) v=0; slider.value=v; draw(); }); }
+  if(window.ResizeObserver){ new ResizeObserver(size).observe(cv); } else { window.addEventListener("resize",size); }
+  size();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+  // Energy curve
+  var svg=document.getElementById("curve"), NS="http://www.w3.org/2000/svg";
+  var X0=46,X1=800,Y0=246,Y1=34, HMAX=98;
+  function x(h){ return X0+(X1-X0)*h/HMAX; } function y(e){ return Y0-(Y0-Y1)*e/5; }
+  function el(t,a,txt){ var n=document.createElementNS(NS,t); for(var k in a) n.setAttribute(k,a[k]); if(txt!=null) n.textContent=txt; svg.appendChild(n); return n; }
+  [[5.5,18.9],[29.5,42.9],[53.5,66.9],[77.5,90.9]].forEach(function(r){ el("rect",{x:x(r[0]),y:Y1-10,width:x(r[1])-x(r[0]),height:Y0-Y1+10,fill:"var(--ink)",opacity:".06"}); });
+  for(var e=0;e<=5;e++){ el("line",{x1:X0,x2:X1,y1:y(e),y2:y(e),stroke:"var(--line)","stroke-width":1}); }
+  el("text",{x:X0-8,y:y(1)+4,"text-anchor":"end","font-family":"DM Mono, monospace","font-size":11,fill:"var(--muted)"},"chill");
+  el("text",{x:X0-8,y:y(5)+4,"text-anchor":"end","font-family":"DM Mono, monospace","font-size":11,fill:"var(--muted)"},"peak");
+  [["Fri 20",0],["Sat 21",12],["Sun 22",36],["Mon 23",60],["Tue 24",84]].forEach(function(d){
+    el("line",{x1:x(d[1]),x2:x(d[1]),y1:Y1-10,y2:Y0,stroke:"var(--ink)","stroke-opacity":".25","stroke-dasharray":"2 4"});
+    el("text",{x:x(d[1])+5,y:Y0+22,"font-family":"DM Mono, monospace","font-size":12,fill:"var(--ink)"},d[0]);
+  });
+  el("text",{x:X1,y:Y1-16,"text-anchor":"end","font-family":"DM Mono, monospace","font-size":10.5,fill:"var(--muted)"},"shaded = after dark");
+  var pts=[[3,1.5,"Land at MIA"],[5.5,2.5,"Sunset 5:30"],[7.5,3,"Dinner near the arena"],[10,5,"John Summit"],[13,4.5,"After-party"],
+    [23,1,"Slow brunch"],[26,2,"Virginia Key swim"],[29.5,2.5,"Sunset"],[32.5,3.5,"Dinner"],[35.5,4,"Speakeasy"],
+    [46,1.5,"Grove morning"],[51.08,2.5,"3:05 cafecito"],[56,3,"Dinner"],[59.5,4.5,"Little River late"],
+    [71,1,"Slow start"],[74,2,"Boat day"],[77.5,3,"Rooftop sunset"],[81,3.5,"Last big dinner"],
+    [94,1.5,"Breakfast near MIA"],[97,.5,"Fly out"]];
+  var P=pts.map(function(p){return [x(p[0]),y(p[1])];}), d="M"+P[0][0]+","+P[0][1];
+  for(var i=0;i<P.length-1;i++){ var p0=P[i-1]||P[i],p1=P[i],p2=P[i+1],p3=P[i+2]||p2;
+    var c1x=p1[0]+(p2[0]-p0[0])/6, c1y=Math.min(Y0,Math.max(Y1-6,p1[1]+(p2[1]-p0[1])/6)), c2x=p2[0]-(p3[0]-p1[0])/6, c2y=Math.min(Y0,Math.max(Y1-6,p2[1]-(p3[1]-p1[1])/6));
+    d+=" C"+c1x+","+c1y+" "+c2x+","+c2y+" "+p2[0]+","+p2[1]; }
+  el("path",{d:d+" L"+P[P.length-1][0]+","+Y0+" L"+P[0][0]+","+Y0+" Z",fill:"var(--mango)",opacity:".12"});
+  el("path",{d:d,fill:"none",stroke:"var(--mango)","stroke-width":3,"stroke-linecap":"round"});
+  var show={"John Summit":1,"Speakeasy":1,"Little River late":1,"Virginia Key swim":1,"3:05 cafecito":1,"Boat day":1,"Fly out":1,"Land at MIA":1};
+  pts.forEach(function(p,i){
+    var c=el("circle",{cx:P[i][0],cy:P[i][1],r:p[2]==="John Summit"?7:4.5,fill:p[2]==="John Summit"?"var(--hibiscus)":"var(--surface)",stroke:p[2]==="John Summit"?"var(--hibiscus)":"var(--mango)","stroke-width":2});
+    var t=document.createElementNS(NS,"title"); t.textContent=p[2]; c.appendChild(t);
+    if(show[p[2]]){ var above = p[1] >= 2; el("text",{x:P[i][0],y:above?P[i][1]-14:P[i][1]+20,"text-anchor":"middle","font-family":"Figtree, sans-serif","font-size":12.5,"font-weight":p[2]==="John Summit"?700:500,fill:"var(--ink)"},p[2]); }
+  });
+})();
+</script>

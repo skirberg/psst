@@ -1,0 +1,1251 @@
+{
+ "directions": [
+  {
+   "name": "Painted Fresh (Street Print)",
+   "oneLine": "psst. becomes a pocketful of Miami street print: a hand-painted ventanita board for right now, a wheat-paste wall of flyers for the week, a thermal receipt for your trip and a sticker for every place you went, all lit by the real Miami sun at the hour you pick.",
+   "critiqueOfCurrent": [
+    "desktop-plan.png, desktop-wall.png, desktop-you.png, desktop-event.png, desktop-move.png: the map disappears on every tab except Now, so about 1,000 of 1,440px is empty navy. On desktop the product is a 440px phone panel floating in a void. desktop-move.png doesn't even show a move sheet; it's identical to Now at 10pm, so either the sheet failed to open or the capture is wrong.",
+    "mobile-wall.png and desktop-wall.png: flyer titles break mid-word ('THUNDE / RCAT', 'COUNTR / Y, NEW') because Flyer.svelte sets .title { overflow-wrap: anywhere }. Footers truncate ('MIAMI BEAC\u2026', 'CLUB SPACE (\u2026'). The best idea in the app ships with its most visible bug.",
+    "mobile-plan-scrolled.png, mobile-receipt.png, desktop-receipt.png: the planner books 'Sunrise swim off Virginia Key' at 6:15pm labeled DINNER and 'The 3:05 cafecito' at 5:06pm labeled SUNSET. Sun, Mon and Tue print as empty days, every one at 79\u00b0 with no forecast/typical label. The promise is the right move at the right moment, and the receipt shows the opposite.",
+    "Every Now shot (desktop-now-day.png, desktop-now-night.png, mobile-now-night.png): two clocks disagree. The chip says 'MIA 4:42pm' while the giant numerals say 1:30pm or 11:15pm next to engineer jargon ('SCRUBBING \u00b7 DAYLIGHT'). The largest type on screen is a slider value, not now.",
+    "desktop-now-day.png, mobile-now-day.png: day mode is mint water, gray roads and a white glass panel, which could be any SaaS map. Labels collide ('ALLAPATTAHDESIGN DISTRICT'), get clipped ('MID-BEA', 'NORTH' under the chip) and sit on coastline strokes. The only brand color, the sun yellow #FFC53D (oklch hue 84.1), is within 2\u00b0 of Bumble's #FFC629 (86.2), so it isn't owned.",
+    "desktop-now-golden.png, mobile-move.png: the locked secret is blurred text ('Somewhere you should not know about'), which reads as a rendering bug, not a secret. Each list row stacks four metadata systems (caps hood, 'lowkey' pill, 'open \u00b7 best 3:05pm', five orange pips plus $) in 10\u201312px mono, and none of them is the hero.",
+    "desktop-you.png plus every list row: the stickers are abstract gradient app icons (squiggle circle, wave blob, keyhole hexagon). Nothing about them feels collectible or Miami. 'You' is a light-gray form ('PINA-XXXXX' + Redeem) over a dark blurred void, the only light panel on a dark page.",
+    "mobile-now-day.png, mobile-plan.png, desktop-plan.png: the chrome is template. Six filter pills wrap, with 'Cheap' orphaned and cut off by the tab bar. The tab bar is a stock four-icon bar with a yellow pill. Native date/time inputs (11/20/2026 with calendar icons) and a range slider make 'Your stay, built like a DJ set' look like a booking form. Nine identical event pills, a 10px pineapple, and three fonts (Anybody, Figtree, DM Mono) that follow no object logic."
+   ],
+   "concept": "Concept sentence: \"The friend who knows Miami doesn't send you a link. They hand you paper.\" Miami's useful information lives in print: the ventanita's board, the flyer on the pole, the receipt, the sticker from the place. psst. becomes that pocketful of paper, and the real sun shows on it, because the shade under every painted letter follows Miami's actual sun position at the hour on the dial. This extends 'the friend who knows Miami': a friend's tip is physical and specific (an hour, a price tier, a door), so every object carries a time and a place, never a vibe. Proof points, all checked this session: 'psst' is the whisper; the pineapple period becomes the price-gun label the friend slaps on the right thing; the 3:05 cafecito is a City of Miami-proclaimed break that started at Versailles' ventanita in 2014; Little Haiti's hand-painted sign tradition (Serge Toussaint, 2016 Florida Folk Heritage Award); William Lane's lifeguard-tower colors; Tilt Warp, the display face, was literally drawn as peeling pop-up-shop vinyl. What it is NOT: Miami Vice neon, grunge or coffee-stain texture, fake handwriting, Spanglish jokes. Keep from r0, re-skinned: the OSM canvas map and its traffic, the sun dial and Play the day, the receipt and PINA code, the flyer generator, the lean-in hold, and lines like 'Golden hour. Face west and stop talking.'",
+   "voice": {
+    "register": "Painted-sign deadpan: short declarative lines, each carrying an hour, a price tier or a door. The friend talking low. Bilingual only where Miami really is: Spanish nouns for real things (colada, ventanita, pastelito, HOY on the board), never Spanglish for flavor. One joke per object at most, and only in the footer position (receipt tail, flyer foot), never in buttons or errors.",
+    "uses": [
+     "go at",
+     "ask for",
+     "skip",
+     "bring cash",
+     "the move"
+    ],
+    "never": [
+     "hidden gem",
+     "curated",
+     "vibes",
+     "must-try",
+     "elevated"
+    ],
+    "heroLine": "HOY, 4:42PM. Two good moves before the sun goes at 7:06. One after, if you lean in. (Generated from data: time, ranked count, sunset, locked count.)",
+    "errorLine": "Lost signal. The board still shows what was good at 4:42PM. Times may have moved.",
+    "receiptLine": "4 NIGHTS \u00b7 9 MOVES \u00b7 1 SECRET \u00b7 NO REFUNDS ON SUNSETS"
+   },
+   "typography": [
+    {
+     "role": "SPEAK: sign lettering. Board headers, section titles, wordmark context, flyer numerals. Only at 28px and up, 1\u20134 words.",
+     "family": "Tilt Warp (Andy Clymer), variable XROT/YROT \u00b145\u00b0",
+     "source": "https://design.google/library/neon-prism-tilt-variable-font (opened; plus google/fonts ofl/tiltwarp METADATA.pb and DESCRIPTION.en_us.html read raw from github.com/google/fonts). Load: https://fonts.googleapis.com/css2?family=Tilt+Warp:XROT,YROT@-45..45,-45..45&display=swap (verified it resolves; latin woff2 68.7 KB)",
+     "license": "SIL Open Font License 1.1 (ofl/tiltwarp/OFL.txt, no Reserved Font Name). OFL allows embedding, subsetting and base64. Not needed here: served by Google Fonts, which the CSP allows.",
+     "why": "Google's description: 'inspired by the dimensional lettering found in storefront signage\u2026 a sign painter's geometric sans serif\u2026 built up with a brush.' The Tilt article calls Warp 'stick-on vinyl lettering\u2026 a Pop-up Shop sign\u2026 inevitably peels over time', and the rotation axes make it peel. That is psst.'s subject (pop-ups, storefronts) and its interaction (peel, tear). The YROT axis drives the sun device. Scale (mobile/desktop): 88/120 board 'HOY', 44/56 view titles, 32/40 section titles; line-height 0.9; tracking -1%; YROT clamped \u00b114\u00b0 for text, \u00b130\u00b0 only in the intro."
+    },
+    {
+     "role": "SHOUT: wood-type poster gothic. Flyers, move and event names in board strips, ticket names, tab labels.",
+     "family": "League Gothic (The League of Moveable Type: Tyler Finck, Caroline Hadilaksono, Micah Rich, Dannci), variable wdth 75\u2013100",
+     "source": "https://www.theleagueofmoveabletype.com/league-gothic (opened). Load: family=League+Gothic:wdth@75..100 (verified; latin woff2 18.7 KB)",
+     "license": "SIL Open Font License (League site footer: 'free & open source\u2026 subject to the Open Font License'; google/fonts ofl/leaguegothic/OFL.txt has no Reserved Font Name). Base64 embedding allowed; not needed.",
+     "why": "A revival of Morris Fuller Benton's Alternate Gothic No.1 (ATF, 1903), the condensed gothic of boxing, concert and club posters and of ticket names. The width axis lets long real names ('\u00c2me (DJ), Hardt Antoine & Maceo Plex') fit without mid-word breaks. Always uppercase, tracking +1%, line-height 0.88. Sizes: 30px strip names, 56px ticket names, 22\u201364px fitted on flyers, 22px tab labels."
+    },
+    {
+     "role": "MEASURE: receipt and data. Times, prices, dates, serials, the live clock, the receipt body, micro-labels at 11px and up.",
+     "family": "Martian Mono (Roman Shamin, Evil Martians), variable wdth 75\u2013112.5, wght 100\u2013800",
+     "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/martianmono/DESCRIPTION.en_us.html (opened, with METADATA.pb). Load: family=Martian+Mono:wdth,wght@75..112.5,100..800 (verified; latin woff2 38.4 KB)",
+     "license": "SIL Open Font License 1.1 (ofl/martianmono/OFL.txt, no Reserved Font Name). Base64 allowed; not needed.",
+     "why": "Monospaced, so every time and price aligns in columns like a thermal printout. wdth 75 fits a 42-column receipt in a 358px phone column, and wdth 112 gives wide ticket serials. Weights: 500 body data, 700 times on the board. Sizes: 15px board times, 12.5px receipt (wdth 75), 11px labels with 0.08em tracking. Not used for paragraphs."
+    },
+    {
+     "role": "READ: body. 'The move' paragraphs, addresses, descriptions, buttons.",
+     "family": "Atkinson Hyperlegible Next (Braille Institute, Applied Design Works, Elliott Scott, Megan Eiswerth, Letters From Sweden; 2025), variable wght 200\u2013800",
+     "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/atkinsonhyperlegiblenext/METADATA.pb (opened, with OFL.txt). Load: family=Atkinson+Hyperlegible+Next:wght@200..800 (verified; latin roman 37.6 KB; skip the italic, 34 KB)",
+     "license": "SIL Open Font License 1.1 (no Reserved Font Name). Base64 allowed; not needed.",
+     "why": "Built for character distinction at low acuity, which is the honest requirement for reading on a phone in Miami glare. It is quieter than the three print faces, so the objects stay loud while the instructions stay readable. 17px/1.45 mobile, 16px/1.5 desktop, 500 for buttons, 700 for inline emphasis."
+    }
+   ],
+   "color": {
+    "tokens": [
+     {
+      "name": "paper/thermal",
+      "hex": "#F7F4EC",
+      "oklch": "oklch(0.967 0.011 89.7)",
+      "use": "Receipt, tickets, default day surface. ink/coal on it 16.05:1."
+     },
+     {
+      "name": "paper/newsprint",
+      "hex": "#ECE5D6",
+      "oklch": "oklch(0.923 0.021 85.9)",
+      "use": "Map land by day, the table under objects. ink/coal 14.07:1, ink/faded 5.07:1."
+     },
+     {
+      "name": "paper/kraft",
+      "hex": "#D6C3A0",
+      "oklch": "oklch(0.824 0.052 82.7)",
+      "use": "The wheat-paste wall only. Small text must be ink/coal (10.23:1) or ink/faded-kraft; never ink/fire below 24px (3.51:1)."
+     },
+     {
+      "name": "paper/coal",
+      "hex": "#16120F",
+      "oklch": "oklch(0.186 0.009 59.1)",
+      "use": "Night (blacklight) paper and table. Neutrals are tinted toward cafecito brown (hue 59\u201390), replacing r0's purple-navy #0B0820."
+     },
+     {
+      "name": "paper/coal-2",
+      "hex": "#241E19",
+      "oklch": "oklch(0.240 0.013 61.9)",
+      "use": "Raised night surfaces (ticket, receipt at night). ink/faded-night 6.32:1."
+     },
+     {
+      "name": "ink/coal",
+      "hex": "#1C1814",
+      "oklch": "oklch(0.212 0.010 67.2)",
+      "use": "All text on day papers and on pi\u00f1a (9.65:1). Focus ring: 3px coal plus a 2px pi\u00f1a offset."
+     },
+     {
+      "name": "ink/faded",
+      "hex": "#675E53",
+      "oklch": "oklch(0.487 0.021 72.8)",
+      "use": "Secondary text on thermal (5.79:1) and newsprint (5.07:1)."
+     },
+     {
+      "name": "ink/faded-kraft",
+      "hex": "#544B40",
+      "oklch": "oklch(0.418 0.021 72.7)",
+      "use": "Secondary text on kraft (4.95:1). At golden hour, kraft warms and this drops to 4.27:1, so switch to ink/coal."
+     },
+     {
+      "name": "ink/faded-night",
+      "hex": "#A99F91",
+      "oklch": "oklch(0.707 0.023 76.5)",
+      "use": "Secondary text at night, 7.14:1 on coal."
+     },
+     {
+      "name": "accent/pina",
+      "hex": "#FFB01F",
+      "oklch": "oklch(0.813 0.165 75.1)",
+      "use": "THE owned accent, chrome-yellow sign enamel: the HOY board ground, the active tab, the price-gun labels, the pineapple period. One object per view. Never as text on paper (1.66:1)."
+     },
+     {
+      "name": "ink/fire",
+      "hex": "#B8300F",
+      "oklch": "oklch(0.518 0.177 33.9)",
+      "use": "Sign red for drop shades, rubber stamps and the marker circle. Text OK on thermal (5.51:1) and newsprint (4.83:1); thermal text on fire 5.51:1. Never small text on pi\u00f1a (2.76:1): on the board, red is only the shade, never the letter."
+     },
+     {
+      "name": "ink/bay",
+      "hex": "#2440D0",
+      "oklch": "oklch(0.459 0.221 267.2)",
+      "use": "Haitian ultramarine for map water halftone, links, the receipt's dot-matrix chart. 7.03:1 on thermal."
+     },
+     {
+      "name": "ink/leaf",
+      "hex": "#0B7448",
+      "oklch": "oklch(0.494 0.112 157.9)",
+      "use": "Pineapple leaf for 'OPEN TIL 7PM' status and hatched open-hours on tickets. 5.30:1 thermal, 4.64:1 newsprint."
+     },
+     {
+      "name": "stock/tower-pink",
+      "hex": "#FF8DB4",
+      "oklch": "oklch(0.777 0.143 359.1)",
+      "use": "Lifeguard-tower stock (William Lane palette) for stickers, flyer papers and the receipt's end-of-roll stripe. Fill only; coal text on it 8.17:1."
+     },
+     {
+      "name": "stock/tower-lavender",
+      "hex": "#B9A6F2",
+      "oklch": "oklch(0.769 0.109 295.2)",
+      "use": "Sticker and flyer stock, the POCKET tab. Coal text 8.23:1."
+     },
+     {
+      "name": "stock/tower-lime",
+      "hex": "#C6EC3A",
+      "oklch": "oklch(0.886 0.196 121.4)",
+      "use": "Sticker and flyer stock. Coal text 12.99:1."
+     },
+     {
+      "name": "stock/tower-teal",
+      "hex": "#19A897",
+      "oklch": "oklch(0.659 0.114 182.0)",
+      "use": "Sticker and flyer stock. Coal text 5.96:1."
+     },
+     {
+      "name": "light/golden",
+      "hex": "#F3E2C8",
+      "oklch": "oklch(0.920 0.039 78.6)",
+      "use": "Golden-hour target for paper/thermal (color-mix in oklch, up to 100% at sun altitude 0\u20136\u00b0). Coal 13.88:1."
+     },
+     {
+      "name": "uv/pina",
+      "hex": "#FFD21A",
+      "oklch": "oklch(0.877 0.176 92.7)",
+      "use": "Night accent (board ground at night stays coal; pi\u00f1a becomes the lettering and active tab). 12.85:1 on coal."
+     },
+     {
+      "name": "uv/pink",
+      "hex": "#FF3EA5",
+      "oklch": "oklch(0.682 0.241 353.2)",
+      "use": "Night shade-glow and lean-in tape. 5.75:1 on coal; coal on it 5.45:1."
+     },
+     {
+      "name": "uv/lime",
+      "hex": "#C4FF2E",
+      "oklch": "oklch(0.927 0.223 125.3)",
+      "use": "Night 'open now' and domino pips. 15.69:1 on coal."
+     },
+     {
+      "name": "uv/cyan",
+      "hex": "#3DF2E0",
+      "oklch": "oklch(0.870 0.142 184.8)",
+      "use": "Night coastline and water dots on the map. 13.28:1 on coal."
+     }
+    ],
+    "ownedAccent": "accent/pina, chrome-yellow sign enamel #FFB01F, oklch(0.813 0.165 75.1). It is the ventanita board and the pineapple period. Rule written into tokens: one pi\u00f1a object per view (the HOY board on Now, otherwise the active tab plus at most one price-gun label). Maximal color lives in the content (flyers, stickers, map), never in the chrome; the chrome is paper plus coal ink. At night pi\u00f1a hands off to uv/pina. P3 boost: in @media (color-gamut: p3), redeclare uv/* with chroma +0.04 and check on an iPhone. Those P3 values are not yet verified in gamut.",
+    "nearestCompetitorColor": "Bumble yellow #FFC629, oklch(0.855 0.166 86.2) per brandcolorcode.com, from the adjacent social-discovery category. Pi\u00f1a is 11\u00b0 warmer in hue (75.1 vs 86.2) and 0.04 darker, so it reads marigold enamel, not lemon-gold. IMDb #F5C518 sits at hue 90.4 (15\u00b0 away). r0's #FFC53D (hue 84.1) is effectively Bumble's yellow, which is why it changes. Red is avoided entirely because the city-guide and booking category crowds it (Yelp, Resy, OpenTable, Time Out; from memory, not re-checked hex by hex this session).",
+    "dayNight": "Driven by the existing daylight(t) plus a new solar altitude/azimuth function. DAY: sun-bleached print, with thermal and newsprint papers and full-strength enamel inks. The sun shade is short and falls straight down at noon. GOLDEN (altitude under 10\u00b0): papers color-mix toward light/golden in oklch, shades stretch sideways (to the right when the sun is in the west), and map water halftone warms 20% toward fire. SUNSET to NIGHT (altitude crosses -2\u00b0): BLACKLIGHT. Papers flip to coal, inks swap to uv/*, and the drop shade becomes a 0-offset uv/pink glow (blur 10px). That is the only glow in the system, and it's justified because it is literally blacklight on fluoro ink. Map roads go uv with the existing traffic lights in uv/pink (tail) and uv/pina (head) under 'lighter' compositing. AFTER-HOURS (3\u20135:30am): same coal papers, uv inks desaturated 30%. Real time crosses over about 40 minutes around sunset; scrubbing cross-fades in 300ms; reduced motion swaps instantly."
+   },
+   "graphicDevices": [
+    "THE SUN SHADE (primary, recognizable with the logo covered): every Tilt Warp headline wears a sign-painter's hard drop shade in a second ink (fire on day papers, coal on pi\u00f1a, uv/pink glow at night), built from stacked text-shadows: 1px steps, 0 blur, n = ceil(hypot(dx,dy)), max 15. The offset comes from the real sun for Miami (25.7617, -80.1918) at the dial hour, treating the sign as a south-facing storefront. h = sunAzimuth \u2212 180\u00b0 (+ = sun in the west); dx = 12\u00b7sin(h) px (shade falls right at sunset, left in the morning); dy = 3 + 9\u00b7sin(altitude) px (long drop at noon, short at dusk); altitude \u2264 0 gives the night glow. Tilt Warp YROT = clamp(0.15\u00b7h, \u221214\u00b0, 14\u00b0), so letters peel toward the light (Clymer's own concept for Warp; confirm the sign on device). Paper objects on the table cast the same vector at 1/3 length, 10px blur, coal 22%. WHERE: board header, view titles, wordmark, flyer numerals, at most 3 per view. NEVER: body text, list items, buttons, anything under 28px.",
+    "CUT LINES (secondary): every boundary is a print-finishing mark, never a 1px hairline or a rounded card. Perforation: 2px dots every 6px, with 10px half-circle notches cut into both edges (CSS radial-gradient mask), between ticket body and stub and between receipt days. Torn edge: SVG mask path, seeded jagged, 3\u20136px amplitude, on tear-off tabs, the receipt tail and peeled tape. Crop marks: 8px L-marks in coal at the four corners of the selected or focused object, instead of glows. Radius tokens are 0 and 2px only.",
+    "THE DOMINO (data glyph, from Domino Park / M\u00e1ximo G\u00f3mez Park on Calle Ocho): energy and cost as one 28\u00d714px tile. Left half is energy pips 1\u20135, right half is cost pips 1\u20134, coal on thermal (night: uv/lime on coal-2). It binds to m.energy and m.cost only; psst. never paints a dollar price it hasn't verified. The first tile in every list carries a 10px Martian Mono legend 'ENERGY | $'; aria-label 'energy 4 of 5, cost 2 of 4'. It replaces the five orange pips and the '$$$' string.",
+    "SUPPORTING TEXTURE (strictly limited): paper grain is one 256px feTurbulence tile rendered once to a canvas data URL and multiplied at 5% on papers. Flyers get a 1px riso misregistration on their second ink. Masking tape appears only on lean-in secrets. No stains, rust, crumples, fake handwriting or tape elsewhere."
+   ],
+   "signatureComponents": [
+    "HOY BOARD (Now). A chrome-yellow (accent/pina) enamel menu board, full width on mobile (16px gutters) and 440px in desktop cols 1\u20134, square corners, paper grain. Header: 'HOY' in Tilt Warp 88px with the sun shade, plus a right-aligned live line 'FRI OCT 2 \u00b7 4:42PM' in Martian Mono 700, wdth 75, 15px. Under it, the generated hero line in Atkinson 17px (voice.heroLine template). SUN RAIL (replaces the Dial UI, keeps its logic): a 56px painted ruler with 24 hour ticks, sunrise/sunset ticks labeled in Martian Mono 11px, hourly rain as 2px bay strokes, and a 44px round sun-sticker knob (a moon sticker after sunset). While scrubbing, the header reads 'AT 9:30PM' and a 'BACK TO NOW' rubber stamp appears; the live clock is never replaced by a scrubbed time. 'PLAY THE DAY' is a stamp too. FILTERS: one non-wrapping row of five rubber-stamp toggles, CHILL \u00b7 SOCIAL \u00b7 WILD \u00b7 $ \u00b7 RAIN-OK, each 64\u00d744px with a fire 2px outline and filled when pressed (aria-pressed). STRIPS, one per ranked move, like the slide-in rows of a cafeteria letter board: 72px min height, 2px grooves (coal at 12%) between rows. Line 1: name in League Gothic 30px uppercase, a dotted leader, and the best time right-aligned in Martian Mono 700 16px ('3:05PM'). Line 2: hood in Martian Mono 11px caps, then the domino, then status ('OPEN TIL 7PM' in leaf, or 'OPENS 11PM'). The top-ranked strip gets the friend's tip on a pi\u00f1a price-gun label overlapping its right edge ('GO AT 3:05', Martian Mono 700 12px, rotated -3\u00b0). LOCKED SECRET: the name is covered by a strip of masking tape (newsprint at 92%, torn ends) stamped 'PSST \u00b7 HOLD TO PEEL \u00b7 3 LEFT'. Holding for 950ms peels it left to right (clip-path inset plus a moving curl shadow); Enter or Space does the same. The r0 lean variable (--lean, set in MoveCard.svelte and read by Logo.svelte as font-stretch on Anybody) is remapped, because Tilt Warp has no width axis: at full lean the wordmark goes to YROT -30\u00b0 and XROT +8\u00b0 (it leans toward you), and the intro 'stretch' keyframes in App.svelte are deleted. CHANGEABLE LETTERS: when ranking or time changes, each strip's characters flip out (rotateX 90\u00b0, 90ms) and the new ones drop in with a 12ms stagger. Strips link to the ticket stub. The 'On in the city' block becomes a strip of three mini flyers that open the Wall.",
+    "WHEAT-PASTE WALL (Wall). A kraft wall with grain. Flyers keep the r0 generator but gain two things. FIT-TEXT replaces overflow-wrap:anywhere: for each title, try League Gothic wdth 100 down to 75, then size 64px down to 22px, and pick the first combination where every word fits the column (canvas measureText). Break only at spaces; footers wrap to two lines instead of using ellipses. INK FOUNTAIN: a split-fountain blend of two inks keyed to start time (before 6pm: pi\u00f1a to fire; 6pm\u2013midnight: tower-pink to bay; after midnight: tower-lavender to coal). It's a real letterpress technique and the only gradient allowed in the system. LAYOUT: mobile is 2 columns of 171px with a 12px gutter, rotation \u00b13\u00b0 seeded by event id, 10px vertical overlap. Desktop is 4 columns in cols 1\u20139, plus a narrow folded map in cols 10\u201312 with a pin per flyer in view (hovering a flyer pulses its pin). TEAR-OFF TABS: every flyer has a 32px fringe of 6 vertical tabs printed 'ADD \u00b7 NOV 20' in Martian Mono 9px. Dragging a tab down 40px, or tapping the fringe, tears it along a seeded jagged path; it arcs into the PLAN tab (420ms) and the PLAN tab's count stamp increments. Removing the event from the plan regrows the tab. If the event falls outside the stay dates (for example, an Oct 3 tab torn while the stay is Nov 20\u201324), the tab flies to POCKET instead and is stamped 'HELD'. A polite status line says 'Oct 3 is outside your stay (Nov 20\u201324). Held in Pocket.', with an 'EXTEND STAY' stamp that widens the dates to include it. With no stay set, every tab goes to Pocket. The fringe is one button: aria-label 'Add Thundercat, Fri Oct 2, to your plan'. Tapping the flyer face peels it off the wall (rotateX 0 to -18\u00b0, translateY -12px, 300ms) into the ticket stub. Date filter: a row of day stubs (THIS WKND \u00b7 NOV 20\u201324 \u00b7 OCT \u00b7 NOV \u00b7 DEC), not pills.",
+    "THE RECEIPT (Plan). The Plan tab is a thermal receipt printing. ORDER SLIP at the top: ARRIVE / LEAVE / LANDING / FLIGHT OUT as Martian Mono values on dotted rules; the native date and time inputs stay underneath, visually hidden but focusable and labeled. Energy is a five-stamp scale, CHILL to WILD, not a slider. BODY: 42 columns of Martian Mono wdth 75, 12.5px. Day headers read 'FRI NOV 20 \u00b7\u00b7\u00b7\u00b7\u00b7 79\u00b0 FCST' or '79\u00b0 TYP' (always label forecast vs 10-year typical). Lines read 'h:mmPM  NAME \u00b7\u00b7\u00b7\u00b7\u00b7 [domino]'. The energy curve prints as a dot-matrix histogram, one column per hour, 3px bay dots. SLOT LOGIC FIX (required): a slot's hour and label come from the move's best time and opening windows; never place a move outside its window or more than 2h from its best time; empty days print 'FREE DAY \u00b7 ASK THE BOARD'. TAIL: the last 40px carry the pink end-of-roll stripe (stock/tower-pink, 6px band, 8px in from the edge), a real thermal-roll warning. Then the PINA code as a perforated coupon with a real Code 128 barcode encoding the code. PRINTING: lines appear top-down at 18ms each (steps()), with an optional WebAudio thermal buzz (square wave 1.2kHz gated at 60Hz, 30ms per line, gain 0.04) and a tail curl (rotateX 8\u00b0 on the last 60px). SHARE: draw the receipt to a 2x canvas and call navigator.share({files:[png]}) when supported; otherwise copy the text. Desktop: receipt in cols 1\u20134; the map in cols 5\u201312 draws the route as a fire marker line through numbered pi\u00f1a stickers, day stubs sit across the top of the map, and hovering a receipt line pulses its stop.",
+    "TICKET STUB + STICKER SLAP (Move and Event detail, feeding the Pocket). Detail is an admission ticket on paper/thermal: a body plus a 96px stub, separated by a perforation with 10px notches. BODY: a rubber stamp ('LOWKEY', 'LEAN-IN', 'CLUB') in League Gothic 18px inside a 2px fire box rotated -6\u00b0; name in League Gothic 56px; place and address in Atkinson 16px; 'THE MOVE' in Atkinson 19px/1.4; hours as a printed 24h ruler with open blocks hatched in leaf and a 'BEST 3:05PM' tick; sources in Martian Mono 11px. STUB, vertical text: 'ADMIT ONE \u00b7 BEST 3:05PM \u00b7 N\u00ba 0A7F' (serial = hash of the id), plus the domino. ACTIONS: GET THERE (Apple/Google Maps links), SAVE, and I WENT. I WENT means dragging the stub right 60px or pressing the button: the stub tears along the perforation and the place's sticker slaps onto the map at its coordinates (scale 1.3 to 1, rotation -6\u00b0 to 6\u00b0, ease-slap) and lands in the Pocket. STICKERS are redesigned as text-led die-cut vinyl: shape by category (round coffee, oval water, starburst food, ticket music, shield speakeasy), a 3px white kiss-cut border, one tower stock, and one word set on an arc in Tilt Warp ('COLADA', 'SWIM', 'LATE'). Event detail uses the event's flyer as the ticket's left panel. Desktop: the ticket overlays cols 1\u20135 at -2\u00b0, and the map zooms to the venue with a hand-drawn marker circle (SVG path, two loops, fire, stroke-dashoffset over 500ms)."
+   ],
+   "layout": {
+    "mobile": "390\u00d7844, phone first. HEADER, 52px plus safe area: wordmark 'psst' in Tilt Warp 28px with the pineapple drawn as a price-gun sticker period, ONE live clock 'MIA 4:42PM \u00b7 86\u00b0 \u00b7 SUN 7:06' in Martian Mono 12px, and a 44px SOUND stamp (off by default). FOLDED MAP strip, 152px, on HOY and POCKET only (on PLAN and WALL it collapses into a 44px 'MAP' stamp in the header that opens the same full-screen map, so those objects get the height): the canvas map cropped and shown as 3 accordion panels with crease shading, sun-colored, with stickers for moves open at the dial hour; tapping 'UNFOLD' opens it full screen. Map labels use greedy priority placement and are dropped if they collide, clip or cross the header. CONTENT: the active object at full width with 16px gutters, scrolling: HOY board, receipt, wall or pocket. Objects sit on the table color (newsprint by day, coal at night). TABS: four index-divider tabs, 64px plus safe area, each in its object's stock: HOY (pi\u00f1a), PLAN (thermal, with a count stamp), WALL (kraft), POCKET (tower-lavender). Labels are League Gothic 22px with a 10px Martian Mono sub-label ('now', 'stay', 'events', 'saved'); accessible names are in English. The active tab rises 6px and takes the sun shade. Every target is at least 48px. DETAIL: the ticket rises over the stack as a full sheet; drag it down or press Esc to put it back. No wrapping chip rows anywhere.",
+    "desktop": "1440\u00d7900, 12-column grid, 32px margins, 24px gutters. The printed map is the tabletop under everything (full-bleed canvas) and is never hidden. HEADER, 64px: wordmark 44px at left; one live clock and the SOUND stamp at right. NOW: HOY board in cols 1\u20134, held by an SVG binder clip; map in cols 5\u201312 with a sticker for every move open at the dial hour; hovering a strip pulses its sticker. PLAN: receipt in cols 1\u20134, printing downward; route on the map in cols 5\u201312; day stubs across the top of the map. WALL: the wheat-paste wall slides over cols 1\u20139 (4 flyer columns); a folded map in cols 10\u201312 shows a pin per visible flyer. POCKET: a drawer of stubs, receipts and the sticker sheet in cols 1\u20134; map in cols 5\u201312 covered with the stickers you earned ('your Miami'). DETAIL: the ticket overlays cols 1\u20135 at -2\u00b0; the map zooms to the venue with the marker circle and a price-gun tip label. KEYBOARD: 1\u20134 switch tabs; \u2190/\u2192 scrub 15 minutes and PgUp/PgDn one hour on the sun rail; Esc puts the ticket back; visible focus uses crop marks plus the coal/pi\u00f1a ring."
+   },
+   "motion": "Motion is print: things feed, peel, flip, tear and slap. Nothing floats, blurs in or fades from nowhere. TOKENS: --dur-press 120ms (stamps, presses); --dur-ui 240ms (object moves, tab shuffle); --dur-paper 420ms (peel, tear, unfold), which is reserved for signature moments and is the one exception to the under-300ms rule for interface motion. Easings: --ease-ink cubic-bezier(.2,.8,.2,1) for moves and --ease-slap cubic-bezier(.3,1.6,.5,1) for stickers and stamps; --ease-feed is steps(1) per receipt line at 18ms. Letter-board flips: 90ms per character, 12ms stagger, at most 24 characters animated per strip. Sun-driven values (shade vector, YROT, paper warmth, theme) update per animation frame only while scrubbing or playing, otherwise every 60s; YROT changes are throttled to 30fps to limit re-rasterizing text. SOUND is synthesized in WebAudio with no files: stamp thunk, paper rip, printer buzz, letter clack. It is off by default, turned on by the SOUND stamp, and never autoplays. prefers-reduced-motion: no flips, peels, arcs, paint-on, curls or unfold animation, and states change instantly. The sun shade and theme still update, because they're information, but without transitions. Play the day steps hour by hour at 1s intervals instead of sweeping.",
+   "jawDropMoments": [
+    {
+     "moment": "Drag the sun and every painted letter's shadow swings with it: down at noon, long and to the right at golden hour, and the vinyl letters peel toward the light.",
+     "how": "Add solarPosition(date, hour) to core.js (NOAA/SunCalc altitude and azimuth, about 40 lines, alongside the existing sunFor). In App.svelte, an $effect on app.hour sets :root vars --sx, --sy, --yrot and --warm. A shade(ink) helper builds the text-shadow list (n one-pixel steps along dx,dy). Headlines use font-variation-settings:'YROT' var(--yrot); papers use color-mix(in oklch, var(--paper) calc(100% - var(--warm)*100%), var(--light-golden)). It hooks into the existing Dial drag and Play the day. Reduced motion: same values, no CSS transitions, and Play steps hourly.",
+     "effort": "M"
+    },
+    {
+     "moment": "At sunset the whole city flips to blacklight: papers go coal, inks turn fluorescent, the map's roads glow and the letter shades become UV halos.",
+     "how": "Theme tokens are keyed by a data-light attribute (day | golden | uv | afterhours) computed from solar altitude. CSS swaps token sets and cross-fades with a 300ms transition on background-color/color only. MiamiMap.svelte gets a palette object per light state (land, water dots, roads, labels), and its existing 'lighter' traffic pass recolors to uv/pink tails and uv/pina heads. Inside @media (color-gamut: p3), the uv tokens are redeclared at higher chroma. Reduced motion: instant swap, no transition.",
+     "effort": "M"
+    },
+    {
+     "moment": "Tear a tab off a flyer and it rips (with sound) and flies into your plan.",
+     "how": "In Flyer.svelte, render a fringe of 6 tabs as one <button>. Pointer events track the drag; past 40px, generate a seeded jagged SVG path for the tear line, split the tab into a detached element (position:fixed at its rect), and animate it with the Web Animations API on a quadratic arc to the PLAN tab's rect (420ms, ease-ink), then push the event id into app.plan. The rip is filtered white noise (AudioBuffer, 120ms) through a bandpass sweeping 3kHz to 800Hz, only if sound is on. The flyer re-renders with that tab missing (persisted state). Reduced motion: the tab disappears, the count stamp increments, and a polite live-region message announces 'Added Thundercat to Friday'.",
+     "effort": "M"
+    },
+    {
+     "moment": "Your stay prints out of the top of the screen as a real thermal receipt, buzzing line by line, then becomes a PNG you can drop in the group chat with a barcode that actually scans.",
+     "how": "Receipt.svelte renders lines from the fixed planner; a print loop reveals one line every 18ms (clip-path inset by line height) while a WebAudio square oscillator is gated per line. A tail curl uses perspective plus rotateX(8deg) on the last 60px. Code 128 is encoded in about 60 lines of JS (start code B, checksum mod 103) and drawn as rects. Sharing draws the receipt to an offscreen 2x canvas (fonts are loaded because document.fonts.ready is awaited) and calls navigator.share({files:[new File([blob],'psst-receipt.png')]}), falling back to clipboard text. Reduced motion: the receipt appears complete with no buzz.",
+     "effort": "L"
+    },
+    {
+     "moment": "Hold a taped-over secret and the masking tape peels back, then a price gun goes ka-chunk and stamps 'PSST.' on it.",
+     "how": "MoveCard's existing 950ms hold drives --p (0 to 1). The tape element uses clip-path: inset(0 0 0 calc(var(--p)*100%)) plus a gradient curl shadow positioned at the peel edge. On completion, a pi\u00f1a label element animates scale 1.4 to 1 with ease-slap, plus a short WebAudio click and navigator.vibrate([12,40,18]) (already in r0). Keyboard: Enter or Space runs the same timeline. Reduced motion: the tape is removed instantly and the label appears without scale.",
+     "effort": "S"
+    },
+    {
+     "moment": "First visit: the wordmark gets hand-painted onto the HOY board, stroke by stroke, then the pineapple sticker gets slapped on as the period.",
+     "how": "At build time, a script uses opentype.js (devDependency, run against the OFL Tilt Warp file) to export the outline paths of 'psst' to a static SVG module, so there's no runtime fetch. On first visit only (a try/catch-guarded localStorage flag), each path animates stroke-dashoffset in fire (90ms per letter), the fill fades to coal, the shade steps in over 240ms, and the pineapple sticker slaps (ease-slap). It plays inside the board, not as a blocking overlay; a tap skips it. Reduced motion: the final frame shows immediately.",
+     "effort": "M"
+    },
+    {
+     "moment": "On desktop, Pocket shows your Miami: the printed map covered in the stickers you earned, each slapped where you actually went.",
+     "how": "The Pocket view sets the map to fit all app.went coordinates. Each sticker is an absolutely positioned SVG over the canvas, using the map's project() and the existing view transform, with a rotation seeded by id and ease-slap on mount. An 'Export map' action draws the canvas plus the sticker SVGs (serialized to images) into one PNG. Reduced motion: stickers appear in place without the slap.",
+     "effort": "S"
+    },
+    {
+     "moment": "On mobile, the folded map strip unfolds into a full-screen street map, accordion creases and all.",
+     "how": "Three stacked panels, each clipping a third of the same canvas (one draw, three CSS backgrounds via canvas.toDataURL at unfold time, or three transformed wrappers around a single canvas). Animate rotateX from \u00b190\u00b0 to 0 with transform-origin alternating top/bottom (420ms, ease-ink, perspective 900px). The creases stay as 1px gradient lines at 6% opacity. Reduced motion: an instant full-screen map.",
+     "effort": "M"
+    }
+   ],
+   "cut": [
+    "Glassmorphism: every backdrop-filter blur, translucent panel and the glass clock chip.",
+    "28px rounded cards and pill chips. Radius tokens become 0 and 2px.",
+    "The six wrapping filter pills (Everything/Chill/Social/Wild/Rain-safe/Cheap). Replaced by five rubber stamps in one row; 'Everything' is the unpressed state.",
+    "The stock four-icon bottom tab bar with the yellow pill. Replaced by index-divider tabs.",
+    "Anybody, Figtree, DM Mono. Replaced by Tilt Warp, League Gothic, Martian Mono and Atkinson Hyperlegible Next.",
+    "The purple-navy night (#0B0820 / #140F2E) and the mint/gray day map. Replaced by coffee-tinted papers and blacklight.",
+    "The second clock chip and the 'SCRUBBING \u00b7 DAYLIGHT / AFTER DARK' label: one live clock only.",
+    "Blurred secret text. Replaced by masking tape.",
+    "Abstract gradient app-icon stickers. Replaced by text-led die-cut stickers.",
+    "Five orange energy pips, the '$$$' string and the 'lowkey' pill stack. Replaced by one domino plus at most one stamp.",
+    "Visible native date/time inputs and the energy range slider on Plan. Native pickers stay underneath the order-slip skin.",
+    "The 1.9s blocking intro overlay ('Miami, from the people who'd never tell you.'). Replaced by a first-visit paint-on inside the board.",
+    "'Add to Google Calendar' as a primary pill. Becomes an 'Add to calendar (.ics)' text link.",
+    "The generic area-chart energy curve. Replaced by the dot-matrix print on the receipt.",
+    "Empty right two-thirds on desktop. The map tabletop is always present."
+   ],
+   "references": [
+    "https://design.google/library/neon-prism-tilt-variable-font (opened). Clymer's Tilt Warp as peeling pop-up-shop vinyl with rotation axes. psst. goes further: the peel is driven by the real sun position and by the lean-in, so the axis carries meaning, not decoration.",
+    "https://receiptify.herokuapp.com/ (opened). Michelle Liu's Spotify data as a receipt, the proof that a receipt is a native share format. psst.'s receipt is better: it's a real itinerary with real hours and forecast/typical weather, it prints live with sound, exports a PNG, and its barcode encodes a code that unlocks a secret for a friend.",
+    "https://partiful.com/ (opened). Poster-style event invites with stickers and effects; the closest consumer app to 'flyers as UI'. psst. is better: its flyers are generated from real, source-checked events and they do something (a tear-off tab adds the event to your plan), instead of decorating an RSVP.",
+    "https://www.awwwards.com/inspiration/stickers-gopher-productions (opened; gopherproductions.com by Haus). Wiggly hover stickers as personality. psst. is better: stickers are earned ('I went') and slapped onto the real map where you went, so they form a record, not an ornament.",
+    "https://www.awwwards.com/inspiration/paper-effect (opened; Florent Biffi portfolio). Paper as an interface material. psst. ties every paper behavior to an action: tear means add, peel means reveal, print means share, unfold means map.",
+    "https://fontsinuse.com/tags/1679/tickets (opened). Historic tickets lean on condensed gothics and serials, which informed the League Gothic ticket and stub spec.",
+    "https://www.typewolf.com/sign-painter (opened). House Industries' Sign Painter is the default 'sign' choice and a paid script. psst. avoids the brush-script clich\u00e9 and uses a sign-painter geometric (Tilt Warp) plus a real drop-shade practice.",
+    "https://dos.fl.gov/cultural/programs/florida-folklife-program/folk-heritage-awards/list-of-past-recipients/serge-toussaint (opened). Little Haiti's hand-painted sign tradition is a living practice. For the photo-shoot phase, psst. should commission and credit real Miami sign painters rather than imitate a specific artist.",
+    "https://www.miamiandbeaches.com/travel-interests/lgbtq-miami/william-lanes-iconic-lifeguard-towers (opened). William Lane's tower color combinations (pink/green/orange, purple/lavender/peach, teal/royal blue/lime) are the source of the stock/tower-* sticker and flyer papers.",
+    "3:05 cafecito: verified from search excerpts only (NBC Miami, Telemundo 51); the Miami New Times ventanita list returned HTTP 403. godly.website now redirects to recent.design (checked); nothing print-led worth citing there today. Mobbin needs a login and was not used. betterletters.com is a parked domain, so it is not cited."
+   ],
+   "antiTemplateChecks": [
+    "1 Font: PASS. Tilt Warp, League Gothic, Martian Mono and Atkinson Hyperlegible Next are all off the default list (no Inter, Geist, Roboto, Poppins, Montserrat, Space Grotesk or Space Mono). Each maps to one printed object: sign, poster/ticket, receipt, reading. Watch-out: League Gothic is a common free condensed. It's justified by its Alternate Gothic wood-type lineage and limited to names, flyers and tabs.",
+    "2 Accent: PASS with a guardrail. Pi\u00f1a #FFB01F (hue 75.1) sits 11\u00b0 from Bumble's #FFC629 and 15\u00b0 from IMDb's #F5C518, and isn't a library default. It FAILS if it drifts back toward r0's #FFC53D (hue 84.1), so the token carries that note.",
+    "3 Layout: PASS. There's no centered hero, card trio, logo row, pricing or FAQ. Every view is one of four physical objects (board, receipt, wall, pocket) on a printed-map tabletop, and the right side of desktop is never empty.",
+    "4 Device: PASS. With the wordmark covered, sun-directed drop shades on sign lettering, perforated cut lines, domino tiles and price-gun labels still say psst.",
+    "5 Decoration: PASS, conditionally. The only gradient is the split-fountain flyer ink (a real printing process, keyed to event time). The only glow is the night blacklight halo. The only shadows are sun-directed paper shadows. All backdrop blur is removed. This fails if anyone adds grunge, stains or tape beyond lean-in.",
+    "6 Voice: PASS. 'HOY, 4:42PM. Two good moves before the sun goes at 7:06.' sits naturally next to the error ('Lost signal. The board still shows what was good at 4:42PM.') and the receipt ('4 NIGHTS \u00b7 9 MOVES \u00b7 1 SECRET \u00b7 NO REFUNDS ON SUNSETS'): time-stamped, short, deadpan.",
+    "7 Concept: PASS. (a) The shade direction is the real sun, because the friend who knows Miami knows where the sun is. (b) The plan is a receipt, because the friend hands you paper. (c) A tear-off tab adds an event, because that's how you take a number off a flyer on a pole."
+   ],
+   "risks": [
+    "Kitsch or appropriation: Cuban, Haitian and Latin vernacular worn as a costume. Guardrails: no Spanglish or Krey\u00f2l jokes, no fake handwriting, no imitation of a named living artist's style. Spanish only for real nouns. For the shoot phase, commission and pay real Miami sign painters (for example, approach Serge Toussaint or the Big Brother Art School) to letter the HOY header and the board alphabet, and credit them.",
+    "Sun legibility vs maximal color: every text pair above was computed this session to be at least 4.5:1, except fire on kraft (3.51) and fire on pi\u00f1a (2.76), which are banned for text. Chrome stays paper plus coal. Test outdoors at full brightness before calling it done.",
+    "Performance on mid-range Android: stacked text-shadows, YROT axis changes, the canvas map with traffic and grain together. Mitigation: at most 3 shaded headlines per view, grain as a pre-rendered tile, YROT throttled to 30fps, and the map pauses traffic when unfolded off-screen. Test on a Moto G-class phone.",
+    "Domino comprehension: first-use legend plus aria. If testing shows people miss it, fall back to 'ENERGY 4/5 \u00b7 $$' text.",
+    "Tilt Warp is single-weight and wide, so it's for 1\u20134 words only. League Gothic carries every name. Fallbacks if Google Fonts fails: 'Arial Black' for Tilt, 'Impact, Arial Narrow' for League Gothic, ui-monospace for Martian, system-ui for Atkinson. Check the layout with fonts blocked.",
+    "Fontshare/ITF fonts are ruled out. ITF Free Font License v2.0 (17 Aug 2026), read in full: it allows @font-face self-hosting, but Section 02 bars 'subsetting, format conversion' without written consent, and Section 03 requires embedded fonts to be non-extractable. A base64 font inside a public single HTML file is extractable, so it isn't safe. Velvetyne is OFL, but some fonts are CUTE-licensed (PicNic), and none was a sign-painter face. Collletttivo is all OFL (Necto Mono is a backup mono). Departure Mono (OFL) was rejected as trend-heavy and pixel-sized. The Neue Black was rejected because it is drawn from Chicago Freedom Movement protest signage, which is the wrong thing to borrow for nightlife.",
+    "Time honesty: shades, warmth and blacklight must come from real solar math; a scrubbed time must never look like now; receipt weather must say FCST or TYP; prices are only the m.cost tier.",
+    "Scope: the receipt PNG with a scannable barcode (L) and the paint-on intro (M) are the first things to drop if time is short. The sun shade, blacklight, the slot-logic fix, the flyer fit-text fix and the always-visible desktop map are the non-negotiables.",
+    "Unverified this session (from general knowledge; check before anything public): the P3 chroma boosts for uv/*; the sign of the YROT-to-sun mapping (verify on device); the pink end-of-roll stripe as a standard thermal-roll warning; split-fountain inking as the source of gradient letterpress posters; and Domino Park being M\u00e1ximo G\u00f3mez Park on Calle Ocho. All are believed correct but were not sourced here.",
+    "Guardrail: never use Florida beach warning flags as a weather icon. They signal surf and marine hazards, and borrowing them for rain would mislead people about swimming safety. (Considered and rejected while designing; r0 doesn't use them.)",
+    "Fonts in the sandbox: the r0 screenshots were captured locally, so the only evidence that Google Fonts load inside the published Claude artifact is the brief's CSP statement. Open the published artifact and confirm all four families render, including Tilt Warp's YROT, before judging the design. The fallback stacks above cover a failure.",
+    "Process note: to read the ITF license, I downloaded Fontshare's Tanker kit (141 KB zip) into this session's scratchpad (streetprint/tanker.zip). It is not in the project and should not be used."
+   ]
+  },
+  {
+   "name": "NIGHT FLIGHT",
+   "oneLine": "psst. shows Miami the way you see it from the window seat, lit by what is actually open at this hour, and the friend next to you points at one light and says: that one.",
+   "critiqueOfCurrent": [
+    "mobile-now-day.png and mobile-now-night.png: the app fails its core job on first paint. At 390x844, the map, the 1:30pm clock, two buttons, the dial, the headline, the weather line and the filter pills fill the whole screen, and not one move is visible above the tab bar. Someone on the street sees a clock, not a move.",
+    "desktop-plan.png, desktop-wall.png, desktop-you.png, desktop-move.png, desktop-event.png, desktop-receipt.png: the map, which is meant to be the stage, is an empty navy void on 6 of 9 desktop shots. I could not reproduce this on the current build: on 2 Oct, Wall loaded fresh and Now, then Plan, then Wall in one session both render the map. So it is most likely an artifact of shots.mjs, which reuses one page and navigates by hash only. But it is what the founder judged, so fix the harness and reshoot before the next review.",
+    "desktop-now-night.png and mobile-now-night.png: the plane-window idea is already in MiamiMap.svelte (its own comment says 'like the city from a plane window', and it draws 420 headlight particles), yet it still reads as a dark-mode map template: violet land, a cyan coastline with shadowBlur 10, orange roads and pink radial blobs. The code shows why. Each car is a 2.4px dot built with a new radial gradient per car per frame, so there are no streaks and no bloom. Only about 43% of the 420 cars show at 11:15pm, spread across the whole metro. The camera is flat top-down, with no depth and no reflections on the water. On a phone, the sheet (52% of the screen) plus the 64px tab bar cover about 60% of the map. The shots were taken with prefers-reduced-motion: reduce, so the traffic is frozen in them; this motion critique comes from reading the code.",
+    "desktop-now-day.png and desktop-now-golden.png: day mode is a mint wash (rgba(0,150,140,.16) under white land) with grey roads at 10-42% alpha. There is no sun, no shadow, no water color and no heat. Golden hour only tints the background grey-green, because the map cache is either day or night and the two are cross-faded. The best line in the app ('Golden hour. Face west and stop talking.') sits on the least golden frame.",
+    "desktop-plan.png, mobile-plan.png and mobile-now-night-scrolled.png: this is the full template kit. A glass sidebar (backdrop-filter blur 22px), rounded pills for every control (tabs, filters, presets, the MIA clock chip), native <input type=date/time>, and rows of icon, title and meta (desktop-now-day.png). In the scrolled night view, event cards slide under the pinned dial with no backing and collide with its 12am to 12am scale. Cover the logo and this could be any map starter kit.",
+    "mobile-now-day.png: the brand is barely there. The pineapple period is 0.3em wide next to a 32px wordmark (about 10px on a phone) and appears nowhere else. The yellow (#FFC53D, oklch 0.854 0.157 84) is a stock golden yellow with no rule for when it appears: the Play button, the tab highlight, the date tiles and the flyers all share it, so it marks nothing. On mobile, the MIA chip also overlaps the map labels, and 'ALLAPATTAH' runs into 'DESIGN DISTRICT'.",
+    "mobile-wall.png: the Wall's flyers are the strongest idea in the app, and they break names mid-word ('THUNDE / RCAT', 'COUNTR / Y,'). Flyer.svelte sets overflow-wrap: anywhere together with a random width axis up to 140. All four flyers above the fold also come from the same yellow/orange family.",
+    "mobile-plan-scrolled.png and desktop-receipt.png: the planner breaks the promise of 'the friend who knows'. It puts 'Sunrise swim off Virginia Key' in the 6:15pm DINNER slot and 'The 3:05 cafecito' in the SUNSET slot, because planStay scores moves by energy and distance and never checks what the move is. Nov 22-24 print as empty days, each at 79 degrees, and the receipt calls the cafecito spot 'A Little Havana ventanita'. A plan with three blank days reads as broken. The r0 shots used placeholder spots; 43 real moves are in moves.json now (e.g. Bar AZ.85, Mac's Club Deuce, Club Space Terrace sunrise), so re-run the planner and add a check that a move fits its slot before judging."
+   ],
+   "concept": "Concept sentence: \"psst. is the friend in the window seat: as the city comes into view they lean across you, point at one light, and tell you why that one.\" This extends \"the friend who knows Miami\" from what they know to where they're standing: above the city, at this exact hour. The product's job, the right move at the right moment, becomes a lighting model. Everything actually open at the dial's hour glows (glow() already computes this from real opening hours). The sun's calculated position sets the light. One light, the Beacon, is the move, and the pineapple period of the wordmark is that light (a symbol of hospitality, shown lit). By day it's the same window under a high sun: turquoise shallows, boat wakes, pastel neighborhoods. Proof: the name is the sound of someone leaning over. Miami's first air terminal (Pan Am, Dinner Key, from 1 Dec 1930) brought flying boats down onto Biscayne Bay, and the NPS describes its Art Deco frieze as 'winged globes and rising suns'. For 95 years the city has been arriving by air and by water, under a sun. The map is real OSM coastline and roads, and sunrise and sunset are calculated. Night Flight is a viewpoint and a lighting model, not a costume: no boarding passes, departure boards, seat maps, gates or 'now boarding' copy. That is the line the hotel metaphor crossed. Process note: the brand skill asks for approval after each step (concept, voice, type, color). This pass collapses them into one deliverable, so get the founder's yes on concept, then type, then color before anyone builds.",
+   "voice": {
+    "register": "The window-seat whisper. Short, present tense, timed to the minute and specific about place: a friend narrating what's below, deadpan with a wink. Numbers are exact, or labeled 'about'. One joke per screen at most, and every joke must carry a fact (a time, a place, a price). If a line is funny but not useful, cut it.",
+    "uses": [
+     "go",
+     "lit",
+     "lean in",
+     "right now",
+     "skip"
+    ],
+    "never": [
+     "hidden gem",
+     "vibes",
+     "curated",
+     "experience",
+     "any airport pun (boarding, gate, final approach, cleared for takeoff)"
+    ],
+    "heroLine": "Sun's gone at 7:06. Be on the water by 6:50.",
+    "errorLine": "Can't see you from up here. Pick a neighborhood and I'll point.",
+    "receiptLine": "Saved. It'll light up on your map when it's the right hour."
+   },
+   "typography": [
+    {
+     "role": "Speaks: hero title cards, move names, the wordmark, tab labels, body text. One family for every word that talks.",
+     "family": "Science Gothic (variable: wdth 50-200, wght 100-900, CTRS contrast 0-85, slnt -10-0)",
+     "source": "https://fonts.google.com/specimen/Science+Gothic/license (also opened /about)",
+     "license": "SIL Open Font License 1.1, 'Copyright 2024 Font Detective LLC'. No Reserved Font Name is declared. It loads through the Google Fonts stylesheet the artifact CSP already allows, so it needs no base64; OFL would also allow embedding. Request: family=Science+Gothic:wdth,wght,CTRS@50..200,300..900,0..60&display=swap. The Latin subset measured 156,396 bytes.",
+     "why": "It revives Morris F. Benton's Bank Gothic (ATF, 1930-33), a face with film-title and signage history: Fonts In Use lists Bank Gothic in Tom Kan's Enter the Void title sequence. The revival adds a lowercase, true small caps and a 50-200 width axis. That axis puts the concept into one family: cinemascope-wide title cards at wdth 150-180, lowercase move names at 110-125, long event names squeezed to fit at 60-75, and body text at 95. I rendered it at real sizes in headless Chrome: a 64px caps hero, 12px credits at wdth 180 tracked 0.30em, and 16px body at wdth 100 / wght 420 all hold up. Stroke-only text at wdth 170 / wght 300 reads as a lit neon tube on night glass and as an unlit channel letter on paper, so no third 'neon' font is needed. Tokens: title-xl 40-72px fluid, caps, wdth fluid 110 to 170 by container width, wght 850, tracking -0.01em, line-height 0.9. move-name 24-34px, sentence case, axes set per move (see graphic devices). credits 11-12px caps, wdth 180, wght 500, tracking 0.30em. body 16/1.5, wdth 95, wght 420, max 34em. Long names condense automatically: step wdth down from 120 to 60 until the name fits on 2 lines, and never break inside a word (this fixes mobile-wall.png). Wordmark: 'psst' lowercase, wdth 125, wght 900; the existing --lean variable drives wdth from 125 to 200."
+    },
+    {
+     "role": "Measures: times, temperatures, distances, opening hours, prices, credit lines, map legend",
+     "family": "Martian Mono (variable: wdth 75-112.5, wght 100-800)",
+     "source": "https://fonts.google.com/specimen/Martian+Mono/license",
+     "license": "SIL Open Font License 1.1, 'Copyright 2021 The Martian Mono Project Authors'. No Reserved Font Name. Google Fonts stylesheet; the Latin subset measured 38,392 bytes.",
+     "why": "Every fact in psst. is a reading on the clock: 6:42PM, 86 degrees, 12 MIN, OPEN TILL 2AM, $$. Monospace figures are tabular by construction, so times don't jitter while you drag the sun. The width axis lets long venue and address strings fit at wdth 75 instead of truncating. Tokens: label 11-12px caps, wght 450-500, tracking 0.02em; data 13px, wdth 87.5; clock 48-64px, wdth 75, wght 700. Never used for paragraphs. Rejected in testing: Doto (its dot-matrix digits read as an airport board) and Datatype (no advantage). Total font budget is about 195KB. Use display=swap with size-adjusted Arial fallbacks."
+    },
+    {
+     "role": "Fallback display face, only if the founder reads the GTA association as too strong (see risks)",
+     "family": "Sprat (Collletttivo; serif with width and weight axes, 18 styles)",
+     "source": "https://www.collletttivo.it/typefaces/sprat",
+     "license": "SIL Open Font License, as stated on the Collletttivo page. It is not on Google Fonts, so it would be inlined as a base64 @font-face, which OFL allows. I did not verify whether it declares a Reserved Font Name: read the OFL.txt in the download. If it declares one, either embed the unmodified WOFF2 or rename the family internally when subsetting.",
+     "why": "A high-contrast serif after an Eric Gill lettering, running from condensed to wide and made for titles: a classic film title card with no video-game association. It is the second choice because it is elegant rather than playful and weaker as a body face; Science Gothic credits and Martian Mono would stay. Fontshare is excluded entirely: its ITF Free Font License v2.0 (17 Aug 2026) counts subsetting and format conversion as prohibited modification, allows document embedding only where the font 'cannot be extracted', and allows self-hosting only on your own server, which a single-file artifact doesn't have."
+    }
+   ],
+   "color": {
+    "tokens": [
+     {
+      "name": "beacon (OWNED ACCENT)",
+      "hex": "#FFB127",
+      "oklch": "oklch(0.815 0.163 75.0)",
+      "use": "The move. Used for the #1 pin on the map, the Beacon card's Go button, and the wordmark's pineapple period (the period counts as brand, not as the one-per-view ration). Fill only, with ink-day text on it (8.89:1). Never text or a thin line on paper (1.66:1)."
+     },
+     {
+      "name": "beacon-deep",
+      "hex": "#A55D0C",
+      "oklch": "oklch(0.550 0.125 60.2)",
+      "use": "Beacon when it must be text on paper by day (4.61:1), e.g. a 'best 6:40pm' highlight. Use rarely."
+     },
+     {
+      "name": "glass",
+      "hex": "#070D1F",
+      "oklch": "oklch(0.165 0.040 268)",
+      "use": "Night: the bay as black glass, the page background and the letterbox bands. Beacon on it: 10.65:1."
+     },
+     {
+      "name": "dusk-land",
+      "hex": "#1C1B32",
+      "oklch": "oklch(0.235 0.045 285)",
+      "use": "Night: land fill on the map. ink-night on it: 15.14:1."
+     },
+     {
+      "name": "surface-night",
+      "hex": "#111629",
+      "oklch": "oklch(0.205 0.040 272)",
+      "use": "Night: the opaque board and sheet, with no blur. ink-night 16.20:1, muted-night 8.65:1."
+     },
+     {
+      "name": "ink-night",
+      "hex": "#FDF2E1",
+      "oklch": "oklch(0.965 0.025 80)",
+      "use": "Night text: warm like headlights, never pure white."
+     },
+     {
+      "name": "muted-night",
+      "hex": "#ABB4CB",
+      "oklch": "oklch(0.770 0.035 270)",
+      "use": "Night secondary text and credit lines."
+     },
+     {
+      "name": "headlight",
+      "hex": "#FFECC5",
+      "oklch": "oklch(0.949 0.055 85.1)",
+      "use": "Map only: headlight streaks and the road glow at night."
+     },
+     {
+      "name": "tail",
+      "hex": "#F7383E",
+      "oklch": "oklch(0.640 0.225 25)",
+      "use": "Map: tail-light streaks. UI: the 'closes within 45 min' state as a dot or line. A light, line or state color only, never a text background (ink-night on it is only 3.39:1)."
+     },
+     {
+      "name": "tail-deep",
+      "hex": "#C2232B",
+      "oklch": "oklch(0.528 0.193 24.9)",
+      "use": "The closing-soon state as text on paper by day (5.38:1)."
+     },
+     {
+      "name": "pool",
+      "hex": "#4CEAD1",
+      "oklch": "oklch(0.850 0.135 180)",
+      "use": "Night: lit swimming pools (only from OSM leisure=swimming_pool features) and the 'open late' state. glass text on it: 12.88:1."
+     },
+     {
+      "name": "flamingo",
+      "hex": "#FE56A5",
+      "oklch": "oklch(0.700 0.215 355)",
+      "use": "Night: the lean-in/secret state and nightlife glows. ink-day on it: 5.45:1."
+     },
+     {
+      "name": "flamingo-deep",
+      "hex": "#B8125F",
+      "oklch": "oklch(0.512 0.198 1.4)",
+      "use": "The secret state as text on paper by day (5.84:1)."
+     },
+     {
+      "name": "blue-hour",
+      "hex": "#213480",
+      "oklch": "oklch(0.360 0.130 268)",
+      "use": "The bay and sky at civil twilight (sun between -6 and 0 degrees). ink-night on it: 10.15:1."
+     },
+     {
+      "name": "paper",
+      "hex": "#FBF4E8",
+      "oklch": "oklch(0.970 0.018 85)",
+      "use": "Day: the board, sheet and letterbox bands. The same warm sand is the base for land on the day map."
+     },
+     {
+      "name": "ink-day",
+      "hex": "#14203C",
+      "oklch": "oklch(0.250 0.055 265)",
+      "use": "Day text (14.76:1 on paper) and the text on beacon (8.89:1)."
+     },
+     {
+      "name": "muted-day",
+      "hex": "#535E75",
+      "oklch": "oklch(0.480 0.040 265)",
+      "use": "Day secondary text (5.95:1 on paper)."
+     },
+     {
+      "name": "shallows",
+      "hex": "#82E1E0",
+      "oklch": "oklch(0.850 0.090 195)",
+      "use": "Day: bay water near the shore, the light end of the water ramp. ink-day on it: 10.60:1."
+     },
+     {
+      "name": "channel",
+      "hex": "#117FAA",
+      "oklch": "oklch(0.560 0.110 232)",
+      "use": "Day: deep water and dredged channels, the dark end of the water ramp. Map only, never a text background (ink-night on it is only 4.09:1)."
+     },
+     {
+      "name": "copper",
+      "hex": "#DC8748",
+      "oklch": "oklch(0.700 0.130 55)",
+      "use": "Golden hour (sun between 0 and +8 degrees): the bay as a copper mirror. ink-day on it: 5.84:1."
+     },
+     {
+      "name": "deco-pink",
+      "hex": "#FDC8CB",
+      "oklch": "oklch(0.880 0.060 15)",
+      "use": "Day: neighborhood tint on land at 35% alpha, filled by nearest neighborhood point. ink-day on it: 10.99:1."
+     },
+     {
+      "name": "deco-mint",
+      "hex": "#B6F1D6",
+      "oklch": "oklch(0.910 0.070 165)",
+      "use": "Day: neighborhood tint (12.71:1 with ink-day)."
+     },
+     {
+      "name": "deco-lemon",
+      "hex": "#F7F3AC",
+      "oklch": "oklch(0.950 0.090 105)",
+      "use": "Day: neighborhood tint (14.11:1 with ink-day)."
+     },
+     {
+      "name": "deco-lilac",
+      "hex": "#DACCF7",
+      "oklch": "oklch(0.870 0.060 300)",
+      "use": "Day: neighborhood tint (10.73:1 with ink-day)."
+     }
+    ],
+    "ownedAccent": "Beacon #FFB127, oklch(0.815 0.163 75.0): the lit pineapple. Rule, written into the tokens as a usage note: beacon appears on at most one interactive element per view (the move you should make right now: its map pin and its Go button count as one), plus the wordmark period. It is a fill, and the text on it is ink-day. Everything else that glows on the map is 'light' (headlight, tail, pool, flamingo), never beacon. This replaces the current #FFC53D, which today marks the Play button, the tab highlight, the date tiles and the flyers at once.",
+    "nearestCompetitorColor": "In the category, checked live on 2 Oct: The Infatuation's accent is #0066F1 blue (National 2 type). Places by Raya has no accent, only black, white and warm grey. DICE uses #F2EF1D lemon and #4BFA94 green. Bumble's live tile color is #FFF500 (oklch 0.947 0.203 106.7). None of them use amber. The nearest well-known amber, outside the category, is Amazon orange, commonly cited as #FF9900 (oklch 0.772 0.174 64.6). I could not verify it live because the site blocks automated fetches; beacon sits about 10 degrees yellower and 0.04 lighter. Locally, the Miami Dolphins are commonly cited as aqua #008E97 plus orange #FC4C02 (also not verified live), so never set beacon next to pool aqua in large adjacent fields.",
+    "dayNight": "Driven by the sun's real elevation and azimuth, not by clock buckets. This is new code: core.js only has sunFor() for sunrise and sunset. Add a NOAA solar-position function (about 25 lines; lat 25.7617, lng -80.1918, America/New_York) that returns {elevation, azimuth} for any date and fractional hour. The map interpolates in OKLCH between five keyframes. NIGHT (sun below -12 degrees): glass bay, dusk-land, headlight and tail streaks, pools and open spots lit, reflections on the water. BLUE HOUR (-12 to 0): the bay goes blue-hour, and the lights switch on in a wave from the coast inland. GOLDEN (0 to +8): copper bay, warm land, and a sun glint stretched long toward the sun's azimuth (west at sunset, east at sunrise). DAY (+8 to +55): the shallows-to-channel water ramp, sand land with the Deco tints, boat wakes, and the beacon casting a crisp shadow away from the sun. HIGH SUN (above +55, around midday from roughly late February to late October in Miami): the shortest shadows and the most saturated shallows. The interface surfaces don't blend, because mid-tones go muddy: the board, bands and text flip between night and day tokens at -4 degrees with a 600ms crossfade. In November (the test trip) sunset is around 5:30pm, so evenings default to night mode."
+   },
+   "graphicDevices": [
+    "LIGHT TRAILS: long-exposure streaks. At night they are paired warm-white (headlight) and red (tail) streaks along real OSM roads, built from the existing traffic particles. In the interface the same stroke becomes the route between plan stops, the underline on the active filter and tab, and the progress line while Play runs. By day the device becomes boat wakes: a white V at the Kelvin wake half-angle (19.5 degrees) behind boats on the bay. Rule: a trail always means movement along a path, never a decorative swoosh.",
+    "THE BEACON: the pineapple period, lit. There is exactly one per view, and it marks the move. On the map it is a 14px pineapple glyph: at night with a 40px vertical light pillar and bloom, by day with a crisp ink shadow offset by the sun's azimuth. Within 200m of water it also drops a rippling reflection streak on the bay. It is the wordmark's period, the #1 pin, the Go button, and the loader (a pulsing period). Never scattered and never more than one; saved spots are plain ink or ink-night points.",
+    "TITLE CARDS: every move's name is set as a film title card in Science Gothic, with axes computed from its data, so each move gets its own type. The reference is Tom Kan's Enter the Void credits, where each credit is set for its person. The mapping uses real moves.json fields. energy 1-5 sets wght 380/500/640/780/900. secret 0/1/2 sets wdth 165/125/72, so the more hidden the move, the narrower its name. rainOk true (indoor proxy) sets CTRS 55; false sets 0. hm(best) at or after 22:00 or before 04:00 sets slnt -8 (a late-night lean); otherwise 0. category only chooses the wording of the credit line. Title cards replace the random-hash stickers as the photo stand-in and the collectible ('12 title cards collected')."
+   ],
+   "signatureComponents": [
+    "THE WINDOW (map stage; a rewrite of MiamiMap.svelte). A full-bleed canvas that is the only background in the app; on mobile, at rest, the UI never covers more than 54% of it. Static layer, rebuilt when the view changes: land fill, then water colored from a precomputed distance-from-coast field. To build the field, rasterize land once to a 512px offscreen canvas, run 3 box-blur passes, and read the result as 0-1 'depth'. Pass depth through the current phase's water ramp: shallows to channel by day, blue-hour to glass at night, copper at golden hour. Add roads by class, and by day the Deco tint by nearest neighborhood point at 35% alpha. Dynamic layer, every frame: traffic, glows of open moves (existing glow()), reflections, boats, the beacon, labels. Traffic: replace the per-car createRadialGradient with two pre-rendered 16px sprites (head, tail) plus short streak segments (length = speed x 0.25s), drawn with 'lighter' compositing at night. Budget: 600 particles on desktop, 280 on mobile. Bloom: draw the lights to a 1/8-size offscreen canvas and scale it back up with smoothing at 0.6 alpha (this works in Safari without ctx.filter). Frame budget: 6ms on an iPhone 12-class phone. If 3 consecutive frames take longer than 20ms, halve the particles and drop bloom. Night reflections: under each lit point within 200m of water, a 12-28px vertical gradient streak at 0.25 alpha, wobbling on a 3s sine. Neighborhood labels as signage: Science Gothic wdth 170, wght 300, 11px caps tracked 0.2em; stroke-only with a 6px glow at night, filled ink-day at 55% by day. Place them greedily with collision boxes so no two overlap (this fixes 'ALLAPATTAHDESIGN DISTRICT'). Truth line in Martian Mono at the map's corner: 'LIGHT FROM REAL OPENING HOURS \u00b7 TRAFFIC AND BOATS ILLUSTRATIVE \u00b7 POOLS FROM OSM'. Draw pools only if geo.mjs finds OSM leisure=swimming_pool features in the bounding box; otherwise skip them. Camera: flat top-down for all interaction. The cinematic tilt runs only during Lights On and fly-to: a wrapper div with perspective 1200px, rotateX(38deg), scale 1.25, over 900ms. Taps are disabled while tilted, and there is no tilt under reduced motion.",
+    "THE BEACON CARD (top of the sheet; a rewrite of NowView). It shows the single best move for the dial's hour, visible on first paint before any animation runs. From top to bottom: (1) a credit line in Martian Mono 11px caps, e.g. '6:42PM \u00b7 ABOUT 12 MIN FROM BRICKELL \u00b7 OPEN TILL 2AM \u00b7 $$'; distance says 'about' and 'from <hood>' until the visitor shares a location. (2) The move name as its title card, 24-34px. (3) One sentence of 'the move' in Science Gothic body, 16px. (4) Two actions. 'Go' has a beacon fill and ink-day text, is 48px tall, and is a plain link to Apple Maps on iOS and Google Maps elsewhere. 'Another' is a ghost button that swaps to the next-ranked move while the beacon flies across the map drawing a light trail. Below the card, 'Also lit right now' lists compact 56px rows: Martian Mono time, title-card name at 18px, hood. Mobile first-paint budget at 390x844: map 388px, Sun Strip 40px, Beacon card at most 230px, one also-lit row at 56px, tab bar 64px plus safe area. That totals about 812px, so one complete answer and one alternative sit above the fold, which fixes critique #1. A secret (lean-in) move can be the Beacon: its name shows squeezed to wdth 50 and tinted flamingo, with 'Hold to lean in \u00b7 3 left this week'.",
+    "THE SUN STRIP (replaces Dial.svelte). A 40px strip covering 24 hours, painted hour by hour with the map's actual colors from the light model for today's date, not a generic gradient. It carries: sunrise and sunset ticks labeled in Martian Mono ('RISE 7:13 \u00b7 SET 7:06'); a moon-phase glyph at night (new code: a simple synodic-month calculation, labeled 'calculated'); hourly rain bars from the baked weather, labeled 'forecast' or 'typical'; small ink ticks at the best hour of each saved move; and a playhead that is the sun disk by day and the moon by night, with a 44px hit area. Dragging scrubs time: the map re-lights every frame, the list re-ranks after 120ms with no movement, and the title cards morph to the new ranking. 'NOW' at the strip's right end snaps back to the present (replacing 'Back to now'). While you scrub, the top credit line reads 'SCRUBBING 1:30PM \u00b7 REAL 4:42PM', so the two clocks never contradict each other the way the MIA chip and the dial do today. Keyboard: role=slider; left/right arrows move 15 min, PageUp/PageDown 1 hour, Home jumps to now; aria-valuetext reads like '6:42pm, golden hour'. A play button at the left end runs 24 hours in 20 seconds and stops on any input. On desktop the strip spans the bottom letterbox band; on mobile it forms the top edge of the sheet.",
+    "THE LONG EXPOSURE (the Plan's share image), plus the receipt, kept and restyled. 'Make the poster' renders a 1080x1350 offscreen canvas: the night map of the stay's area in the glass and blue-hour palette, each night's route drawn as additive light trails between stops (night 1 brightest), stops as small beacons and the peak event as the one Beacon. Type is set like a film poster: 'MIAMI' in Science Gothic caps at wdth 190, a credit line 'NOV 20 - 24, 2026', then wide credits listing each night's moves, with the receipt code (PINA-XXXXX) as the last credit. Await document.fonts.load before drawing; render in 400ms or less. The primary save path is an <img> from a data URL that people long-press (mobile) or right-click to save. A Download link (canvas.toBlob plus a[download]) is only an enhancement: verify it works inside the sandboxed artifact before promising a Save button. The thermal receipt stays; it is the best existing component. Restyle it in Martian Mono, use beacon only once (on the code), and fix the empty days: planStay must fill daytime slots, and if nothing fits it prints one line in voice instead of a blank day."
+   ],
+   "layout": {
+    "mobile": "Phone first, 390x844. The top 46% (388px) is the Window, full-bleed. Over it sit the wordmark top-left (Science Gothic lowercase, wdth 125, wght 900, 30px, with the pineapple period at 0.42em in beacon, three times today's size) and a credit line top-right in Martian Mono 11px ('MIA 6:42PM \u00b7 86\u00b0 \u00b7 SET 7:06'). Both sit on a 64px scrim of glass at 55% along the top edge, which is there for contrast, not decoration. This replaces the pill chip and the recenter disc; recenter becomes a double-tap on the map. The hour's title card sits on the map's lower-left: at most 3 lines, caps, wdth fluid 110-130, 34-40px, ink-night with a 1px glass text-shadow over a 96px bottom scrim. Below the map is an opaque sheet (surface-night or paper, 20px radius on the top corners only, a 1px line, no blur). Its top edge is the 40px Sun Strip, followed by the Beacon card and one also-lit row, all above the fold. Dragging the sheet up opens the full list; the filters live there as one horizontally scrolling row of Martian Mono text toggles (ALL \u00b7 CHILL \u00b7 SOCIAL \u00b7 WILD \u00b7 RAIN-SAFE \u00b7 CHEAP), with the active one marked by a light-trail underline. Dragging the sheet down gives the map 85%. Tab bar: Now, Plan, Wall, You, labeled in Science Gothic caps (wdth 150, 10px, tracked 0.12em); the active tab gets ink plus a 2px light-trail underline, since beacon is reserved for the move. Move, event and plan views raise the sheet to 88% but keep a 100px strip of map visible, so the beacon or route stays in view.",
+    "desktop": "1440x900, cinematic. The Window fills the viewport between two solid letterbox bands (glass at night, paper by day). The top band (56px) holds the wordmark on the left, the tabs in the center (Science Gothic caps, tracked), and the live credit line on the right. The bottom band (72px) is the full-width Sun Strip with play and NOW. Between them the map frame is about 1.9:1. The board is a 420px opaque column flush to the left edge between the bands, with a hard 1px right rule, no radius and no blur, scrolling independently. It sits on the west, which is land, so Miami Beach and the bay stay visible on the right. It holds the Beacon card, the also-lit list and the filters. The hour's title card sits large over the map just right of the board (56-72px, wdth 160) and shrinks to a 2-line credit after the first interaction. Wall: the board widens to 860px with flyers in 3 columns, and hovering a flyer lights its venue on the map as the Beacon. Plan: the board holds the stay, and the map draws each night as light trails, with a night selector in the bottom band just above the Sun Strip. Move and event details replace the board's content (no floating card) with a back arrow, and the map flies to the place."
+   },
+   "motion": "Tokens: --dur-ui 180ms cubic-bezier(.2,.8,.2,1) for press, toggle and hover. --dur-sheet 280ms cubic-bezier(.3,1.2,.4,1) for sheet snaps and card swaps. --dur-camera 900ms cubic-bezier(.65,0,.35,1) for fly-to and tilt. --dur-title 600ms cubic-bezier(.2,.8,.2,1) for title cards settling into their axes. All interface motion stays at or under 300ms; camera moves and cinematic moments are separate, always skippable, and off under prefers-reduced-motion. Four signature motions. (1) Title-card settle: when the ranking changes or a card swaps, the name animates its own axes from wdth 200, wght 150 and opacity 0 to its settings, like a projected title coming into focus, over 600ms with a 40ms stagger per row. (2) Lights on at dusk: when the Sun Strip crosses -2 degrees, roads, pools and open spots switch on in a wave from the coast inland over 1.2s, staggered by the precomputed distance to the coast; at dawn the wave runs in reverse. (3) Fly-to: a 900ms camera ease to the selected move while a light trail draws from the previous beacon to the new one. (4) Lean-in: the existing 950ms hold, then a vignette closes on the card, the existing --lean variable drives the wordmark's Science Gothic width from 125 to 200 and back, and the hidden name opens from wdth 50 to its own width. Under reduced motion: traffic is frozen but still drawn as streaks, there is no tilt, no intro and no play loop, axis changes are instant, and crossfades last 150ms or less. Nothing flashes more than 3 times per second anywhere (WCAG 2.3.1): Enter the Void is a reference for its type, never for its strobe.",
+   "jawDropMoments": [
+    {
+     "moment": "LIGHTS ON: on the first open of each session, Miami switches on. Lasts 2.4s at most; any tap, scroll or key skips it.",
+     "how": "A canvas-only overlay on the real map. The DOM (Beacon card and list) is fully rendered and interactive from frame 0, so it never blocks the answer. 0-0.8s: the coastline draws as a thin line of light from Key Biscayne northward (precompute the cumulative length of each coast polyline and use setLineDash([t*L, L])). 0.8-1.6s: roads switch on by distance from the coast (per-vertex distance precomputed once; alpha = smoothstep of t minus d). 1.6-2.4s: traffic streaks start, the Beacon drops onto the top move with its 40px light pillar, and the hero title card settles. If it is daytime in Miami, the same timeline runs as an exposure: color saturates in from an overexposed white frame, shallows first. Reduced motion shows the final frame only. Plays once per session (sessionStorage, wrapped in try/catch).",
+     "effort": "M"
+    },
+    {
+     "moment": "SCRUB THE SUN: drag the strip and the whole city re-lights in real time. Continuous and user-driven, with no fixed duration.",
+     "how": "The Sun Strip drives one phase value from the new solar-position function. It sets the water ramp, the land tint, the glint position (from azimuth), the traffic share (the existing hourly curve, labeled illustrative), pools switching on at dusk, and the glow of open moves via glow(). The list re-ranks after 120ms idle, and its title cards morph their axes instead of re-rendering. It stays within the frame budget because the static layer is cached in 24 phase buckets and only the dynamic layer redraws.",
+     "effort": "M"
+    },
+    {
+     "moment": "LEAN IN AND IT WHISPERS BACK: hold a secret, the screen closes in on it, a synthesized 'psst', and a dark spot on the map lights up. About 1.4s in total.",
+     "how": "Uses the existing 950ms hold-to-unlock in MoveCard. On unlock, a radial-gradient vignette closes on the card over 280ms, the wordmark stretches (wdth 125 to 200 to 125), the secret's title card opens from wdth 50 to its own width, and a beacon appears on the map in a place that was dark. Sound is off by default; one speaker toggle in You turns it on (stored in localStorage) and supplies the user gesture WebAudio needs. The synthesized 'psst': a 4ms high-passed click for 'p', then 300ms of white noise through a bandpass at 6.5kHz (Q 1.4, 15ms attack, 80ms release) for 'ss', then a 30ms burst at 3kHz for 't', with master gain 0.25. It never autoplays. Haptics use the existing navigator.vibrate([12,40,18]) where supported.",
+     "effort": "S"
+    },
+    {
+     "moment": "THE LONG EXPOSURE: your whole stay as one night photograph you send to the group chat. Renders in 400ms or less, on demand.",
+     "how": "A 1080x1350 offscreen canvas reusing the map's static layer in the night palette. Each night's route is an additive light trail: a 6px headlight core plus an 18px beacon or flamingo halo at 0.25 alpha with 'lighter' compositing. Stops are drawn as beacons and type is set like a film poster in Science Gothic (await document.fonts.load first). The output is an <img> from a data URL for long-press saving; the download link ships only after a[download] is verified inside the artifact sandbox.",
+     "effort": "M"
+    },
+    {
+     "moment": "A DAY MODE WORTH A SCREENSHOT: turquoise shallows, boat wakes, sun glint and the beacon's shadow. Always on when the sun is up.",
+     "how": "The water ramp comes from the distance field (shallows #82E1E0 to channel #117FAA). Draw 12-20 boats on hand-drawn water polylines (Government Cut, the Intracoastal, the Rickenbacker to Key Biscayne), each a 3px white hull with a V wake at 19.5 degrees fading over 60px, labeled illustrative. Specular glint: a soft ellipse on the water at the anti-solar offset, sized by sun elevation and stretched along the azimuth at golden hour. The beacon casts a 50% ink shadow offset by (cos az, sin az) x 1/tan(elevation), clamped to 24px. Deco pastels are drawn on land by nearest neighborhood point at 35% alpha.",
+     "effort": "M"
+    }
+   ],
+   "cut": [
+    "The glass panel and floating card (backdrop-filter on .panel, .chip and .recenter): replace with an opaque board flush to the screen edge.",
+    "Every pill: tabs, filter chips, plan presets, the 'MIA 4:42pm' chip. Replace with text toggles that get a light-trail underline, and with Martian Mono credit lines.",
+    "The pill Dial, the yellow 'Play the day' button and 'Back to now': replace with the Sun Strip, with play and NOW built in.",
+    "Anybody, Figtree and DM Mono: replace with Science Gothic and Martian Mono, two families in total.",
+    "#FFC53D as --sun, and the mango/hibiscus/bay set as UI accents: replace with Beacon as the single rationed accent plus the light palette.",
+    "The random-hash stickers (Sticker.svelte) as each move's identity: replace with data-driven title cards. Keep the collecting mechanic, as title cards collected.",
+    "The traffic loop that builds a radial gradient per car per frame: replace with the sprite-and-streak renderer and its budget.",
+    "The 1.9s intro overlay (a centered logo on navy with the tagline): replace with Lights On, which never blocks the list.",
+    "The teal glowing coastline (shadowBlur 10) and the pink radial blobs as generic 'night': light only what is actually lit at that hour.",
+    "Native date and time inputs in Plan: replace with a tap-to-select strip of nights (Oct to Dec) and landing / flight-out steppers in 30-minute steps.",
+    "Separate section headers in small display caps ('GOOD AT 1:30PM', 'ON IN THE CITY'): fold them into Martian Mono credit lines.",
+    "Do NOT cut: the thermal receipt (restyle it), the Wall flyers (fix the word breaks and widen the palettes), the lean-in mechanic, and the labels on baked or calculated data."
+   ],
+   "references": [
+    "Marseille by La Phase 5: https://www.awwwards.com/sites/marseille-by-la-phase-5 (opened). Awwwards Site of the Day on 13 Mar 2021, scored 7.54/10. A city guide built on a real-time 3D map (WebGL, Three.js) with zoom-in transitions and 360-degree panoramas. psst. will be better because its map is lit by live data (real opening hours times the real sun) and it answers in one card on a phone. Marseille is a showcase you explore, not a tool for deciding where to go.",
+    "Mapbox Standard style light presets: https://docs.mapbox.com/map-styles/standard/guides (from search results; I did not open the page). Four fixed presets (dawn, day, dusk, night) that change color temperature and shadow direction. psst. goes further: light changes continuously with the sun's calculated elevation for the actual date, and the light carries meaning, because only what is open glows.",
+    "Enter the Void title sequence: https://fontsinuse.com/uses/61211/enter-the-void-title-sequence (opened). Tom Kan's 2009 credits for Gaspar No\u00e9, with each credit set in its own typeface to reflect the person. psst. borrows the idea, not the look: each move's title card is computed from its data, and there is no strobe (the source page carries an epilepsy warning).",
+    "Bank Gothic in use: https://fontsinuse.com/typefaces/5475/bank-gothic (opened). Morris F. Benton for ATF, 1930-33, with 39 uses listed, including the Enter the Void sequence and also Grand Theft Auto III and GTA Online, which is why the GTA risk below is real.",
+    "Science Gothic specimen: https://fonts.google.com/specimen/Science+Gothic/about (opened). A 4-axis Bank Gothic revival with a lowercase and small caps added; the page says it is on more than 1,100 websites, so it is not overexposed.",
+    "The Infatuation Miami: https://www.theinfatuation.com/miami (opened; I read the computed styles). Black and white with a #0066F1 accent, set in National 2 / Narrow / Condensed, organized as editorial lists. psst. beats it on timing (this hour, this weather) and with an identity that doesn't look like a news site.",
+    "Places by Raya: https://www.placesbyraya.com (opened; computed styles). Black, white and warm greys, Antarctica Display with GT Flexa Mono, curated by 'luminaries' across many cities. It already uses the same display-plus-mono logic, so psst. has to win on color, light and Miami-only depth, not on the type pairing.",
+    "Pan American Seaplane Base and Terminal Building: https://www.nps.gov/articles/pan-american-seaplane-base-and-terminal-building.htm (opened). The concept proof: flying boats from Dinner Key from 1 Dec 1930, an Art Deco frieze of winged globes and rising suns, and the building has been Miami City Hall since 1954.",
+    "Fontshare ITF Free Font License v2.0, 17 Aug 2026: https://www.fontshare.com/licenses/itf-ffl (opened, rendered in a browser). It allows self-hosting via @font-face, but it counts subsetting and format conversion as prohibited modification and allows document embedding only where the font 'cannot be extracted'. Excluded for this artifact.",
+    "Not useful or not reached: godly.website now redirects to recent.design, which has no searchable archive; siteinspire's search returned only its latest feed; Mobbin needs a login, so I didn't check it. Typewolf has no Bank Gothic page (404), and its Google Fonts roundup lists neither Science Gothic nor Martian Mono, a weak sign that neither is overused."
+   ],
+   "antiTemplateChecks": [
+    "1 Font check: PASS. Science Gothic and Martian Mono; neither is on the template-default list (Inter, Geist, Roboto, Poppins, Montserrat, Space Grotesk, Space Mono). Science Gothic was added to Google Fonts on 19 Nov 2025 (per its metadata) and its page says it is on 1,100+ sites. Caveat: it shares Bank Gothic's lineage with GTA's interface (see risks).",
+    "2 Accent check: PASS WITH CAVEAT. Beacon #FFB127 is not used by The Infatuation (#0066F1), Places by Raya (no accent), DICE (#F2EF1D) or Bumble (#FFF500), all checked live. The nearest famous amber is Amazon orange (commonly cited as #FF9900, not verified live), which is outside the category and about 10 degrees redder in hue. The current #FFC53D fails as an owned color because it marks four different things.",
+    "3 Layout check: PASS. This is not the centered-hero, three-cards, logo-row, pricing stack. It is one full-bleed map stage, an opaque board and a time strip, and the first thing on screen is a single answer (the Beacon card).",
+    "4 Device check: PASS WITH CAVEAT, UNTESTED, because no mockup exists yet. With the logo covered, light trails and boat wakes, a single amber beacon and wide title cards over a lit Miami coastline should identify psst. But neon over a dark city is a genre, so the day mode (turquoise shallows, wakes, Deco tints) carries more of the ownership and must be built to the same standard. Re-run this check on the first build.",
+    "5 Decoration check: PASS WITH CAVEAT. Glass blur, pills and generic glow blobs are cut, and every remaining glow is light that is really on at that hour (open spots from opening hours, traffic by hour, pools from OSM). Bloom and neon labels are glow by definition, so the rule is: glow only on things that are lit in reality at that hour, and shadows only from the sun's actual azimuth.",
+    "6 Voice check: PASS. The hero ('Sun's gone at 7:06. Be on the water by 6:50.'), the error ('Can't see you from up here. Pick a neighborhood and I'll point.') and the confirmation ('Saved. It'll light up on your map when it's the right hour.') read as the same timed, specific whisper. The risk is airport puns creeping in; they are on the never list.",
+    "7 Concept check: PASS. (a) Beacon amber is the one light the friend points at, and it is the pineapple (hospitality) period. (b) Title cards show the city like a film seen from the window, with axes taken from each move's own data. (c) The Sun Strip is the window's light: one drag re-lights the whole city from the sun's real position."
+   ],
+   "risks": [
+    "GTA VI launches 19 Nov 2026 (the date Take-Two confirmed, per press coverage including PCWorld), the day before the test trip (Nov 20-24), and it is set in a Miami stand-in. Neon night-time Miami plus a Bank Gothic revival can read as fan art that week. Mitigation: no pink-orange-purple sunset gradient anywhere, beacon amber rather than pink as the hero color, lowercase-led titles with caps only for credits, and a day mode as strong as the night. If the founder still reads it as GTA, swap the display face to Sprat (the fallback above).",
+    "Metaphor creep: the founder killed the hotel metaphor as slop. Night Flight must stay in camera, light and type: no boarding passes, departure boards, seat maps, gates or 'now boarding' copy. Check every string against the voice never-list.",
+    "Phone performance: particles, bloom and reflections can drop a mid-range Android below 30fps. The budgets and auto-degrade rules are specified, but test on a real mid-range phone, not only desktop Chrome.",
+    "Real or labeled: the traffic and boats are illustrative (the hourly traffic curve is a typical pattern, not live), pools must come from OSM or not be drawn, and drive times are estimates. The map's truth line has to say so, or the build breaks the brief's honesty rule.",
+    "Night can still read as a 'moody dark template' if the colored lights (pool, flamingo, headlight, tail) and the day mode are not built to spec. The brief asks for colorful and playful.",
+    "Legibility of title cards over a lit map: they need the specified scrims, plus a contrast check over the brightest region of the map in each light phase.",
+    "Science Gothic as a body face: it was readable at 16px and wdth 95 in my render, but it feels mechanical. If people struggle in a test, adding a quiet text face would break the two-family rule.",
+    "Font weight: the Science Gothic Latin file is 156KB and Martian Mono's is 38KB (about 195KB together). Use display=swap with size-adjusted Arial fallbacks, and request only the axes in use (drop slnt if the late-night lean is cut in review).",
+    "Process: this pass collapses the skill's step-by-step approvals into one deliverable. Get the founder's yes on concept, then type, then color before build.",
+    "Review harness: the r0 shots were taken with reduced motion and probably hit the hash-navigation artifact. The next review needs motion captures (a 10s recording of Lights On and a sun scrub), or the motion work won't be judged at all."
+   ]
+  },
+  {
+   "name": "Tear Here: today's Miami as a pad of tear-off moves",
+   "oneLine": "psst. hands you today's Miami as a short pad of tear-off tickets, each one a move that is good for a specific hour, on a screen painted the color of Miami's sky right now; you tear off the ones you'll do, and the stubs you keep become your collection.",
+   "critiqueOfCurrent": [
+    "mobile-now-day.png: the first viewport is about 40% grey map and 60% clock, controls, headline and weather (1:30pm, SCRUBBING \u00b7 DAYLIGHT, Back to now / Play the day, the 24h pill). Not one move is visible above the tab bar; the filter chips are cut off at the fold. The product's one job, handing you the move, is missing from the first screen. desktop-now-day.png is the same problem with a pale teal and grey map that reads as a Google Maps clone, monospace labels collide (ALLAPATTAHDESIGN DISTRICT) and the screen shows two dots.",
+    "mobile-now-golden.png and desktop-now-golden.png: 'golden hour' renders the map as a murky grey-green wash, the least golden screen in the set. The sky-lit lighting is supposed to be the differentiator, and at the most photogenic hour of the Miami day the only warm thing on screen is the copy ('Face west and stop talking').",
+    "desktop-move.png, desktop-event.png, desktop-plan.png, desktop-wall.png, desktop-you.png: on every desktop view except Now the map disappears and about 1,000px of empty navy sits to the right of a 440px glass panel. This is a phone sheet stretched across a monitor. desktop-you.png also puts a light panel on the dark void with a ghosted, unreadable logo.",
+    "mobile-plan-scrolled.png and desktop-receipt.png: the planner breaks the brand promise. 'The 3:05 cafecito' is scheduled at 5:06pm under SUNSET, 'Sunrise swim off Virginia Key' at 6:15pm under DINNER, Saturday has one stop (a locked secret) and doesn't include John Summit night 2, Sunday to Tuesday have none, and the receipt prints 'COST less than you think'. A friend who knows Miami would never send you on a sunrise swim at dinner, so this is a failure of taste, not only a bug.",
+    "mobile-move.png (r0) and shots/r1-data/mobile-move.png: the screenshot named 'move' never shows a move. It shows the Now list at 10pm, and in the real-data version the first two rows are blurred locked secrets ('Press and hold to lean in \u00b7 3 left this week'). The main list is mostly content you can't read, and the core object, one move, has no screen of its own on mobile.",
+    "mobile-wall.png and mobile-event.png: the generated riso flyers are the most distinctive asset, but they break words mid-word (THUNDE/RCAT, COUNTR/Y, NEW ROAD), squeeze long bills ('\u00c2ME (DJ), HARDT ANTOINE & MACEO PLEX') into condensed caps, and print 'FRI OCT 2' twice on one flyer. The Andy Stott flyer is a red circle on yellow dots. They read as auto-generated, not as found on a Calle Ocho pole.",
+    "mobile-now-night.png and desktop-now-night.png: the night skin is the stock template, purple-navy (#0B0820) with a cyan glow coastline, orange glow roads, a glass panel and outline pills. It could be any DJ or crypto app. Developer language ('SCRUBBING \u00b7 AFTER DARK', 'Back to now', 'Play the day') sits where the hero line should be.",
+    "All screens: the brand barely shows. The wordmark is 32\u201340px with a pineapple about 8px tall. The main accent --sun #FFC53D is effectively Bumble's yellow (#FFC629), and the move rows are generic list UI (5-dot energy pips, $$$, teal/pink 'lowkey'/'lean in' pills). The six-pill filter row (Everything, Chill, Social, Wild, Rain-safe, Cheap) wraps to two lines on mobile-now-night.png and pushes the moves further down. Nobody would screenshot any of this to send to a friend."
+   ],
+   "concept": "Concept sentence: \"The friend who knows Miami tears you a ticket for the right hour.\" How it extends 'the friend who knows Miami': a friend doesn't hand you a map with 400 pins. They lean over at 3:05 and slip you one thing, with the time and exactly what to order. A ticket stub is the physical form of that tip. It has a valid window (the hour), an admission instruction (the move), a serial number (No. 012 of 43, so it's collectible) and a perforation, which makes keeping it a gesture. Proof it isn't decoration: the name is the whisper before a tip, and the pineapple period (hospitality) becomes the sun on the time track. The Wall already says 'Tear one off' and the Receipt already prints plans, so the stub turns what the product already has into one object. Tilt Warp, the display face, is described in its repo as resembling 'peeling vinyl stickers' and is built from storefront sign painting. The daily ritual: a fresh pad every morning (5\u20137 stubs ordered by hour). One sealed secret drops daily at 3:05pm, Miami's cafecito hour and its 305 area code. Every Thursday at 3:05pm the weekend pad drops for locals. Visitors get the Strip, their stay as a roll of stubs. Why it beats Google Maps in the first 5 seconds. At 0.0s the screen is the flat color of Miami's sky this minute (pool blue at 3pm, mamey at golden hour, bay ink at night), with the hour in 76px sign lettering. At 0.6s the pad lands with one stub on top for right now: 'The 3:05 cafecito at Las Olas' sidewalk window \u00b7 good till 8pm \u00b7 12 min \u00b7 walk up to the ventanita, order a cafecito, take a Cuban cut extra thin to the beach'. At 1.5s the next stub peeks out and 'Later today' shows the shape of the day. By 5s you've decided, or swiped. Google Maps at 5s shows a grey map, a blue dot and an empty search bar: it answers 'where' only after you already know 'what'. psst. answers what, when, why and how before you ask, and Maps is still one tap away on every stub.",
+   "voice": {
+    "register": "A Miami friend texting from the ventanita: specific, warm, a little conspiratorial, deadpan about tourist traps. Short imperative sentences that carry exact details (the time, what to order, which door, cash or card). Spanish only where Miami already uses it (cafecito, colada, ventanita, pastelito), never as a costume. Jokes: at most one dry aside per screen, always attached to a real fact ('Face west. Stop talking.'). Never puns on Miami Vice, flamingos or 'vibes', and no exclamation marks.",
+    "uses": [
+     "psst",
+     "go",
+     "ask for",
+     "good till",
+     "keep"
+    ],
+    "never": [
+     "hidden gem",
+     "vibes",
+     "curated",
+     "must-try",
+     "explore",
+     "experience"
+    ],
+    "heroLine": "psst. It's 3:05. Here's your move.",
+    "errorLine": "Closed today and nobody told us. Here's where the regulars went instead.",
+    "receiptLine": "Kept. No. 012 is yours. Go before 8."
+   },
+   "typography": [
+    {
+     "role": "Display, 'the sign': the hour, move titles, wordmark, section heads. 20px and up only.",
+     "family": "Tilt Warp (Andy Clymer, Google Fonts), variable axes XROT and YROT, each -45 to 45",
+     "source": "https://github.com/googlefonts/Tilt-Fonts",
+     "license": "SIL Open Font License 1.1, as stated in the repo. Commercial use is allowed. The OFL allows embedding, and documents made with the font are not bound by the license. Delivery: through the CSP-allowed Google Fonts stylesheet (css2?family=Tilt+Warp:XROT,YROT@-45..45,-45..45). I measured the latin woff2 at 68 KB with both axes intact, so no base64 is needed. If it ever has to be inlined, base64 the unmodified woff2 and keep the copyright and OFL notice in a CSS comment.",
+     "why": "It comes from storefront sign painting, and the repo describes Warp as resembling peeling vinyl stickers, which is exactly the material of a collectible stub. Its rotation axes put the psst. lean-in inside the font: on press-and-hold the title rotates toward you (font-variation-settings 'XROT' 0,'YROT' -28). I tested it at real sizes on a stub: legible at 20px ('Walk in for a frozen martini when Sunny's opens'), with accents (M\u00e1ximo G\u00f3mez), strong numerals at 76\u2013132px (digits are proportional, with no tnum; the hour sets each digit in a fixed 0.62em cell). Tokens: --type-hour 76px mobile / 132px desktop, line-height .92, tracking -0.01em, the 'pm' at .36em. --type-title 30px/1.02 on stubs (max 4 lines, text-wrap: balance). --type-section 22px/1.1. Sentence case only, never all caps, never below 20px. It replaces Anybody."
+    },
+    {
+     "role": "Voice and measure: the friend's note, UI body, and the ticket printer (every time, price, temperature, serial and label)",
+     "family": "Recursive (Arrow Type / Stephen Nixon, Google Fonts), axes used: wght, CASL, MONO",
+     "source": "https://github.com/arrowtype/recursive",
+     "license": "SIL Open Font License 1.1, per the repo. Commercial use and embedding are allowed. Delivery: Google Fonts stylesheet css2?family=Recursive:wght,CASL,MONO@400..800,0..1,0..1, measured at 142 KB latin woff2 as a variable font. Don't request slnt or CRSV, because the full five-axis file is 305 KB, too heavy for phones on 4G. Set MONO and CASL with font-variation-settings in caps, per the repo's guidance.",
+     "why": "One family gives three voices through its axes, and each maps to a role in the concept. The friend's handwriting: CASL 1, MONO 0, weight 500, 17px/1.36, used only for the move's note (moves.json 'theMove'). Quiet UI: CASL 0, MONO 0, weights 450/650, 15\u201316px/1.45. The ticket printer: MONO 1, CASL 0, weight 500, 11\u201313px, uppercase, +0.07em tracking. Mono digits are tabular by construction, so '10:00pm' never jitters while you scrub. Tested at 12px ('OPEN 08:00\u201305:00 \u00b7 86\u00b0/80\u00b0 \u00b7 RAIN 28%'). It replaces both Figtree and DM Mono, so the system has two families plus one rationed cut."
+    },
+    {
+     "role": "Night hour only, exactly one element: the signs come on after sunset",
+     "family": "Tilt Neon (Andy Clymer, Google Fonts), same skeleton as Tilt Warp",
+     "source": "https://github.com/googlefonts/Tilt-Fonts",
+     "license": "SIL Open Font License 1.1, per the repo. Load it with the Google Fonts text subset (css2?family=Tilt+Neon:XROT,YROT@-45..45,-45..45&text=0123456789:apm). I measured that at 21.5 KB, against 166 KB for the full latin file.",
+     "why": "It's built like neon tube lettering on the same letter model as Tilt Warp. When the sky passes sunset, the hour in the sky band switches from Warp (painted vinyl) to Neon (lit tube), as Ocean Drive's signs do. Color neon oklch(0.85 0.09 50) #FFBD99 with text-shadow 0 0 14px mamey/70%. It is limited to that one element so it never slides into the South Beach neon clich\u00e9, and it's the only glow in the system."
+    }
+   ],
+   "color": {
+    "tokens": [
+     {
+      "name": "--paper",
+      "hex": "#FEFAF1",
+      "oklch": "oklch(0.985 0.012 85)",
+      "use": "Card stock for stubs, sheets, mini stubs and the Book pages. Never the page background in daytime; the sky field is."
+     },
+     {
+      "name": "--ink (bay ink)",
+      "hex": "#052739",
+      "oklch": "oklch(0.26 0.05 235)",
+      "use": "All text on paper and on light skies, primary buttons and active tab. 14.9:1 on paper, 8.1:1 on the golden sky. Blue-teal like Biscayne Bay at night, not black, not purple."
+     },
+     {
+      "name": "--muted",
+      "hex": "#485E6C",
+      "oklch": "oklch(0.47 0.035 235)",
+      "use": "Secondary text on paper only (6.5:1). Never on sky fields (3.5:1 on golden fails); use --ink there."
+     },
+     {
+      "name": "--line",
+      "hex": "#D8D0C3",
+      "oklch": "oklch(0.86 0.02 80)",
+      "use": "Perforations and hairlines. It's decorative, at 1.47:1, so never the only boundary of a control."
+     },
+     {
+      "name": "--mamey (owned accent)",
+      "hex": "#F37F5F",
+      "oklch": "oklch(0.72 0.15 36)",
+      "use": "Means NOW. Used for the live dot, the now-marker on hour bars, and the pineapple-sun on the time track. One element per view. On light skies it always carries a 2px --ink ring (mamey alone is 1.9:1 on the morning sky). Ink on mamey is 5.9:1. Never a text color on paper (2.5:1). It's named for the mamey batido at Cuban cafeterias and the mamey shakes at Robert Is Here, a move in the data."
+     },
+     {
+      "name": "--mamey-deep",
+      "hex": "#BF4922",
+      "oklch": "oklch(0.56 0.16 38)",
+      "use": "When 'now' must be text on paper ('GO NOW' labels): 4.8:1."
+     },
+     {
+      "name": "--sky-dawn",
+      "hex": "#F9C5C8",
+      "oklch": "oklch(0.87 0.06 15)",
+      "use": "Sky field from sunrise-45min to sunrise+45min. Ink text 10.2:1."
+     },
+     {
+      "name": "--sky-morning",
+      "hex": "#AEE6F4",
+      "oklch": "oklch(0.89 0.06 215)",
+      "use": "Sky field until 11:00 (pool blue). Ink 11.4:1."
+     },
+     {
+      "name": "--sky-noon",
+      "hex": "#FBF2D0",
+      "oklch": "oklch(0.96 0.045 95)",
+      "use": "Sky field 11:00\u201315:00, sun-bleached. Ink 13.8:1."
+     },
+     {
+      "name": "--sky-afternoon",
+      "hex": "#B0F1DF",
+      "oklch": "oklch(0.91 0.07 175)",
+      "use": "Sky field 15:00 to sunset-60min (seafoam). Ink 12.2:1."
+     },
+     {
+      "name": "--sky-golden",
+      "hex": "#FCA864",
+      "oklch": "oklch(0.80 0.13 58)",
+      "use": "Sky field from sunset-60min to sunset+15min. This is the one window where the warm mamey family takes over the whole screen, and it's the screenshot moment. Ink 8.1:1."
+     },
+     {
+      "name": "--sky-dusk",
+      "hex": "#834791",
+      "oklch": "oklch(0.50 0.13 320)",
+      "use": "Sky field from sunset+15min to sunset+60min (sea grape). Paper text 6.2:1."
+     },
+     {
+      "name": "--sky-night",
+      "hex": "#042234",
+      "oklch": "oklch(0.24 0.05 240)",
+      "use": "Night sky field. Paper text 15.7:1, mamey 6.2:1. Stubs stay paper at night; they're physical objects under streetlight."
+     },
+     {
+      "name": "--neon",
+      "hex": "#FFBD99",
+      "oklch": "oklch(0.85 0.09 50)",
+      "use": "Night hour in Tilt Neon only. 10.1:1 on --sky-night."
+     },
+     {
+      "name": "--ink-guava (sticker ink)",
+      "hex": "#E2406F",
+      "oklch": "oklch(0.62 0.20 8)",
+      "use": "Sticker emblems and stub tear-off tints only, never UI chrome. Paper on it is 3.9:1 (large or graphic only)."
+     },
+     {
+      "name": "--ink-pool (sticker ink)",
+      "hex": "#4AC9EC",
+      "oklch": "oklch(0.78 0.12 220)",
+      "use": "Sticker emblems and tear-off tints only."
+     },
+     {
+      "name": "--ink-seagrape (sticker ink)",
+      "hex": "#733EA4",
+      "oklch": "oklch(0.48 0.16 305)",
+      "use": "Sticker emblems and tear-off tints only. Paper on it is 6.8:1."
+     },
+     {
+      "name": "--ink-ventanita (sticker ink)",
+      "hex": "#FED252",
+      "oklch": "oklch(0.88 0.15 90)",
+      "use": "Sticker emblems only, never a button, which is how the old Bumble-yellow problem is retired. Ink on it is 10.7:1."
+     },
+     {
+      "name": "--ink-mangrove (sticker ink)",
+      "hex": "#117555",
+      "oklch": "oklch(0.50 0.10 165)",
+      "use": "Sticker emblems and tear-off tints only."
+     },
+     {
+      "name": "--ink-keylime (sticker ink)",
+      "hex": "#C8F56D",
+      "oklch": "oklch(0.91 0.17 125)",
+      "use": "Sticker emblems only. Ink on it is 12.4:1, but never paper on it."
+     }
+    ],
+    "ownedAccent": "Mamey, #F37F5F / oklch(0.72 0.15 36), a salmon-coral named for the mamey batido. Rule: mamey means NOW. It marks the present moment everywhere (live dot, now-marker, pineapple-sun) and appears once per view, except during golden hour, when the whole sky field warms to --sky-golden by design.",
+    "nearestCompetitorColor": "Partiful's homepage orange #FE8207 (scraped from partiful.com) is the nearest, at \u0394E_OK 0.061. Mamey is 18\u00b0 pinker in hue (36 vs 54), lower in chroma (0.15 vs 0.18) and reads salmon-coral rather than traffic-cone orange, and Partiful's core identity is purple-to-pink gradients with black. Next are the Miami Dolphins orange #FC4C02 (0.093) and Google Maps red #EA4335 (about 0.10, hue 29, more saturated). For the record, the current accent #FFC53D sits on top of Bumble's #FFC629 and Google Maps' yellow #FBBC04, which is why it goes.",
+    "dayNight": "The background is a flat field the color of the actual Miami sky for the scrubbed hour. It's computed from sunFor(date) and keyed to the seven --sky stops above, with each boundary interpolated in OKLab over 30 minutes; there's no tween while dragging, and a 900ms ease when following live time. The MiamiMap canvas draws behind it tone-on-tone: water is the sky color, land is color-mix(in oklch, sky 62%, --paper) by day (sun-bleached) and sky-night +0.05 L at night, the coast is a 1.2px ink hairline at 45%, major roads 1.6px ink at 22%, primary roads 1px ink at 10%. There are no labels and no glow by day. After sunset the major roads carry the existing traffic particles and the hour switches to Tilt Neon. Stubs stay paper in every state, so contrast never depends on the time. Text on a sky is always --ink (light skies) or --paper (dusk and night), never --muted."
+   },
+   "graphicDevices": [
+    "The perforation: a 2px dashed line (6px dash, 6px gap, --line) inside a 22px band, with 10px half-moon notches cut into both edges (CSS mask with two radial gradients, so the sky shows through). Appears on every stub, between days on the Strip, on the tear-off tabs added to the foot of Wall flyers, and in share images. Never as a list divider, a settings separator or ornamental border.",
+    "The sky field: a flat, full-bleed color of Miami's real sky at the scrubbed hour, with the OSM coastline drawn tone-on-tone underneath. It is the page background on every surface. Never a decorative gradient, never on a card, never blurred glass.",
+    "Die-cut sticker emblems: the existing Sticker.svelte art (shape by category, palette by id hash) wrapped in a 3px --paper die-cut border with a drop shadow (0 4px 3px rgba(5,39,57,.3)). They're the art on stubs, the pins on the map (28\u201336px) and the slots in the Book. Never used as UI icons; tabs are text-only.",
+    "The rubber stamp: Recursive Mono caps 10.5px inside a 2px border, radius 6, rotated -8\u00b0, 85% opacity, in the move's deep ink. Used only for states: GOOD NOW, TOMORROW, KEPT, WENT 10.02, HOOD DONE.",
+    "The pineapple-sun: the period of the psst. wordmark (0.24em mamey circle) is the same object as the sun on the time track. On the Now screen it visibly travels from the wordmark to the track on first load, and at 3:05pm it turns into a small cafecito cup."
+   ],
+   "signatureComponents": [
+    "THE STUB (one move; events use the same object). Size 358\u00d7~470 on mobile (full width minus 16px gutters), 400\u00d7~500 on desktop. Card stock --paper, radius 4px with 9px concave corner notches (CSS mask: four radial-gradient circles, 9px, at the corners). Shadow 0 1px 0 rgba(5,39,57,.06), 0 18px 28px -16px rgba(5,39,57,.45), allowed because a stub physically sits on the sky. Main body, padding 14/16: (1) a top row in Recursive Mono 11.5px caps: left '\u25cf GOOD NOW \u00b7 TILL 8PM' (the dot is mamey with a 2px ink ring, shown only when now is inside an open window; otherwise 'BEST 10PM \u00b7 OPENS 5PM'), right the travel time ('12 MIN' walk from geolocation, labeled 'FROM BRICKELL' when location is denied). (2) The hour bar: 12px tall, radius 6, track oklch(0.93 0.012 80). Today's open windows from moves.json 'windows' are filled with color-mix(mamey 55%, paper), the best-hour tick is 2px --ink, and the now marker is 4px mamey with a 2px paper halo. (3) The emblem: Sticker art at 88px, top right (right 12, top 38), rotated by id hash (-10\u00b0 to 10\u00b0), with die-cut border. (4) The title in Tilt Warp 30/1.02, right margin 92px, max 4 lines. (5) The note ('theMove') in Recursive CASL 1, weight 500, 17/1.36, max 4 lines, then 'more' (flip). (6) A meta row in Mono 11.5px: hood \u00b7 cost as '$' glyphs \u00b7 one energy word (1\u20132 low-key, 3 lively, 4\u20135 loud) \u00b7 'rain ok' or 'skip if raining'. Then the perforation. The tear-off (84px) is tinted color-mix(move ink 16%, paper): on the left 'MOVE NO.' (Mono 10.5px) over a serial '012/043' in Tilt Warp 30px in the move's deep ink (the serial is the move's stable index in curated order, so it's real). On the right a 44px ink pill 'Hold to tear' (Recursive 650 15px). A rubber stamp sits on the perforation, and vertical microtext down the right edge reads 'ADMIT ONE \u00b7 FRI 10.02' (writing-mode vertical-rl, Mono 9.5px, .2em). The back (tap to flip, rotateY 180\u00b0, 240ms): 'How to get in' (getIn), the 24h bar with 12am/6am/noon/6pm labels, the 'why' line, the address, buttons 'Show me where' / Apple Maps / Google Maps, and 'Checked Oct 2 \u00b7 sources' in Mono. States: now; later (no live dot, stamp TOMORROW or BEST 10PM); sealed (see the Pad); kept (stamp KEPT, the tear-off stays in your Book); went (a 14px hole punched through the tear-off plus a WENT 10.02 stamp). An event stub swaps the emblem and title for the riso Flyer art cropped 4:3 across the top half, so there's one object system. Fix the Flyer: no mid-word breaks (hyphens: manual; shrink to fit by measuring line widths, then 2 lines max), and print the date once.",
+    "THE PAD ON THE SKY (Today, the home screen). Mobile, top to bottom: (1) the wordmark (Tilt Warp 30px + pineapple period) and, on the right, 'FRI OCT 2 \u00b7 86\u00b0 \u00b7 SET 7:06' (Mono). (2) The hour, Tilt Warp 76px (Tilt Neon after sunset). (3) The time track: a 2px line (ink at 35%) across the full width, with the pineapple-sun (18px mamey, 2px ink ring; a crescent at night) at hour/24. Drag to scrub in 15-minute steps with pointer capture; arrow keys move 15 min, PgUp/PgDn 1h, Home returns to now; tapping the hour also returns to now. A 'Back to now' Mono chip shows only when you're more than 30 min away. This replaces Dial.svelte, its gradient pill and both buttons. (4) The lede in Recursive CASL 1, weight 600, 18px ('psst. It's cafecito o'clock.'), from the existing line() table rewritten in voice. (5) The pad: the top stub plus two backs peeking 8px below, rotated +2.2\u00b0 and -1.4\u00b0. Swipe left for the next stub (it leaves rotating -8\u00b0), swipe right for the previous, tap to flip, hold the tear-off for 650ms or drag it down more than 60px to tear. Order is rankNow() for the current hour, at most 7 stubs per pad, at most one sealed secret and never in positions 1\u20132. (6) 'Later today': a horizontal row of 118\u00d776 mini stubs (paper, Mono time + Recursive 600 13px title); tapping one scrubs the hour to that stub's best time. (7) Tabs: Today \u00b7 Wall \u00b7 Trip \u00b7 Book, text only, with an ink pill on the active tab. The six-chip filter row is gone. When the pad holds more than 4 stubs, one segmented control 'Low-key | Loud' appears under the lede, and rain-safe applies automatically when rainAt() is 50% or more, with a one-line note. The 3:05 drop: from 15:05 Miami time, position 3 of the pad is a sealed stub. It's an ink envelope with a mamey wax-seal dot, the hood name and a one-line clue in Recursive CASL 1 ('Brickell. Ring twice.'). Holding it 950ms spends a lean (3 a week) and opens it. Every Thursday at 15:05 the pad header becomes 'This weekend' and holds Friday to Sunday's stubs plus Wall events.",
+    "THE BOOK (replaces You). An album with one page per neighborhood group: Little Havana \u00b7 Brickell/Downtown \u00b7 Wynwood/Edgewater/Allapattah \u00b7 Design District/Little River/Little Haiti/MiMo \u00b7 South/Mid/North Beach \u00b7 Coral Gables/Coconut Grove \u00b7 Key Biscayne/Virginia Key \u00b7 South Dade. Each page has the hood name in Tilt Warp 34px, a 100%-width tone-on-tone mini map cropped to the hood (same field renderer, with sticker pins), and a two-column grid of numbered slots. An empty slot is a dashed outline of its emblem shape, plus the serial and a clue in Recursive CASL 1 ('No. 027 \u00b7 ring twice'). A kept slot is the emblem sticker slapped in at \u00b18\u00b0 (520ms spring). A went slot adds a hole punch and a WENT 10.02 stamp. When every slot on a page is 'went', a HOOD DONE stamp lands and that hood's sealed secret opens for free. Header: '12 kept \u00b7 5 went \u00b7 3 leans left this week' (Mono), with leans refilling Monday at 15:05. Redeeming a friend's PINA code moves here as a small ticket-shaped input. State lives in localStorage with try/catch, and the page renders empty-but-whole without it. The habit loop is Beli's 'been' count without the leaderboard: you complete Miami, you don't compete for it.",
+    "THE STRIP (Trip; the visitor plan, test case Nov 20\u201324, 2026, John Summit at Kaseya Center). The stay renders as a roll of stubs, vertical on mobile and horizontal on desktop, with one perforated band per day. The day header is in Mono: 'FRI NOV 20 \u00b7 79\u00b0 TYPICAL \u00b7 SUNSET 5:30'. Hard rules in the planner, unit-tested: a move can only sit inside its open 'windows' on that weekday, within \u00b190 min of its 'best' unless the user drags it. Slot labels come from the slot's time (morning / lunch / 3:05 / golden / dinner / late), never the reverse, so 'Sunrise swim' can't land at DINNER. Each day gets 2\u20134 stops with no empty days, and anchor events (John Summit night 1 and night 2) appear as event stubs with their flyer. Arrival and departure times (landing 3pm, flight out 1pm) clip the first and last days. Energy uses the same 'Low-key | Loud' control. Share: 'Send the strip' draws a 1080\u00d71920 PNG on canvas (after document.fonts.ready; stubs, stickers, perforations and the PINA code) and hands it to navigator.share({files}) or a download link. 'Copy for the group chat' keeps the Receipt's plain-text format as a fallback. The separate Receipt modal goes away, and its thermal-printer voice lives on in the Mono printing on every stub."
+   ],
+   "layout": {
+    "mobile": "390\u00d7844 first. There are no sheets, drag handles or glass. The page is the sky field (with the map tone-on-tone behind it), and content sits directly on it. Today, from the top: safe-area + 12px, then the wordmark row (44px), the hour (76px Tilt Warp, about 70px tall), the track (22px), the lede (18px CASL 1), the pad (top stub about 470px plus 16px of stack peek), 'Later today' mini stubs (76px, horizontal scroll with 16px gutters), and the tab bar (64px + safe area, paper with ink text, not glass). At 390\u00d7844 with no browser chrome the whole top stub, its title, note and 'Hold to tear' fit without scrolling (about 818px total, checked in a scratch mock). When innerHeight is under 800 (iOS safe areas, Safari bars), the note clamps to 3 lines and 'Later today' scrolls below the fold. The stub's tear button must never be cut off. Tapping 'Show me where' turns Today into the map. The map goes interactive full-screen with the stub collapsed to its sticker on the venue, and a 'Back to the pad' chip at the bottom. Wall: a two-column masonry of flyers on the sky field. Each flyer gets three tear-off tabs at its foot that save the event as a stub; titles never break mid-word. Trip: the Strip, vertical, days separated by perforations. Book: one neighborhood page per screen, swipe horizontally between pages like an album. 16px side gutters everywhere and no horizontal page scroll except the deliberate mini-stub row.",
+    "desktop": "1440\u00d7900. The sky field and the interactive tone-on-tone MiamiMap fill the entire viewport. There is never an empty navy void. Left column, 470px wide, padding 28/32: the wordmark (40px), the hour (132px Tilt Warp), the track, the lede, then the pad (400px stub). The rest of the width is the live map, framed with the stub column as its left inset. Every stub in today's pad is also pinned on the map as its die-cut sticker at its venue, with a Mono time label. Hovering a sticker lifts the matching stub (translateY -6px), hovering a stub pulses its sticker, and the 'Later today' row runs along the bottom of the map as a horizontal strip of mini stubs. Trip: the Strip runs horizontally across the bottom 300px of the map with one column per day, and you drag a stub from the pad into a day slot to schedule it (pointer events, with a keyboard alternative 'Add to Fri'). Wall: flyers cover the right side as a pasted wall (CSS columns, \u00b12\u00b0 rotation, paper tabs), with the map dimmed to 12% beneath. Book: a two-page album spread centered over the map. Keyboard: Tab order is pad, then map stickers, then Later strip; Enter flips, T tears, arrows scrub."
+   },
+   "motion": "Motion means paper and light, nothing else. Tokens: --t-tap 120ms ease-out (press scale .98, stamps appearing); --t-ui 240ms cubic-bezier(.2,.8,.2,1) (flip, swipe to next, tab change, map pan start); --t-paper 520ms cubic-bezier(.3,1.35,.5,1) (sticker slap into the Book, stub landing on the pad). --t-paper is the only motion over 300ms and it never blocks input. Sky color changes immediately while scrubbing and eases over 900ms when following live time. The stack deal on scrub staggers 30ms per stub. Sound is off by default (toggle in the Book) and uses WebAudio only after a user gesture; haptics are navigator.vibrate where supported, so Android only, with visuals carrying it on iOS. Under prefers-reduced-motion there is no rotation, axis tilt, flight, flicker or chads: a tear becomes a 120ms crossfade plus the KEPT stamp, flips become crossfades, the sky changes instantly, font axes stay at 0, and the pineapple doesn't travel. Everything stays fully keyboard-operable (hold-to-tear equals Enter, then confirm).",
+   "jawDropMoments": [
+    {
+     "moment": "Tear here: you pull the stub off the pad and it tears along the perforation.",
+     "how": "In Svelte 5, the stub is two layers: main body and tear-off. On pointerdown over the tear-off, start a 650ms progress (or track drag distance up to 60px). Draw the torn edge as an SVG path along the perforation with jagged vertices seeded by the move id (mulberry32), revealing it left to right by progress, and update a clip-path: polygon() on both layers so the paper separates along it. At each hole the edge passes (every 12px), play a 25ms band-passed noise burst through WebAudio (white-noise AudioBuffer \u2192 BiquadFilter bandpass 2.2\u20133.4kHz, randomized \u2192 GainNode envelope) and call navigator.vibrate(4) where supported. On completion the main body falls away (translateY 40px, rotate -6\u00b0, opacity 0, 240ms), the tear-off rotates upright, a KEPT stamp lands (120ms scale 1.3 to 1), then the tear-off flies FLIP-style into the Book tab (getBoundingClientRect to the tab, 520ms paper easing) and the tab's counter bumps +1. Reduced motion: a 120ms crossfade and the stamp.",
+     "effort": "M"
+    },
+    {
+     "moment": "The signs come on: scrub past sunset and Miami lights up.",
+     "how": "In the sky-field $effect, when daylight(hour) crosses the sunset threshold, swap the hour's font-family from Tilt Warp to Tilt Neon with a two-frame flicker (keyframes opacity 1, .25, 1, .4, 1 over 180ms), add text-shadow 0 0 14px mamey/70%, cross-fade the field to --sky-dusk then --sky-night, and in MiamiMap.svelte switch the buildCache() mode from 'day' to 'field-night' (land sky-night +0.05 L, major roads redrawn as warm light at oklch(0.80 0.12 60 / .6), traffic particles on, using the existing CARS loop). With sound on, a 400ms hum: two OscillatorNodes at 60Hz and 120Hz at -36dB with a 30ms attack. Scrubbing back before sunset reverses it without the flicker.",
+     "effort": "M"
+    },
+    {
+     "moment": "Lean in: hold a sealed stub and the letters physically lean toward you.",
+     "how": "Tilt Warp's variable axes: during the 950ms hold, animate font-variation-settings from 'XROT' 0,'YROT' 0 to 'XROT' 0,'YROT' -28 with requestAnimationFrame driving a CSS custom property (--yrot) read in font-variation-settings: 'YROT' var(--yrot). The stub scales to 1.03, the sky field dims 15% (an overlay at --ink 15%), and the hidden title un-blurs letter by letter (each span's filter: blur(6px) to 0 staggered by index \u00d7 progress). The existing lean ring on the tear-off fills as a conic-gradient. On iOS, after a tap, ask DeviceOrientationEvent.requestPermission(), then the hour headline tilts with the phone (YROT = clamp(beta - 45, -20, 20)). Without permission, pointer position drives it.",
+     "effort": "S"
+    },
+    {
+     "moment": "Show me where: the stub folds into its sticker and slaps onto the map at the exact venue.",
+     "how": "FLIP the stub's emblem element to the venue's screen point from MiamiMap's project() and toScreen() (export them from the component). The stub body scales into the emblem: border-radius to 50%, width and height to 36px, 240ms. Meanwhile the map view tweens (view.cx, view.cy, view.s) from the city fit to the venue at about 4\u00d7 in 600ms with an ease-in-out, and the canvas re-renders each frame from the cached field layer. On arrival the sticker does a squash and stretch (scale 1.25/.8 to 1, 520ms paper easing), then a dotted walking line (Canvas setLineDash [2,6], ink 60%) draws from the user's geolocation, or from the previous stub on the day, with lineDashOffset animated, and a Mono label '12 MIN' at the midpoint. 'Back to the pad' reverses it.",
+     "effort": "L"
+    },
+    {
+     "moment": "3:05 drop: at cafecito o'clock the pineapple turns into a cup and a sealed envelope slides into the pad.",
+     "how": "An $effect on app.now: when Miami time is 15:05\u201315:15 (miamiNow() already exists), morph the wordmark's pineapple SVG into a cafecito cup by cross-fading two inline SVGs, with steam drawn from the coffee Sticker's three wavy paths animated via stroke-dashoffset. Insert the day's sealed secret, chosen deterministically from the 8 secret=2 moves by day-of-year, at pad position 3 with a 520ms slide-and-settle. Outside the window it appears as a quiet sealed stub, so the ritual still works for people who open later. On Thursdays the same moment flips the pad header to 'This weekend'.",
+     "effort": "S"
+    },
+    {
+     "moment": "Scrub the sky: drag the pineapple-sun and the whole city recolors, with the stubs reshuffling like a dealer's hand.",
+     "how": "The track handler sets app.hour (reuse Dial.svelte's setFrom and key logic). skyColor(hour) interpolates the seven OKLCH stops in OKLab (small inline lerp, no library) and writes --sky on .app, which repaints the CSS background and triggers MiamiMap's cache rebuild only when the colour changes by more than \u0394E 0.01. Use Svelte 5 keyed {#each} with animate:flip plus in:fly (y 12, rotate \u00b12 via a custom transition, 30ms stagger) so stubs re-deal as rankNow() changes. Tilt Warp digits are proportional (measured advance widths 377\u2013646 units, no tnum feature), so render each digit of the hour in its own inline-block 0.62em wide, text-align center, so the hour never jitters while scrubbing.",
+     "effort": "S"
+    },
+    {
+     "moment": "Send the stub: one tap turns a move into a share card a friend actually opens.",
+     "how": "Canvas 1080\u00d71350, after await document.fonts.ready: fill the current --sky, draw the tone-on-tone coastline crop around the venue (reuse MiamiMap's fillSet/strokeSet against an offscreen canvas), then the stub: paper rect with 9px corner notches (arc cut-outs via destination-out), title with ctx.font = \"84px 'Tilt Warp'\", note with ctx.font = \"500 40px Recursive\" (canvas cannot set the CASL/MONO axes, so the share card uses Recursive's default linear instance; acceptable), Mono-style serial drawn with ctx.letterSpacing = '4px', the perforation as a dashed line plus two destination-out half circles, and the sticker by serializing the Sticker SVG to a Blob URL and ctx.drawImage. Footer: 'psst. Miami \u00b7 good 3:05\u20138pm Fri Oct 2'. canvas.toBlob \u2192 navigator.canShare?.({files}) ? navigator.share({files, text}) : an <a download='psst-012.png'> fallback (blob URL).",
+     "effort": "M"
+    }
+   ],
+   "cut": [
+    "The glass panel and every backdrop-filter blur (panel, chip, recenter button). Content sits on the sky field; stubs are paper.",
+    "The dark-by-default night palette (#0B0820 purple-navy, cyan glow coastline, orange glow roads, the gradient dial pill). Night is now --sky-night with paper stubs and one neon hour.",
+    "Dial.svelte's UI: the 'SCRUBBING \u00b7 DAYLIGHT/AFTER DARK' label, the 'Back to now' and 'Play the day' buttons, and the 24h gradient pill with rise/set captions. Keep its logic and move it into the one-line time track. 'Play the day' becomes a long-press on the hour.",
+    "The six-chip filter row (Everything, Chill, Social, Wild, Rain-safe, Cheap). It's replaced by one 'Low-key | Loud' control shown only when the pad has more than 4 stubs, plus automatic rain-safe.",
+    "The --sun #FFC53D button yellow (Bumble's #FFC629). Primary buttons are --ink pills.",
+    "Anybody, Figtree and DM Mono, replaced by Tilt Warp + Recursive (+ a Tilt Neon digits subset).",
+    "Blurred placeholder headlines for secrets ('Somewhere you should not know about'), and secrets at the top of the list. Replaced by one sealed envelope stub with a real clue, never in positions 1\u20132.",
+    "The 5-dot energy pips, the 'lowkey' and 'lean in' pill tags, and the generic list rows (MoveCard.svelte as a row). Every move is a stub; lists are mini stubs.",
+    "The mobile bottom sheet and its drag handle (App.svelte .panel/.handle/full logic).",
+    "The separate Receipt modal and filler like 'COST less than you think'. Its text export survives as 'Copy for the group chat' on the Strip.",
+    "Map neighborhood labels in DM Mono, which collide. The field map has no labels; venues are named on stubs and sticker hovers.",
+    "The 1.9s intro splash with the tagline 'Miami, from the people who'd never tell you.' The pineapple-sun travelling from the wordmark to the track is the intro, about 600ms, and skipped under reduced motion.",
+    "The 'You' tab name and its empty-state copy 'Your sticker book is empty.', replaced by the Book with numbered empty slots that already show what's out there."
+   ],
+   "references": [
+    "Google Maps (brand colors checked at https://www.brandcolorcode.com/google-maps: #EA4335, #4285F4, #FBBC04, #1A73E8, #34A853). It's the benchmark for 'where'. psst. wins the first 5 seconds by answering what, when and how before you search (see the concept), and it hands off to Google Maps or Apple Maps from the back of every stub instead of competing on navigation.",
+    "Partiful, https://partiful.com (fetched; homepage colors scraped: oranges #F19A38 and #FE8207, pinks, black UI). The bar for playful consumer energy: themes, effects, posters people want to send. psst. takes the 'the object is the share' idea, but every stub is generated from real data (hour, weather, serial) rather than a user-picked theme, and it avoids Partiful's purple-to-pink gradient language (described in a refero.design style excerpt from search).",
+    "Things 3, https://culturedcode.com/things/ (fetched): calm daily planning; a reviewer quoted there says 'Each animation is purposeful. Mainly, it is fun.' psst.'s pad is Things' Today for a city: one ordered list, nothing else on screen. It goes further by making the day itself visible as the sky color.",
+    "Beli, https://beliapp.com (fetched: 'Track \u00b7 Share \u00b7 Discover'). The ranking-by-comparison, city leaderboards and streaks come from search excerpts (today.com, ixd.prattsi.org, Wikipedia), not opened in full. psst. borrows the 'been' habit loop through the Book's numbered slots and neighborhood completion, and drops the leaderboard. Completing Miami is the reward, not out-ranking strangers.",
+    "Places by Raya, https://places.app (theme colors checked in page source: #faf7f0 light, #16181a dark), plus App Store listing excerpts from search (curators, a paid 12-month membership; listing not opened). It shows the taste bar: warm off-white, restraint. psst. wins on timing (the right hour and weather on every stub) and on access (free, Miami-specific, and the non-obvious with exact instructions).",
+    "Apple Wallet iOS 18 poster event tickets, https://www.passcreator.com/en/solutions/enhanced-event-tickets-in-apple-wallet (fetched): full-bleed artwork, an event guide with weather and a venue map. This is the closest precedent for a ticket that's also a guide. psst. issues tickets for things that have no ticket (a ventanita at 3:05), and the stub becomes a collectible after you go.",
+    "Evan Fasquelle portfolio, https://www.evanfasquelle.com/ (fetched; listed on Awwwards under trading-card hover, https://www.awwwards.com/inspiration/hover-effect-evan-fasquelle-portfolio): 'collect all the cards\u2026 to unlock new content', 12 cards. The same collect-to-unlock loop as the Book's HOOD DONE, but psst.'s cards are earned by going somewhere real, not by scrolling.",
+    "Klangtherapie Festival stackable cards, https://www.awwwards.com/inspiration/stackable-cards-klangtherapie-festival (fetched, by agentur-brandmarker). A stacked-card news pattern with gradients. psst.'s pad uses a stack too, but with paper physics (tear, stamp, punch) and no gradients, so it reads as an object rather than a carousel.",
+    "Tilt in use, https://fontsinuse.com/uses/54124/ai-mocap-animation (fetched): Tilt Prism used for a Type@Cooper header because its rotation axes fit a motion-capture course. That's precedent for using Tilt's axes as meaning rather than decoration, which is what the lean-in does.",
+    "Checked but not useful or unreachable: godly.website now 301-redirects to recent.design (fetched; the feed had nothing in this category). typewolf.com/recursive returned 404, mobbin.com returned 403 (login wall), and siteinspire's travel filter showed no travel category. The Infatuation, https://www.theinfatuation.com, was checked for color only (#181818 black and #0066F1 blue dominate the source)."
+   ],
+   "antiTemplateChecks": [
+    "1. Font check: PASS. Tilt Warp + Recursive, with Tilt Neon limited to the night hour. None are on the template-default list, and each comes from the concept: vinyl-sticker storefront lettering for the collectible ticket; the friend's handwriting (CASL 1) and the ticket printer (MONO 1) in one family.",
+    "2. Accent check: PASS with a stated caveat. Mamey #F37F5F is not a library default. Its nearest known color is Partiful's homepage orange #FE8207 (\u0394E_OK 0.061, 18\u00b0 pinker and less saturated), then the Dolphins orange #FC4C02 (0.093). The current #FFC53D fails this check, since it's Bumble's #FFC629.",
+    "3. Layout check: PASS. There's no centered hero, feature-card trio, logo row or pricing. The home screen is the signature component itself (a pad of stubs on the sky), and desktop is the map table with the pad as its left column.",
+    "4. Device check: PASS. With the wordmark covered, a perforated paper stub with a die-cut sticker and rubber stamp, sitting on a flat sky-colored Biscayne Bay coastline, can't be mistaken for another app.",
+    "5. Decoration check: PASS with one deliberate exception. No glass, no backdrop-filter, no decorative gradients. Shadows exist only under paper objects, so they signal elevation. The one glow is the Tilt Neon hour at night, where the glow is the content (lit signage), limited to one element.",
+    "6. Voice check: PASS. 'psst. It's 3:05. Here's your move.' / 'Kept. No. 012 is yours. Go before 8.' / 'Closed today and nobody told us. Here's where the regulars went instead.' share a register with the stub copy already in moves.json ('Walk up to the ventanita, order a cafecito\u2026'). The current hero 'SCRUBBING \u00b7 DAYLIGHT' would fail.",
+    "7. Concept check: PASS. (a) Tilt Warp: the move is a collectible you peel and keep, and its letters resemble peeling vinyl stickers. (b) Mamey means now: a ticket is valid for a time, so the accent marks the present moment. (c) The perforation: keeping a friend's tip is a physical gesture, so saving is tearing, not tapping a heart."
+   ],
+   "risks": [
+    "Tilt Warp can tip into toy-like if overused. Keep it at 20px and up, ink or paper only, never in paragraphs, never all caps. Fallbacks I tested on the same stub: Anybody 800 (the current face: competent but anonymous) and Shrikhand (strong, but a one-weight retro italic that reads as a diner menu). Collletttivo's Coconat (Sara Lavazza, OFL per https://www.collletttivo.it/typefaces/coconat) is the editorial alternate, but it would need base64 inlining and I haven't measured its size. Other foundries I checked: Velvetyne (https://velvetyne.fr/about/) is OFL for commercial and web use but asks you to credit the designer and the foundry; none of its faces combine storefront-sign roots with rotation axes, so none is used. Collletttivo (Apfel Grotezk, Aujournuit, Coconat pages) is OFL. Use & Modify (https://usemodify.com/) mixes GPL, CC and OFL licenses, so each font would need its own license check before inlining; none is used. The League of Moveable Type (https://www.theleagueofmoveabletype.com/) is OFL; League Gothic was the 'ADMIT ONE' ticket-caps candidate, but Recursive Mono covers the printer role without adding a third family.",
+    "Fontshare is excluded on purpose. I couldn't open the ITF Free Font License text (the Fontshare license page is a client-rendered app), and the secondhand quotes forbid 'uploading them in a public server' and modification, which base64-inlining into a published artifact arguably does. Use only OFL faces.",
+    "CSP: Google Fonts stylesheets pull font files from fonts.gstatic.com (and text= subsets from fonts.gstatic.com/l/font). Confirm font-src allows them in the artifact sandbox, as the current build implies. Otherwise base64 the OFL files: about 68 KB + 142 KB + 21.5 KB woff2, roughly 310 KB as base64.",
+    "A swipeable card stack can read as Tinder. Swipe means 'next hour', never like or dislike, and the paper physics (tear, stamp, punch) has to carry the difference. If the tear interaction feels fiddly in testing, the button alone must still work in one tap plus a confirm.",
+    "The daily ritual needs content. With 43 moves and 8 sealed secrets (secret=2), the 3:05 drop repeats after 8 days and Today pads repeat within a week. The ritual needs roughly 150 moves and a weekly secret budget, plus the 45 events rotated into pads, before locals will open it weekly.",
+    "Sky-field contrast is safe for text (ink on every light sky is 8.1:1 or better, paper on dusk and night 6.2:1 or better), but sticker inks can vanish on matching skies: pool on morning, ventanita on noon, mamey on golden. Every emblem keeps its 3px paper die-cut border, and every sticker ink needs testing against all seven skies before ship.",
+    "Golden hour turning the whole screen warm breaks the 'one accent per view' rule. It's deliberate, and it has to stay limited to sunset-60 to sunset+15, or the owned color stops meaning 'now'.",
+    "Honesty rules: serials (No. 012/043) must be stable real indices, travel minutes need geolocation or a labeled origin ('from Brickell'), weather on Nov 20\u201324 must say 'typical', and nothing on a share card may imply live data it doesn't have.",
+    "Performance on mid-range phones: the canvas map, traffic particles and per-frame sky changes. Cap DPR at 2, rebuild the map cache only on a meaningful color change, pause rAF when document.hidden, and never use backdrop-filter."
+   ]
+  }
+ ],
+ "judges": [
+  {
+   "lens": "Awwwards/FWA juror scoring Design, Creativity, Innovation and Content against the brief's own bar (playful, colorful, phone-first on the street, everything real or labeled, metaphors die if they read as costume). For each direction I ask which single phone screenshot gets sent to a friend, and which award-site lineage it borrows from.",
+   "scores": [
+    {
+     "direction": "Painted Fresh (Street Print)",
+     "score": 7.5,
+     "strengths": [
+      "The screenshot people send: the chrome-yellow HOY board at golden hour, its painted letters casting a long drop shade to the right because the sun really is in the west, then the same board after sunset. It is the only direction whose signature passes the logo-covered test on a single phone screenshot.",
+      "The sun shade is new to this category and it carries information: it comes from NOAA solar position at the dial hour, so 'type that knows where the sun is' meets the real-or-labeled rule. No award site I can name does this.",
+      "Interactions are verbs tied to real actions: tear a tab to add to the plan, peel tape to reveal a secret, print to share. Juries reward that over decorative motion.",
+      "The deepest Miami content: ventanita boards, wheat-paste poles, William Lane tower colors, Little Haiti sign painting. The tightest voice too: 'HOY, 4:42PM. Two good moves before the sun goes at 7:06.'",
+      "The most accurate critique of r0. It traces the THUNDE/RCAT break to overflow-wrap:anywhere, measures #FFC53D within 2 degrees of Bumble's hue, and catches the slot bug, the two clocks, and blurred secrets reading as a rendering bug.",
+      "It keeps and re-skins the real OSM map, the dial, the lean-in hold, the receipt and the flyers. The desktop map never disappears."
+     ],
+     "weaknesses": [
+      "About 13 metaphors at once: board, flyer, receipt, ticket stub, sticker, domino, price gun, masking tape, rubber stamps, binder clip, index-divider tabs, accordion map, crop marks. The hotel metaphor was killed for less. As specced it is a scrapbook theme park.",
+      "Lineage: paper, riso, grain, torn edges and tape are the 2020-25 Awwwards zine trope. The receipt is Receiptify (2020), and stickers-as-personality is Partiful and Gopher. Only the sun shade and the sunset flip are new.",
+      "The night palette contradicts its own 'NOT Miami Vice neon' line. uv/pink #FF3EA5, uv/cyan #3DF2E0 and uv/lime on near-black is the Vice palette, and it would ship the week GTA VI launches (Nov 19, the day before the test trip).",
+      "Four type families. Tilt Warp is wide and single-weight. 'HOY' breaks its own rule of Spanish only for real nouns (it's an adverb), so test it with Miami locals before it reads as costume.",
+      "On mobile the map, the codebase's only bespoke asset, shrinks to a 152px folded strip, and effort goes into an accordion-unfold gimmick.",
+      "The performance stack is risky on mid-range Android: up to 15 stacked text-shadows on three headlines, YROT re-rasterizing, canvas traffic and grain together.",
+      "The domino glyph is clever but needs a legend. First-use comprehension is unproven."
+     ]
+    },
+    {
+     "direction": "Tear Here: today's Miami as a pad of tear-off moves",
+     "score": 6.5,
+     "strengths": [
+      "The best product. It is the only direction that puts one complete move (what, when, why, how) in the first viewport before any animation, so it wins Usability outright.",
+      "The screenshot people send: the whole screen turned mamey/golden at sunset minus 60 minutes, with a paper stub on it reading 'good till 8pm'.",
+      "The only direction with a reason for locals to open it weekly: the 3:05 daily drop (cafecito plus the 305 area code), the Thursday 'This weekend' pad, and the Book by neighborhood with numbered empty slots and HOOD DONE.",
+      "One object system (the stub), so it has the lowest metaphor count and the most coherence of the three.",
+      "The planner is specced as hard, unit-tested rules: a move sits inside its open windows and within \u00b190 min of its best time, the slot label derives from the time, no day is empty, and both John Summit nights are anchors.",
+      "The best lines: 'psst. It's 3:05. Here's your move.' and 'Closed today and nobody told us. Here's where the regulars went instead.' It also solves Tilt Warp's proportional digits with fixed cells so the scrubbed hour doesn't jitter."
+     ],
+     "weaknesses": [
+      "Lineage: a swipe card stack is Tinder (a real jury deduction), the ticket is Apple Wallet poster tickets and DICE, a flat time-of-day sky is Apple Weather and Weather Line, and the collection book is Beli. A jury has seen every piece of it.",
+      "It demotes the map, the only bespoke asset, to tone-on-tone wallpaper on mobile, so 'where' is lost at a glance.",
+      "Self-contradictions: it keeps the abstract Sticker.svelte gradient art as the emblem (non-collectible), brings blur back into the lean-in after cutting blurred text, and breaks its own one-accent rule at golden hour.",
+      "The pastel sky stops (pool blue, seafoam, cream at noon) read as a calm lifestyle app, not jaw-dropping. That is below the founder's 'colorful, playful' bar.",
+      "A 470px stub shows one move per screen, so comparing seven options takes seven swipes. Holding 650ms to tear is fiddly on the street, and a DeviceOrientation permission prompt for a tilting headline is a gimmick.",
+      "By its own count the ritual needs about 150 moves to avoid repeats, so with 43 moves it can't be built yet."
+     ]
+    },
+    {
+     "direction": "NIGHT FLIGHT",
+     "score": 5,
+     "strengths": [
+      "The screenshot people send: Lights On. The coastline draws itself as a line of light from Key Biscayne northward, then the roads switch on, then one amber beacon pillar lands on the move. The Long Exposure stay poster is a second one.",
+      "The best idea about the map: only what is actually open at the dial hour glows (glow() already exists). The light is the data, which is beauty and honesty at once.",
+      "The most concrete day-mode fix: a distance-from-coast water ramp (shallows to channel), greedy label collision boxes, and a beacon shadow cast from the sun's azimuth.",
+      "The strictest accent rule (one beacon per view) and the best performance engineering: sprite-and-streak traffic, bloom at 1/8 size, a frame budget that auto-degrades.",
+      "Data-driven variable type axes (energy sets weight, secrecy sets width, late night sets slant) are real typographic innovation.",
+      "The mobile first-paint budget is worked out to the pixel."
+     ],
+     "weaknesses": [
+      "Lineage: the most derivative genre of the three. City lights at night is Mapbox night presets, Uber, every WebGL 'data city', and La Phase 5's Marseille SOTD. Cover the logo and it is a map wallpaper.",
+      "It fails the brief's 'colorful, playful': moody, cinematic, letterboxed. The least fun direction.",
+      "It names the GTA VI risk, then designs straight into it: a Bank Gothic revival over neon Miami at night, in launch week.",
+      "The 'window seat' concept barely reaches the UI. It is a camera tilt and a name, a metaphor with no object behind it.",
+      "Science Gothic as 16px body text is mechanical, and the display face weighs 156 KB.",
+      "Illustrative boats, wakes, traffic and pools are invented content in a product whose rule is real-or-labeled. A truth line in the corner admits the problem rather than fixing it.",
+      "Its critique has a factual error. It blames shots.mjs for reusing one page with hash navigation, but shots.mjs opens a fresh page per view (browser.newPage() inside the loop). The blank desktop map on Plan, Wall, You, Move and Event is still unexplained.",
+      "Title cards replace stickers, so nothing tactile is left to collect or send."
+     ]
+    }
+   ],
+   "winner": "Painted Fresh (Street Print), on one condition: cut it to five objects (HOY board, flyer wall, receipt, sticker, tape) plus the sun shade, and replace the night UV trio. The tie-breaker against Tear Here was the logo-covered phone screenshot. Sign lettering whose drop shade follows Miami's real sun is ownable. A flat sky-colored screen with a ticket stub is what weather apps and Apple Wallet already look like. Tear Here is the better product skeleton, so its product rules get grafted in wholesale.",
+   "grafts": [
+    "From Tear Here: a first-viewport rule. At 390x844, one complete move (name, time window, one-line why, Go) must be visible above the tabs before any animation runs. The HOY board's #1 strip expands to carry 'the move' line.",
+    "From Tear Here: planner hard rules, unit-tested. A move only sits inside its open windows on that weekday, within \u00b190 min of its best time; the slot label derives from the time (never the reverse); 2-4 stops a day with no empty days; John Summit nights 1 and 2 are fixed anchors; landing and flight-out times clip the first and last days.",
+    "From Tear Here: the 3:05 drop. At 15:05 Miami time a taped secret strip slides onto the HOY board, chosen by day-of-year. On Thursdays at 15:05 the board header becomes 'THIS WEEKEND'. Don't ship it until there are enough secrets that it doesn't repeat inside two weeks.",
+    "From Tear Here: Pocket becomes the Book. One page per neighborhood with numbered die-cut outlines and a one-line clue each, and a HOOD DONE stamp that unlocks that hood's secret. This replaces 'Your sticker book is empty.'",
+    "From Tear Here: a golden-hour takeover. From sunset minus 60 to sunset plus 15 the table color itself warms to full golden. It is the one sanctioned break of the one-accent rule and the screenshot moment, and it's honest because it's the real sky.",
+    "From Tear Here: fixed-width digit cells for Tilt Warp's proportional numerals, so the live clock and the scrubbed hour never jitter.",
+    "From Tear Here: 'Show me where'. The strip's sticker FLIPs onto the venue on the map with squash-and-stretch, plus a dotted walking line labeled 'from Brickell' when location is off.",
+    "From Tear Here: test Recursive (MONO 1 for the receipt and data, sans for body) as a replacement for Martian Mono plus Atkinson, which would cut the system from four families to three.",
+    "From Night Flight: glow only what is open at the dial hour (existing glow()). This replaces r0's generic cyan coastline glow and pink radial blobs.",
+    "From Night Flight: Lights On as the sunset event. The coastline draws from Key Biscayne north and roads switch on by distance from the coast over 1.2s, fused with Painted Fresh's paper-to-night flip so day-to-night is one moment.",
+    "From Night Flight: day water as a distance-from-coast ramp (shallows #82E1E0 to channel #117FAA, re-tuned to the paper palette), plus greedy label collision boxes so 'ALLAPATTAHDESIGN DISTRICT' and clipped 'MID-BEA' can't recur.",
+    "From Night Flight: a traffic renderer with two pre-rendered sprites plus streaks, a 600/280 particle budget, auto-halving after 3 slow frames, and rAF paused on document.hidden.",
+    "From Night Flight: a sun rail painted with the light model's actual colors for today's date, plus the honest scrub line 'AT 9:30PM \u00b7 NOW 4:42PM'.",
+    "From Night Flight: data-driven type axes on strip names. League Gothic wdth narrows with secret level and tracks energy, so each name encodes its move.",
+    "From Night Flight: harness discipline. Every review gets a 10s motion capture of the sun scrub and the sunset flip, because reduced-motion stills can't show this direction's signature."
+   ],
+   "mustNotShip": [
+    "Painted Fresh's night palette as specced: uv/pink, uv/cyan and uv/lime on coal. That is the Miami Vice / Vice City palette, shipping the week GTA VI launches. Night should be warm sodium and headlight light with pi\u00f1a as the one fluorescent ink.",
+    "All 13 paper metaphors at once. Cut the binder clip, crop-mark focus states, the accordion folded map, four-stock index-divider tabs, fire-outlined rubber-stamp filters, and price-gun labels on more than one item per view.",
+    "Grain, riso misregistration and torn edges as global texture. A grain overlay on everything is the most overused award-site clich\u00e9 of 2022-25.",
+    "Generic award-site moves: a percentage preloader, a custom cursor, smooth-scroll hijacking, marquee tickers, text-scramble effects, and any blocking intro (r0's 1.9s splash or a paint-on that delays the answer).",
+    "Blurred text as a 'secret', in any form: r0's blurred names or Tear Here's blur-to-sharp lean-in.",
+    "Night Flight's Science Gothic/Bank Gothic over a neon night (GTA fan art), its 38-degree cinematic tilt and letterbox bands, and illustrative boats, wakes and pools on a real-or-labeled product.",
+    "Tear Here's swipe-left/right card stack as the main way to browse moves, a DeviceOrientation permission prompt for a tilting headline, the neon-flicker hour, and keeping the abstract gradient Sticker.svelte art.",
+    "Sound or haptics on by default, including a synthesized 'psst' whisper or printer buzz. Opt-in only, and never in v1 if time is short.",
+    "Any number that looks live but isn't: travel minutes without a labeled origin, Nov 20-24 weather without FCST/TYP, traffic without 'illustrative', dollar prices beyond the m.cost tier.",
+    "Spanish or Krey\u00f2l used as decoration ('HOY' included) until Miami locals have seen it. No Spanglish jokes, no fake handwriting, no imitation of a named living sign painter."
+   ],
+   "buildOrder": [
+    "1. Truth fixes before any new skin. Planner hard rules with unit tests (open windows, \u00b190 min of best, label from time, no empty days, both John Summit nights, FCST vs TYP on every day). Flyer fit-text: League Gothic wdth 100 down to 75, size 64 down to 22, break only at spaces, date printed once. One live clock: a scrub reads 'AT 9:30PM' and never replaces the live time. Delete blurred secrets. Reproduce and fix the blank desktop map on Plan, Wall, You, Move and Event in a real browser; it is not a hash-nav artifact, because shots.mjs opens a fresh page per view.",
+    "2. Layout skeleton. On desktop the map is the permanent tabletop with the active object in cols 1-4. On mobile the first viewport is header, map strip, and the HOY board with the #1 move complete above the 64px tabs. Delete glass/backdrop-filter, 28px cards, all pills, the stock icon tab bar and the wrapping six-filter row (use one non-wrapping row of five toggles).",
+    "3. Tokens. Pi\u00f1a #FFB01F, one object per view. Thermal and newsprint papers by day, coffee-tinted coal at night. No purple-navy and no Vice UV trio. Type is Tilt Warp (28px and up, 1-4 words), League Gothic for names, Martian Mono for data; test Recursive as the body/data family to cut to three.",
+    "4. The signature first, then judge it on a phone. Add solarPosition() to core.js. Put the sun shade on at most 3 headlines per view with the YROT peel, driven by the dial and Play the day. Reduced motion keeps the values and drops the transitions. If it doesn't read as 'the sun' on an iPhone outdoors, stop and rethink before building anything else.",
+    "5. Map re-light. Day: distance-field water ramp plus label collision. All hours: only what's open at the dial hour glows. Sunset: one event, the Lights On wave plus the table flipping to night papers. Traffic: the sprite renderer with its frame budget.",
+    "6. HOY board. Letter-board strips (name, dotted leader, best time, domino, status). A pi\u00f1a tip label on #1 only. The taped secret with the 950ms peel, also on Enter/Space. The golden-hour table takeover. Flip-in letter changes capped at 24 characters per strip.",
+    "7. Wheat-paste Wall. Kraft ground, a split-fountain ink keyed to start time, and the tear-off fringe as one accessible button that arcs into PLAN and bumps its count. Dates outside the stay land in Pocket as 'HELD' with 'Extend stay'.",
+    "8. Receipt and Book. A thermal receipt with an order-slip skin over the native inputs, a dot-matrix energy chart, an 18ms-per-line print, and a navigator.share PNG. Pocket becomes the neighborhood Book, with text-led die-cut stickers slapped onto the map on 'I went', then the 3:05 drop once content allows. Cut first if time runs out: the scannable Code 128, the paint-on intro, the accordion unfold, sound."
+   ]
+  },
+  {
+   "lens": "I judged this as the founder (MBA student, former elite athlete, startup CEO who wants to be wowed and can spot generic AI output) and his friend visiting Miami Nov 20-24 for John Summit at Kaseya Center. The questions: would we open this instead of Google Maps and Instagram, is it fun, is it beautiful, would people talk about it as a brand. I ran the brand checks from the directing-brand-design skill: one idea held hard, one or two graphic devices, one owned accent used once per view, and no template defaults. Evidence: BRIEF.md, the r0 shots and the newer r1-data shots, Flyer.svelte, the planner in core.js lines 180-240, and moves.json (43 moves). Three caveats. (1) r1-data/desktop-wall.png shows the map rendering on Wall, so the empty navy right side in the r0 desktop shots is almost certainly a capture bug in shots.mjs (it navigates by URL hash on one page), not a design flaw. Stop judging it. (2) The GTA VI release date of Nov 19, 2026 comes from Night Flight's own research. My search to re-check it was rate-limited. (3) The three 'critique of current' sections say nearly the same thing (ALLAPATTAH label collision, THUNDE/RCAT word break, cafecito slotted at sunset, Bumble yellow), so they didn't separate the directions. I scored on concept count, first-screen answer, owned accent, share artifact, fun and build risk.",
+   "scores": [
+    {
+     "direction": "Tear Here: today's Miami as a pad of tear-off moves",
+     "score": 7.5,
+     "strengths": [
+      "It's the only direction designed around the job. About 0.6s after opening, the top stub says what to do, when, how far away it is, and what to order. That beats Google Maps on 'what' and Instagram on 'when', and it's the first thing the friend would actually act on.",
+      "It's one object (the stub) on one background (the sky). It passes the 'one idea held hard' test the hotel metaphor failed, and the founder can pitch it in one sentence.",
+      "Mamey #F37F5F is the only proposed accent that leaves the yellow family. 'Mamey means now' is a usage rule with meaning. 'The coral one' is something people can say; 'the other yellow one' isn't.",
+      "The sky field is honest about time and looks good in a screenshot. The whole screen is the color of Miami's sky this minute, and golden hour turns the phone orange. That's the screenshot people send.",
+      "It's the only direction with a reason for locals to come back weekly (daily pad, 3:05 secret drop, Thursday weekend pad) plus a visitor view, the Strip. That's the retention story an MBA can defend.",
+      "Planner rules are written as unit-tested hard constraints: only inside opening windows, within 90 minutes of the best time, labels derived from the time, no empty days, both John Summit nights included.",
+      "It's the leanest system: two families (Tilt Warp and Recursive) plus a 21KB Tilt Neon digits subset, and the lowest build risk on a mid-range phone."
+     ],
+     "weaknesses": [
+      "The one-card-at-a-time swipe stack reads as Tinder. A visitor deciding tonight wants to see two or three options at once, not swipe blind.",
+      "On mobile the map becomes a label-free backdrop in the sky color. Miami's geography effectively disappears until you tap 'Show me where'.",
+      "At noon the flat pastel skies (pool blue, seafoam, sun-bleached) can read as a wellness or meditation app. Only golden hour and night carry the drama.",
+      "It breaks its own no-pun voice: the 'cafecito o'clock' lede and the pineapple-to-cup morph are a pun and a doodle.",
+      "The Apple Maps / Google Maps hand-off is on the back of the stub, so you have to flip it first. The friend on the street needs Go on the front.",
+      "43 moves and 8 secrets can't sustain a daily ritual: the 3:05 drop repeats after 8 days.",
+      "It kills the Receipt, the most shareable thing the current app has.",
+      "Stubs, perforations, stamps and stickers are still the ephemera vocabulary that AI-generated 'playful' UI leans on. It only stays clean if each view keeps to one or two of them."
+     ]
+    },
+    {
+     "direction": "Painted Fresh (Street Print)",
+     "score": 6,
+     "strengths": [
+      "It's the most Miami-specific and best-researched world: the ventanita board, the 3:05 cafecito, Little Haiti sign painting, William Lane's lifeguard-tower colors. It's the only one a local would recognize as Miami rather than 'a city'.",
+      "The sun-driven drop shade is the best single device across all three directions. The shadow under the lettering comes from real sun-position math, so it carries information instead of decorating.",
+      "The blacklight flip at sunset gives night real color without falling into the Miami Vice / GTA neon clich\u00e9. It's the most colorful and playful direction against the brief.",
+      "The flyer tear-off tab is the best Wall interaction proposed. Tearing a tab adds the event to the plan, and an event outside the stay goes to Pocket marked 'HELD' with an 'EXTEND STAY' option.",
+      "The thermal receipt is a proven share format, and 'NO REFUNDS ON SUNSETS' is a line people would quote.",
+      "It did the most rigorous contrast and font-license homework of the three."
+     ],
+     "weaknesses": [
+      "It repeats the rejected hotel metaphor's failure at roughly 12 times the density: ventanita board, wheat-paste wall, receipt, ticket stub, sticker, price gun, rubber stamps, masking tape, domino, binder clip, index tabs, barcode, crop marks, perforations, accordion folds. That fails the skill's 'one or two devices' rule and is the clearest AI-output sign on the table.",
+      "Four type families (Tilt Warp, League Gothic, Martian Mono, Atkinson) reads like a type specimen, not a brand.",
+      "In a still screenshot the sun shade looks like retro drop-shadow type (Canva, diner retro). The concept only shows while you're dragging the time.",
+      "Pi\u00f1a #FFB01F (hue 75.1) is the same color as Night Flight's Beacon #FFB127 (hue 75.0). Both moved about 11\u00b0 off Bumble's yellow, and neither owns the color.",
+      "First screen: header, folded map, HOY header, hero line, sun rail and five stamps all come before the moves. That leaves about 2.5 move names above the tab bar and no instruction for what to do there.",
+      "The domino glyph for energy and cost needs a legend, and the direction admits the comprehension risk itself.",
+      "It has the highest build cost, much of it theater: an opentype paint-on intro, a Code 128 barcode, a WebAudio printer buzz, an accordion map unfold and per-letter flips.",
+      "It gives locals no reason to come back weekly."
+     ]
+    },
+    {
+     "direction": "NIGHT FLIGHT",
+     "score": 5,
+     "strengths": [
+      "'Only what's open glows', computed from real opening hours and the real sun, is the most honest data-driven visual idea on the table.",
+      "The Beacon card comes with an explicit first-screen budget at 390x844: one complete answer plus one alternative above the fold. Its Go button is a plain Maps link.",
+      "It's the most realistic engineering plan: sprite-based traffic, a 6ms frame budget, automatic downgrade when frames run slow, and a truth line that labels traffic and boats as illustrative.",
+      "It's the only direction that correctly diagnosed the desktop void as a shots.mjs capture bug and noticed the shots were taken with reduced motion. r1-data confirms the first point.",
+      "The desktop letterbox frame is the most Awwwards-ready single image."
+     ],
+     "weaknesses": [
+      "It's r0 done well. The brief names 'dark map template' as the weakness, and r1-data's night map with traffic dots and pink glows already exists and was still 'not good enough'.",
+      "Neon night-time Miami plus a Bank Gothic revival during the week GTA VI launches (Nov 19 per its own research, the day before the test trip) will read as fan art.",
+      "It's the least playful and least colorful by day. Scrubbing is the only thing to touch, and Science Gothic is cold and mechanical for a brand that's supposed to be a friend.",
+      "It fights Google Maps on Google's turf, a map, instead of winning on what to do and when.",
+      "Encoding secrecy and energy in title-card font axes is legible only to the designer.",
+      "It's the heaviest canvas workload for a phone used on the street: distance-field water, bloom, reflections and boats.",
+      "The Beacon accent is the same yellow as Painted Fresh's pi\u00f1a.",
+      "By its own admission, the day mode has to carry the brand's ownership, and it hasn't been tested."
+     ]
+    }
+   ],
+   "winner": "Tear Here wins because it's the only direction where the first screen is the answer. The friend lands at 3pm on Nov 20, opens psst. and sees one move with the time, the walk and what to order, before Google Maps has even loaded its search bar. It's also the only one with one idea, one owned non-yellow accent, and a weekly reason for locals to return. Painted Fresh should be the source of grafts, not the runner-up system: its sun shade, blacklight night, flyer tear-off and receipt voice are the best individual ideas, and its whole kit is the slop risk. Night Flight gives the map honesty rule and the performance discipline.",
+   "grafts": [
+    "From Painted Fresh: the sun-driven drop shade, used in ONE place only, on Tilt Warp's big hour numerals. The offset comes from real solar azimuth and altitude for Miami (25.7617, -80.1918), so the shadow swings as you drag the time. It's information, not decoration, and the only shaded type in the system.",
+    "From Painted Fresh: the blacklight night. After sunset the sky goes near-black, and the night map and 'open now' dots switch to UV lime and pink. Stubs stay paper. This gives night real color instead of Tear Here's flat navy, and avoids GTA neon.",
+    "From Painted Fresh: fitted flyer titles. Step the type size down from 64 to 22px until every word fits, break lines only at spaces, and let footers wrap to two lines instead of truncating ('THE GROUND (CLU\u2026' still truncates in r1-data). Add split-fountain inks keyed to start time (before 6pm, 6pm to midnight, after midnight) so the Wall is color-coded by when things happen.",
+    "From Painted Fresh: the flyer tear-off tab adds the event straight to the Trip, with the stay-date logic. An event outside Nov 20-24 goes to the Book marked 'HELD', with an 'Extend stay' option.",
+    "From Painted Fresh: receipt voice and honesty labels. Every temperature reads FCST or TYP, and the Strip's text export keeps the thermal-receipt format with tail lines like 'NO REFUNDS ON SUNSETS'. That's the group-chat version; the 1080x1920 PNG is the Stories version.",
+    "From Night Flight: only what's open glows. On the sky-colored map, every venue open at the scrubbed hour shows as a small ink dot, and the top stub's venue is the single mamey point. Add the corner truth line 'LIGHT FROM REAL OPENING HOURS'. This gives the mobile backdrop real information instead of pure mood.",
+    "From Night Flight: one clock. While scrubbing, the credit line reads 'AT 9:30PM \u00b7 NOW 4:42PM', so a scrubbed time never looks like the present.",
+    "From Night Flight: Lights On at sunset. When the time crosses sunset, roads and open spots switch on in a wave from the coast inland over 1.2s, paired with the hour switching to Tilt Neon. Drop Tear Here's flicker.",
+    "From Night Flight: the Beacon card's first-screen rules. Put a 48px 'Go' (Apple Maps on iOS, Google Maps elsewhere) on the FRONT of the top stub, and budget the 390x844 layout so the stub's title, note and both actions sit above the tab bar.",
+    "From Night Flight: the traffic renderer and performance budget (two pre-rendered sprites, 280 particles on mobile, halve particles and drop bloom after 3 frames over 20ms), and light-trail routes between Trip stops on the desktop map.",
+    "From Night Flight: fix the screenshot script and capture motion. Reshoot on real moves.json with full motion, and add a 10-second recording of the sky scrub and the tear, so the next review judges the real product."
+   ],
+   "mustNotShip": [
+    "Blurred text as a 'secret', and a locked secret inside a visitor's Trip. r1-data's 1am 'A secret spot (lean in to see)' gives the friend nothing he can act on.",
+    "Any yellow accent within about 15\u00b0 of Bumble's hue: r0's #FFC53D, Painted Fresh's #FFB01F and Night Flight's #FFB127 all fail ownership.",
+    "Painted Fresh's full kit together: masking tape, binder clip, price-gun labels, crop marks, accordion creases, paper grain, riso misregistration, rubber stamps, index tabs. More than two of these per view is scrapbook slop.",
+    "Four type families. Hold to Tilt Warp plus Recursive, with Tilt Neon only for the night hour.",
+    "Letter-board character flips on every re-ranking. While scrubbing, that's motion noise.",
+    "The domino glyph for energy and cost. Write 'low-key \u00b7 $$' instead.",
+    "The Code 128 barcode and the WebAudio thermal-printer buzz. Theater: nobody scans a code that's printed right above it.",
+    "The first-visit paint-on wordmark, which needs an opentype.js build step.",
+    "Night as the default identity, and neon Miami with Bank Gothic type in GTA VI launch week.",
+    "Night Flight's 38\u00b0 cinematic camera tilt that disables taps.",
+    "Font axes that encode data (narrow means secret, slanted means late). Nobody but the designer can read it.",
+    "A synthesized 'psst' whisper. Filtered white noise will sound like static.",
+    "Science Gothic as body text.",
+    "Swipe-left/right card semantics. Show a visible stack with a 'Next' control and a three-stub overview of later today.",
+    "A DeviceOrientation permission prompt just to tilt the hour.",
+    "The 'cafecito o'clock' pun and the pineapple-to-coffee-cup morph.",
+    "Hole-punch 'WENT' stamps and a 'HOOD DONE' unlock economy that reads as Pok\u00e9mon Go. Keep a quiet count.",
+    "A daily 3:05 secret drop while there are only 8 secrets. Make it weekly until the pool supports daily.",
+    "Letting the golden-hour all-orange screen run outside the window from 60 minutes before sunset to 15 minutes after, which would kill 'mamey means now'.",
+    "Pink-orange-purple sunset gradients, flamingos, Miami Vice neon, Spanglish jokes, airport puns.",
+    "Developer jargon in the UI ('SCRUBBING \u00b7 DAYLIGHT'), and two clocks that disagree.",
+    "Filler copy like 'COST less than you think', and any day in the plan that prints empty.",
+    "Fontshare / ITF fonts inside the artifact. Their license bars subsetting and requires embedded fonts to be non-extractable.",
+    "Glass panels, backdrop blur, pill chips, the six-chip filter row, and the stock four-icon tab bar."
+   ],
+   "buildOrder": [
+    "1. Truth pass before any pixels: unit-test the planner against real moves.json. A move can only be placed inside its weekday opening windows and within 90 minutes of its best time. Labels come from both the time and the move's category: r1-data still calls a frozen martini 'DINNER' and routes Key Biscayne, then Little River, then Kaseya in Friday rush hour. Every day gets 2-4 stops, John Summit night 2 is included, there are no locked secrets in visitor plans, and every temperature says FCST or TYP. core.js already checks openAt and bestFit, so the r0 sunrise-swim-at-dinner may have been placeholder data; fix both the data and the logic. In the same pass: one live clock, fitted flyer titles with no mid-word breaks, and fix shots.mjs and reshoot with motion on.",
+    "2. Mobile Today first screen: sky-field background, the 76px hour, the time track, a one-line lede, and the top stub with title, note, 'Go' and 'Keep', all above the tab bar at 390x844. Delete the bottom sheet, glass, the MIA chip, the recenter button, the six filter pills and the Dial UI.",
+    "3. System swap in one pass: Tilt Warp plus Recursive (Tilt Neon digits subset at night), mamey as the single 'now' accent once per view, ink pills, and a text-only paper tab bar. Remove #FFC53D, Anybody, Figtree, DM Mono and the purple navy.",
+    "4. The stub component and the tear, the signature interaction: hold or drag to tear along the perforation, a KEPT stamp, and the stub flies to the Book. Keep a one-tap button path, and do a 120ms crossfade under reduced motion.",
+    "5. Sky scrub that carries information: interpolate the 7 sky stops in OKLab, draw the map in the sky color with open-now dots and the single mamey beacon, add the sun-shade on the hour only, and at sunset switch the hour to Tilt Neon with the Lights On wave and blacklight night inks.",
+    "6. Trip Strip for Nov 20-24, the friend's reason to switch from Instagram: John Summit nights as event stubs, a 1080x1920 PNG shared via navigator.share (download fallback after awaiting document.fonts.ready), and the receipt-format text for the group chat. Confirm the share path works inside the sandboxed artifact before promising a Save button.",
+    "7. Wall: fitted flyer titles, time-keyed split-fountain inks, tear-off tabs that add to the Trip with the outside-the-stay handling, and day stubs instead of pills.",
+    "8. Desktop table: the pad as a left column over an always-on live map with venue stickers, hover linking between stub and sticker, light-trail routes on Trip, and the Later strip along the bottom. Then the Book (one page per neighborhood) and a weekly 3:05 drop, sized to the real secret pool."
+   ]
+  },
+  {
+   "lens": "Senior design engineer. The question is what I can build to full polish in about a day as a Svelte 5 single-file artifact, at 60fps on a mid-range phone, accessible, and inside the artifact's CSP and sandbox. I score on polish surface, meaning how many separate things must all be finished before the concept lands, not on taste. Evidence gathered this session: I read BRIEF.md, 8 of the 18 r0 shots, and MiamiMap.svelte, Flyer.svelte, App.svelte, index.html and shots.mjs. I benchmarked in headless Chrome at 390x844, DPR 3, with 4x and 6x CPU throttle. Result 1: a 15-layer text-shadow on three 88px Tilt Warp headlines, updated every frame, costs about 0.7-1.1ms p50 of main-thread work. Animating YROT on top of that raises it to about 1.5ms p50 and 4.3ms p95. Paint and raster were not measured. Result 2: on canvas, a radial gradient per car costs about 3x a pre-rendered sprite. That is a relative number only, because the absolute ms are skewed by per-frame readback and DPR 3. Result 3: in Chrome, ctx.fontStretch does reach Science Gothic's wdth axis ('MIAMI' measured 208px, then 325px at ultra-expanded). Canvas has no API for YROT, XROT, CASL, MONO or CTRS, so no share image can use those axes. Safari was not tested. Result 4: geo.json holds only land, coast and roads, with 0 pool features. Result 5: moves.json has 43 moves, 8 of them secret=2. Result 6: the artifact-capabilities contract says file saves go through claude.use('downloads').save() with a viewer confirmation, and png is on the allowlist. r0 already has a 'Copy blocked here' clipboard fallback, so sandbox API failures are real. Result 7: App.svelte line 49 renders MiamiMap on every tab, so the empty navy void on the desktop shots is a draw or capture bug, not a layout decision. shots.mjs now opens a new page per view, so Night Flight's 'reused page' explanation doesn't match the current script either. Not verified: the GTA VI release date (web search was rate-limited).",
+   "scores": [
+    {
+     "direction": "Tear Here: today's Miami as a pad of tear-off moves",
+     "score": 7.5,
+     "strengths": [
+      "Smallest polish surface of the three. There is one object, the stub, with five states, on a flat CSS color field. Events reuse the same object, so one well-finished component carries Today, Trip and Book. That is the only plan that can look finished in a day.",
+      "The sky field is the cheapest high-impact change available: an OKLab lerp between seven stops written to one CSS variable. It needs no canvas and no per-frame raster, and it fixes r0's bland mint day mode immediately (pool blue, seafoam, golden #FCA864, sea grape). Stubs stay paper in every state, so text contrast never depends on the hour (ink on every light sky is 8.1:1 or better).",
+      "Tone-on-tone map with no labels by day is cheaper than r0's map, and it removes the label collisions ('ALLAPATTAHDESIGN DISTRICT') by not drawing labels at all.",
+      "Two families plus a 21.5KB Tilt Neon digit subset. Recursive with wght/CASL/MONO only (142KB) gives a note voice, a UI voice and a printer voice from one file. Fixed 0.62em digit cells stop the hour from jittering while scrubbing. That is a real engineering detail someone thought about.",
+      "The tear interaction can be built well: a clip-path polygon along a jagged path seeded by mulberry32, plus a FLIP into the tab using getBoundingClientRect. The specified hold, drag, Enter and reduced-motion crossfade cover input and accessibility.",
+      "The planner gets hard rules as unit tests (inside open windows, within \u00b190 min of best, slot label derived from the time, no empty days). That makes the data trustworthy before anything is drawn.",
+      "It answers what, when and how on the first screen. One stub at a time is the strongest answer to 'not one move visible above the tab bar'."
+     ],
+     "weaknesses": [
+      "The stub is too tall. A 470px stub plus the 76px hour, track, lede, wordmark and 64px tabs sums to about 818px on a chrome-less 844 frame. In Safari with its bars (about 664px usable), inside the artifact frame, 'Hold to tear' falls below the fold. The 'clamp the note to 3 lines' fix doesn't close a 150-200px gap.",
+      "It keeps r0's Sticker.svelte art, the abstract gradient app-icon blobs that both other directions correctly call generic, as the emblem on every stub and pin. This is the one place the direction is still r0.",
+      "The swipe stack is the fiddliest component on the list (velocity, thresholds, rotation, focus management) and reads as Tinder. If it ships half-tuned, the whole product feels like a demo.",
+      "'Show me where' (the stub morphs into a 36px sticker while the canvas view tweens to 4x) is L effort with two animation systems that must stay in sync. It is the likeliest jank point on a mid-range phone.",
+      "The lean-in tilt uses DeviceOrientationEvent.requestPermission inside a sandboxed cross-origin iframe, and it brings back letter-by-letter un-blur, the blurred-secret pattern its own cut list removes.",
+      "Its share card uses canvas.toBlob, then navigator.share or a[download]. Neither is the artifact save path. The direction also admits canvas can't draw CASL/MONO, so the share card won't match the stub.",
+      "On desktop, a label-free tone-on-tone map across about 970px risks reading as an empty pastel wash unless the pad's stickers and the Later strip actually populate it.",
+      "Tilt Neon's text= subset is served from a separate gstatic path that nobody has confirmed loads inside the published artifact."
+     ]
+    },
+    {
+     "direction": "Painted Fresh (Street Print)",
+     "score": 5.5,
+     "strengths": [
+      "The sun shade is the best owned device in all three proposals, and it's cheap. A text-shadow stack driven by the real solar azimuth costs about 1ms p50 of main-thread work for three 88px headlines at 4-6x throttle, and adding YROT animation brings it to about 1.5ms p50 (paint not measured). Cover the logo and it still reads as psst.",
+      "It has the most rigorous accessibility and contrast spec. Every text pair is computed, banned pairs are named (fire on pi\u00f1a 2.76:1), there are visible crop-mark focus states, keyboard equivalents for hold and drag, and the live clock is never replaced by a scrubbed time.",
+      "The flyer fit-text algorithm is correct and small: League Gothic wdth 100 down to 75, then size 64 down to 22, measured with measureText, breaking only at spaces. It directly kills 'THUNDE / RCAT'.",
+      "The tear-off fringe on the Wall adds the event to the plan. The edge case where the event falls outside the stay (it goes to Pocket marked 'Held', with an 'Extend stay' option and a polite status line) is real product engineering, not decoration.",
+      "The receipt is upgraded with honest FCST/TYP labels, a real Code 128 barcode (about 60 lines of JS) and a steps() line feed. All of that can be built well in a few hours.",
+      "The one-pi\u00f1a-object-per-view rule is written into the tokens, so the accent can't spread the way r0's #FFC53D did."
+     ],
+     "weaknesses": [
+      "Largest polish surface by far, about 3 weeks of work billed as a day. Every one of these has to look finished: HOY board, sun rail, rubber stamps, letter-board strips, masking tape, price-gun label, domino, wheat-paste wall, tear-off fringe, receipt, ticket stub, die-cut stickers, binder clip, index-divider tabs, folded map, Pocket map. On top of that come 4 type families, 4 light states, 4 synthesized sounds and 8 'jaw-drop' moments. One day gets maybe 30% of it, and the other 70% ships looking half-done.",
+      "It is a kitchen sink of print metaphors with no single hero object. Board, flyer, receipt, ticket, sticker, tape, stamp and price gun all compete for attention.",
+      "The parts most likely to look cheap are the masking-tape curl (in CSS it becomes a grey rectangle), the paint-on intro tracing opentype outlines (reads as an SVG tutorial, not a brush), the full-screen kraft wall with feTurbulence grain (muddy brown, which works against 'colorful'), and the folded-map accordion built from canvas.toDataURL at unfold time (a multi-hundred-ms stall on a phone).",
+      "Letter-board character flips fire on every ranking or time change. With 15-minute scrub steps, that means constant flicker and DOM churn across 5 strips of 24 spans each.",
+      "Four families (Tilt Warp 68.7KB, League Gothic 18.7KB, Martian Mono 38.4KB, Atkinson 37.6KB) means four FOUT/fallback stacks to tune and four voices on a 390px screen.",
+      "Mobile: header 52 + folded map 152 + board header, hero line, sun rail and filters puts the first strip at about y=540. In a real ~650px Safari viewport, about one strip is visible.",
+      "The domino glyph is a comprehension gamble and the direction admits it may need replacing with text.",
+      "The receipt PNG relies on navigator.share({files}), which won't work inside the artifact."
+     ]
+    },
+    {
+     "direction": "NIGHT FLIGHT",
+     "score": 5,
+     "strengths": [
+      "The most performance-literate map spec: sprite traffic instead of a radial gradient per car per frame (my bench: the gradient path costs about 3x the sprite path), bloom on a 1/8-size offscreen canvas, an explicit 6ms frame budget, and auto-degrade after 3 frames over 20ms.",
+      "The Beacon card is the right product fix: one complete answer, the best move for this hour, rendered in the DOM on first paint and never blocked by the intro.",
+      "The strictest accent discipline. Beacon appears on one interactive element per view; everything else that glows is 'light', not brand.",
+      "The Sun Strip painted from the real light model, the 'SCRUBBING 1:30PM \u00b7 REAL 4:42PM' line, role=slider and aria-valuetext fix r0's two-clock contradiction honestly.",
+      "A distance-from-coast water field (rasterize land to 512px, box-blur 3 times, read it as depth) is a one-time, cheap trick that would make the day map look like bathymetry instead of mint.",
+      "An honest truth line on the map ('traffic and boats illustrative') and the 'glow only what is actually open' rule tie the effects to real data.",
+      "Two families, and the only direction that names WCAG 2.3.1 flash limits."
+     ],
+     "weaknesses": [
+      "It is the archetype the founder already rejected: a full-bleed dark map plus an opaque left board or bottom sheet. Polishing it harder still produces 'dark map template + sidebar', minus the glass.",
+      "All of the wow lives in one canvas renderer with 6-8 subsystems (water field, sprites, bloom, reflections, boats with Kelvin wakes, lights-on wave, glint, tilt). That is the hardest thing to make look finished in a day and the most likely to drop frames on a mid-range Android.",
+      "Caching 24 phase buckets means 24 full-screen bitmaps, about 5MB each at DPR 2 on a 390x844 phone, roughly 126MB. That invites an iOS tab kill. Two cached states with a cross-fade, as r0 already does, is the right size.",
+      "A CSS rotateX tilt of a flat canvas reads as a postcard tipping over, not a camera, and the spec disables taps while it runs.",
+      "The boats are invented decoration on a product whose brief says 'real or clearly labeled'. The pools are dead on arrival: geo.json has 0 pool features, and the direction's own rule says skip them if OSM doesn't supply them.",
+      "Science Gothic as the body face at 16px is a Bank Gothic revival doing paragraph work, and the file is 156KB.",
+      "Neon-over-dark Miami with a Bank Gothic lineage reads as Vice City fan art. The direction says GTA VI launches Nov 19, 2026, the day before the test trip. I could not verify that date this session; if it's true, the risk is acute.",
+      "The title-card axis morph (wdth 200 to the target, 40ms stagger per row) on every re-rank is visual noise while scrubbing.",
+      "Mobile budget: 388 + 40 + 230 + 56 + 64 = 778px before the safe area. It does not fit a real Safari or artifact viewport either."
+     ]
+    }
+   ],
+   "winner": "Tear Here. It is the only direction whose concept lands with one object finished to polish plus a CSS color field, and the color field is both the cheapest and the biggest visual change. It ships with two problems that must be fixed. First, cut the stub down to about 380px on mobile so one complete stub, including its tear action, fits a real ~650px viewport. Second, replace r0's abstract Sticker.svelte blobs with Street Print's text-led die-cut stickers, because the emblem on every stub is currently the most r0-looking thing in the plan.",
+   "grafts": [
+    "From Street Print, the SUN SHADE, applied to the hour numerals and stub titles. It is a text-shadow stack of 1px steps toward a vector computed from real solar azimuth and altitude (new solarPosition() in core.js), plus Tilt Warp YROT clamped to \u00b114\u00b0. Limit it to 3 per view, throttle YROT to 30fps, and under reduced motion keep the values but drop the transitions. Effort S-M. Measured at about 1-1.5ms p50 of main-thread work per frame at 4-6x throttle. It gives the pad an owned device that a flat sky doesn't.",
+    "From Street Print, the text-led die-cut STICKERS: shape by category (round coffee, oval water, starburst food, ticket music, shield speakeasy), a 3px paper kiss-cut border, one sticker ink, and one word on an SVG textPath arc in Tilt Warp. Effort S. They replace r0's gradient blobs on stubs, map pins and Book slots.",
+    "From Street Print, the FIT-TEXT algorithm with League Gothic wdth 75-100 (18.7KB) for flyer and event titles only. Measure with canvas measureText, step width down and then size down, break only at spaces, let footers wrap to 2 lines with no ellipsis, and print the date once. Effort S. Tilt Warp is far too wide for '\u00c2me (DJ), Hardt Antoine & Maceo Plex'.",
+    "From Street Print, the TEAR-OFF FRINGE on Wall flyers, built as one button. A tear adds the event to the Trip. If the event falls outside the stay it goes to the Book marked 'Held', with an 'Extend stay' action and a polite live-region message. Effort S-M. It ties the Wall to planning.",
+    "Keep the RECEIPT instead of deleting it, as Night Flight argues. Make it the tail of the Trip strip, with Street Print's steps() line feed, FCST/TYP labels on day headers, and a real Code 128 PINA barcode (about 60 lines). Effort S. Rebuilding a working component as 'the Strip' wastes the day.",
+    "From Night Flight, the SUN STRIP, so the track becomes a 24h ribbon painted with the day's actual seven sky stops: sunrise/sunset ticks, rain bars labeled forecast or typical, role=slider, arrows for 15 min, PgUp/PgDn for 1h, Home for now, and aria-valuetext like '6:42pm, golden hour'. Add the 'SCRUBBING 1:30PM \u00b7 REAL 4:42PM' line. Effort S. It kills the two-clock bug.",
+    "From Night Flight, the TRAFFIC RENDERER for the night field map: two 16px pre-rendered sprites (head and tail) with 'lighter' compositing, at most 280 particles on mobile, DPR capped at 2, and auto-degrade (3 frames over 20ms halves the particles). Effort S. The per-car gradient is about 3x the cost in my bench.",
+    "From Night Flight, the DISTANCE-FROM-COAST water field, computed once at load (land rasterized to 512px, box-blurred 3 times). The tone-on-tone sky map then gets lighter shallows near shore, giving depth for almost no per-frame cost. Effort S-M.",
+    "From Night Flight, 'GLOW ONLY WHAT'S OPEN' at night, using the existing glow() and opening hours, plus a sunset 'lights on' wave bucketed into 8-16 distance-from-coast bands. Fire it together with the Tilt Neon hour switch. Effort M. Add the map truth line: 'Hours real \u00b7 traffic illustrative'.",
+    "From Night Flight, the FIRST-PAINT BUDGET rule: one complete, actionable answer visible at the real viewport (~650px) before any animation runs, and verified with a screenshot at that size.",
+    "From Street Print, the CROP-MARK focus state (8px L-marks plus a 3px ink ring with an accent offset) for stubs, stickers and flyers. Effort S. It's accessible and on-concept, unlike a generic glow ring."
+   ],
+   "mustNotShip": [
+    "Any share or save through navigator.share({files}) or <a download>. Inside the artifact, file saves go through claude.use('downloads').save({filename, data}) (png is allowed, and the viewer confirms). Hide the button when that returns null, and keep copy-as-text as the fallback. All three directions spec the wrong API.",
+    "Share images that assume canvas can draw custom font axes. Only wdth reaches canvas, via ctx.fontStretch keywords (verified in Chrome only). YROT, XROT, CASL, MONO and CTRS can't, so design share cards around the default instances.",
+    "DeviceOrientation lean tilt (Tear Here). It needs a permission prompt inside a sandboxed cross-origin iframe. Cut it.",
+    "Haptics used to carry meaning. iOS has no navigator.vibrate. Garnish only.",
+    "Building on Tilt Neon's text= subset before confirming it loads inside the published artifact. Check first; the CSP statement in the brief covers the stylesheet, not that gstatic path.",
+    "Re-rank or re-deal animation on every scrub frame: Tear Here's animate:flip on each rankNow change, Street Print's letter-board flips, Night Flight's per-row axis morph. Debounce to 120ms of idle and animate once on settle.",
+    "Letter-by-letter un-blur on lean-in (Tear Here) and the masking-tape peel (Street Print). Blur reads as a rendering bug and the CSS tape reads as a grey rectangle. Use the sealed envelope with a real clue.",
+    "Swipe as the only way through the pad. Provide next/previous buttons and arrow keys. Swipe means 'next hour', never like or dislike.",
+    "Street Print's paint-on intro tracing opentype.js outlines, its folded-map accordion built from canvas.toDataURL at unfold (a multi-hundred-ms stall), a full-screen kraft wall with grain, the domino glyph, and four type families.",
+    "Night Flight's 24 cached phase-bucket bitmaps (about 126MB at DPR 2 on a phone), CSS rotateX tilt of a flat canvas, invented boats with Kelvin wakes, OSM pools (geo.json has none), Voronoi Deco tints by nearest neighborhood, and Science Gothic as a body face.",
+    "Neon-on-dark night as the hero look with a Bank Gothic-lineage display face. It reads as Vice City, and it gets worse if GTA VI really launches the week of the test trip (date unverified this session).",
+    "Tear Here's 'Show me where' morph of the stub into a sticker while the canvas tweens. Ship a plain map fly-to plus a sticker slap instead.",
+    "Any layout signed off at 390x844 with no browser chrome. Every direction's 'above the fold' math is wrong for Safari plus the artifact frame.",
+    "Judging the desktop 'navy void' as a design flaw before reshooting. MiamiMap is rendered on every tab, so it is a draw or capture bug."
+   ],
+   "buildOrder": [
+    "1. Data truth first. Fix planStay so each move sits inside its open windows on that weekday, within \u00b190 min of its best time; the slot label comes from the time; no day is empty; John Summit nights 1 and 2 are anchor event slots; landing and flight times clip the first and last days; day headers say FCST or TYP. Verify with plan-check.mjs. Every visual in every direction is undermined while the receipt books a sunrise swim at dinner.",
+    "2. Tokens and type. Seven sky stops with skyColor(hour) as an OKLab lerp writing --sky, plus paper, ink and mamey, and the 'mamey means now, one per view' rule. Load Tilt Warp (XROT,YROT), Recursive (wght,CASL,MONO only) and League Gothic (wdth 75-100, flyers and event titles only) with size-adjusted fallbacks. Delete Anybody, Figtree, DM Mono, all backdrop-filter, and every pill.",
+    "3. The Stub, about 380px tall on mobile, with every state: now, later, sealed, kept, went. Front and back flip, a perforation done as a radial-gradient mask with notches, the hour bar drawn from real windows, a serial from the stable index, and the new text-led die-cut sticker as its emblem. Keyboard: Enter flips, T tears. Screen-reader labels go on the hour bar and stamps.",
+    "4. The Today screen at a real ~650px viewport. Tilt Warp hour in fixed digit cells wearing the sun shade (new solarPosition() in core.js, YROT throttled to 30fps, at most 3 shaded elements). The sky-ribbon Sun Strip as role=slider with the SCRUBBING/REAL line. The pad with next/previous buttons plus swipe, re-dealt only on settle. 'Later today' mini stubs. One full stub and its tear button visible without scrolling.",
+    "5. Map as tone-on-tone field. Two cached static layers at a time with a cross-fade, never 24. A one-time water distance field. DPR capped at 2. Sprite traffic at night (at most 280 on mobile) with the auto-degrade rule. Stickers for today's pad at their venues. Glow only what's open. The truth line. On desktop the map always fills the right side, with hover linking stub and sticker.",
+    "6. Tear interaction plus the Wall fix. Hold 650ms, drag 60px or press Enter; a jagged clip-path; the KEPT stamp; a FLIP into the Book tab; a live-region announcement; a 120ms crossfade under reduced motion. On the Wall: League Gothic fit-text with no mid-word breaks, the date printed once, and the tear-off fringe adding to the Trip with the out-of-stay 'Held' and 'Extend stay' logic.",
+    "7. Trip strip plus receipt tail. A vertical roll of day stubs with the John Summit event stubs, then the receipt with steps() line feed and a real Code 128 PINA barcode. PNG export via claude.use('downloads') (hidden on null), drawn on canvas with default font instances, with copy-text as the fallback.",
+    "8. Night, the 3:05 drop and verification. On crossing sunset, switch the hour to Tilt Neon (after confirming the subset loads in the published artifact) and run the bucketed lights-on wave. The 3:05 sealed stub. Then a full reduced-motion, keyboard and contrast pass, including sticker inks against all seven skies. Fix shots.mjs and reshoot at 390x664 and inside the artifact, plus a CPU-throttled motion capture, before anyone judges the result."
+   ]
+  }
+ ]
+}

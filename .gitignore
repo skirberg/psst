@@ -1,0 +1,13 @@
+# dependencies and builds
+node_modules/
+app/dist/
+app/node_modules/.vite/
+# large or regenerable
+data/raw/
+shots/
+design/archive-r1/
+design/archive-r2/
+*.r0-backup.json
+# local tooling
+.claude/
+.DS_Store

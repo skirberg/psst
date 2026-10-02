@@ -1,0 +1,2677 @@
+[
+ {
+  "id": "az85-poker-chip-biltmore",
+  "title": "AZ.85, behind the red doors",
+  "place": "Bar AZ.85 (The Biltmore Hotel)",
+  "address": "1200 Anastasia Ave, Coral Gables, FL 33134",
+  "hood": "Coral Gables",
+  "lat": 25.740896,
+  "lng": -80.277706,
+  "category": "speakeasy",
+  "windows": [
+   {
+    "days": [
+     4
+    ],
+    "from": "16:00",
+    "to": "00:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "16:00",
+    "to": "01:00"
+   }
+  ],
+  "best": "22:00",
+  "energy": 2,
+  "cost": 4,
+  "rainOk": true,
+  "secret": 2,
+  "theMove": "Order the AZ-85 old fashioned. Ask about the 13th floor.",
+  "getIn": "Red steel doors inside the Biltmore. You need a poker chip.",
+  "why": "The Biltmore's hidden gangster-lore room.",
+  "sources": [
+   "https://www.miaminewtimes.com/food-drink/best-hotel-bars-in-miami-40559238",
+   "http://biltmorehotel.com/coral-gables-dining/biltmore-bar",
+   "https://www.miaminewtimes.com/food-drink/best-hotel-bars-in-miami-40559238/",
+   "https://www.biltmorehotel.com/coral-gables-dining/biltmore-bar",
+   "https://www.miamiandbeaches.com/l/eat-and-drink/biltmore-bar/2341",
+   "https://coralgablesmagazine.com/drinking-in-the-gables/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "AZ.85",
+  "clue": "Coral Gables. Red doors, poker chip."
+ },
+ {
+  "id": "venetian-pool-weekday-opening",
+  "title": "Venetian Pool at opening",
+  "place": "Venetian Pool",
+  "address": "2701 De Soto Blvd, Coral Gables, FL 33134",
+  "hood": "Coral Gables",
+  "lat": 25.74578,
+  "lng": -80.27316,
+  "category": "water",
+  "windows": [
+   {
+    "days": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "from": "11:00",
+    "to": "17:30"
+   },
+   {
+    "days": [
+     0,
+     6
+    ],
+    "from": "10:00",
+    "to": "16:30"
+   }
+  ],
+  "best": "11:00",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "Book online. Be at the gate at 11 on a weekday.",
+  "why": "Spring-fed grottos, refilled daily.",
+  "sources": [
+   "https://www.coralgables.com/venetian-pool",
+   "https://www.aol.com/articles/coral-gables-historic-venetian-pool-100000655.html",
+   "https://www.yahoo.com/news/articles/venetian-pool-reopen-look-ongoing-090000998.html"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "SWIM"
+ },
+ {
+  "id": "matheson-atoll-pool-morning",
+  "title": "Matheson's atoll pool",
+  "place": "Matheson Hammock Park atoll pool",
+  "address": "9610 Old Cutler Rd, Coral Gables, FL 33156",
+  "hood": "Coral Gables",
+  "lat": 25.67921,
+  "lng": -80.256613,
+  "category": "water",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "from": "09:00",
+    "to": "16:30"
+   },
+   {
+    "days": [
+     0,
+     6
+    ],
+    "from": "09:00",
+    "to": "17:30"
+   }
+  ],
+  "best": "09:30",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Weekday morning, $7 parking. Swim with a friend.",
+  "why": "A calm bay lagoon off Old Cutler.",
+  "sources": [
+   "https://www.miamidade.gov/parks/matheson-hammock.asp",
+   "https://www.miamidade.gov/parks/matheson-marina.asp"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "ATOLL"
+ },
+ {
+  "id": "mangrove-through-jrk",
+  "title": "Mangrove, through Jrk!",
+  "place": "Mangrove",
+  "address": "103 NW 1st Ave, Miami, FL 33128",
+  "hood": "Downtown",
+  "lat": 25.775202,
+  "lng": -80.195058,
+  "category": "speakeasy",
+  "windows": [
+   {
+    "days": [
+     2,
+     3
+    ],
+    "from": "17:00",
+    "to": "23:00"
+   },
+   {
+    "days": [
+     4
+    ],
+    "from": "17:00",
+    "to": "00:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "18:00",
+    "to": "01:00"
+   }
+  ],
+  "best": "22:00",
+  "energy": 4,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 2,
+  "theMove": "Oxtail, Lobsta' Mac, a Red Red Wine. Stay for the DJ.",
+  "getIn": "Enter Jrk! at 95 NW 1st St and walk to the back.",
+  "why": "No sign. You walk through the counter.",
+  "sources": [
+   "https://www.mangrove.miami/home",
+   "https://www.miamiandbeaches.com/restaurants/miami-hidden-gem-eateries",
+   "https://www.theinfatuation.com/miami/reviews/mangrove-x-jrk",
+   "https://www.miamitimesonline.com/business/black-business-month-spotlight-jrk-and-mangrove-bring-jamaican-comfort-to-miami/article_40448da4-752d-4d13-8d0b-4635a8829b0e.html",
+   "https://www.mangrove.miami/menu",
+   "https://www.mangrove.miami/reservations"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "MANGROVE",
+  "clue": "Downtown. Walk through the counter."
+ },
+ {
+  "id": "the-corner-4am-drink",
+  "title": "The Corner at 4am",
+  "place": "The Corner",
+  "address": "1035 N Miami Ave, Miami, FL 33136",
+  "hood": "Downtown",
+  "lat": 25.784584,
+  "lng": -80.193893,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "16:00",
+    "to": "05:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "16:00",
+    "to": "07:00"
+   }
+  ],
+  "best": "03:00",
+  "energy": 3,
+  "cost": 1,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Skip the club line. Sit at the bar. Open till 7 on weekends.",
+  "why": "A real bar when the clubs let out.",
+  "sources": [
+   "http://www.thecornermiami.com",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.thecornermiami.com/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "4AM"
+ },
+ {
+  "id": "club-space-terrace-sunrise",
+  "title": "Sunrise on the Space terrace",
+  "place": "Club Space (The Terrace)",
+  "address": "34 NE 11th St, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.784555,
+  "lng": -80.193153,
+  "category": "nightlife",
+  "windows": [
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "23:00",
+    "to": "12:00"
+   }
+  ],
+  "best": "07:00",
+  "energy": 5,
+  "cost": 3,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "Get in after 11. Stay for the 7am set.",
+  "why": "Everyone knows Space. Few stay for daylight.",
+  "sources": [
+   "https://clubspace.com/",
+   "https://themiamiguide.com/venue/club-space-miami/",
+   "https://app.discotech.me/events/38234212-tba-at-space-terrace"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "SPACE"
+ },
+ {
+  "id": "kaona-room-tiki-night",
+  "title": "Kaona Room tiki",
+  "place": "Kaona Room",
+  "address": "1600 NE 1st Ave, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.790712,
+  "lng": -80.192429,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     3,
+     4
+    ],
+    "from": "18:00",
+    "to": "01:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "18:00",
+    "to": "02:00"
+   }
+  ],
+  "best": "21:30",
+  "energy": 3,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Go Wed or Thu. Start with anything on the house orgeat.",
+  "why": "The one tiki bar locals point to.",
+  "sources": [
+   "https://www.kaonaroom.com/",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "TIKI"
+ },
+ {
+  "id": "macs-club-deuce-100",
+  "title": "Mac's Club Deuce",
+  "place": "Mac's Club Deuce",
+  "address": "222 14th St, Miami Beach, FL 33139",
+  "hood": "South Beach",
+  "lat": 25.785291,
+  "lng": -80.131474,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "08:00",
+    "to": "05:00"
+   }
+  ],
+  "best": "01:00",
+  "energy": 3,
+  "cost": 1,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Bring cash. Grab a stool under the neon.",
+  "why": "100 years old in 2026. The realest room on the Beach.",
+  "sources": [
+   "http://www.macsclubdeuce.com",
+   "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
+   "https://www.theinfatuation.com/miami/reviews/macs-club-deuce"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "DEUCE"
+ },
+ {
+  "id": "monterrey-bar-record-room",
+  "title": "Monterrey Bar on vinyl",
+  "place": "Monterrey Bar (The Standard Spa)",
+  "address": "40 Island Ave, Miami Beach, FL 33139",
+  "hood": "South Beach",
+  "lat": 25.792179,
+  "lng": -80.149546,
+  "category": "speakeasy",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "00:00"
+   }
+  ],
+  "best": "22:00",
+  "energy": 2,
+  "cost": 4,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Friday or Saturday. Order a Paper Plane. Book on Resy.",
+  "why": "A windowless room in a Belle Isle spa.",
+  "sources": [
+   "https://www.standardhotels.com/miami/features/monterrey-bar",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/",
+   "https://standardhotels.com/miami/features/monterrey-bar",
+   "https://monterreybar.com/",
+   "https://monterreybar.com/menu"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "VINYL"
+ },
+ {
+  "id": "swizzle-rum-cellar",
+  "title": "Swizzle, below the lobby",
+  "place": "Swizzle Rum Bar & Drinkery",
+  "address": "1120 Collins Ave, Miami Beach, FL 33139",
+  "hood": "South Beach",
+  "lat": 25.782202,
+  "lng": -80.131572,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "19:00",
+    "to": "03:00"
+   }
+  ],
+  "best": "23:00",
+  "energy": 3,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Go after 10. Order a swizzle.",
+  "why": "A rum den under Collins.",
+  "sources": [
+   "https://www.swizzlerumbardrinkery.com/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.theinfatuation.com/miami/reviews/swizzle-rumbar-drinkery",
+   "https://www.timeout.com/miami/bars/swizzle-rum-bar-drinkery",
+   "https://www.the50.com/discovery/Establishments/US/Miami/Swizzle-Rum-Bar-and-Drinkery.html"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "RUM"
+ },
+ {
+  "id": "las-olas-305-cafecito",
+  "title": "3:05 at Las Olas",
+  "place": "Las Olas Cafe",
+  "address": "644 6th St, Miami Beach, FL 33139",
+  "hood": "South Beach",
+  "lat": 25.775728,
+  "lng": -80.13484,
+  "category": "coffee",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "07:00",
+    "to": "20:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "07:00",
+    "to": "21:00"
+   }
+  ],
+  "best": "15:05",
+  "energy": 2,
+  "cost": 1,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Cafecito at the window. Cubano to go for the beach.",
+  "why": "A real ventanita on the Beach.",
+  "sources": [
+   "https://lasolascafe.net/",
+   "https://www.theinfatuation.com/miami/guides/best-cuban-sandwiches-miami",
+   "https://www.theinfatuation.com/miami/reviews/las-olas-cafe"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "CAFECITO"
+ },
+ {
+  "id": "casa-rassi-pour-over",
+  "title": "Casa Rassi pour-over",
+  "place": "Casa Rassi",
+  "address": "2216 Park Ave, Miami Beach, FL 33139",
+  "hood": "South Beach",
+  "lat": 25.798633,
+  "lng": -80.130405,
+  "category": "coffee",
+  "windows": [
+   {
+    "days": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "08:00",
+    "to": "14:00"
+   }
+  ],
+  "best": "08:30",
+  "energy": 1,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Pour-over in a wine glass and the brûléed french toast.",
+  "why": "The best new coffee on the Beach.",
+  "sources": [
+   "https://www.casarassi.com/",
+   "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://www.casarassi.com/app/store/api/v28/editor/users/151306229/sites/287395912914234075/store-locations",
+   "https://www.theinfatuation.com/miami/reviews/casa-rassi",
+   "https://www.theinfatuation.com/miami/guides/coffee-shops-miami-for-doing-work"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "POUR"
+ },
+ {
+  "id": "panamericano-ring-the-bell",
+  "title": "Ring Panamericano's bell",
+  "place": "Panamericano Bar",
+  "address": "900 S Miami Ave #260, Miami, FL 33130",
+  "hood": "Brickell",
+  "lat": 25.764679,
+  "lng": -80.193612,
+  "category": "speakeasy",
+  "windows": [
+   {
+    "days": [
+     2,
+     3,
+     4
+    ],
+    "from": "17:00",
+    "to": "00:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "02:00"
+   }
+  ],
+  "best": "22:00",
+  "energy": 3,
+  "cost": 4,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Reserve, ring, let the bartender pick.",
+  "getIn": "Behind Novecento, 2nd floor, #260. Press the buzzer.",
+  "why": "Brickell's most committed speakeasy.",
+  "sources": [
+   "https://panamericanobar.com/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/",
+   "https://www.theinfatuation.com/miami/reviews/panamericano-bar"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "RING"
+ },
+ {
+  "id": "simpson-park-hammock-walk",
+  "title": "Simpson Park hammock",
+  "place": "Simpson Rockland Hammock Preserve Park",
+  "address": "55 SW 17th Rd, Miami, FL 33129",
+  "hood": "Brickell",
+  "lat": 25.757797,
+  "lng": -80.196699,
+  "category": "outdoors",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "08:00",
+    "to": "15:00"
+   }
+  ],
+  "best": "10:30",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Walk the half-mile loop. Free tours weekends 10:30.",
+  "why": "Old Brickell forest, blocks from the towers.",
+  "sources": [
+   "https://www.miami.gov/Parks-Public-Places/Parks-Directory/Simpson-Rockland-Hammock-Preserve-Park",
+   "https://www.miami.gov/Parks-Public-Places/Parks-Directory/Simpson-Park"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "HAMMOCK"
+ },
+ {
+  "id": "dominoes-maximo-gomez-park",
+  "title": "Morning dominoes, Calle Ocho",
+  "place": "Máximo Gómez Park (Domino Park)",
+  "address": "801 SW 15th Ave, Miami, FL 33135",
+  "hood": "Little Havana",
+  "lat": 25.765589,
+  "lng": -80.219408,
+  "category": "outdoors",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "09:00",
+    "to": "18:00"
+   }
+  ],
+  "best": "10:00",
+  "energy": 2,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "Weekday mid-morning. Watch from the benches.",
+  "why": "Little Havana's living room.",
+  "sources": [
+   "https://www.miamiandbeaches.com/l/parks-and-recreation/domino-park/5611",
+   "https://www.wlrn.org/arts-culture/2025-03-11/miami-domino-park-latino-communities"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "DOMINÓ"
+ },
+ {
+  "id": "cafe-la-trova-back-bar",
+  "title": "Café La Trova daiquiri",
+  "place": "Café La Trova",
+  "address": "971 SW 8th St, Miami, FL 33130",
+  "hood": "Little Havana",
+  "lat": 25.766183,
+  "lng": -80.210473,
+  "category": "music",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "16:00",
+    "to": "00:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "16:00",
+    "to": "02:00"
+   }
+  ],
+  "best": "21:00",
+  "energy": 4,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Sit at the bar for the band. Order the daiquiri.",
+  "why": "Famous, and it earns it.",
+  "sources": [
+   "https://www.cafelatrova.com",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://www.cafelatrova.com/location/cafe-la-trova/",
+   "https://www.theinfatuation.com/miami/reviews/cafe-la-trova",
+   "https://www.timeout.com/miami/restaurants/cafe-la-trova",
+   "https://timeout.com/miami/bars/best-little-havana-bars-miami"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "TROVA"
+ },
+ {
+  "id": "sanguich-cubano-lunch",
+  "title": "Sanguich cubano",
+  "place": "Sanguich de Miami",
+  "address": "2057 SW 8th St, Miami, FL 33135",
+  "hood": "Little Havana",
+  "lat": 25.765386,
+  "lng": -80.228607,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "10:00",
+    "to": "18:00"
+   }
+  ],
+  "best": "11:30",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Before noon. Order the cubano. Eat it hot.",
+  "why": "House-cured ham. Not Versailles.",
+  "sources": [
+   "https://sanguich.com/",
+   "https://www.theinfatuation.com/miami/guides/best-cuban-sandwiches-miami",
+   "https://sanguich.com/locations/",
+   "https://sanguich.com/ingredients/",
+   "https://www.theinfatuation.com/miami/reviews/sanguich-de-miami",
+   "https://www.foodrepublic.com/2148383/miami-cuban-sandwich-restaurant-sanguich/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "CUBANO"
+ },
+ {
+  "id": "zeyzey-bungalow-dance",
+  "title": "ZeyZey's backyard",
+  "place": "ZeyZey",
+  "address": "353 NE 61st St, Miami, FL 33137",
+  "hood": "Little Haiti",
+  "lat": 25.832731,
+  "lng": -80.189052,
+  "category": "music",
+  "windows": [
+   {
+    "days": [
+     2,
+     3,
+     4
+    ],
+    "from": "17:00",
+    "to": "00:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "03:00"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "17:00",
+    "to": "23:00"
+   }
+  ],
+  "best": "23:30",
+  "energy": 5,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Fri or Sat after 11, when the yard is full.",
+  "why": "A bungalow that feels like a house party.",
+  "sources": [
+   "https://zeyzeymiami.com/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://zeyzeymiami.com/tickets/",
+   "https://timeout.com/miami/nightlife/zeyzey",
+   "https://tigresounds.com/zeyzey-opens-in-little-haiti/",
+   "https://www.songkick.com/venues/4621574-zeyzey-miami"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "ZEYZEY"
+ },
+ {
+  "id": "sweat-records-dig",
+  "title": "Dig at Sweat Records",
+  "place": "Sweat Records",
+  "address": "5505 NE 2nd Ave, Miami, FL 33137",
+  "hood": "Little Haiti",
+  "lat": 25.826404,
+  "lng": -80.191636,
+  "category": "shop",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2
+    ],
+    "from": "12:00",
+    "to": "17:00"
+   },
+   {
+    "days": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "12:00",
+    "to": "19:00"
+   }
+  ],
+  "best": "16:00",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Weekday afternoon. Ask staff which Miami artists to buy.",
+  "why": "Miami's indie record store, 20 years in.",
+  "sources": [
+   "https://www.sweatrecordsmiami.com/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "SWEAT"
+ },
+ {
+  "id": "magic-13-backyard-saturday",
+  "title": "Magic 13 backyard",
+  "place": "Magic 13 Brewing Co.",
+  "address": "340 NE 61st St, Miami, FL 33137",
+  "hood": "Little Haiti",
+  "lat": 25.832296,
+  "lng": -80.189279,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3
+    ],
+    "from": "16:00",
+    "to": "23:00"
+   },
+   {
+    "days": [
+     4
+    ],
+    "from": "16:00",
+    "to": "01:00"
+   },
+   {
+    "days": [
+     5
+    ],
+    "from": "16:00",
+    "to": "02:00"
+   },
+   {
+    "days": [
+     6
+    ],
+    "from": "12:00",
+    "to": "02:00"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "12:00",
+    "to": "23:00"
+   }
+  ],
+  "best": "14:00",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Saturday or Sunday after noon. Table under the tree.",
+  "why": "A brewery for neighbors, not influencers.",
+  "sources": [
+   "https://magic13brewing.com/",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://www.theinfatuation.com/miami/reviews/magic-13-brewing-co"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "BEER"
+ },
+ {
+  "id": "sunnys-martini-at-opening",
+  "title": "Sunny's at 5:15",
+  "place": "Sunny's",
+  "address": "7357 NW Miami Ct, Miami, FL 33150",
+  "hood": "Little River",
+  "lat": 25.842945,
+  "lng": -80.19685,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "17:30",
+    "to": "23:00"
+   }
+  ],
+  "best": "17:30",
+  "energy": 3,
+  "cost": 4,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "No reservation? At the door by 5:15. Martini, ice cold.",
+  "why": "Walk-ins who show up early get in.",
+  "sources": [
+   "https://sunnysmia.com/",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://sunnysmia.com/data/globals.json",
+   "https://sunnysmia.com/data/pages/faq.json",
+   "https://sunnysmia.com/data/pages/about.json",
+   "https://sunnysmia.com/data/menus/cocktails.json"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "SUNNY'S"
+ },
+ {
+  "id": "kaiju-mezzanine-cocktails",
+  "title": "Bar Kaiju upstairs",
+  "place": "Bar Kaiju (The Citadel)",
+  "address": "8300 NE 2nd Ave, Miami, FL 33138",
+  "hood": "Little River",
+  "lat": 25.852311,
+  "lng": -80.193063,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "from": "18:00",
+    "to": "01:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "19:00",
+    "to": "02:00"
+   }
+  ],
+  "best": "22:30",
+  "energy": 3,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Second floor of The Citadel. Order the Kappa.",
+  "why": "Hidden above a food hall.",
+  "sources": [
+   "https://www.barkaiju.com/",
+   "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
+   "https://thecitadelmiami.com/",
+   "https://www.theinfatuation.com/miami/reviews/kaiju",
+   "https://timeout.com/miami/news/this-miami-bar-was-just-ranked-one-of-the-best-in-north-america-040226"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "KAIJU"
+ },
+ {
+  "id": "conventillo-hidden-patio",
+  "title": "Conventillo's back patio",
+  "place": "Conventillo",
+  "address": "749 NE 79th St, Miami, FL 33138",
+  "hood": "MiMo",
+  "lat": 25.848124,
+  "lng": -80.181253,
+  "category": "speakeasy",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "18:00",
+    "to": "01:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "18:00",
+    "to": "02:00"
+   }
+  ],
+  "best": "18:30",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 2,
+  "theMove": "6 to 8 happy hour. Order from the kitchen next door.",
+  "getIn": "Walk past Battubelin to the bar in back.",
+  "why": "Invisible from 79th Street.",
+  "sources": [
+   "https://www.thisconventillo.com/",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://www.theinfatuation.com/miami/reviews/conventillo"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "PATIO",
+  "clue": "MiMo. Walk past the restaurant."
+ },
+ {
+  "id": "el-bagel-morningside-picnic",
+  "title": "El Bagel, then the bay",
+  "place": "El Bagel (MiMo)",
+  "address": "6910 Biscayne Blvd, Miami, FL 33138",
+  "hood": "MiMo",
+  "lat": 25.83931,
+  "lng": -80.184597,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "08:00",
+    "to": "14:00"
+   }
+  ],
+  "best": "08:00",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "At 8, order the King Guava. Eat it in Morningside Park.",
+  "why": "Miami's own bagel. It sells out.",
+  "sources": [
+   "https://www.elbagel.com/",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://starchefs.com/recipes/king-guava"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "BAGEL"
+ },
+ {
+  "id": "legion-park-saturday-market",
+  "title": "Legion Park market",
+  "place": "Legion Park Farmers Market",
+  "address": "6601 Biscayne Blvd, Miami, FL 33138",
+  "hood": "MiMo",
+  "lat": 25.836659,
+  "lng": -80.184084,
+  "category": "market",
+  "windows": [
+   {
+    "days": [
+     6
+    ],
+    "from": "09:00",
+    "to": "14:00"
+   }
+  ],
+  "best": "09:00",
+  "energy": 2,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Saturday at 9. Florida produce first.",
+  "why": "A real farmers market on the bay.",
+  "sources": [
+   "https://www.urbanoasisproject.org/farmers-markets.html",
+   "https://www.miamiandbeaches.com/restaurants/best-miami-farmers-markets"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "MARKET"
+ },
+ {
+  "id": "lagniappe-weeknight-backyard",
+  "title": "Lagniappe on a Tuesday",
+  "place": "Lagniappe",
+  "address": "3425 NE 2nd Ave, Miami, FL 33137",
+  "hood": "Edgewater",
+  "lat": 25.809047,
+  "lng": -80.191005,
+  "category": "music",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "18:00",
+    "to": "02:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "18:00",
+    "to": "03:00"
+   }
+  ],
+  "best": "20:30",
+  "energy": 3,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "Arrive 8:30. Bottle from the fridge, table under the lights.",
+  "why": "Packed Saturdays. Perfect weeknights.",
+  "sources": [
+   "http://lagniappehouse.com",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://www.lagniappehouse.com/",
+   "https://www.lagniappehouse.com/music-schedule.html",
+   "https://www.lagniappehouse.com/wine.html"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "LAGNIAPPE"
+ },
+ {
+  "id": "zak-the-baker-early",
+  "title": "Zak the Baker at 7:30",
+  "place": "Zak the Baker",
+  "address": "295 NW 26th St, Miami, FL 33127",
+  "hood": "Wynwood",
+  "lat": 25.801658,
+  "lng": -80.200828,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "from": "07:00",
+    "to": "17:00"
+   }
+  ],
+  "best": "07:30",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Croissant or babka, before the Wynwood crowd.",
+  "why": "Wynwood's best thing is breakfast.",
+  "sources": [
+   "https://zakthebaker.com/",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://zakthebaker.com/visit-us/",
+   "https://zakthebaker.com/faq/",
+   "https://zakthebaker.com/kosher/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "BAKER"
+ },
+ {
+  "id": "dantes-hifi-listening-seat",
+  "title": "Dante's HiFi late seating",
+  "place": "Dante's HiFi",
+  "address": "519 NW 26th St, Miami, FL 33127",
+  "hood": "Wynwood",
+  "lat": 25.801136,
+  "lng": -80.203715,
+  "category": "music",
+  "windows": [
+   {
+    "days": [
+     0,
+     2,
+     3
+    ],
+    "from": "19:00",
+    "to": "02:00"
+   },
+   {
+    "days": [
+     4,
+     5,
+     6
+    ],
+    "from": "19:00",
+    "to": "03:00"
+   }
+  ],
+  "best": "23:00",
+  "energy": 3,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Book the 90-minute seat on Tock. Order wasabi peas.",
+  "why": "A listening bar about the music.",
+  "sources": [
+   "https://www.exploretock.com/danteshifi/",
+   "https://danteshifi.com/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/",
+   "https://getzona.app/venue/dante-s-hifi",
+   "https://www.fusicology.com/events/this-week-dantes-miami/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "HIFI"
+ },
+ {
+  "id": "coyo-taco-back-lounge",
+  "title": "Coyo Taco's back room",
+  "place": "Coyo Taco Wynwood",
+  "address": "2300 NW 2nd Ave, Miami, FL 33127",
+  "hood": "Wynwood",
+  "lat": 25.799604,
+  "lng": -80.199237,
+  "category": "speakeasy",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3
+    ],
+    "from": "21:00",
+    "to": "02:00"
+   },
+   {
+    "days": [
+     0,
+     4,
+     5,
+     6
+    ],
+    "from": "21:00",
+    "to": "03:00"
+   }
+  ],
+  "best": "00:30",
+  "energy": 5,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "After midnight: tacos up front, then the back door.",
+  "getIn": "The 'employees only' door at the back.",
+  "why": "A bar behind the taqueria.",
+  "sources": [
+   "https://www.coyo-taco.com/restaurants/wynwood",
+   "https://www.miamiherald.com/miami-com/restaurants/article315991510.html",
+   "https://www.miaminewtimes.com/food-drink/miamis-secret-bars-and-speakeasies-13067807/",
+   "https://www.theinfatuation.com/miami/reviews/coyo-taco",
+   "https://hoodline.com/2026/02/coyo-taco-brings-wynwood-heat-to-bayside-marketplace-waterfront/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "COYO"
+ },
+ {
+  "id": "ica-miami-free-afternoon",
+  "title": "ICA Miami, free",
+  "place": "Institute of Contemporary Art, Miami",
+  "address": "61 NE 41st St, Miami, FL 33137",
+  "hood": "Design District",
+  "lat": 25.814359,
+  "lng": -80.194298,
+  "category": "art",
+  "windows": [
+   {
+    "days": [
+     0,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "11:00",
+    "to": "18:00"
+   }
+  ],
+  "best": "14:00",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Book a free timed ticket. Weekday afternoon.",
+  "why": "World-class art, zero cost.",
+  "sources": [
+   "https://icamiami.org/visit/",
+   "https://icamiami.org/tickets/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "ICA"
+ },
+ {
+  "id": "jass-kitchen-candlelit-jazz",
+  "title": "Jass Kitchen by candlelight",
+  "place": "Jass Kitchen",
+  "address": "190 NE 46th St, Miami, FL 33137",
+  "hood": "Design District",
+  "lat": 25.817736,
+  "lng": -80.19172,
+  "category": "music",
+  "windows": [
+   {
+    "days": [
+     2,
+     3
+    ],
+    "from": "16:00",
+    "to": "22:30"
+   },
+   {
+    "days": [
+     4,
+     5
+    ],
+    "from": "16:00",
+    "to": "23:30"
+   },
+   {
+    "days": [
+     6
+    ],
+    "from": "10:00",
+    "to": "23:30"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "10:00",
+    "to": "22:30"
+   }
+  ],
+  "best": "20:00",
+  "energy": 2,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Book for 8, when the music starts.",
+  "why": "Live sets, real candles, a table you can book.",
+  "sources": [
+   "https://www.jasskitchenmiami.com/",
+   "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
+   "https://www.jasskitchenmiami.com/music-calendar-ultimate-guide-jass-kitchen/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "JASS"
+ },
+ {
+  "id": "rubell-3pm-free-tour",
+  "title": "Rubell's 3pm tour",
+  "place": "Rubell Museum",
+  "address": "1100 NW 23rd St, Miami, FL 33127",
+  "hood": "Allapattah",
+  "lat": 25.798696,
+  "lng": -80.214258,
+  "category": "art",
+  "windows": [
+   {
+    "days": [
+     3,
+     4
+    ],
+    "from": "11:30",
+    "to": "17:30"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "11:30",
+    "to": "19:30"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "11:30",
+    "to": "17:30"
+   }
+  ],
+  "best": "15:00",
+  "energy": 1,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Ticket ahead. Be there by 2:45. Cards only.",
+  "why": "The guided tour is free with entry.",
+  "sources": [
+   "https://rubellmuseum.org/miami/visit-miami",
+   "https://rubellmuseum.org/miami",
+   "https://www.thefader.com/2026/08/27/where-to-see-yayoi-kusama-art-in-us"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "RUBELL"
+ },
+ {
+  "id": "cape-florida-lighthouse-climb",
+  "title": "Climb the 1825 lighthouse",
+  "place": "Cape Florida Lighthouse (Bill Baggs Cape Florida State Park)",
+  "address": "1200 S Crandon Blvd, Key Biscayne, FL 33149",
+  "hood": "Key Biscayne",
+  "lat": 25.666588,
+  "lng": -80.155965,
+  "category": "outdoors",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     4,
+     5,
+     6
+    ],
+    "from": "10:00",
+    "to": "12:00"
+   }
+  ],
+  "best": "10:00",
+  "energy": 2,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "Tower tours 10 to noon. Look south for Stiltsville.",
+  "why": "Stiltsville without a boat.",
+  "sources": [
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/cape-florida-light",
+   "https://www.miamiandbeaches.com/l/attractions/bill-baggs-cape-florida-state-park/2976?category=4",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/experiences-amenities-0",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/hours-and-fees-bill-baggs",
+   "https://www.miamiandbeaches.com/event/miamis-icon-200-years-of-cape-florida-lighthouse/37086"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "1825"
+ },
+ {
+  "id": "the-cleat-no-name-harbor-sunset",
+  "title": "The Cleat at sunset",
+  "place": "The Cleat",
+  "address": "1200 S Crandon Blvd, Key Biscayne, FL 33149",
+  "hood": "Key Biscayne",
+  "lat": 25.676248,
+  "lng": -80.164032,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     2,
+     3
+    ],
+    "from": "15:00",
+    "to": "20:00"
+   },
+   {
+    "days": [
+     4,
+     5
+    ],
+    "from": "15:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     6
+    ],
+    "from": "14:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "14:00",
+    "to": "20:00"
+   }
+  ],
+  "best": "18:30",
+  "energy": 3,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Get through the park gate before dusk. Table on the sand.",
+  "why": "The best sunset seat in the city.",
+  "sources": [
+   "https://lighthouserestaurants.com/the-cleat",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.miaminewtimes.com/food-drink/miami-completely-snubbed-on-best-beach-bars-ranking-23290528/",
+   "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/hours-and-fees-bill-baggs",
+   "https://www.theinfatuation.com/miami/reviews/the-cleat",
+   "https://www.theinfatuation.com/miami/guides/miami-bars-outdoor-seating"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "CLEAT"
+ },
+ {
+  "id": "donut-gallery-teds-special",
+  "title": "Ted's special, Donut Gallery",
+  "place": "Donut Gallery Diner",
+  "address": "83 Harbor Dr, Key Biscayne, FL 33149",
+  "hood": "Key Biscayne",
+  "lat": 25.700122,
+  "lng": -80.163077,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "06:00",
+    "to": "15:00"
+   }
+  ],
+  "best": "07:00",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Counter stool at 7. Order the Ted's special.",
+  "why": "Key Biscayne's counter since 1972.",
+  "sources": [
+   "http://donutgallerydiner.com",
+   "https://www.theinfatuation.com/miami/guides/breakfast-miami",
+   "https://www.theinfatuation.com/miami/reviews/donut-gallery-diner",
+   "https://www.timeout.com/miami/restaurants/donut-gallery-diner"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "TED'S"
+ },
+ {
+  "id": "virginia-key-beach-sunrise",
+  "title": "Virginia Key at 7am",
+  "place": "Historic Virginia Key Beach Park",
+  "address": "4020 Virginia Beach Dr, Miami, FL 33149",
+  "hood": "Virginia Key",
+  "lat": 25.736387,
+  "lng": -80.156182,
+  "category": "water",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "07:00",
+    "to": "17:30"
+   }
+  ],
+  "best": "07:15",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Be at the gate at 7. Swim before the heat.",
+  "why": "Miami's historic Black beach, quiet at dawn.",
+  "sources": [
+   "https://www.virginiakeybeachpark.net/",
+   "https://virginiakeybeachpark.net/newsletter/january-2026/",
+   "https://virginiakeybeachpark.net/events/",
+   "https://virginiakeybeachpark.net/events/park-closure-2/",
+   "https://www.miamiandbeaches.com/event/stink-and-dutty-miami-carnival/42234",
+   "https://wsvn.com/news/local/miami-dade/no-swim-advisory-issued-for-key-biscayne-venetian-islands-parts-of-south-beach-following-rainfall/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "1945"
+ },
+ {
+  "id": "deering-estate-mangrove-morning",
+  "title": "Deering Estate mangroves",
+  "place": "Deering Estate",
+  "address": "16701 SW 72nd Ave, Palmetto Bay, FL 33157",
+  "hood": "South Miami-Dade",
+  "lat": 25.615703,
+  "lng": -80.306734,
+  "category": "outdoors",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "10:00",
+    "to": "17:00"
+   }
+  ],
+  "best": "10:00",
+  "energy": 1,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "Boardwalk at 10, nature tour at 12:30.",
+  "why": "Old Miami, far from the crowds.",
+  "sources": [
+   "https://deeringestate.org/visit/plan-your-visit/",
+   "https://en.wikipedia.org/wiki/Charles_Deering_Estate",
+   "https://wildsouthflorida.com/deering.estate.html"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "DEERING"
+ },
+ {
+  "id": "barnacle-house-tour",
+  "title": "The Barnacle, 1891",
+  "place": "The Barnacle Historic State Park",
+  "address": "3485 Main Hwy, Miami, FL 33133",
+  "hood": "Coconut Grove",
+  "lat": 25.7263,
+  "lng": -80.24395,
+  "category": "outdoors",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     4,
+     5,
+     6
+    ],
+    "from": "09:00",
+    "to": "17:00"
+   }
+  ],
+  "best": "10:00",
+  "energy": 1,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Bring $2 cash. Take the 10am house tour.",
+  "why": "Coconut Grove before the condos.",
+  "sources": [
+   "https://www.floridastateparks.org/parks-and-trails/barnacle-historic-state-park",
+   "https://coconutgrove.com/business/the-barnacle-historic-state-park/",
+   "https://www.floridastateparks.org/parks-and-trails/barnacle-historic-state-park/hours-fees",
+   "https://www.floridastateparks.org/parks-and-trails/barnacle-historic-state-park/experiences-amenities",
+   "https://www.thebarnacle.org/history",
+   "https://www.tclf.org/landscapes/barnacle-historic-state-park"
+  ],
+  "verifiedOn": "2026-10-02",
+  "getIn": "Walk or bike in from Main Highway; no cars inside the park, so use the metered street parking nearby.",
+  "word": "1891"
+ },
+ {
+  "id": "maes-room-courtyard-martini",
+  "title": "Mae's Room martini",
+  "place": "Mae's Room",
+  "address": "3444 Main Hwy Ste 17, Miami, FL 33133",
+  "hood": "Coconut Grove",
+  "lat": 25.727493,
+  "lng": -80.243396,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3
+    ],
+    "from": "17:00",
+    "to": "01:00"
+   },
+   {
+    "days": [
+     4,
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "02:00"
+   }
+  ],
+  "best": "18:30",
+  "energy": 2,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Come early, everyone sits. Order the burger from next door.",
+  "why": "A tiny courtyard den behind Chug's.",
+  "sources": [
+   "https://maesmiami.com/",
+   "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
+   "https://www.miaminewtimes.com/food-drink/first-coconut-grove-speakeasy-opening-this-fall-40491437/",
+   "https://chuggiesmiami.com/menu/",
+   "https://www.instagram.com/maesinthegrove/p/Dd4yEH3HxBX/",
+   "https://coconutgrove.com/business/maes-room/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "MAE'S"
+ },
+ {
+  "id": "katana-sushi-boats",
+  "title": "Katana sushi boats",
+  "place": "Katana",
+  "address": "920 71st St, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.85548,
+  "lng": -80.128284,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "18:00",
+    "to": "00:00"
+   }
+  ],
+  "best": "18:00",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Put your name down at 5:30. Plates by color.",
+  "why": "A line worth joining on Normandy Isle.",
+  "sources": [
+   "https://www.katanajapaneserestaurant.com/",
+   "https://www.katanamiamibeach.com/contact",
+   "https://www.miaminewtimes.com/food-drink/this-33-year-old-miami-sushi-spot-still-has-a-two-hour-wait-40546621",
+   "https://www.theinfatuation.com/miami/reviews/katana",
+   "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "KATANA"
+ },
+ {
+  "id": "manolo-rene-24h-colada",
+  "title": "Manolo & Rene, 24/7",
+  "place": "Manolo & Rene Grill",
+  "address": "188 NE 3rd Ave, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.776078,
+  "lng": -80.188771,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "00:00",
+    "to": "00:00"
+   }
+  ],
+  "best": "00:30",
+  "energy": 2,
+  "cost": 1,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Colada and a cubano, before doors or at 4am.",
+  "why": "On 3rd Ave since 1977. Blocks from Kaseya.",
+  "sources": [
+   "https://www.manologrill.com/",
+   "https://www.theinfatuation.com/miami/reviews/manolo-and-rene-cafeteria"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "24/7"
+ },
+ {
+  "id": "cafe-fenicia-muhammara-mixed-grill",
+  "title": "Café Fenicia, slowly",
+  "place": "Café Fenicia",
+  "address": "1381 NE Miami Ct, Miami, FL 33132",
+  "hood": "Downtown",
+  "lat": 25.78814,
+  "lng": -80.193225,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "17:00",
+    "to": "23:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "00:00"
+   }
+  ],
+  "best": "18:30",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Muhammara, mixed grill, coffee brewed in hot sand.",
+  "why": "A Lebanese room built for lingering.",
+  "sources": [
+   "https://www.cafefenicia.com/",
+   "https://www.theinfatuation.com/miami/reviews/cafe-fenicia",
+   "https://www.theinfatuation.com/miami/guides/downtown-miami-restaurants"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "FENICIA"
+ },
+ {
+  "id": "pho-nam-bun-bo-hue",
+  "title": "Phở Nam on Flagler",
+  "place": "Phở Nam",
+  "address": "270 E Flagler St, Miami, FL 33131",
+  "hood": "Downtown",
+  "lat": 25.77412,
+  "lng": -80.1891,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     4,
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "22:00"
+   }
+  ],
+  "best": "18:00",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Viet pizza, then bún bò huế. Thu to Sun.",
+  "why": "A short walk from Kaseya.",
+  "sources": [
+   "https://www.phonammia.com/",
+   "https://www.theinfatuation.com/miami/reviews/pho-nam-downtown",
+   "https://www.theinfatuation.com/miami/guides/downtown-miami-restaurants",
+   "https://www.phonammia.com/menu",
+   "https://www.phonammia.com/reservations"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "PHỞ"
+ },
+ {
+  "id": "river-oyster-bar-happy-hour",
+  "title": "$2 oysters at The River",
+  "place": "The River Oyster Bar",
+  "address": "33 SE 7th St, Miami, FL 33131",
+  "hood": "Brickell",
+  "lat": 25.767686,
+  "lng": -80.191968,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "12:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "12:00",
+    "to": "22:30"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "12:00",
+    "to": "21:00"
+   }
+  ],
+  "best": "17:30",
+  "energy": 2,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Bar seat, 3 to 7pm. Oysters and a La Tropical.",
+  "why": "Brickell's honest seafood room.",
+  "sources": [
+   "https://www.therivermiami.com/location/the-river-miami/",
+   "https://www.therivermiami.com/menus/",
+   "https://www.theinfatuation.com/miami/reviews/the-river-oyster-bar",
+   "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-brickell",
+   "https://www.therivermiami.com/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "OYSTERS"
+ },
+ {
+  "id": "lung-yai-one-order-thai",
+  "title": "Lung Yai at 5",
+  "place": "Lung Yai Thai Tapas",
+  "address": "1731 SW 8th St, Miami, FL 33135",
+  "hood": "Little Havana",
+  "lat": 25.765772,
+  "lng": -80.223205,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "12:00",
+    "to": "15:00"
+   },
+   {
+    "days": [
+     0,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "22:00"
+   }
+  ],
+  "best": "17:00",
+  "energy": 3,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Come with everyone. Order once: som tam, khao soi.",
+  "getIn": "No reservations. Whole party present, one order.",
+  "why": "Tiny, strict and worth the rules.",
+  "sources": [
+   "https://lungyai.com/",
+   "https://www.theinfatuation.com/miami/reviews/lung-yai-thai-tapas",
+   "https://www.theinfatuation.com/miami/guides/little-havana-restaurants",
+   "https://guide.michelin.com/us/en/florida/miami/restaurant/lung-yai-thai-tapas",
+   "https://joinpearl.co/lists/michelin-guide-florida-2026"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "LUNG YAI"
+ },
+ {
+  "id": "palma-candlelit-counter",
+  "title": "Palma's counter",
+  "place": "Palma",
+  "address": "240 NW 8th Ave, Miami, FL 33128",
+  "hood": "Little Havana",
+  "lat": 25.776485,
+  "lng": -80.207969,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "18:00",
+    "to": "22:00"
+   }
+  ],
+  "best": "18:30",
+  "energy": 2,
+  "cost": 4,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Counter seat, tasting menu, half-pour pairing.",
+  "why": "Candles on concrete. Changes monthly.",
+  "sources": [
+   "https://www.eatpalma.com/",
+   "https://www.theinfatuation.com/miami/reviews/palma-miami",
+   "https://www.theinfatuation.com/miami/guides/little-havana-restaurants",
+   "https://guide.michelin.com/us/en/florida/miami/restaurant/palma"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "PALMA"
+ },
+ {
+  "id": "la-casita-vaca-frita",
+  "title": "La Casita vaca frita",
+  "place": "La Casita",
+  "address": "3805 SW 8th St, Coral Gables, FL 33134",
+  "hood": "Coral Gables",
+  "lat": 25.764761,
+  "lng": -80.25745,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "from": "11:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     6
+    ],
+    "from": "11:30",
+    "to": "23:00"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "12:00",
+    "to": "22:00"
+   }
+  ],
+  "best": "19:30",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Vaca frita with yuca and mojo. Mariquitas for the table.",
+  "why": "A family Cuban dinner without the line.",
+  "sources": [
+   "https://lacasitacubancuisine.com/",
+   "https://www.theinfatuation.com/miami/reviews/la-casita-restaurant",
+   "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables",
+   "http://lacasitacubancuisine.com/ (GoDaddy parking lander, script redirects to /lander with ap:'parking')",
+   "http://lacasitamiami.com/ (301 to lacasitacubancuisine.com)",
+   "https://www.timeout.com/miami/restaurants/la-casita"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "VACA"
+ },
+ {
+  "id": "krus-kitchen-coconut-rice",
+  "title": "Krüs Kitchen",
+  "place": "Krüs Kitchen",
+  "address": "3413 Main Hwy, Miami, FL 33133",
+  "hood": "Coconut Grove",
+  "lat": 25.727207,
+  "lng": -80.24308,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "from": "17:30",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "17:30",
+    "to": "23:00"
+   },
+   {
+    "days": [
+     0,
+     6
+    ],
+    "from": "11:00",
+    "to": "15:30"
+   }
+  ],
+  "best": "19:00",
+  "energy": 2,
+  "cost": 4,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Natural wine. Ask if the smoked coconut rice is on.",
+  "why": "The Grove at its most grown-up.",
+  "sources": [
+   "https://www.kruskitchen.com/menu",
+   "https://www.theinfatuation.com/miami/reviews/krus-kitchen",
+   "https://www.theinfatuation.com/miami/guides/coconut-grove-restaurants",
+   "https://www.kruskitchen.com/",
+   "https://guide.michelin.com/us/en/florida/miami/restaurant/krus-kitchen"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "KRÜS"
+ },
+ {
+  "id": "hometown-bbq-beef-rib",
+  "title": "Hometown beef rib",
+  "place": "Hometown Barbecue",
+  "address": "1200 NW 22nd St, Miami, FL 33142",
+  "hood": "Allapattah",
+  "lat": 25.797688,
+  "lng": -80.215255,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "11:30",
+    "to": "21:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "11:30",
+    "to": "22:00"
+   }
+  ],
+  "best": "18:00",
+  "energy": 3,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Split a beef rib and brisket. Get the Frito pie.",
+  "why": "Around the corner from the Rubell.",
+  "sources": [
+   "https://hometownbbqmiami.com/",
+   "https://hometownbbqmiami.com/menu1",
+   "https://www.theinfatuation.com/miami/reviews/hometown-barbecue",
+   "https://www.theinfatuation.com/miami/guides/best-restaurants-allapattah",
+   "https://images.squarespace-cdn.com/content/v1/5d4edbd5e7d1490001eb0a4d/1b4eda75-1800-4870-8032-c7b514e89a1c/HTRH-MIAMI-memu-2025p1.png",
+   "https://hoodline.com/2026/06/rubells-cash-out-on-allapattah-lot-in-15m-neology-deal/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "BBQ"
+ },
+ {
+  "id": "naomis-garden-jerk-chicken",
+  "title": "Naomi's back garden",
+  "place": "Naomi's Garden Restaurant & Lounge",
+  "address": "650 NW 71st St, Miami, FL 33150",
+  "hood": "Little Haiti",
+  "lat": 25.83953,
+  "lng": -80.207925,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "08:00",
+    "to": "23:00"
+   }
+  ],
+  "best": "19:00",
+  "energy": 2,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Jerk chicken and pikliz. Eat in the garden.",
+  "why": "A Haitian counter with a hidden garden.",
+  "sources": [
+   "https://naomismiami.com/",
+   "https://www.theinfatuation.com/miami/reviews/naomis-garden-restaurant-and-lounge",
+   "https://thelocalpalate.com/articles/naomis-garden-in-miami-serves-up-traditional-haitian-cuisine/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "NAOMI'S"
+ },
+ {
+  "id": "fiorito-empanada-choclo",
+  "title": "Fiorito",
+  "place": "Fiorito",
+  "address": "5555 NE 2nd Ave, Miami, FL 33137",
+  "hood": "Little Haiti",
+  "lat": 25.827077,
+  "lng": -80.191725,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "12:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "12:00",
+    "to": "23:00"
+   }
+  ],
+  "best": "19:30",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Empanada de choclo, then share an Angus cut.",
+  "why": "Open Mon and Tue when others aren't.",
+  "sources": [
+   "http://fioritomiami.com",
+   "http://fioritomiami.com/miami-fiorito-food-menu",
+   "https://www.theinfatuation.com/miami/reviews/fiorito",
+   "https://www.theinfatuation.com/miami/reviews/almacen-by-fiorito",
+   "https://www.theinfatuation.com/miami/neighborhoods/little-haiti"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "FIORITO"
+ },
+ {
+  "id": "bar-bucce-shrimp-pie",
+  "title": "Bar Bucce shelf wine",
+  "place": "Bar Bucce",
+  "address": "7220 N Miami Ave, Miami, FL 33150",
+  "hood": "Little River",
+  "lat": 25.841422,
+  "lng": -80.196882,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     3
+    ],
+    "from": "12:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     4,
+     5,
+     6
+    ],
+    "from": "12:00",
+    "to": "22:30"
+   }
+  ],
+  "best": "18:00",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Pull a bottle off the shelf, $20 corkage. Shrimp pie.",
+  "why": "Wine shop, market and pizza bar in one.",
+  "sources": [
+   "https://barbucce.com/",
+   "https://www.theinfatuation.com/miami/reviews/bar-bucce",
+   "https://www.theinfatuation.com/miami/guides/best-restaurants-little-river-miami",
+   "https://barbucce.com/menu",
+   "https://www.timeout.com/miami/restaurants/bar-bucce"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "BUCCE"
+ },
+ {
+  "id": "tacos-maria-zeyzey-late",
+  "title": "Tacos María at 1am",
+  "place": "Tacos María (at ZeyZey)",
+  "address": "353 NE 61st St, Miami, FL 33137",
+  "hood": "Little Haiti",
+  "lat": 25.832731,
+  "lng": -80.189052,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     2
+    ],
+    "from": "18:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     4
+    ],
+    "from": "19:00",
+    "to": "00:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "19:00",
+    "to": "03:00"
+   }
+  ],
+  "best": "01:00",
+  "energy": 4,
+  "cost": 2,
+  "rainOk": false,
+  "secret": 1,
+  "theMove": "Off the dance floor: chicharrón tacos and esquites.",
+  "getIn": "The truck at ZeyZey's entrance.",
+  "why": "Real tacos till 3 on weekends.",
+  "sources": [
+   "https://www.tacosmariamiami.com/menu",
+   "https://www.zeyzeymiami.com",
+   "https://www.theinfatuation.com/miami/reviews/tacos-maria",
+   "https://www.tacosmariamiami.com/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "TACOS"
+ },
+ {
+  "id": "double-luck-crab-rangoon",
+  "title": "Double Luck",
+  "place": "Double Luck",
+  "address": "1085 NE 79th St, Miami, FL 33138",
+  "hood": "MiMo",
+  "lat": 25.848284,
+  "lng": -80.174794,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "17:30",
+    "to": "22:00"
+   }
+  ],
+  "best": "19:00",
+  "energy": 4,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Crab leg rangoon. They set the orange chicken on fire.",
+  "why": "Chinese food throwing a party.",
+  "sources": [
+   "https://www.onlyinyourstate.com/florida/chinese-restaurant-go-to-place-to-dine-miami-fl",
+   "https://www.theinfatuation.com/miami/reviews/double-luck-club",
+   "https://blog.resy.com/2025/12/double-luck-chinese-miami/",
+   "https://doubleluckmiami.squarespace.com/",
+   "https://doubleluckmiami.squarespace.com/s/Double-Luck-Food-Menu-April-2026.pdf",
+   "https://www.miamiandbeaches.com/restaurants/michelin-bib-gourmand-restaurants-in-miami"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "LUCK"
+ },
+ {
+  "id": "locura-marina-ceviche-sampler",
+  "title": "Locura Marina ceviche",
+  "place": "Locura Marina Peruvian Restaurant",
+  "address": "7118 Collins Ave, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.856537,
+  "lng": -80.12065,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3
+    ],
+    "from": "09:30",
+    "to": "21:00"
+   },
+   {
+    "days": [
+     4
+    ],
+    "from": "09:30",
+    "to": "17:00"
+   },
+   {
+    "days": [
+     5
+    ],
+    "from": "09:30",
+    "to": "21:30"
+   },
+   {
+    "days": [
+     6
+    ],
+    "from": "10:00",
+    "to": "21:30"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "11:00",
+    "to": "19:30"
+   }
+  ],
+  "best": "18:30",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Ceviche sampler, rocoto first. Share everything.",
+  "why": "Big Peruvian plates, neighborhood prices.",
+  "sources": [
+   "https://www.locuramarinarestaurant.com/",
+   "https://www.theinfatuation.com/miami/reviews/locura-marina-miami-beach"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "CEVICHE"
+ },
+ {
+  "id": "marcs-bianca-normandy-isle",
+  "title": "Marc's Bianca pie",
+  "place": "Marc's Artisanal Pizzeria",
+  "address": "966 Normandy Dr, Miami Beach, FL 33141",
+  "hood": "North Beach",
+  "lat": 25.855631,
+  "lng": -80.129491,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "16:30",
+    "to": "22:00"
+   }
+  ],
+  "best": "18:30",
+  "energy": 2,
+  "cost": 2,
+  "rainOk": true,
+  "secret": 0,
+  "theMove": "Artichoke, then the Bianca on sesame crust.",
+  "why": "Crust obsessives, steps from Katana.",
+  "sources": [
+   "https://marcsartisanalpizzeria.com/",
+   "https://www.theinfatuation.com/miami/reviews/marcs-artisanal-pizzeria",
+   "https://marcsartisanalpizzeria.com/menu",
+   "https://www.miaminewtimes.com/best-of-miami/2026/eat-and-drink/best-pizza-40556981 (page title: 'Best Pizza | Marc's Artisanal Pizza')"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "MARC'S"
+ },
+ {
+  "id": "vinya-key-biscayne-skirt-steak",
+  "title": "Vinya off the beach",
+  "place": "Vinya Wine (Key Biscayne)",
+  "address": "328 Crandon Blvd, Key Biscayne, FL 33149",
+  "hood": "Key Biscayne",
+  "lat": 25.69549,
+  "lng": -80.163633,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     1,
+     2,
+     3
+    ],
+    "from": "16:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
+     4,
+     5,
+     6
+    ],
+    "from": "12:00",
+    "to": "23:00"
+   }
+  ],
+  "best": "17:30",
+  "energy": 2,
+  "cost": 3,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Happy hour at 4, then skirt steak. Bottles at retail.",
+  "why": "The island's low-key dinner.",
+  "sources": [
+   "https://www.vinyawine.com/pages/key-biscayne",
+   "https://cdn.shopify.com/s/files/1/0878/2879/1607/files/KB_FOOD_MENU_FALL_2026.pdf",
+   "https://theinfatuation.com/miami/neighborhoods/key-biscayne",
+   "https://www.theinfatuation.com/miami/guides/best-restaurants-key-biscayne",
+   "https://cdn.shopify.com/s/files/1/0878/2879/1607/files/KB_FOOD_MENU_FALL_2026.pdf?v=1790176679"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "VINYA"
+ },
+ {
+  "id": "la-sandwicherie-3am-napoli",
+  "title": "La Sandwicherie at 3am",
+  "place": "La Sandwicherie",
+  "address": "229 14th St, Miami Beach, FL 33139",
+  "hood": "South Beach",
+  "lat": 25.785522,
+  "lng": -80.131401,
+  "category": "food",
+  "windows": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "from": "07:00",
+    "to": "05:00"
+   }
+  ],
+  "best": "03:00",
+  "energy": 3,
+  "cost": 1,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "The Napoli. Drown it in vinaigrette.",
+  "why": "The Beach's late-night ritual since 1988.",
+  "sources": [
+   "https://www.lasandwicherie.com",
+   "https://www.theinfatuation.com/miami/reviews/la-sandwicherie",
+   "https://www.theinfatuation.com/miami/guides/casual-restaurants-miami-beach",
+   "https://www.miaminewtimes.com/?p=40318939",
+   "https://www.miaminewtimes.com/?p=40476302",
+   "https://www.axios.com/local/miami/2026/09/04/south-beach-bar-macs-club-deuce-turns-100"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "3AM"
+ },
+ {
+  "id": "broken-shaker-griot-backyard",
+  "title": "Broken Shaker backyard",
+  "place": "Broken Shaker (Freehand Miami)",
+  "address": "2727 Indian Creek Dr, Miami Beach, FL 33140",
+  "hood": "Mid-Beach",
+  "lat": 25.804542,
+  "lng": -80.126349,
+  "category": "bar",
+  "windows": [
+   {
+    "days": [
+     4
+    ],
+    "from": "17:00",
+    "to": "00:00"
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "17:00",
+    "to": "01:00"
+   },
+   {
+    "days": [
+     0
+    ],
+    "from": "17:00",
+    "to": "23:00"
+   }
+  ],
+  "best": "17:30",
+  "energy": 3,
+  "cost": 3,
+  "rainOk": false,
+  "secret": 0,
+  "theMove": "Happy hour at 5. Griot with pikliz.",
+  "getIn": "Inside the Freehand hotel on Indian Creek Drive. Reservations on Resy are encouraged. Closed Monday to Wednesday.",
+  "why": "Off the Collins strip.",
+  "sources": [
+   "https://freehandhotels.com/miami/broken-shaker/",
+   "https://www.brokenshaker.com/miami-menus/",
+   "https://lhmagazine.co.uk/broken-shaker-a-backyard-oasis-rooted-in-tropical-nostalgia-reinvents-itself-on-miami-beach/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "SHAKER"
+ },
+ {
+  "id": "saxony-bar-faena-late-jazz",
+  "title": "Saxony Bar after 10",
+  "place": "Saxony Bar (Faena Hotel Miami Beach)",
+  "address": "3201 Collins Ave, Miami Beach, FL 33140",
+  "hood": "Mid-Beach",
+  "lat": 25.807378,
+  "lng": -80.123139,
+  "category": "speakeasy",
+  "windows": [
+   {
+    "days": [
+     4,
+     5,
+     6
+    ],
+    "from": "22:00",
+    "to": "03:00"
+   }
+  ],
+  "best": "22:30",
+  "energy": 3,
+  "cost": 4,
+  "rainOk": true,
+  "secret": 1,
+  "theMove": "Dress up. Classic cocktail. Stay for the DJ.",
+  "getIn": "Basement of the Faena. Book on SevenRooms.",
+  "why": "The Faena's basement room.",
+  "sources": [
+   "https://www.faena.com/miami-beach/dining/saxony-bar",
+   "https://www.timeout.com/miami/bars/saxony-bar",
+   "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/"
+  ],
+  "verifiedOn": "2026-10-02",
+  "word": "SAXONY"
+ }
+]

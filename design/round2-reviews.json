@@ -1,0 +1,449 @@
+[
+ {
+  "lens": "Senior product designer and UX writer. I walked two jobs through the r5 build. Job 1: a visitor lands Fri Nov 20 at 3pm for John Summit at Kaseya and plans the weekend. Job 2: a local opens the app at 9pm on a Thursday and wants something good and non-obvious. Sources: every r5 and r5-motion PNG, seven r0 PNGs, all of app/src, moves.json and events.json, plus a scratch run of planStay() and rankNow() on a copy of core.js.",
+  "score": 6,
+  "r0score": 3,
+  "verdict": "r5 is a real step up from r0. In r0 the first screen had no move on it (r0/mobile-now-day.png). In r5 one complete move, with what, when, why and Keep/Go, sits above the tab bar at dawn, noon and golden hour, and the paper stub on a sky-colored field is a recognizable object. Neither job finishes on Today, though. Job 1 fails at 3pm on Nov 20: lede() prints \"psst. It's 3:05. Coffee break, Miami rules.\" (TimeHead.svelte:28), and the pad doesn't know the visitor has doors at 7pm at Kaseya or is on a trip at all. The planner also drops John Summit night 2. Job 2 fails at Thursday 9pm. My rankNow() run puts Caf\u00e9 La Trova as the first unsealed stub, and its own `why` opens with \"Iconic\". Tonight's events never appear on Today, and the Wall opens on the visitor's November dates. On trust, the build says things that aren't true: \"4 good moves open right now\" sits above \"1 of 6\", \"Good now, till 10pm\" appears on a bar whose park gate closes at dusk, \"8pm The show\" is a time no source gives, and events have no checked date while the Wall claims they were checked. The voice is good in the ledes and lost in the chrome: 36 Recursive MONO declarations and 13 uppercase rules turn every label into the template eyebrow the brief banned. Against Google Maps, r5 wins on timing and \"what to order\". It loses on \"how far from me\": travel time, the one thing specced for the stub face, isn't there. Against Instagram it loses on \"what's on tonight\". Fix the four blockers and add travel time to the stub face, and it beats both for job 1. Job 2 needs ranking and IA work, not polish.",
+  "whatWorks": [
+   "First-screen rule met at 390x844 at dawn, noon and golden hour: title, the note, hood/cost/energy/rain meta and Keep/Go all sit above the tab bar (r5/mobile-today-noon.png, mobile-today-dawn.png, mobile-today-golden.png). In r0 no move was visible (r0/mobile-now-day.png).",
+   "One object system. Moves, the trip and the Book all use the same perforated paper stub on a sky field, and with the logo covered the Today screen is still clearly this brand.",
+   "Trust on the back of the stub: 'Checked Oct 2, 2026: cafelatrova.com, theinfatuation.com' with live links, plus Apple Maps and Google Maps handoffs (Stub.svelte:104; mobile-today-flip.png). This is the right pattern; it just needs to reach the front.",
+   "Trip Friday is a plan a friend would actually send: 6pm Ph\u1edf Nam Downtown near the venue, the show at Kaseya, 12:30am Coyo Taco ('Open till 3am'). 'Swap this stop' is the right control, and day headers label '79\u00b0 typical' honestly (mobile-trip.png, mobile-trip-scrolled.png).",
+   "The ledes sound like the brand: 'Golden hour. Face west. Stop talking.' and 'Up early. The water is flat and nobody is out yet.' Notes carry real details ('$8 per car', 'Closed Monday and Tuesday', 'arrive after 11pm').",
+   "The tab bar is text only, with an ink pill on the active tab. The six-chip filter row is gone, replaced by All / Low-key / Loud.",
+   "Flyer titles no longer break mid-word, so THUNDE/RCAT can't happen again (Flyer.svelte:20-38).",
+   "The golden-hour screen (mobile-today-golden.png) is the screenshot people would send: the whole field turns mamey with a paper stub on top.",
+   "The sealed envelope with a real clue ('Downtown / No sign out front') replaces the blurred-text secret from r0 (r0/mobile-move.png)."
+  ],
+  "mustFix": [
+   {
+    "issue": "Job 1: John Summit night 2 is never anchored. The default stay for a visitor who came 'for John Summit, Nov 20 and 21' (DECISIONS.md) plans Saturday as six stops ending at ZeyZey at 1am, with no show. The night-2 chip sits off-screen in the 'On while you're here' scroller.",
+    "evidence": "app/src/lib/state.svelte.js:88 (.slice(0,1)); app/src/components/TripView.svelte:12 (anchor requires date === '2026-11-20'); planStay() run: Sat Nov 21 = M\u00e1ximo G\u00f3mez 10am \u2026 ZeyZey 1am, no Kaseya",
+    "fix": "Change the summit preset anchor to `e.id.includes('john-summit')` (both dates) and drop `.slice(0,1)` in state.svelte.js:88. Then show a one-line toggle on the day header: 'Night 2 is on too. Going? Yes / Just Friday'.",
+    "severity": "blocker"
+   },
+   {
+    "issue": "Job 2: the Wall opens on the visitor's trip dates for everyone. On Oct 2 a local sees '9 events, Nov 20 to Nov 24' and no tonight. There is no 'Tonight' range at all.",
+    "evidence": "app/src/components/WallView.svelte:15 (pick = $state('stay')); WallView.svelte:8-14 (ranges); shots/r5/mobile-wall.png",
+    "fix": "Add ['tonight','Tonight', today, today] as the first range and make it the default. Show 'Your stay' only when the user has edited the trip (track a trip.touched flag). When Tonight is empty, fall back to 'This weekend' with the line 'Nothing on tonight. Here's the weekend.'",
+    "severity": "blocker"
+   },
+   {
+    "issue": "The lede's count contradicts the pager on the same screen, and it says 'right now' while the user is scrubbed to another hour. This is the first trust signal a user reads.",
+    "evidence": "shots/r5/mobile-today-dawn.png ('4 good moves open right now' vs '1 of 6'); shots/r5/mobile-today-night.png ('6' vs '1 of 7'); app/src/components/TimeHead.svelte:22-23 counts !sealed && open; app/src/components/Pad.svelte:39 shows pad.length",
+    "fix": "Use one number from one source: count = app.pad.filter(x => !x.sealed && x.open).length, and show the pager as '1 of {count}' (sealed and 'opens soon' stubs at the end, unnumbered). When scrubbed, change the copy to '{n} good at {fmtHour(app.hour)}', and say 'right now' only when app.following is true.",
+    "severity": "blocker"
+   },
+   {
+    "issue": "The 'Back to now' chip uses the wrong condition, so it disappears when you are furthest from now. At 7:15am with the real time at 6:47pm (11.53h apart) there is no way back except tapping the hour, which nothing signals.",
+    "evidence": "app/src/components/TimeHead.svelte:18 (\u2026 - 12) < 11.5); shots/r5/mobile-today-dawn.png (no chip) vs mobile-today-noon.png (chip present)",
+    "fix": "`const dist = Math.abs(((app.hour - app.now.hour + 36) % 24) - 12); const scrubbed = !app.following && dist > 0.5;` This matches the direction's 'more than 30 min away' rule.",
+    "severity": "blocker"
+   },
+   {
+    "issue": "Job 2: for a local at Thursday 9pm, the first unsealed stub is Caf\u00e9 La Trova, the most guidebook bar in Little Havana (its own `why` begins 'Iconic, and it earns it'). The ranking has no non-obvious signal, and tonight's events aren't on Today at all.",
+    "evidence": "app/src/lib/core.js:126 (score is bestFit + energy, secret only x1.06/x1.12); rankNow({dow:4,h:21}) run: La Trova is the top open non-sealed move; app/src/lib/state.svelte.js:41-50 (pad built from moves only)",
+    "fix": "In rankNow add a `local` flag: s *= m.secret === 0 ? 0.6 : 1.15. Turn it on after 7pm Thu-Sat or with an 'I live here' toggle in the Book. Insert tonight's events.json entries (date === today, start within \u00b13h) into the pad as event stubs at position 2.",
+    "severity": "high"
+   },
+   {
+    "issue": "Job 1: Today doesn't know about the trip. At 3pm on Nov 20 the visitor gets the generic cafecito lede and an unrelated pad, instead of 'Doors at Kaseya at 7. Two things that fit before.'",
+    "evidence": "app/src/components/TimeHead.svelte:28 (15:00-15:30 lede); app/src/lib/state.svelte.js:42-50 (pad ignores trip.days); app/src/App.svelte:72-75",
+    "fix": "When app.now.date falls between trip.start and trip.end, put a paper ribbon above the pad: 'Day 1 of 5. Next: Ph\u1edf Nam, 6pm, 9 min from Kaseya.' Filter the pad to moves that end before the next anchor minus travel time (reuse planStay's travel()).",
+    "severity": "high"
+   },
+   {
+    "issue": "Travel time or distance, the one fact that beats Google Maps in the first 5 seconds, is missing from the stub face. The serial number takes the top-right slot that was specced for '12 MIN' (and the serial already appears again in the tear-off).",
+    "evidence": "app/src/components/Stub.svelte:81 ('No. {serial}') and Stub.svelte:109 (serial again); shots/r5/mobile-today-noon.png ('NO. 030' and 'MOVE NO. 030/060')",
+    "fix": "Replace the top-right 'No. 030' with travel time: '14 min' from geolocation via km()/28 + 0.25h, or 'from Brickell' when location is denied. On a Trip stub, show time from the previous stop. Keep the serial only in the tear-off.",
+    "severity": "high"
+   },
+   {
+    "issue": "'Good now, till 10pm' is the venue's closing time, not the last moment the move works. The Cleat's note says the park gate closes to cars at dusk, and sunset is 7:06pm. 'Sunrise swim \u2026 Good now, till 5:30pm' has the same problem. This promise is the product's whole premise, and here it's wrong.",
+    "evidence": "shots/r5/mobile-today-golden.png; shots/r5/mobile-today-dawn.png; data/moves.json the-cleat-no-name-harbor-sunset (windows to 22:00, theMove 'closes to cars at dusk'); app/src/components/Stub.svelte:79",
+    "fix": "Add an optional `goBy` to moves.json (e.g. The Cleat: 'sunset-0:20'; Virginia Key sunrise: '08:00') and render 'Go by 6:45pm' when present. Keep 'till 10pm' for venues where staying late is the point.",
+    "severity": "high"
+   },
+   {
+    "issue": "Invented event time and a broken mini flyer. The Trip prints '8pm THE SHOW' beside 'DOORS 7PM', but no source gives 8pm. The planner adds an hour to every concert. The mini flyer reads 'NOV / FRI' with no day number, and the Wall flyer shows 'NOV' where the date belongs.",
+    "evidence": "shots/r5/mobile-trip-scrolled.png; shots/r5/mobile-wall.png (John Summit, Book Fair Street Fair flyers); app/src/lib/core.js:179 (+1h for concerts); app/src/components/Flyer.svelte:44 (layout 2 prints month instead of day)",
+    "fix": "In the Trip time column show 'Doors 7pm' and set the slot at e.time. Write 'set times not out yet' instead of inventing 8pm. In Flyer.svelte:44 always print `day` as the numeral and move the month into .mwk/.foot.",
+    "severity": "high"
+   },
+   {
+    "issue": "Events carry no checked date, yet the Wall subtitle claims 'each checked against its own page'. This breaks the DECISIONS data rule that every move and event carries sources and a checked date.",
+    "evidence": "data/events.json (keys: address, category, date, energy, hood, id, lat, lng, price, sources, title, url, venue, why; no verifiedOn); app/src/components/WallView.svelte:35",
+    "fix": "Add verifiedOn to all 44 events and render 'Checked Oct 2 \u00b7 venue site' in the flyer info panel (WallView.svelte:47-52) and on the Trip event stub. Until then, change the subtitle to 'Shows, club nights, fairs and street parties, with links to each one's page.'",
+    "severity": "high"
+   },
+   {
+    "issue": "Night is when job 2 happens, and at night on mobile the stub's actions are cut off. A 4-line title plus a 2-line lede push Keep/Go and the serial under the tab bar. Separately, a risk: the harness captures 844pt with no browser chrome, and in real Safari (about 664pt innerHeight) the noon and golden action rows at about 709pt are likely below the fold too. The max-height:800px clamp won't catch that. Not confirmed.",
+    "evidence": "shots/r5/mobile-today-night.png and r5-motion/mobile-today-night.png (Keep/Go clipped); app/src/components/Stub.svelte:142",
+    "fix": "Drop the 'Back to now' chip into the track row, move the energy segment and pager into the stub's top row, and cap the title at 3 lines (shorter titles in data where needed). Add a 390x664 capture to scripts/shots.mjs and make 'Keep/Go fully visible' a pass/fail check.",
+    "severity": "high"
+   },
+   {
+    "issue": "The planner still produces the r0-style taste failures in its copy. Sat 1:30pm is labeled 'Afternoon' for 'An early-lunch cubano at Sanguich'. Mon 5:30pm is '$2 oysters \u2026 before the show' on a day with no show, followed by a second dinner at 8pm. Tue 11am Venetian Pool is planned with a 1pm flight, because the best-time snap runs after the departure cutoff.",
+    "evidence": "planStay() run for Nov 20-24; app/src/lib/core.js:186 (departure check uses the unsnapped time); core.js:247 (snap to best time afterwards); core.js:159 (DAY_WORDS checks weekdays only)",
+    "fix": "Re-check `snapped` against `depart - 2.5` and `arrive + 1.25` after core.js:247. Add a TIME_WORDS guard (/early-lunch|brunch|sunrise|before the show|late/) that rejects a move when the slot hour or anchor context contradicts the title. Allow one dinner-category pick per day.",
+    "severity": "high"
+   },
+   {
+    "issue": "Template tell: mono all-caps eyebrows on nearly every element. The direction limits the 'ticket printer' voice to times, prices and serials, but r5 also uses it for the header date line, hour scale, stub top row, meta row, serial label, 'WHY IT'S HERE', 'WHERE', 'ARRIVE/LEAVE/LANDING/FLIGHT OUT', 'EARLY DINNER/THE SHOW/LATE', 'OPEN NOW DESIGN DISTRICT', Later hoods and the footer. It also keeps a middle-dot meta string.",
+    "evidence": "grep: 36 `'MONO' 1` declarations, 13 `text-transform: uppercase` rules (Stub.svelte:131,153,167,192; TripView.svelte:115,137; Where.svelte:39; BookView.svelte:74); Stub.svelte:71 'Hold to open \u00b7 3 of 3 leans\u2026'; shots/r5/mobile-today-flip.png, mobile-trip.png",
+    "fix": "Keep Recursive MONO only for clock times, prices and the serial. Set every label (WHY IT'S HERE, WHERE, ARRIVE, EARLY DINNER, OPEN NOW) in Recursive CASL 1, sentence case, 13px, no tracking. Turn the meta row into one sentence: 'Design District. Cheap, quiet, fine in rain.' Replace the middle dot with a full stop.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Jargon on first contact. 'Leans' is never explained but appears on the sealed stub and as the Book's headline stat. 'Back to the pad' names a metaphor that appears nowhere else in the UI. The tab names 'Wall' and 'Book' don't tell a visitor that one is events and the other is their saved moves.",
+    "evidence": "shots/r5/mobile-today-sealed.png ('HOLD TO OPEN \u00b7 3 OF 3 LEANS LEFT THIS WEEK'); shots/r5/mobile-book.png; shots/r5/mobile-where.png ('Back to the pad'); app/src/App.svelte:45",
+    "fix": "Sealed hint: 'Hold to open. You get 3 a week.' Where button: 'Back to Today'. Rename the tabs Today / Trip / On / Kept, so 'Kept' closes the loop with the Keep button and its 'Kept.' toast.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Wall tear-off tabs repeat the date four times ('11/15 11/15 11/15 11/15'), so the add-to-stay action is invisible. Book Fair shows '15 / SUN NOV 15' under a 'Nov 20 to Nov 24' filter, which reads as already over. The filter is pill chips wrapping to two rows, the exact r0 complaint and a rejected pattern in DECISIONS.",
+    "evidence": "app/src/components/WallView.svelte:44-46, :36-38; shots/r5/mobile-wall.png; shots/r5/desktop-wall.png",
+    "fix": "Label the tabs with the action: 'Add to Fri' (in stay), 'Hold' (outside the stay), 'Tickets' (link). Show range events as 'Till Sun 22' when endDate \u2265 range start. Replace the chips with one scrolling text row (Tonight \u00b7 This weekend \u00b7 Your stay \u00b7 Oct \u00b7 Nov \u00b7 Dec) and an ink underline for the active one.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Mobile Trip promises 'Tap a day to see its route', but the mobile map is masked to the top 400px, non-interactive and covered by the column, so tapping a day shows nothing.",
+    "evidence": "shots/r5/mobile-trip.png; app/src/App.svelte:52-53 (interactive only when wide or where), App.svelte:113 (mask)",
+    "fix": "On mobile, make the day header button open the Where view in route mode (map full screen, the day's stops as numbered stickers, 'Back to Today'). Or cut the second sentence on mobile.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Weather trust regressed from r0. The Today header shows a bare '86\u00b0': forecast is unlabeled and rain was dropped. r0 printed 'forecast as of Oct 2' next to the temperature, and r5 moved that to a footer below the fold. Trip 'rain 23%' on a typical day reads like a forecast probability.",
+    "evidence": "app/src/App.svelte:64 (appends ' typ' only for typical); shots/r0/mobile-now-day.png vs shots/r5/mobile-today-noon.png; app/src/components/TripView.svelte:74",
+    "fix": "Header: '86\u00b0 forecast' / '79\u00b0 typical' (no abbreviation) plus 'rain 28%' when \u226530. In Trip, for typical days write 'rains 1 in 4 Nov days' instead of 'rain 23%'.",
+    "severity": "medium"
+   },
+   {
+    "issue": "The Where card says 'Open now' based on the scrubbed hour and today's weekday, even when reached from a Nov 21 Trip stub. Same stale-context bug as the lede.",
+    "evidence": "app/src/components/Where.svelte:8 (openAt(m, app.dow, app.hour)); shots/r5/mobile-where.png ('OPEN NOW' at a scrubbed 9pm)",
+    "fix": "Pass {dow, at} into app.where from the stub that opened it. Render 'Open at 9pm, till 10pm' when scrubbed or planned, and 'Open now' only when following live time.",
+    "severity": "medium"
+   },
+   {
+    "issue": "The Book is a 60-slot grid of dashed outlines, each captioned with the hood name its page header already shows ('No. 015 Little Havana' x5). Slots can't be tapped, so it can't serve as the browse-by-neighborhood surface a local needs when the 7-stub pad runs out.",
+    "evidence": "app/src/components/BookView.svelte:32-37 (non-interactive div, clue = m.hood); shots/r5/mobile-book.png, mobile-book-scrolled.png",
+    "fix": "Make each slot a button that opens the move's stub in a sheet. Replace the caption with a real clue from the first clause of `why` or `getIn` (e.g. 'Ring the doorbell'), and use the hood name only for sealed slots.",
+    "severity": "medium"
+   },
+   {
+    "issue": "The desktop secondary views repeat r0's 'phone sheet on a monitor'. Trip, Wall and Book sit in a 500px column with roughly 940px of map dimmed to 25% and empty. The direction specced a horizontal Strip, a pasted wall and a two-page Book spread.",
+    "evidence": "app/src/App.svelte:116 (.wide .col width 500px for every tab), App.svelte:112 (.dim opacity .25); shots/r5/desktop-wall.png, desktop-book.png, desktop-trip.png",
+    "fix": "For tab === 'wall' set .col to full width and the grid to `repeat(auto-fill, minmax(220px,1fr))` over the dimmed map. For 'trip' render days as columns along the bottom 320px with the route on the live map above. For 'book' center a two-page spread.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Two DECISIONS rules are broken on screen. Mamey ('means now, once per view') appears about 7 times in one view: wordmark period, Back-to-now dot, track now-mark, pineapple-sun, stub live dot, hour-bar fill, stub now-tick. Stickers are icon-led, not the 'text-led die-cut stickers' graft, and ICA's sticker is the stock image-placeholder glyph, which reads as a broken image.",
+    "evidence": "shots/r5/mobile-today-noon.png; app/src/components/Stub.svelte:136,138; app/src/components/TimeHead.svelte:94,101; app/src/components/Sticker.svelte:47-48 (art = rect + mountain + sun)",
+    "fix": "Keep mamey on the pineapple-sun and the stub's live dot only. Make the chip dot and track now-mark ink, and the hour-bar fill ink at 15%. Rebuild Sticker as text-led: the move's one-word hook in Tilt Warp ('Daiquiri', 'Cafecito', 'Sunset') with the hood on the rim.",
+    "severity": "medium"
+   }
+  ],
+  "niceToHave": [
+   "'Go' is an Apple Maps link (Stub.svelte:112). On a Nov 20 Trip stub, or on Android, 'Go' is the wrong verb and the wrong handoff. Use 'Directions' and pick Apple or Google Maps by user agent, and show 'Add to calendar' on planned stubs.",
+   "Move 'Copy the plan for the group chat' and the PINA code to the top of Trip, under the summary line. Today they sit below 22 stops (TripView.svelte:96-97), and that share is the whole distribution plan in DECISIONS.",
+   "The noon desktop Later dock opens scrolled, so its first card is clipped at the left edge ('atural wine \u2026 : Kr\u00fcs Kitchen'). Reset scrollLeft on hour change and add scroll-padding-inline (desktop-today-noon.png).",
+   "Desktop pin tags show each move's best time, so at 1pm the map reads '10:30am', '11am', '11:30am' (App.svelte:23). Show 'now' / 'till 6pm' / 'from 8pm' instead. Also offset colliding tags ('6 7pm' at Coconut Grove, desktop-today-golden.png).",
+   "The stub hour bar is an unlabeled three-mark strip that repeats the 'Good now, till 6pm' text. Either add 'noon' and '6pm' tick labels or drop it from the front and keep the 24h version on the back.",
+   "The note is clamped at 4 lines and cuts operational facts ('Closed Monda\u2026' on ICA, mobile-today-noon.png). Put closures and reservations in the meta row as structured data, so the clamp only ever cuts color.",
+   "Sticker rim text is clipped on the oval and shield shapes ('IRGINIA KE', mobile-today-dawn.png). It's drawn at y=88 on a path that ends at y=90 (Sticker.svelte:60).",
+   "The 10px sky-gradient ribbon on the time track (TimeHead.svelte:11,65) is the 'gradient pill' the direction cut. It carries information, but the specced 2px ink line with the pineapple-sun would be calmer and more distinctive.",
+   "Desktop night: the neon hour sits on top of traffic dots and glow blobs ('10:30' has red dots running through the digits, desktop-today-night.png and mobile-today-night.png). Mask the map behind the hour and lede (as App.svelte:113 already does on mobile).",
+   "Trip summary line '4 nights, 22 stops, built from real hours and sunsets' is product self-praise. Something like 'Four nights. Two shows if you want them. Nothing before 10am.' says what the plan is.",
+   "The header line repeats today's date and weather on Trip, Wall and Book, where it's irrelevant to a November plan. On Trip, show the stay's dates and typical weather instead."
+  ]
+ },
+ {
+  "lens": "Awwwards/FWA juror who also stands in for the founder. Design, Creativity, Innovation and Content are scored together as one number. The tests: would someone screenshot this and send it to a friend, what still reads as template or AI-made, and is the brand unmistakable with the logo covered. I read all 23 r5 PNGs, all 23 r5-motion PNGs and 7 r0 PNGs, plus the code. The r5-motion stills match the reduced-motion ones, so motion (tear, flip, lights-on) is judged from the code.",
+  "score": 6,
+  "r0score": 3.5,
+  "verdict": "r5 is a real jump from r0. Two screens are the first things in four rounds I would screenshot and send, and both pass the logo-covered test. The golden-hour screen turns the whole screen #FCA864, with the Biscayne coast drawn faintly underneath and a paper stub carrying notches and a serial. The night screen sets the hour in glowing Tilt Neon over streetlit OSM roads, and only the open venues glow. Almost everything around those two screens still reads as a competent template. Outline pills and a \"\u2039 1 of 6 \u203a\" carousel appear on every view. The stickers are stock icons (a picture-frame icon for ICA). The flyers have Canva-style gradients. The Book is a grid of grey dashed circles, each captioned with the page's own title. Trip opens on a form with native date pickers. On desktop, Trip, Wall and Book are a 500px phone column next to about 940px of dimmed or nearly empty map, which is r0's empty void with a new skin. With the logo covered, the noon, dawn, Trip, Wall and Book screens could belong to any lifestyle app, and the pineapple-sun still reads as a 9px tomato. The concept's verb, tearing, is a \"Keep\" button with a 420ms slide-and-fade, so a jury never feels the idea. The planner also fails the founder's own test case: John Summit night 2 is missing, Saturday to Monday have 6 stops a day, an \"early-lunch cubano\" sits at 1:30pm, and Monday has two dinners. Score 6.0. The single highest-leverage change to reach 9+ is to build the tear as the one verb and make it end in something you can send. Drag or hold the tear-off along the perforation and the paper rips with a seeded jagged edge. A KEPT stamp lands, and the torn half flies into the Book tab and slaps in as a text-led sticker. Then \"Send the stub\" turns it into a 1080\u00d71350 card painted in the hour's sky. I'd do this before polishing the Book, because the tear is what fills the Book and it makes the shareable image. The trade-off is about two days of work, and a still can't show it, so it has to ship with the share card. Fix the planner first anyway: it is the credibility floor, not the wow.",
+  "whatWorks": [
+   "Golden hour is the screenshot moment and passes the logo-covered test. The whole field warms to #FCA864 with the real coast tone-on-tone, and the paper stub reads 'GOOD NOW, TILL 10PM' (mobile-today-golden.png, desktop-today-golden.png). r0's golden hour was a grey-green map (r0/mobile-now-golden.png).",
+   "Night is the most wow frame in the build. Tilt Neon hour, sodium-lit OSM roads, illustrative traffic, and only open venues glow (desktop-today-night.png, mobile-today-night.png). That kills r0's purple-and-cyan template (r0/desktop-now-night.png).",
+   "The stub is now an ownable object. Masked corner notches, a perforation with sky-colored half-moons, a stable serial 'No. 030/060', and an hour bar showing open windows, the best tick and a now marker (Stub.svelte:121-123, 135-138, 160-162; mobile-today-noon.png).",
+   "The first-screen rule holds at noon and dawn on a 390x844 phone: one complete move with Keep/Go above the tab bar (mobile-today-noon.png, mobile-today-dawn.png). r0 showed zero moves above the fold (r0/mobile-now-day.png).",
+   "The time track is a real data rail. It's painted with the day's computed sky colors, with sunrise/sunset ticks, rain bars and a draggable pineapple-sun (TimeHead.svelte:10-11, 62-77).",
+   "The content voice is the best asset. Exact, useful instructions ('Pay the Bill Baggs park entry ($8 per car) and get through the gate before sundown\u2026'), sources and check dates on the back, '79\u00b0 typical' labels, and an honest footer (mobile-today-golden.png, mobile-today-flip.png, mobile-trip.png).",
+   "Desktop Today finally uses the width: the pad on the left, a live map with sticker pins and time tags, and a Later strip (desktop-today-noon.png). Compare r0's glass panel over a void (r0/desktop-plan.png).",
+   "Flyer titles no longer break mid-word (Flyer.svelte:20-38; mobile-wall.png versus r0/mobile-wall.png 'THUNDE/RCAT')."
+  ],
+  "mustFix": [
+   {
+    "issue": "The planner drops John Summit night 2, the founder's friend's second show. Saturday Nov 21 has ZeyZey cumbia at 1am instead of Kaseya.",
+    "evidence": "TripView.svelte:12 anchors only e.date === '2026-11-20'; state.svelte.js:88 uses .slice(0, 1); output of app/scripts/plan-check.mjs (which also slices to 1, so it never tests night 2)",
+    "fix": "Anchor every in-stay event whose id includes 'john-summit' (drop the date filter and the slice). Add a plan-check assertion that both 11-20 and 11-21 Kaseya slots exist.",
+    "severity": "blocker"
+   },
+   {
+    "issue": "The planner breaks the accepted hard rules. Saturday to Monday get 6 stops (the rule is 2\u20134). The \u00b190-min-of-best rule is broken: Sanguich (best 11:30) lands at 1:30pm as an 'early-lunch cubano', Dante's (best 23:00) at 1am, and Hometown BBQ (best 18:00) at 8pm. Monday gets two dinners (5:30 'Early dinner' plus 8pm 'Dinner'). '$2 oysters \u2026 before the show' lands on a Monday with no show.",
+    "evidence": "core.js:161-168 (six SLOT_DEFS per day); core.js:226 admits any move with bestFit > 0.45 (\u03c3 2.2h lets through 2h off); core.js:247 snap tolerance is 1.75h; core.js:248 relabels the sunset slot 'Early dinner' without dropping the dinner slot; output of app/scripts/plan-check.mjs",
+    "fix": "Hard-filter |when \u2212 best| \u2264 1.5h. Cap each day at 4 slots, chosen by the energy curve. If the sunset slot picks food, skip the dinner slot. Add a needsShow flag to moves whose copy mentions a show, and place them only on anchor days. Make each rule an assertion in plan-check.mjs.",
+    "severity": "blocker"
+   },
+   {
+    "issue": "The product's named verb isn't built. 'Keep' is a plain button with a 420ms slide-and-fade. There's no torn edge, no stamp on the perforation, no flight into the Book, no hole punch or WENT, and nothing to send.",
+    "evidence": "Stub.svelte:49-53 (tear = setTimeout), :111 (Keep button), :163-164 (translateY plus fade); r5-motion/*.png are identical to r5",
+    "fix": "Replace Keep with the tear-off as a pointer target: drag down 60px or hold 650ms (Enter for keyboard). Draw a jagged path along .perf, seeded by mulberry32(move.id), and apply it as clip-path polygons to both halves. Play the KEPT stamp at 120ms, then FLIP the tear-off into the Book tab and bump its counter (520ms paper easing). Afterwards show 'Send the stub', a 1080\u00d71350 canvas (sky fill, coast crop, the torn stub, sticker, serial, 'good till 10pm') sent through navigator.share or a download. Under reduced motion, use a 120ms crossfade plus the stamp.",
+    "severity": "high"
+   },
+   {
+    "issue": "The stickers are stock pictograms on colored shapes: a picture-frame 'image' icon for ICA, a martini glass, waves, a target. This is the generic sticker art the judges asked to cut (their graft was text-led stickers). The oval stickers also clip their own label ('IRGINIA KE').",
+    "evidence": "Sticker.svelte:32-53 (icon set), :60 (label at y=88 on an oval whose bottom is y=90); mobile-today-noon.png (ICA), mobile-today-golden.png, mobile-today-dawn.png, desktop-today-noon.png pins",
+    "fix": "Add a stickerWord to moves.json (CAFECITO, ICA, LA TROVA, ZEYZEY, CLEAT) and letter it in Tilt Warp at a hashed XROT/YROT of \u00b115. Keep the category's die-cut shape and the hood on the rim, and drop the icons. On non-circular shapes, put the rim text on a straight band at y\u224874, inside the shape.",
+    "severity": "high"
+   },
+   {
+    "issue": "The brand mark is still tiny, and the pineapple-sun reads as a tomato. With the logo covered, the noon, dawn, Trip, Wall and Book screens are anonymous. This is the brief's own top known weakness, still unfixed.",
+    "evidence": "Wordmark.svelte:13 (period 0.3em, about 9px at 30px); TimeHead.svelte:74 (26px plain ellipse with three leaves); mobile-today-noon.png, mobile-trip.png, mobile-book.png",
+    "fix": "Draw it as a pineapple: a mamey-deep diamond crosshatch on the body and a taller 5-leaf crown. Size it at 36px on the track and 0.45em in the wordmark, with the wordmark at 40px on mobile. Make it the light source: drive the hour's shade from its track position so the mark and the sun are visibly one object.",
+    "severity": "high"
+   },
+   {
+    "issue": "Desktop Trip, Wall and Book are a 500px phone column next to about 940px of dimmed or empty map. It's r0's 'phone sheet stretched across a monitor', reskinned.",
+    "evidence": "desktop-wall.png, desktop-book.png, desktop-trip.png; App.svelte:51 and :112 (dim to 25%), :116 (.col 500px)",
+    "fix": "Follow the direction. Wall: flyers pasted across x 520\u20131416 in CSS columns (5 across, \u00b12\u00b0) over the dimmed map. Book: a two-page album spread centered over the map. Trip: the Strip runs horizontally across the bottom 300px with one column per day while the route draws above. Keep only headings and controls in the left column.",
+    "severity": "high"
+   },
+   {
+    "issue": "Pill and carousel UI everywhere is the strongest template and AI tell, and DECISIONS already rejected pill chips. Circle '\u2039 1 of 6 \u203a' arrows, an outline segmented pill, pill tabs on desktop, Wall chips that wrap to two rows, Trip presets cut off at 'Art Ba', and native date inputs with OS calendar icons.",
+    "evidence": "Pad.svelte:37-41, :66-70; App.svelte:119-122; WallView.svelte:65-67 (mobile-wall.png); TripView.svelte:45, :48-49, :111 (mobile-trip.png)",
+    "fix": "Speak the ticket language. Print the pad position as Mono '1/6' on the tear-off edge, keep swipe plus arrow keys, and drop the circle arrows on mobile. Make energy a rubber-stamp toggle. Put the Wall and Trip ranges in one non-wrapping Mono row with an ink underline. Use the same text tabs on desktop as on mobile. Make the dates two Mono stub fields ('ARRIVE FRI 11.20') that open a custom 5-week grid.",
+    "severity": "high"
+   },
+   {
+    "issue": "The Book's empty state is the most template-looking screen on both viewports: grey dashed outlines, each captioned with the hood name that is already the page title. No clue, no hood map, no HOOD DONE.",
+    "evidence": "BookView.svelte:35 (clue = m.hood); mobile-book.png, mobile-book-scrolled.png, desktop-book.png",
+    "fix": "Caption each slot with a real clue (author a clue field, or reuse the clue logic at Stub.svelte:22-26). Draw the outline in the sticker's ink at 40% with its word ghosted. Add a tone-on-tone mini map of the hood with numbered pins (crop the MiamiMap layers). Render '0/5' as a row of 5 punch holes, and land a HOOD DONE stamp when the page is complete.",
+    "severity": "medium"
+   },
+   {
+    "issue": "The flyers read as Canva, not Calle Ocho. Every flyer gets a 170\u00b0 gradient and some get a generic circle. Layout 2 prints 'NOV' as the hero numeral, so the John Summit flyer and the trip event stub show 'NOV FRI' with no date. The multi-day Book Fair shows '15 / SUN NOV 15' under 'Your stay Nov 20\u201324'. The tear tabs repeat '11/15' four times.",
+    "evidence": "Flyer.svelte:43, :44, :52, :58-60; WallView.svelte:45; mobile-wall.png, mobile-trip-scrolled.png, desktop-wall.png",
+    "fix": "Always make the hero numeral the day, or a range like '15\u201322' when endDate exists, and show the day in mini mode. Remove the ::before gradient and use flat two-ink color with 1\u20132px overprint offset (multiply), on flyers only. Give the tabs real tear info: 'FRI 11.20', 'DOORS 7', 'KASEYA', 'ADD TO STAY'. Make the John Summit anchor the loudest flyer on the wall, not pastel pink.",
+    "severity": "medium"
+   },
+   {
+    "issue": "At night the sealed envelope disappears: an ink envelope on the night sky, so only the seal shows. The auto-cut clue 'No sign out front' is generic.",
+    "evidence": "Stub.svelte:186 (background var(--ink) #052739 on --sky-night #042234), Stub.svelte:22-26; mobile-today-sealed.png, desktop-today-sealed.png",
+    "fix": "After dusk, make the envelope paper or kraft with an ink seal, or keep the ink envelope with a 1.5px paper edge and 35% paper flap lines. Write a hand clue per secret in moves.json ('Brickell. Ring twice.').",
+    "severity": "medium"
+   },
+   {
+    "issue": "The first-screen rule breaks whenever the user scrubs. The 'Back to now' row plus a 4-line title push Keep/Go under the tab bar.",
+    "evidence": "mobile-today-night.png (Keep/Go and the serial cut off at y\u22481560), mobile-today-golden.png (barely clears); Stub.svelte:140 (29px title, padding-right 96px); TimeHead.svelte:58-60",
+    "fix": "At \u2264400px width, use a 72px emblem with 78px padding-right. Step the title down to 25px when it would wrap to 4 lines and cap it at 3. Move the scrub chip inline, to the right of the hour, instead of on its own row.",
+    "severity": "medium"
+   },
+   {
+    "issue": "There are map artifacts on the hero frames. A hard vertical seam in the land fill sits at about x=318 CSS on every mobile Today shot. Hood labels collide with pins, and pins with each other ('CO 6 7pm I GROVE'). Glows scale with zoom into fog that swallows labels. The desktop Later strip starts mid-card ('atural wine and').",
+    "evidence": "mobile-today-golden.png / -night.png / -noon.png top right (pixel step at x\u2248636); MiamiMap.svelte:76 and app/scripts/geo.mjs; desktop-today-golden.png, desktop-today-noon.png (MiamiMap.svelte:96-108 ignores pins); mobile-where.png (MiamiMap.svelte:159 radius \u00d7 z); desktop-today-noon.png (Later.svelte:26, App.svelte:123)",
+    "fix": "Union the land polygons in geo.mjs, or skip the land fill in quiet mode. Feed the pin and tag boxes into placeLabels and merge colliding tags ('6:30 \u00b7 7pm'). Clamp glow radius to 18px\u00d7dpr above 1.5\u00d7 zoom and draw labels last with a sky-colored halo. Reset strip.scrollLeft to 0 whenever app.hour changes.",
+    "severity": "medium"
+   }
+  ],
+  "niceToHave": [
+   "Use Tilt Warp's axes as identity, not just during the lean. At XROT/YROT 0 it reads as a generic heavy geometric sans. Set a static YROT on the hour from solar azimuth (morning \u221210, afternoon +10) and a hashed \u00b15 on stub titles. Static values are fine under reduced motion.",
+   "The sun shade at noon is muddy grey (mixHex(sky, ink, .38) in state.svelte.js:37). Darken the sky in OKLCH and keep its hue instead (noon \u2192 warm sand), so it reads as a cast shadow and not a WordArt extrusion (mobile-today-noon.png).",
+   "Mamey appears about 6 times per view (nowchip dot, track now-mark, pineapple, stub live dot, bar fills, now tick) against the once-per-view rule. Make the bar fills ink at 18% and the nowchip dot paper.",
+   "Dawn lede says '4 good moves open right now' while the counter reads '1 of 6' (mobile-today-dawn.png; TimeHead.svelte:22 counts open moves only). Write '4 open now, 2 open soon.'",
+   "Desktop pins show the best time even when it's 20 hours away: a '3am' tag at 7:15am (desktop-today-dawn.png). Show 'tonight 3am' or 'opens 5pm'.",
+   "Make the flip a real rotateY(180\u00b0) with backface-visibility when motion is on. Style the back as the ticket's reverse (Mono terms, ADMIT ONE microtext down the edge) rather than a form with wrapping pills (mobile-today-flip.png).",
+   "Show me where: put the venue's sticker on the pin with a squash-and-stretch landing, and add the dotted walking line with minutes from a labeled origin ('12 MIN FROM BRICKELL'). Right now it's a mamey dot in purple fog (mobile-where.png).",
+   "Later mini-stubs: add the sticker at 32px and real notches on the perforated edge so they read as torn stubs, not cards.",
+   "Trip: 'Send the strip', a 1080\u00d71920 PNG through the artifact downloads capability. This is the group-chat object DECISIONS is betting on.",
+   "Shots harness: capture mid-motion frames (tear at 50%, lights-on wave at 600ms, sticker slap). The current r5-motion stills match r5, so the signature motion can't be reviewed."
+  ]
+ },
+ {
+  "lens": "Senior design engineer: code review of app/src against the svelte-core-bestpractices skill and the Vercel Web Interface Guidelines (fetched fresh). Covers accessibility (keyboard paths, focus visibility, contrast on every sky phase), reduced motion, map frame cost, robustness, and correctness in core.js and state.svelte.js. I opened every r5 and r5-motion PNG (46) and seven r0 PNGs. I checked the claims below with throwaway Node scripts in the scratchpad that load core.js and sky.js through Vite (pad simulation, planner runs, WCAG contrast sweeps per minute) and with the Svelte 5.57 compiler's warnings. No project files were edited.",
+  "score": 6.5,
+  "r0score": 3.5,
+  "verdict": "The art direction works. The sky field, paper stubs, the lit night map and the planner are a real product now, not the r0 dark-map template, and the code is clean Svelte 5 with only three compiler warnings. But the engineering under it has bugs a visitor on Nov 20 would hit in the first hour.\n\n- **The hour disappears after sunset.** The big hour numeral turns neon peach while the sky is still peach, at 1.4 to 2.7:1 contrast. On Nov 20 that is 5:45 to 6:05pm, the exact window meant to be screenshotted.\n- **Opening a secret shows a different sealed envelope.** The opened move jumps to slot 1 and the next secret takes its place. With 3 secrets and 3 leans a week, a user can spend every lean thinking it failed.\n- **The \"Back to now\" chip logic is inverted.** It is missing in both dawn screenshots.\n- **The planner gets anchored events wrong.** It books a 10am event before a 3pm landing, and it silently drops multi-day events even after the Wall says \"Added to your stay\".\n- **The move's full instruction cannot be read anywhere.** It is cut off on the front and missing from the back.\n- **Keep/Go slides under the tab bar** on 4-line titles, which breaks the first-screen rule.\n- **Focus rings are invisible at night** on every paper surface, including the mobile tab bar (1.00:1).\n- **The map re-rasterizes about 29k path points across 5 full-resolution canvases** on every frame of a pan or \"Show me where\", and it redraws a static image at 60fps all day.\n\nFix the blockers and the high items and this is an 8. The lighter-weight fixes are listed with each item. I did not apply the guideline rule on Title Case for headings and buttons, because DECISIONS sets sentence case for Tilt Warp.",
+  "whatWorks": [
+   "Ink text on all five light sky colors reaches 8.1 to 13.8:1, and paper on dusk and night reaches 6.2 and 15.7:1 (computed from sky.js). Stubs stay paper in every state, so stub text never depends on the hour.",
+   "At 390x844, noon and dawn each show one complete move, including Keep/Go, above the tab bar (mobile-today-noon.png, mobile-today-dawn.png). The r0 first screen (mobile-now-day.png) showed none.",
+   "Every gesture has a keyboard or button path. The time track is a real role=slider with aria-valuetext and Arrow, PgUp/PgDn and Home keys. Swipe has Prev/Next buttons and an aria-live counter. Hold-to-open has an Enter path. Flip has More and Back buttons.",
+   "Storage, history and clipboard calls are all wrapped in try/catch (state.svelte.js:6, :62, :74; TripView.svelte:32), so the app renders empty but whole when storage is blocked in the sandbox.",
+   "The map has the basic safeguards: device pixel ratio capped at 2, the draw loop paused when the tab is hidden, a sprite budget that halves the cars after 3 slow frames, and traffic, wave, pulse, dashes and fly-to all frozen under reduced motion (MiamiMap.svelte:145, :123, :184, :234).",
+   "Only open spots glow on the map, and the lights-on night map (desktop-today-night.png) is the screenshot people will send. It is a big step up from r0's cyan-glow template (desktop-now-night.png).",
+   "The r0 planner failures are gone. My Nov 20\u201324 run gives sensible days: an early dinner near Kaseya, the show, then late tacos. No sunrise swim at dinner.",
+   "Flyer titles no longer break mid-word (the THUNDE/RCAT bug from r0 mobile-wall.png is fixed), and the stubs label their sources (checked date plus source links).",
+   "Idiomatic Svelte 5: a class with $state and $derived chains for app state, keyed each blocks, $derived instead of effects for computed values, and only 3 compiler warnings in total."
+  ],
+  "mustFix": [
+   {
+    "issue": "The neon hour is nearly invisible from sunset+15 to about sunset+38 min. The neon face switches on the sky phase ('dusk'), while the sky color is still light peach, so the hero numeral renders #FFBD99 on #E69972 to #A2648C at 1.42 to 2.74:1. On Oct 2 that is 7:21 to 7:41pm; on Nov 20, the test trip, 5:45 to 6:05pm. This is the golden-hour screenshot moment. The moon icon also replaces the pineapple-sun too early.",
+    "evidence": "TimeHead.svelte:13 (night = phase night||dusk), TimeHead.svelte:91; computed with sky.js skyAt() and phaseAt()",
+    "fix": "Drive the face from lightness, not phase: const night = $derived(lightness(app.sky) < 0.45). Or reuse app.dark and require it before the Tilt Neon swap. Keep ink plus the sun shade until the sky is actually dark.",
+    "severity": "blocker"
+   },
+   {
+    "issue": "Opening a sealed secret puts a different sealed envelope under the thumb. After unlock, the pad is re-derived. The opened move jumps to index 0 because of its 1.12 secret boost, and the next sealed secret is spliced into index 2. padIndex stays 2 and the {#key} re-renders, so after a 950ms hold the user sees another envelope. In my simulation at 9pm: mangrove-through-jrk opens and moves to slot 1, az85-poker-chip-biltmore appears in slot 3, and a second unlock reveals conventillo. With 3 secrets and 3 leans, a user can spend all of them.",
+    "evidence": "state.svelte.js:42-50 and :65-71; Pad.svelte:49; Stub.svelte:39; desktop-today-sealed.png and mobile-today-sealed.png show the slot ('3 of 7')",
+    "fix": "In unlock(), after pushing the id, set this.padIndex to the index of that id in this.pad. Better: track the shown move by id (padId) rather than by index, and keep a just-opened secret in its slot until the user navigates.",
+    "severity": "blocker"
+   },
+   {
+    "issue": "The 'Back to now' chip condition is inverted. The circular distance between the scrubbed hour and now is tested with < 11.5, so the chip shows when you are 15 minutes away and hides when you are 11.5 hours or more away. At dawn (7:15am, with now at 6:46pm, a gap of 11.52h) there is no chip, and the hour button's aria-label says 'It is 7:15am in Miami', which is false.",
+    "evidence": "TimeHead.svelte:18 and :55; desktop-today-dawn.png and mobile-today-dawn.png show no chip, while every other scrubbed screen shows one",
+    "fix": "Compute d = Math.abs(((app.hour - app.now.hour + 36) % 24) - 12) and set scrubbed = !app.following && d > 0.5. Derive the aria-label from following/scrubbed, never from the scrubbed hour alone.",
+    "severity": "high"
+   },
+   {
+    "issue": "Focus rings are invisible at dusk and night on every paper surface. The global ring uses var(--text), which becomes paper after dark: 1.00:1 on Keep, Go, More, Back, the back-face pills, the Trip slip steppers, the Book buttons, and the mobile tab bar, the primary navigation. The sealed envelope's ring is ink on the night sky at 1.06:1.",
+    "evidence": "App.svelte:109, App.svelte:124-126 (paper tab bar), Stub.svelte:193; the sealed screens are at 9pm",
+    "fix": "Add a --focus token. Paper surfaces (.stub:not(.sealed), .tabbar, .slip, .page, .code, .evstub, .card, .mini, wall .tabs) set --focus: var(--ink). The sealed stub uses --focus: var(--mamey) or paper. The global rule becomes outline: 3px solid var(--focus, var(--text)).",
+    "severity": "high"
+   },
+   {
+    "issue": "Flipping a stub leaves hidden controls focusable. The back face is only opacity 0 with pointer-events none, so 'Show me where', Apple Maps, Google Maps and the source links are Tab stops while invisible. When flipped, the front's More and Keep stay focusable too. Focus also stays on the hidden More button after a flip.",
+    "evidence": "Stub.svelte:76-105 (faces), Stub.svelte:127-129 (CSS-only hiding); desktop-today-flip.png",
+    "fix": "Use inert={!flipped} on .back and inert={flipped} on .front (Svelte 5 passes inert through). On flip, focus the Back button; on unflip, focus More. Use a {@attach} or a tick() in the click handler, not an $effect.",
+    "severity": "high"
+   },
+   {
+    "issue": "The move's instruction (theMove), the product's core payload, is cut off with an ellipsis on the front and never shown on the back, so the full text cannot be read anywhere. Examples: 'Closed Monda\u2026', 'from November it \u2026', 'facing the\u2026'.",
+    "evidence": "Stub.svelte:90, :141-142 (line-clamp 4, or 3 under 800px tall), back face Stub.svelte:94-105 has no theMove; mobile-today-noon.png, mobile-today-dawn.png, desktop-today-golden.png",
+    "fix": "Put the full theMove first on the back face, before 'How to get in', and label it 'The move'. Or make the note tappable to expand inline (aria-expanded) without a flip.",
+    "severity": "high"
+   },
+   {
+    "issue": "The first-screen rule is broken. A 4-line title pushes Keep/Go and the serial under the tab bar at 390x844. Real iOS Safari, with an innerHeight around 660 to 750, is worse. The max-height:800 query only removes one note line, about 23px, against a 70 to 120px overflow.",
+    "evidence": "mobile-today-night.png (Keep/Go and '018/060' clipped at the tab bar), mobile-today-golden.png (buttons touching the tab bar); Stub.svelte:140-142, App.svelte:114",
+    "fix": "Budget the height on mobile Today. Clamp .title to 3 lines (or step to 26px above about 28 characters). Below 800px tall, drop the 12am/6am scale row and set the hour to 64px. Clamp the note to 2 lines when the title runs 3 or more. Add a test in scripts/shots.mjs that asserts .keep's bottom edge is above .tabbar's top at 390x664 for every hour.",
+    "severity": "high"
+   },
+   {
+    "issue": "The planner mishandles anchored events. (a) Events are scheduled with no arrival or departure check: tapping Book Fair Street Fair (10am Nov 20) books it at 10am on a 3pm landing. (b) Multi-day events only match e.date === date, so Miami Book Fair (Nov 15\u201322) is never placed, while the Wall toast says 'Added to your stay'. The same goes for any Basel satellite fair that starts before the stay.",
+    "evidence": "core.js:177 (filter e.date === date), core.js:195 (pushed unconditionally); WallView.svelte:21-24; my plan run printed '2026-11-20 10:00am \u2605miami-book-fair-street-fair-2026 | \u2026' and no book-fair slot",
+    "fix": "Build spans for every day d where e.date <= d <= (e.endDate || e.date). On day 0, drop spans that end before arrive+0.75, and on the last day drop spans that start after depart-2.5. Surface dropped anchors as a note ('Book Fair: you land after it closes'). The Wall toast should report what the planner actually did.",
+    "severity": "high"
+   },
+   {
+    "issue": "While following live time, the pad re-ranks every 30 seconds and the shown stub changes under the reader. Ranking uses the minute-precise hour and the pad is indexed by position. In my simulation the order changed 8 times between 6:30 and 7:30pm. If this happens mid-hold, the keyed Stub unmounts, but its rAF loop is never cancelled and can still call app.unlock() and spend a lean.",
+    "evidence": "App.svelte:42 (30s tick sets app.hour), state.svelte.js:41-50, Pad.svelte:9-10, Stub.svelte:30-44 (no cleanup)",
+    "fix": "Rank on a quantized hour (Math.floor(hour*4)/4) and keep the current move by id: after re-derive, padIndex = indexOf(previous id), or 0 if it is gone. In Stub, cancel the frame on teardown (a $effect returning () => cancelAnimationFrame(raf), or a {@attach} on the envelope) and reset --lean.",
+    "severity": "high"
+   },
+   {
+    "issue": "Text on the blended sky colors fails contrast twice a day. Body text, the 12px header, the lede and the active segment all fall to 3.61:1 from 6:36 to 6:43am and 3.70:1 from 7:34 to 7:43pm. Choosing the better of ink or paper only reaches 4.0 to 4.1. The disclosure footer (opacity .7) drops to 2.60 in those windows and is already below 4.5 on golden (4.35) and dusk (3.91). The scale labels (opacity .75) are at 4.24 on dusk.",
+    "evidence": "sky.js:30-36 (60 to 90 min OKLab blends through mid-tones), state.svelte.js:35 (fixed 0.62 threshold), App.svelte:128, TimeHead.svelte:105; computed per minute for Oct 2 and Nov 20",
+    "fix": "Pick the text color by the higher WCAG ratio of ink and paper. In skyAt(), cross the OKLab L band 0.55 to 0.72 in 5 minutes or less, or clamp L out of it. Remove the opacity from .foot and .scale; use full --text at a smaller weight instead.",
+    "severity": "high"
+   },
+   {
+    "issue": "The map's per-frame cost is too high in two ways. (1) The layer cache key includes cx, cy and s, so every pan or pinch frame and every frame of the 700ms flyTo re-strokes about 29k points into 5 full-resolution offscreen canvases, re-allocated through width=, including a 12px shadowBlur over 3.3k major-road points. On desktop that is about 104MB of backing store. This makes 'Show me where' janky on phones. (2) The rAF loop composites 3 to 5 full-screen layers at 60fps forever, even in daytime and under reduced motion when nothing moves, and on mobile the canvas is full height while only the top 400px is visible.",
+    "evidence": "MiamiMap.svelte:68-91 (layer/buildLayers, shadowBlur at :86), :73 (key), :117-137, :195-201 (loop), :230-236 (flyTo), App.svelte:113 (mask)",
+    "fix": "Rebuild layers only on resize or zoom settle. During gestures and flyTo, draw the cached bitmap with ctx.setTransform from the cached view. Merge the static layers into one base canvas per light bucket. Replace shadowBlur with a wider translucent stroke. Render on demand (a dirty flag set from app.hour, sky, focus and pins) when there is no traffic (d < 0.25) or reduced motion is on. Skip drawImage when the alpha is under 0.01. On mobile quiet mode, size the canvas to 400px tall.",
+    "severity": "high"
+   },
+   {
+    "issue": "The map draws under the text, which hurts legibility. On desktop at night, roads and moving cars run through 'Sunset 7:06pm', the 12am label and the Next arrow at x\u2248443. On mobile at night, glow sprites and red traffic dots sit behind the 10:30 digits and the lede ('warming up', 'right now').",
+    "evidence": "desktop-today-night.png (x\u2248443 road under the header and the next arrow), mobile-today-night.png (red dots through the colon, a glow behind the lede at y\u2248590)",
+    "fix": "On desktop, add .wide .mapwrap { mask: linear-gradient(90deg, transparent 0 470px, #000 560px) }. In quiet (mobile) mode, skip glow and car sprites entirely, or end the mask at about 150px so it fades above the lede.",
+    "severity": "medium"
+   },
+   {
+    "issue": "The Later row hides cards and has no scroll affordance. With scroll-snap-type: x mandatory, the strip stays snapped to its previous card after the scrub changes the list, so earlier cards end up off-screen to the left. On desktop the first card shows half-cut ('\u2026om / atural wine\u2026 Kr\u00fcs Kitchen'); on mobile the row starts at 8pm with the 7pm card hidden. The scrollbar is hidden, there are no arrows, and cards are clipped at the right edge on desktop.",
+    "evidence": "Later.svelte:26-27; desktop-today-noon.png (clipped first card), mobile-today-noon-scrolled.png (starts at 8pm), desktop-today-dawn.png (right card clipped)",
+    "fix": "Use scroll-snap-type: x proximity and reset the strip's scrollLeft to 0 when app.hour changes (wrap the strip in {#key app.hour} or set it in the scrub handler). On the desktop dock, add prev/next buttons or wrap the cards onto two rows.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Tapping a 'tmrw' Later card scrubs to that hour of today. The state has no day offset, so for example '7am tmrw Club Space Terrace sunrise' scrubs to Friday 7am, when it is closed, and the move the user tapped is not in the pad. In my simulation, 18 of 377 Later taps landed on a pad without the move and 166 did not put it on top.",
+    "evidence": "Later.svelte:13, state.svelte.js:75; the Later row in desktop-today-night.png shows '7am tmrw Catch sunrise on the Club Space Terrace'",
+    "fix": "Add dayOffset to AppState and use it in dow and date for rankNow and the sky, or exclude t>=24 items. After a Later tap, set padIndex to the tapped move's index, or pin that move to the top.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Sharing the plan, which DECISIONS names as the distribution channel, has no working fallback in the artifact sandbox. If clipboard.writeText is blocked, the message says 'Long-press the plan to select it', but the plain-text plan only exists inside copy(), so there is nothing to select. The button pill is also invisible at night: `.dark .copy` is scoped CSS that never matches (compiler: css_unused_selector), so it renders as an ink pill on the night sky at 1.06:1.",
+    "evidence": "TripView.svelte:21-33, :97-98, :150",
+    "fix": "Try navigator.share({text}) first on mobile. If the clipboard fails, render the lines in a visible <textarea readonly>, call .select() on it, and try document.execCommand('copy'). Change the selector to :global(.dark) .copy.",
+    "severity": "medium"
+   },
+   {
+    "issue": "The PINA code does nothing for the person it is for. A recipient is a new user with leansUsed at 0, so Math.max(0, -1) leaves 0 while the message says 'One more lean this week'. When leanWeek is stale the refund is lost to the weekly reset. Any string matching the regex can be redeemed, as many times as you like, including your own code. This breaks the 'real or clearly labeled' rule for the core growth loop.",
+    "evidence": "BookView.svelte:14-18, state.svelte.js:64",
+    "fix": "Persist bonusLeans and a list of redeemed codes. leansLeft() becomes the weekly remainder plus bonus, and unlock() spends bonus last. Reject repeated codes and the user's own last code. Add a checksum character to the code so typos fail.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Flyer titles push the date and venue out of the 4:5 card. fitTitle checks only width and a 4-line limit, never height, so overflow:hidden clips the foot. Layout 2 prints the month instead of the day, so the Street Fair flyer shows 'NOV' with no day or venue. The mini flyer in Trip shows 'NOV FRI' with no 20. The John Summit flyer leaves '1)' alone on the last line.",
+    "evidence": "Flyer.svelte:20-38, :44, :58; mobile-wall.png (bottom-left flyer), desktop-wall.png (John Summit '(NIGHT / 1)'), mobile-trip-scrolled.png ('NOV FRI' stub)",
+    "fix": "Pass the available height (box height minus .num, .foot and gaps) into fitTitle and require lines*size*0.9 to fit. Always print the day numeral in mini and layout 2 (for example 'NOV 20'). Keep parenthetical groups together with a non-breaking space.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Focus is lost in 'Show me where'. Opening it unmounts <main> along with the focused button, so focus falls to <body>. The role=dialog has no aria-modal and no initial focus, and closing it does not restore focus.",
+    "evidence": "App.svelte:56-59, Where.svelte:16-17; desktop-where.png and mobile-where.png",
+    "fix": "Focus the 'Back to the pad' button on mount (with {@attach}), add aria-modal='true', and remember the opener's move id so focus returns to that stub's More button on close.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Status messages are not reliably announced. The toast ('Kept. No. 030\u2026', 'Opened.'), the copy result and the redeem message create their role=status nodes together with their text, which screen readers often skip.",
+    "evidence": "App.svelte:95, TripView.svelte:98, BookView.svelte:53",
+    "fix": "Always render an empty <div role='status' aria-live='polite'> and only change its text. Show and hide the visual toast with a class.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Keyboard paths on Today have three problems. (1) Enter or Space on a sealed stub spends a lean immediately with no confirmation, although the spec says Enter, then confirm. (2) The Pad section's ArrowLeft/Right handler takes over the arrows inside the Low-key/Loud radiogroup, every radio is a separate Tab stop, and the compiler warns a11y_no_noninteractive_element_interactions. (3) The DOM order puts up to 7 map pins before the tabs and the hour, so desktop Tab goes to the pins first.",
+    "evidence": "Stub.svelte:45, Pad.svelte:25,29-34, App.svelte:51-53 versus :59",
+    "fix": "(1) The first Enter arms the action ('Press Enter again to spend 1 of 3 leans'), the second confirms, and Escape cancels. (2) Move the paging keys to the .stack with tabindex=0, role='group' and aria-roledescription='carousel', and give the radios a roving tabindex with arrow handling. (3) Render .mapwrap after <main>/.laterdock in the DOM and keep the layering with z-index.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Ranking has no taste floor. The base score of 0.2+0.04\u00d7energy means any open move qualifies (the 0.08 threshold never applies), so off-hour moves show as 'Good now': la-sandwicherie-3am-napoli (best 3am) at 7am, and las-olas-305-cafecito (best 3:05pm) at 5:30am.",
+    "evidence": "core.js:126 and :134; the '3am' map pin in desktop-today-dawn.png; my simulation's weak-fit list at 4:30 to 7:30am",
+    "fix": "For open moves, require bestFit(m,h) >= 0.25, or put weak fits below 'opens soon' moves and into Later. A friend wouldn't suggest a 3am sandwich at sunrise.",
+    "severity": "medium"
+   },
+   {
+    "issue": "Wall and Book on desktop leave about 900px of empty, 25%-dimmed map to the right of a 440px column. The empty space r0 was criticized for is back in a new color.",
+    "evidence": "desktop-wall.png, desktop-book.png (compare r0 desktop-plan.png)",
+    "fix": "On .wide with tab wall or book, let .col span the viewport (right:0, width:auto). Lay the Wall out as CSS columns of flyers across the map area, as the spec's pasted wall describes, and the Book as a two-page spread.",
+    "severity": "medium"
+   },
+   {
+    "issue": "On mobile, a straight vertical seam shows at the top right in every phase. The fit shows ground north of geo.json's bbox, where the land layer's outer polygon (poly 0) has a vertical edge at x=3393 from y=-21 north.",
+    "evidence": "mobile-today-night.png, mobile-today-dawn.png, mobile-today-golden.png (rectangle at about x=318 CSS, y 0\u2013150); geo.json land[0]",
+    "fix": "In fit() and on pan, clamp view.cy so the top edge stays at y >= 0, or extend the bbox north in scripts/geo.mjs. Or fade the mask out before the data edge.",
+    "severity": "medium"
+   },
+   {
+    "issue": "When a filter empties the pad, the empty state blames the hour. With 'Loud' selected from 4 to 6am the pad is empty and the copy says 'Nothing good is open at 5:00am', while 2 to 5 low-key moves are open. Separately, a pool that runs dry on a long stay is labeled 'Travel day. Nothing planned, on purpose.'",
+    "evidence": "Pad.svelte:55-59 (simulation: loud at 4/5/5:30/6am n=0, all at 5am n=2), TripView.svelte:93",
+    "fix": "Make the empty-state copy aware of the filter ('Nothing loud at 5am. 2 low-key moves are open.') and add a 'Show all' button. Only use the travel-day wording on day 0 or the last day when slots were skipped because of arrival or departure.",
+    "severity": "medium"
+   },
+   {
+    "issue": "The stay is not persisted, and sealed secrets are scheduled into it. Trip inputs (dates, anchors, swaps) reset on reload, which hurts the 'came back the next day' metric in DECISIONS. The planner also boosts and schedules secret moves (mangrove-through-jrk at 10pm Nov 21 in my run), so a visitor sees an envelope in the middle of the itinerary, which r0's critique already flagged.",
+    "evidence": "state.svelte.js:82-95 (no persist), core.js:238, TripView.svelte:87",
+    "fix": "Persist TripState with the same try/catch pattern as AppState. Exclude secret===2 moves from planStay, or cap them at one and label it ('one sealed stop, open it with a lean').",
+    "severity": "medium"
+   }
+  ],
+  "niceToHave": [
+   "Reduced-motion gaps: the title's YROT lean (Stub.svelte:140) and the wordmark (Wordmark.svelte:12) still animate under reduce, and --lean is set regardless of the preference (Stub.svelte:36), which goes against the spec's 'font axes stay at 0'. The seal still rotates with hold progress (Stub.svelte:188). Pad's in:fade (Pad.svelte:56), the map pin lift (MiamiMap.svelte:281) and the map's opacity transition (App.svelte:110) are not gated.",
+   "Svelte skill alignment: replace the module-level matchMedia reads (App.svelte:17, which is unused, Pad.svelte:12, MiamiMap.svelte:46, Stub.svelte:52) with prefersReducedMotion from 'svelte/motion', which is reactive and available in 5.57. Replace wide plus the onMount listener (App.svelte:16, :41) with new MediaQuery('min-width: 900px') from 'svelte/reactivity', which also fixes the one-frame phone layout on desktop at first paint.",
+   "MiamiMap.svelte:47 and :267: pinEls is a $state proxy read inside rAF, and bind:this into a keyed each by index can go stale when pins reorder. Use a plain Map filled by {@attach (el) => { els.set(p.id, el); return () => els.delete(p.id); }}.",
+   "Sticker.svelte:11: the uid comes from a hash of the move id, so the same sticker on the pad, a pin and the Book creates duplicate DOM ids for textPath. Use $props.id().",
+   "Sticker.svelte:60: rim text on oval, shield and ticket shapes sits at y=88, on the paper border, so light ink text disappears ('IRGINIA KE' in mobile-today-dawn.png). Move it to y\u224880 inside the shape, or use the ink[0] color.",
+   "App.svelte:16: compiler warning non_reactive_update for scroller. Declare it with $state, or move the scroll reset into setTab() and drop the $effect at :38.",
+   "Possible issue, not verified: Trip flies the map to the route (App.svelte:36), and nothing recenters it when you go back to Today on desktop (recenter() only runs in leaveWhere). Pins may sit in a Wynwood-zoomed view. Call map.recenter() in setTab when leaving trip or where.",
+   "Hard-coded 2026 ranges (WallView.svelte:8-14 'October/November/December', TripView.svelte:48 max='2026-12-31', the preset dates) give empty or inverted ranges after the month passes ('Nov 5 to Oct 31'). Derive the next 3 months from app.now.date.",
+   "Each stub's perforation notches (.perf::after, Stub.svelte:162) paint flat sky-colored discs that cover map lines on desktop. Use the same radial-gradient mask as the corners.",
+   "The 3:05 lede ('It's 3:05') shows for the whole 3:00 to 3:30pm window (TimeHead.svelte:28). Gate it to 15:05 to 15:15 or reword it.",
+   "The 'Go' link (Stub.svelte:112) always opens Apple Maps. Add aria-label='Directions in Apple Maps' and send Android users to Google Maps (check navigator.userAgentData or the UA).",
+   "Small touch targets: More and Back (about 26px), the energy segment (36px) and the pad arrows (40px) are below 44px. Grow their hit areas with padding or ::before.",
+   "Map labels at 10.5px are 2.7 to 3.1:1 on noon, golden and dusk (ink or paper at 50% alpha), and the KEPT stamp is 3.76:1 (mamey-deep at opacity .85). Raise the alpha to 0.7 and drop the stamp's opacity.",
+   "Pad pins have no collision handling: on desktop at golden hour the '6:30pm' and '7pm' tags overlap into '6 7pm' near Coconut Grove (desktop-today-golden.png). Offset or merge the tags when their boxes intersect, and cull pins hidden behind the Later dock.",
+   "Book: Keep has no undo anywhere (the guidelines want an undo window for destructive or irreversible actions). Add 'Remove from book' on kept slots.",
+   "Guideline rules not applied, on purpose: Title Case for headings and buttons, and '&' over 'and'. DECISIONS sets sentence case for Tilt Warp and a voice that overrides those rules."
+  ]
+ }
+]

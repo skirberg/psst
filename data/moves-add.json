@@ -1,0 +1,859 @@
+[
+  {
+    "id": "manolo-rene-24h-colada",
+    "title": "A 24-hour colada and cubano at Manolo & Rene Grill",
+    "place": "Manolo & Rene Grill",
+    "address": "188 NE 3rd Ave, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.776078,
+    "lng": -80.188771,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "00:00",
+        "to": "00:00"
+      }
+    ],
+    "best": "00:30",
+    "energy": 2,
+    "cost": 1,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "After a show at Kaseya Center (a few blocks away), walk over and order a colada and a Cuban sandwich, or a palomilla steak platter if you need a real meal. It never closes, so it works before doors or at 4am.",
+    "why": "On 3rd Avenue since 1977 and open 24/7, it calls itself the oldest food spot in Downtown. Clubbers refuel here during Miami Music Week.",
+    "sources": [
+      "https://www.manologrill.com/",
+      "https://www.theinfatuation.com/miami/reviews/manolo-and-rene-cafeteria"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "cafe-fenicia-muhammara-mixed-grill",
+    "title": "A slow Lebanese dinner and sand-brewed coffee at Café Fenicia",
+    "place": "Café Fenicia",
+    "address": "1381 NE Miami Ct, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.787382,
+    "lng": -80.193247,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "from": "17:00",
+        "to": "23:00"
+      },
+      {
+        "days": [
+          5,
+          6
+        ],
+        "from": "17:00",
+        "to": "00:00"
+      }
+    ],
+    "best": "18:30",
+    "energy": 2,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Go around 6:30pm before a Kaseya show. Order the muhammara first, then the kibbeh nayyeh and the Fenician mixed grill, and dunk every skewer in the toum. Finish with ashta and a Lebanese coffee brewed in hot sand.",
+    "why": "A small Lebanese room under Downtown's high-rises that's built for lingering, with hookah and dips. Under a kilometre from the arena.",
+    "sources": [
+      "https://www.cafefenicia.com/",
+      "https://www.theinfatuation.com/miami/reviews/cafe-fenicia",
+      "https://www.theinfatuation.com/miami/guides/downtown-miami-restaurants"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "pho-nam-bun-bo-hue",
+    "title": "Bún bò huế and Viet pizza at Phở Nam on Flagler",
+    "place": "Phở Nam",
+    "address": "270 E Flagler St, Miami, FL 33131",
+    "hood": "Downtown",
+    "lat": 25.77328,
+    "lng": -80.18922,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          4,
+          5,
+          6
+        ],
+        "from": "17:00",
+        "to": "22:00"
+      }
+    ],
+    "best": "18:00",
+    "energy": 2,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Get there right at 5 or 6pm (open Thursday to Sunday only). Start with the bánh tráng nướng, the grilled rice-paper 'Viet pizza' you cut with scissors. Then order the spicy bún bò huế, and the chả giò if you want something crunchy.",
+    "why": "A new Downtown noodle house that is already a critics' favorite for phở in Miami. Low sidewalk stools for the wait, and food carts at the table.",
+    "sources": [
+      "https://www.phonammia.com/",
+      "https://www.theinfatuation.com/miami/reviews/pho-nam-downtown",
+      "https://www.theinfatuation.com/miami/guides/downtown-miami-restaurants"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "river-oyster-bar-happy-hour",
+    "title": "$2 oysters at The River Oyster Bar before the show",
+    "place": "The River Oyster Bar",
+    "address": "33 SE 7th St, Miami, FL 33131",
+    "hood": "Brickell",
+    "lat": 25.767686,
+    "lng": -80.191968,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "from": "12:00",
+        "to": "22:00"
+      },
+      {
+        "days": [
+          5,
+          6
+        ],
+        "from": "12:00",
+        "to": "22:30"
+      },
+      {
+        "days": [
+          0
+        ],
+        "from": "12:00",
+        "to": "21:00"
+      }
+    ],
+    "best": "17:30",
+    "energy": 2,
+    "cost": 3,
+    "rainOk": true,
+    "secret": 0,
+    "theMove": "Sit at the bar for happy hour (daily 3 to 7pm): chef's-choice oysters at $2 and $5 La Tropical drafts. Then order the crab cake or the sea scallop aguachile, and take a short ride to Kaseya.",
+    "why": "Brickell's honest seafood room, 22 years in, with fair prices for Brickell. The raw bar happy hour runs every single day.",
+    "sources": [
+      "https://www.therivermiami.com/location/the-river-miami/",
+      "https://www.therivermiami.com/menus/",
+      "https://www.theinfatuation.com/miami/reviews/the-river-oyster-bar",
+      "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-brickell"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "lung-yai-one-order-thai",
+    "title": "Put your name down early at Lung Yai Thai Tapas",
+    "place": "Lung Yai Thai Tapas",
+    "address": "1731 SW 8th St, Miami, FL 33135",
+    "hood": "Little Havana",
+    "lat": 25.765772,
+    "lng": -80.223205,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "12:00",
+        "to": "15:00"
+      },
+      {
+        "days": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "17:00",
+        "to": "22:00"
+      }
+    ],
+    "best": "17:00",
+    "energy": 3,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Arrive at 5pm with your whole group. Order everything in one go: som tam to cool you down, shrimp steamed dumplings, khao soi with beef, and the wings. Closed Mondays; Sunday is dinner only.",
+    "getIn": "No reservations. Give your name and party size at the door and wait to be called. Everyone in your party must be there to be seated, and you order once.",
+    "why": "A Bangkok-born chef's Calle Ocho counter, a Michelin Bib Gourmand several times over, with house rules that keep it honest.",
+    "sources": [
+      "https://lungyai.com/",
+      "https://www.theinfatuation.com/miami/reviews/lung-yai-thai-tapas",
+      "https://www.theinfatuation.com/miami/guides/little-havana-restaurants"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "palma-candlelit-counter",
+    "title": "The candlelit counter at Palma, solo or as a date",
+    "place": "Palma",
+    "address": "240 NW 8th Ave, Miami, FL 33128",
+    "hood": "Little Havana",
+    "lat": 25.776485,
+    "lng": -80.207969,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "18:00",
+        "to": "22:00"
+      }
+    ],
+    "best": "18:30",
+    "energy": 2,
+    "cost": 4,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Reserve a counter seat and do the tasting menu ($115, it changes every month). Ask for the wine pairing in half-pours from the low-intervention list. Or go à la carte. Open Wednesday to Saturday only.",
+    "why": "Concrete walls, candles melting onto the counter, and local ingredients that change monthly. About 2 km from Kaseya, and nothing like Calle Ocho.",
+    "sources": [
+      "https://www.eatpalma.com/",
+      "https://www.theinfatuation.com/miami/reviews/palma-miami",
+      "https://www.theinfatuation.com/miami/guides/little-havana-restaurants"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "la-casita-vaca-frita",
+    "title": "A family-style vaca frita dinner at La Casita",
+    "place": "La Casita",
+    "address": "3805 SW 8th St, Coral Gables, FL 33134",
+    "hood": "Coral Gables",
+    "lat": 25.764761,
+    "lng": -80.25745,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "from": "11:00",
+        "to": "22:00"
+      },
+      {
+        "days": [
+          6
+        ],
+        "from": "11:00",
+        "to": "23:00"
+      }
+    ],
+    "best": "19:30",
+    "energy": 2,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Bring the whole family. Eat the free buttered Cuban bread while it's warm, then order the vaca frita with boiled yuca and mojo. Share a lechón, and end with the flan.",
+    "why": "White tablecloths and family recipes on Calle Ocho since 1990. A Cuban dinner without the tourist lines.",
+    "sources": [
+      "https://lacasitacubancuisine.com/",
+      "https://www.theinfatuation.com/miami/reviews/la-casita-restaurant",
+      "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "krus-kitchen-coconut-rice",
+    "title": "Natural wine and smoked coconut rice at Krüs Kitchen",
+    "place": "Krüs Kitchen",
+    "address": "3413 Main Hwy, Miami, FL 33133",
+    "hood": "Coconut Grove",
+    "lat": 25.727207,
+    "lng": -80.24308,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "from": "17:30",
+        "to": "22:00"
+      },
+      {
+        "days": [
+          5,
+          6
+        ],
+        "from": "17:30",
+        "to": "23:00"
+      },
+      {
+        "days": [
+          0,
+          6
+        ],
+        "from": "11:00",
+        "to": "15:30"
+      }
+    ],
+    "best": "19:00",
+    "energy": 2,
+    "cost": 4,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Book a weeknight table. Pick a bottle from the natural and biodynamic list, order the hand-rolled pasta of the moment, and ask if the smoked coconut rice with crab is on (the menu is seasonal). Closed Monday.",
+    "why": "A small Michelin Green Star room on Main Highway that's obsessive about where every ingredient comes from. The Grove at its most grown-up.",
+    "sources": [
+      "https://www.kruskitchen.com/menu",
+      "https://www.theinfatuation.com/miami/reviews/krus-kitchen",
+      "https://www.theinfatuation.com/miami/guides/coconut-grove-restaurants"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "hometown-bbq-beef-rib",
+    "title": "A beef rib and smoked wings at Hometown Barbecue",
+    "place": "Hometown Barbecue",
+    "address": "1200 NW 22nd St, Miami, FL 33142",
+    "hood": "Allapattah",
+    "lat": 25.797688,
+    "lng": -80.215255,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "from": "11:30",
+        "to": "21:00"
+      },
+      {
+        "days": [
+          5,
+          6
+        ],
+        "from": "11:30",
+        "to": "22:00"
+      }
+    ],
+    "best": "18:00",
+    "energy": 3,
+    "cost": 3,
+    "rainOk": true,
+    "secret": 0,
+    "theMove": "Come with a group. Split a beef rib (sold per bone) and a half pound of brisket, add the smoked wings with mole dust and charred poblano crema, and get a Frito pie for the table. Dinner reservations open at 5pm; walk-ins welcome.",
+    "why": "Brooklyn pitmaster Billy Durney's smokehouse, around the corner from the Rubell Museum. The beef rib eats like brisket and steak at once.",
+    "sources": [
+      "https://hometownbbqmiami.com/",
+      "https://hometownbbqmiami.com/menu1",
+      "https://www.theinfatuation.com/miami/reviews/hometown-barbecue",
+      "https://www.theinfatuation.com/miami/guides/best-restaurants-allapattah"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "naomis-garden-jerk-chicken",
+    "title": "Jerk chicken and pikliz in Naomi's back garden",
+    "place": "Naomi's Garden Restaurant & Lounge",
+    "address": "650 NW 71st St, Miami, FL 33150",
+    "hood": "Little Haiti",
+    "lat": 25.83953,
+    "lng": -80.207925,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "08:00",
+        "to": "23:00"
+      }
+    ],
+    "best": "19:00",
+    "energy": 2,
+    "cost": 1,
+    "rainOk": false,
+    "secret": 1,
+    "theMove": "Order at the steam counter in the blue house: jerk chicken with spicy pikliz, plus goat stew or fried snapper. Get a soursop juice to cool the heat, and carry it all to the garden out back.",
+    "why": "A family-named Haitian and Caribbean counter with a garden hidden behind it. Open every day until 11pm.",
+    "sources": [
+      "https://naomismiami.com/",
+      "https://www.theinfatuation.com/miami/reviews/naomis-garden-restaurant-and-lounge"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "fiorito-empanada-choclo",
+    "title": "Empanadas and Angus cuts at Fiorito, Little Haiti's Argentine table",
+    "place": "Fiorito",
+    "address": "5555 NE 2nd Ave, Miami, FL 33137",
+    "hood": "Little Haiti",
+    "lat": 25.827077,
+    "lng": -80.191725,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "from": "12:00",
+        "to": "22:00"
+      },
+      {
+        "days": [
+          5,
+          6
+        ],
+        "from": "12:00",
+        "to": "23:00"
+      }
+    ],
+    "best": "19:30",
+    "energy": 2,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Start with an empanada de choclo (sweet corn and mozzarella) and one de carne a cuchillo. Then share one of the grilled Angus cuts. It's open Mondays and Tuesdays when a lot of places aren't.",
+    "why": "Small, family-owned and unfussy, like dinner at an Argentine friend's house. The same team runs Almacen, the lunch counter across the street.",
+    "sources": [
+      "http://fioritomiami.com",
+      "http://fioritomiami.com/miami-fiorito-food-menu",
+      "https://www.theinfatuation.com/miami/reviews/fiorito",
+      "https://www.theinfatuation.com/miami/reviews/almacen-by-fiorito"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "bar-bucce-shrimp-pie",
+    "title": "Shop-price wine and a shrimp pie at Bar Bucce",
+    "place": "Bar Bucce",
+    "address": "7220 N Miami Ave, Miami, FL 33150",
+    "hood": "Little River",
+    "lat": 25.841422,
+    "lng": -80.196882,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          3
+        ],
+        "from": "12:00",
+        "to": "22:00"
+      },
+      {
+        "days": [
+          4,
+          5,
+          6
+        ],
+        "from": "12:00",
+        "to": "22:30"
+      }
+    ],
+    "best": "18:00",
+    "energy": 2,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Come for the 'Sip & Slice' happy hour (daily 4 to 6:30pm). Pull a bottle off the retail shelves and drink it there for a $20 corkage. Order the meatball, the stuffed focaccia and the shrimp pie. Closed Monday and Tuesday.",
+    "why": "An Italian market, wine shop and pizza bar in one Little River room. Good at all three.",
+    "sources": [
+      "https://barbucce.com/",
+      "https://www.theinfatuation.com/miami/reviews/bar-bucce",
+      "https://www.theinfatuation.com/miami/guides/best-restaurants-little-river-miami"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "tacos-maria-zeyzey-late",
+    "title": "Late chicharrón tacos at Tacos María inside ZeyZey",
+    "place": "Tacos María (at ZeyZey)",
+    "address": "353 NE 61st St, Miami, FL 33137",
+    "hood": "Little Haiti",
+    "lat": 25.832731,
+    "lng": -80.189052,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          2
+        ],
+        "from": "18:00",
+        "to": "22:00"
+      },
+      {
+        "days": [
+          4
+        ],
+        "from": "19:00",
+        "to": "00:00"
+      },
+      {
+        "days": [
+          5,
+          6
+        ],
+        "from": "19:00",
+        "to": "03:00"
+      }
+    ],
+    "best": "01:00",
+    "energy": 4,
+    "cost": 2,
+    "rainOk": false,
+    "secret": 1,
+    "theMove": "On a Friday or Saturday, step out of the dance floor after midnight and order the chicharrón tacos (crispy pork belly), an al pastor and a cup of esquites. Everything comes on nixtamalized corn tortillas.",
+    "getIn": "The truck sits at ZeyZey's entrance. It's open whenever ZeyZey is: Friday and Saturday until 3am.",
+    "why": "Street tacos from the Los Félix team, served until 3am on weekends. A real late-night meal in Little Haiti.",
+    "sources": [
+      "https://www.tacosmariamiami.com/menu",
+      "https://www.zeyzeymiami.com",
+      "https://www.theinfatuation.com/miami/reviews/tacos-maria"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "double-luck-crab-rangoon",
+    "title": "Crab leg rangoon and flaming orange chicken at Double Luck",
+    "place": "Double Luck",
+    "address": "1085 NE 79th St, Miami, FL 33138",
+    "hood": "MiMo",
+    "lat": 25.848284,
+    "lng": -80.174794,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "17:30",
+        "to": "22:00"
+      }
+    ],
+    "best": "19:00",
+    "energy": 4,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Bring friends and order to share: the crab leg rangoon, mapo tofu, the Hunan steamed fish filleted at the table, and the Hennessy orange chicken, which they set on fire. Open Wednesday to Sunday.",
+    "why": "A pop-up from the Tâm Tâm crew, now in a permanent home on 79th Street. It feels like a neighborhood Chinese place throwing a party, with Cantonese pop covers on the speakers.",
+    "sources": [
+      "https://www.onlyinyourstate.com/florida/chinese-restaurant-go-to-place-to-dine-miami-fl",
+      "https://www.theinfatuation.com/miami/reviews/double-luck-club",
+      "https://blog.resy.com/2025/12/double-luck-chinese-miami/"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "locura-marina-ceviche-sampler",
+    "title": "A rocoto ceviche sampler at Locura Marina in North Beach",
+    "place": "Locura Marina Peruvian Restaurant",
+    "address": "7118 Collins Ave, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.856537,
+    "lng": -80.12065,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "from": "09:30",
+        "to": "21:00"
+      },
+      {
+        "days": [
+          4
+        ],
+        "from": "09:30",
+        "to": "17:00"
+      },
+      {
+        "days": [
+          5
+        ],
+        "from": "09:30",
+        "to": "21:30"
+      },
+      {
+        "days": [
+          6
+        ],
+        "from": "10:00",
+        "to": "21:30"
+      },
+      {
+        "days": [
+          0
+        ],
+        "from": "11:00",
+        "to": "19:30"
+      }
+    ],
+    "best": "18:30",
+    "energy": 2,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Go for an early dinner after the beach. Order the ceviche sampler mixto (the rocoto one is the standout) and the causa sampler, then a purple mazamorra morada for dessert. Portions are big, so share. Thursday it closes at 5pm.",
+    "why": "A warm, casual Peruvian spot on Collins with very big portions. Ceviche at neighborhood prices.",
+    "sources": [
+      "https://www.locuramarinarestaurant.com/",
+      "https://www.theinfatuation.com/miami/reviews/locura-marina-miami-beach"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "marcs-bianca-normandy-isle",
+    "title": "A Bianca pie at Marc's on Normandy Isle",
+    "place": "Marc's Artisanal Pizzeria",
+    "address": "966 Normandy Dr, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.855631,
+    "lng": -80.129491,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "16:30",
+        "to": "22:00"
+      }
+    ],
+    "best": "18:30",
+    "energy": 2,
+    "cost": 2,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Start with the confit artichoke over stracciatella and a Caesar (add anchovies, and ask for extra dressing to dip your crusts). Then get the Bianca with ricotta and caramelized onions on a sesame crust, or the Jersey cheese. Wednesday to Sunday only.",
+    "why": "A small Normandy Isle pizzeria obsessed with its crust, steps from Katana. Some of the best whole pies in Miami, with no scene.",
+    "sources": [
+      "https://marcsartisanalpizzeria.com/",
+      "https://www.theinfatuation.com/miami/reviews/marcs-artisanal-pizzeria"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "vinya-key-biscayne-skirt-steak",
+    "title": "Happy hour into steak night at Vinya Wine & Market",
+    "place": "Vinya Wine & Market (Key Biscayne)",
+    "address": "328 Crandon Blvd, Key Biscayne, FL 33149",
+    "hood": "Key Biscayne",
+    "lat": 25.69549,
+    "lng": -80.163633,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          1,
+          2,
+          3
+        ],
+        "from": "16:00",
+        "to": "22:00"
+      },
+      {
+        "days": [
+          4,
+          5,
+          6
+        ],
+        "from": "12:00",
+        "to": "23:00"
+      }
+    ],
+    "best": "17:30",
+    "energy": 2,
+    "cost": 3,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Come off the beach for happy hour (4 to 6pm, Monday to Saturday) and stay for dinner. Order the corvina ceviche and Manchego croquetas, then the prime skirt steak with chimichurri. Pick your wine from the shop. The kitchen is closed Sunday.",
+    "why": "The island's wine bar and bottle shop doubles as its best low-key dinner. No need to dress up.",
+    "sources": [
+      "https://www.vinyawine.com/pages/key-biscayne",
+      "https://cdn.shopify.com/s/files/1/0878/2879/1607/files/KB_FOOD_MENU_FALL_2026.pdf",
+      "https://theinfatuation.com/miami/neighborhoods/key-biscayne",
+      "https://www.theinfatuation.com/miami/guides/best-restaurants-key-biscayne"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "la-sandwicherie-3am-napoli",
+    "title": "A 3am Napoli at La Sandwicherie's alley counter",
+    "place": "La Sandwicherie",
+    "address": "229 14th St, Miami Beach, FL 33139",
+    "hood": "South Beach",
+    "lat": 25.785522,
+    "lng": -80.131401,
+    "category": "food",
+    "windows": [
+      {
+        "days": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "from": "07:00",
+        "to": "05:00"
+      }
+    ],
+    "best": "03:00",
+    "energy": 3,
+    "cost": 1,
+    "rainOk": false,
+    "secret": 0,
+    "theMove": "After a few beers at Mac's Club Deuce across the street, order the Napoli on a baguette. Then grab the squeeze bottle of house vinaigrette and drown it. Open until 5am every night.",
+    "why": "A French-owned sandwich counter up an alley off 14th Street since 1988. The city's late-night ritual.",
+    "sources": [
+      "https://www.lasandwicherie.com",
+      "https://www.theinfatuation.com/miami/reviews/la-sandwicherie",
+      "https://www.theinfatuation.com/miami/guides/casual-restaurants-miami-beach"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "broken-shaker-griot-backyard",
+    "title": "Happy hour and griot in Broken Shaker's backyard",
+    "place": "Broken Shaker (Freehand Miami)",
+    "address": "2727 Indian Creek Dr, Miami Beach, FL 33140",
+    "hood": "Mid-Beach",
+    "lat": 25.804542,
+    "lng": -80.126349,
+    "category": "bar",
+    "windows": [
+      {
+        "days": [
+          4
+        ],
+        "from": "17:00",
+        "to": "00:00"
+      },
+      {
+        "days": [
+          5,
+          6
+        ],
+        "from": "17:00",
+        "to": "01:00"
+      },
+      {
+        "days": [
+          0
+        ],
+        "from": "17:00",
+        "to": "23:00"
+      }
+    ],
+    "best": "17:30",
+    "energy": 3,
+    "cost": 3,
+    "rainOk": false,
+    "secret": 1,
+    "theMove": "Arrive at 5pm Thursday to Sunday for happy hour (5 to 7pm), grab a seat in the backyard, and order a cocktail made with herbs from the hotel garden. Eat the griot and pikliz with plantains or the shrimp ceviche; the kitchen runs until 11:45pm Thursday to Saturday.",
+    "getIn": "Inside the Freehand hotel on Indian Creek Drive. Reservations on Resy are encouraged. Closed Monday to Wednesday.",
+    "why": "A backyard bar that won Tales of the Cocktail's Best American Hotel Bar, on Indian Creek Drive, away from the Collins strip.",
+    "sources": [
+      "https://freehandhotels.com/miami/broken-shaker/",
+      "https://www.brokenshaker.com/miami-menus/"
+    ],
+    "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "saxony-bar-faena-late-jazz",
+    "title": "A late jazz-bar nightcap at Saxony Bar in the Faena",
+    "place": "Saxony Bar (Faena Hotel Miami Beach)",
+    "address": "3201 Collins Ave, Miami Beach, FL 33140",
+    "hood": "Mid-Beach",
+    "lat": 25.807378,
+    "lng": -80.123139,
+    "category": "speakeasy",
+    "windows": [
+      {
+        "days": [
+          4,
+          5,
+          6
+        ],
+        "from": "22:00",
+        "to": "03:00"
+      }
+    ],
+    "best": "22:30",
+    "energy": 3,
+    "cost": 4,
+    "rainOk": true,
+    "secret": 1,
+    "theMove": "Dress up, reserve, and arrive soon after the 10pm opening on a Thursday to Saturday. Order a classic cocktail and stay as the DJs take the room late. The kitchen serves until midnight.",
+    "getIn": "Inside the Faena Hotel. Book on SevenRooms or by email. Dress code is elegant chic: no sandals or beachwear. Valet available.",
+    "why": "A small golden-age-style jazz bar tucked inside Mid-Beach's most theatrical hotel. Open only three nights a week, late.",
+    "sources": [
+      "https://www.faena.com/miami-beach/dining/saxony-bar"
+    ],
+    "verifiedOn": "2026-10-02"
+  }
+]

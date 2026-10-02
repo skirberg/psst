@@ -1,0 +1,373 @@
+{
+ "az85-poker-chip-biltmore": {
+  "title": "AZ.85, behind the red doors",
+  "theMove": "Order the AZ-85 old fashioned. Ask about the 13th floor.",
+  "why": "The Biltmore's hidden gangster-lore room.",
+  "getIn": "Red steel doors inside the Biltmore. You need a poker chip.",
+  "word": "AZ.85",
+  "clue": "Coral Gables. Red doors, poker chip."
+ },
+ "venetian-pool-weekday-opening": {
+  "title": "Venetian Pool at opening",
+  "theMove": "Book online. Be at the gate at 11 on a weekday.",
+  "why": "Spring-fed grottos, refilled daily.",
+  "word": "SWIM"
+ },
+ "matheson-atoll-pool-morning": {
+  "title": "Matheson's atoll pool",
+  "theMove": "Weekday morning, $7 parking. Swim with a friend.",
+  "why": "A calm bay lagoon off Old Cutler.",
+  "word": "ATOLL"
+ },
+ "mangrove-through-jrk": {
+  "title": "Mangrove, through Jrk!",
+  "theMove": "Oxtail, Lobsta' Mac, a Red Red Wine. Stay for the DJ.",
+  "why": "No sign. You walk through the counter.",
+  "getIn": "Enter Jrk! at 95 NW 1st St and walk to the back.",
+  "word": "MANGROVE",
+  "clue": "Downtown. Walk through the counter."
+ },
+ "the-corner-4am-drink": {
+  "title": "The Corner at 4am",
+  "theMove": "Skip the club line. Sit at the bar. Open till 7 on weekends.",
+  "why": "A real bar when the clubs let out.",
+  "word": "4AM"
+ },
+ "club-space-terrace-sunrise": {
+  "title": "Sunrise on the Space terrace",
+  "theMove": "Get in after 11. Stay for the 7am set.",
+  "why": "Everyone knows Space. Few stay for daylight.",
+  "word": "SPACE"
+ },
+ "kaona-room-tiki-night": {
+  "title": "Kaona Room tiki",
+  "theMove": "Go Wed or Thu. Start with anything on the house orgeat.",
+  "why": "The one tiki bar locals point to.",
+  "word": "TIKI"
+ },
+ "macs-club-deuce-100": {
+  "title": "Mac's Club Deuce",
+  "theMove": "Bring cash. Grab a stool under the neon.",
+  "why": "100 years old in 2026. The realest room on the Beach.",
+  "word": "DEUCE"
+ },
+ "monterrey-bar-record-room": {
+  "title": "Monterrey Bar on vinyl",
+  "theMove": "Friday or Saturday. Order a Paper Plane. Book on Resy.",
+  "why": "A windowless room in a Belle Isle spa.",
+  "word": "VINYL"
+ },
+ "swizzle-rum-cellar": {
+  "title": "Swizzle, below the lobby",
+  "theMove": "Go after 10. Order a swizzle.",
+  "why": "A rum den under Collins.",
+  "word": "RUM"
+ },
+ "las-olas-305-cafecito": {
+  "title": "3:05 at Las Olas",
+  "theMove": "Cafecito at the window. Cubano to go for the beach.",
+  "why": "A real ventanita on the Beach.",
+  "word": "CAFECITO"
+ },
+ "casa-rassi-pour-over": {
+  "title": "Casa Rassi pour-over",
+  "theMove": "Pour-over in a wine glass and the brûléed french toast.",
+  "why": "The best new coffee on the Beach.",
+  "word": "POUR"
+ },
+ "panamericano-ring-the-bell": {
+  "title": "Ring Panamericano's bell",
+  "theMove": "Reserve, ring, let the bartender pick.",
+  "why": "Brickell's most committed speakeasy.",
+  "getIn": "Behind Novecento, 2nd floor, #260. Press the buzzer.",
+  "word": "RING"
+ },
+ "simpson-park-hammock-walk": {
+  "title": "Simpson Park hammock",
+  "theMove": "Walk the half-mile loop. Free tours weekends 10:30.",
+  "why": "Old Brickell forest, blocks from the towers.",
+  "word": "HAMMOCK"
+ },
+ "dominoes-maximo-gomez-park": {
+  "title": "Morning dominoes, Calle Ocho",
+  "theMove": "Weekday mid-morning. Watch from the benches.",
+  "why": "Little Havana's living room.",
+  "word": "DOMINÓ"
+ },
+ "cafe-la-trova-back-bar": {
+  "title": "Café La Trova daiquiri",
+  "theMove": "Sit at the bar for the band. Order the daiquiri.",
+  "why": "Famous, and it earns it.",
+  "word": "TROVA"
+ },
+ "sanguich-cubano-lunch": {
+  "title": "Sanguich cubano",
+  "theMove": "Before noon. Order the cubano. Eat it hot.",
+  "why": "House-cured ham. Not Versailles.",
+  "word": "CUBANO"
+ },
+ "zeyzey-bungalow-dance": {
+  "title": "ZeyZey's backyard",
+  "theMove": "Fri or Sat after 11, when the yard is full.",
+  "why": "A bungalow that feels like a house party.",
+  "word": "ZEYZEY"
+ },
+ "sweat-records-dig": {
+  "title": "Dig at Sweat Records",
+  "theMove": "Weekday afternoon. Ask staff which Miami artists to buy.",
+  "why": "Miami's indie record store, 20 years in.",
+  "word": "SWEAT"
+ },
+ "magic-13-backyard-saturday": {
+  "title": "Magic 13 backyard",
+  "theMove": "Saturday or Sunday after noon. Table under the tree.",
+  "why": "A brewery for neighbors, not influencers.",
+  "word": "BEER"
+ },
+ "sunnys-martini-at-opening": {
+  "title": "Sunny's at 5:15",
+  "theMove": "No reservation? At the door by 5:15. Martini, ice cold.",
+  "why": "Walk-ins who show up early get in.",
+  "word": "SUNNY'S"
+ },
+ "kaiju-mezzanine-cocktails": {
+  "title": "Bar Kaiju upstairs",
+  "theMove": "Second floor of The Citadel. Order the Kappa.",
+  "why": "Hidden above a food hall.",
+  "word": "KAIJU"
+ },
+ "conventillo-hidden-patio": {
+  "title": "Conventillo's back patio",
+  "theMove": "6 to 8 happy hour. Order from the kitchen next door.",
+  "why": "Invisible from 79th Street.",
+  "getIn": "Walk past Battubelin to the bar in back.",
+  "word": "PATIO",
+  "clue": "MiMo. Walk past the restaurant."
+ },
+ "el-bagel-morningside-picnic": {
+  "title": "El Bagel, then the bay",
+  "theMove": "At 8, order the King Guava. Eat it in Morningside Park.",
+  "why": "Miami's own bagel. It sells out.",
+  "word": "BAGEL"
+ },
+ "legion-park-saturday-market": {
+  "title": "Legion Park market",
+  "theMove": "Saturday at 9. Florida produce first.",
+  "why": "A real farmers market on the bay.",
+  "word": "MARKET"
+ },
+ "lagniappe-weeknight-backyard": {
+  "title": "Lagniappe on a Tuesday",
+  "theMove": "Arrive 8:30. Bottle from the fridge, table under the lights.",
+  "why": "Packed Saturdays. Perfect weeknights.",
+  "word": "LAGNIAPPE"
+ },
+ "zak-the-baker-early": {
+  "title": "Zak the Baker at 7:30",
+  "theMove": "Croissant or babka, before the Wynwood crowd.",
+  "why": "Wynwood's best thing is breakfast.",
+  "word": "BAKER"
+ },
+ "dantes-hifi-listening-seat": {
+  "title": "Dante's HiFi late seating",
+  "theMove": "Book the 90-minute seat on Tock. Order wasabi peas.",
+  "why": "A listening bar about the music.",
+  "word": "HIFI"
+ },
+ "coyo-taco-back-lounge": {
+  "title": "Coyo Taco's back room",
+  "theMove": "After midnight: tacos up front, then the back door.",
+  "why": "A bar behind the taqueria.",
+  "getIn": "The 'employees only' door at the back.",
+  "word": "COYO"
+ },
+ "ica-miami-free-afternoon": {
+  "title": "ICA Miami, free",
+  "theMove": "Book a free timed ticket. Weekday afternoon.",
+  "why": "World-class art, zero cost.",
+  "word": "ICA"
+ },
+ "jass-kitchen-candlelit-jazz": {
+  "title": "Jass Kitchen by candlelight",
+  "theMove": "Book for 8, when the music starts.",
+  "why": "Live sets, real candles, a table you can book.",
+  "word": "JASS"
+ },
+ "rubell-3pm-free-tour": {
+  "title": "Rubell's 3pm tour",
+  "theMove": "Ticket ahead. Be there by 2:45. Cards only.",
+  "why": "The guided tour is free with entry.",
+  "word": "RUBELL"
+ },
+ "cape-florida-lighthouse-climb": {
+  "title": "Climb the 1825 lighthouse",
+  "theMove": "Tower tours 10 to noon. Look south for Stiltsville.",
+  "why": "Stiltsville without a boat.",
+  "word": "1825"
+ },
+ "the-cleat-no-name-harbor-sunset": {
+  "title": "The Cleat at sunset",
+  "theMove": "Get through the park gate before dusk. Table on the sand.",
+  "why": "The best sunset seat in the city.",
+  "word": "CLEAT"
+ },
+ "donut-gallery-teds-special": {
+  "title": "Ted's special, Donut Gallery",
+  "theMove": "Counter stool at 7. Order the Ted's special.",
+  "why": "Key Biscayne's counter since 1972.",
+  "word": "TED'S"
+ },
+ "virginia-key-beach-sunrise": {
+  "title": "Virginia Key at 7am",
+  "theMove": "Be at the gate at 7. Swim before the heat.",
+  "why": "Miami's historic Black beach, quiet at dawn.",
+  "word": "1945"
+ },
+ "deering-estate-mangrove-morning": {
+  "title": "Deering Estate mangroves",
+  "theMove": "Boardwalk at 10, nature tour at 12:30.",
+  "why": "Old Miami, far from the crowds.",
+  "word": "DEERING"
+ },
+ "barnacle-house-tour": {
+  "title": "The Barnacle, 1891",
+  "theMove": "Bring $2 cash. Take the 10am house tour.",
+  "why": "Coconut Grove before the condos.",
+  "word": "1891"
+ },
+ "maes-room-courtyard-martini": {
+  "title": "Mae's Room martini",
+  "theMove": "Come early, everyone sits. Order the burger from next door.",
+  "why": "A tiny courtyard den behind Chug's.",
+  "word": "MAE'S"
+ },
+ "katana-sushi-boats": {
+  "title": "Katana sushi boats",
+  "theMove": "Put your name down at 5:30. Plates by color.",
+  "why": "A line worth joining on Normandy Isle.",
+  "word": "KATANA"
+ },
+ "manolo-rene-24h-colada": {
+  "title": "Manolo & Rene, 24/7",
+  "theMove": "Colada and a cubano, before doors or at 4am.",
+  "why": "On 3rd Ave since 1977. Blocks from Kaseya.",
+  "word": "24/7"
+ },
+ "cafe-fenicia-muhammara-mixed-grill": {
+  "title": "Café Fenicia, slowly",
+  "theMove": "Muhammara, mixed grill, coffee brewed in hot sand.",
+  "why": "A Lebanese room built for lingering.",
+  "word": "FENICIA"
+ },
+ "pho-nam-bun-bo-hue": {
+  "title": "Phở Nam on Flagler",
+  "theMove": "Viet pizza, then bún bò huế. Thu to Sun.",
+  "why": "A short walk from Kaseya.",
+  "word": "PHỞ"
+ },
+ "river-oyster-bar-happy-hour": {
+  "title": "$2 oysters at The River",
+  "theMove": "Bar seat, 3 to 7pm. Oysters and a La Tropical.",
+  "why": "Brickell's honest seafood room.",
+  "word": "OYSTERS"
+ },
+ "lung-yai-one-order-thai": {
+  "title": "Lung Yai at 5",
+  "theMove": "Come with everyone. Order once: som tam, khao soi.",
+  "why": "Tiny, strict and worth the rules.",
+  "getIn": "No reservations. Whole party present, one order.",
+  "word": "LUNG YAI"
+ },
+ "palma-candlelit-counter": {
+  "title": "Palma's counter",
+  "theMove": "Counter seat, tasting menu, half-pour pairing.",
+  "why": "Candles on concrete. Changes monthly.",
+  "word": "PALMA"
+ },
+ "la-casita-vaca-frita": {
+  "title": "La Casita vaca frita",
+  "theMove": "Vaca frita with yuca and mojo. Mariquitas for the table.",
+  "why": "A family Cuban dinner without the line.",
+  "word": "VACA"
+ },
+ "krus-kitchen-coconut-rice": {
+  "title": "Krüs Kitchen",
+  "theMove": "Natural wine. Ask if the smoked coconut rice is on.",
+  "why": "The Grove at its most grown-up.",
+  "word": "KRÜS"
+ },
+ "hometown-bbq-beef-rib": {
+  "title": "Hometown beef rib",
+  "theMove": "Split a beef rib and brisket. Get the Frito pie.",
+  "why": "Around the corner from the Rubell.",
+  "word": "BBQ"
+ },
+ "naomis-garden-jerk-chicken": {
+  "title": "Naomi's back garden",
+  "theMove": "Jerk chicken and pikliz. Eat in the garden.",
+  "why": "A Haitian counter with a hidden garden.",
+  "word": "NAOMI'S"
+ },
+ "fiorito-empanada-choclo": {
+  "title": "Fiorito",
+  "theMove": "Empanada de choclo, then share an Angus cut.",
+  "why": "Open Mon and Tue when others aren't.",
+  "word": "FIORITO"
+ },
+ "bar-bucce-shrimp-pie": {
+  "title": "Bar Bucce shelf wine",
+  "theMove": "Pull a bottle off the shelf, $20 corkage. Shrimp pie.",
+  "why": "Wine shop, market and pizza bar in one.",
+  "word": "BUCCE"
+ },
+ "tacos-maria-zeyzey-late": {
+  "title": "Tacos María at 1am",
+  "theMove": "Off the dance floor: chicharrón tacos and esquites.",
+  "why": "Real tacos till 3 on weekends.",
+  "getIn": "The truck at ZeyZey's entrance.",
+  "word": "TACOS"
+ },
+ "double-luck-crab-rangoon": {
+  "title": "Double Luck",
+  "theMove": "Crab leg rangoon. They set the orange chicken on fire.",
+  "why": "Chinese food throwing a party.",
+  "word": "LUCK"
+ },
+ "locura-marina-ceviche-sampler": {
+  "title": "Locura Marina ceviche",
+  "theMove": "Ceviche sampler, rocoto first. Share everything.",
+  "why": "Big Peruvian plates, neighborhood prices.",
+  "word": "CEVICHE"
+ },
+ "marcs-bianca-normandy-isle": {
+  "title": "Marc's Bianca pie",
+  "theMove": "Artichoke, then the Bianca on sesame crust.",
+  "why": "Crust obsessives, steps from Katana.",
+  "word": "MARC'S"
+ },
+ "vinya-key-biscayne-skirt-steak": {
+  "title": "Vinya off the beach",
+  "theMove": "Happy hour at 4, then skirt steak. Bottles at retail.",
+  "why": "The island's low-key dinner.",
+  "word": "VINYA"
+ },
+ "la-sandwicherie-3am-napoli": {
+  "title": "La Sandwicherie at 3am",
+  "theMove": "The Napoli. Drown it in vinaigrette.",
+  "why": "The Beach's late-night ritual since 1988.",
+  "word": "3AM"
+ },
+ "broken-shaker-griot-backyard": {
+  "title": "Broken Shaker backyard",
+  "theMove": "Happy hour at 5. Griot with pikliz.",
+  "why": "Off the Collins strip.",
+  "word": "SHAKER"
+ },
+ "saxony-bar-faena-late-jazz": {
+  "title": "Saxony Bar after 10",
+  "theMove": "Dress up. Classic cocktail. Stay for the DJ.",
+  "why": "The Faena's basement room.",
+  "getIn": "Basement of the Faena. Book on SevenRooms.",
+  "word": "SAXONY"
+ }
+}
