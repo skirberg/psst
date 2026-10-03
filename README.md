@@ -26,3 +26,6 @@ To build the single-file version: `npx vite build && node scripts/fragment.mjs`.
 | Data | JSON in the bundle | Supabase (Postgres + PostGIS) | The core query is "open now, near me, matching filters," which is a geo plus time query that Postgres does natively. Supabase also gives magic-link login, realtime for group plan voting, storage for flyers, and row-level security. D1 was the wrong call in the playbook. |
 | Hosting | Claude artifact link | Cloudflare Pages (personal account) | Hosting is a commodity. Not the company Vercel. |
 | Map | Canvas over OSM data | Same approach, or MapLibre + Protomaps for street-level zoom | A custom-drawn map keeps the look ours. |
+
+## Icons
+`node app/scripts/icons.mjs` regenerates the favicon, the home screen icons and the web manifest from the wordmark pineapple (add `--sheet` for a preview sheet in shots/icons).

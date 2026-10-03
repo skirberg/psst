@@ -2,7 +2,9 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 const src = readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8');
 const head = (src.match(/<head>([\s\S]*?)<\/head>/) || [,''])[1]
-  .replace(/<meta charset[^>]*>/i, '').replace(/<meta name="viewport"[^>]*>/i, '');
+  .replace(/<meta charset[^>]*>/i, '').replace(/<meta name="viewport"[^>]*>/i, '')
+  // Icon files live next to the deployed page, not inside the artifact.
+  .replace(/<link rel="(icon|apple-touch-icon|manifest)"[^>]*>\s*/g, '').replace(/<meta name="apple-mobile-web-app-title"[^>]*>\s*/, '');
 const body = (src.match(/<body[^>]*>([\s\S]*?)<\/body>/) || [,''])[1];
 const out = head.trim() + '\n' + body.trim() + '\n';
 writeFileSync(new URL('../dist/psst.html', import.meta.url), out);
