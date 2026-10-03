@@ -13,6 +13,7 @@
   const behind = $derived([1, 2].map((k) => pad[(i + k) % pad.length]).filter((x, k) => x && pad.length > k + 1));
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ICON = { all: 'all', coffee: 'coffee', eat: 'eat', drink: 'drink', dance: 'dance', outside: 'outside', art: 'art', secret: 'secret' };
+  let dealtSlap = $state(false);
 
   let dx = $state(0), dragging = $state(false), flinging = $state(0), shuffling = $state(false);
   let sx = null, sy = null, moved = 0;
@@ -55,6 +56,7 @@
     let r = Math.random() * total, pick = pool[0];
     for (let k = 0; k < pool.length; k++) { r -= w[k]; if (r <= 0) { pick = pool[k]; break; } }
     app.flipped = null; app.padId = pick.m.id; shuffling = false;
+    dealtSlap = true; try { navigator.vibrate?.(12); } catch {} setTimeout(() => (dealtSlap = false), 600);
   }
 </script>
 
@@ -71,15 +73,17 @@
     <div class="stack" class:shuffling role="group" aria-roledescription="deck" aria-label="{i + 1} of {pad.length}" tabindex="-1" onkeydown={key}>
       {#each behind as b, k (b.m.id + 'b')}
         <div class="under u{k}" aria-hidden="true">
-          {#if b.sealed}<div class="ub sealedb"><span>psst</span></div>
-          {:else}<div class="ub"><Sticker move={b.m} size={40} tilt={false} /><span>{b.m.title}</span></div>{/if}
+          {#if k === 0}
+            {#if b.sealed}<div class="ub sealedb"><span>psst</span></div>
+            {:else}<div class="ub"><Sticker move={b.m} size={40} tilt={false} /><span>{b.m.title}</span></div>{/if}
+          {/if}
         </div>
       {/each}
       {#key item.m.id + (item.sealed ? 's' : '')}
         <div class="topcard" class:dragging class:fling={flinging !== 0}
           style:--dx="{flinging ? flinging * 520 : dx}px" style:--rot="{(flinging ? flinging * 520 : dx) * 0.045}deg"
           onpointerdown={down} onpointermove={move} onpointerup={up} onpointercancel={up} onclickcapture={clickCapture} role="presentation">
-          <div class="dealt"><Stub {item} /></div>
+          <div class="dealt" class:slap={dealtSlap}><Stub {item} /></div>
         </div>
       {/key}
     </div>
@@ -99,20 +103,20 @@
 
 <style>
   .deck { display: grid; gap: 14px; }
-  .moods { display: flex; gap: 6px; overflow-x: auto; margin: 0 -16px; padding: 2px 16px 4px; scrollbar-width: none; }
+  .moods { display: flex; gap: 4px; overflow-x: auto; margin: 0 -16px; padding: 2px 16px 4px; scrollbar-width: none; -webkit-mask: linear-gradient(90deg, #000 85%, transparent); mask: linear-gradient(90deg, #000 85%, transparent); }
   .moods::-webkit-scrollbar { display: none; }
-  .moods button { flex: none; display: grid; justify-items: center; gap: 4px; width: 58px; border: 0; background: transparent; color: var(--text); cursor: pointer; padding: 0; font: 600 12px var(--body); }
-  .ic { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); transition: transform 0.18s cubic-bezier(.3, 1.6, .5, 1), background 0.2s; }
+  .moods button { flex: none; display: grid; justify-items: center; gap: 4px; width: 50px; border: 0; background: transparent; color: var(--text); cursor: pointer; padding: 0; font: 600 12px var(--body); }
+  .ic { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); transition: transform 0.18s cubic-bezier(.3, 1.6, .5, 1), background 0.2s; }
   .moods button:active .ic { transform: scale(0.9); }
   .moods button.on .ic { background: var(--text); color: var(--sky); box-shadow: none; transform: scale(1.06); }
   .lb { opacity: 0.85; }
   .moods button.on .lb { opacity: 1; }
 
-  .stack { position: relative; padding-bottom: 18px; outline: none; }
-  .under { position: absolute; left: 0; right: 0; bottom: 0; height: 60px; border-radius: 4px; background: color-mix(in oklch, var(--paper) 94%, var(--ink)); box-shadow: 0 10px 16px rgba(5, 39, 57, 0.2); transition: transform 0.3s cubic-bezier(.3, 1.3, .5, 1); }
-  .u0 { transform: translateY(8px) rotate(-1.4deg) scale(0.97); z-index: 1; }
-  .u1 { transform: translateY(16px) rotate(1.8deg) scale(0.93); z-index: 0; background: color-mix(in oklch, var(--paper) 86%, var(--ink)); }
-  .ub { position: absolute; left: 14px; right: 14px; bottom: 6px; display: flex; align-items: center; gap: 10px; color: var(--ink); font: 400 15px/1.1 var(--display); white-space: nowrap; overflow: hidden; }
+  .stack { position: relative; padding-bottom: 30px; outline: none; }
+  .under { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; border-radius: 4px; background: color-mix(in oklch, var(--paper) 94%, var(--ink)); box-shadow: 0 10px 16px rgba(5, 39, 57, 0.2); transition: transform 0.3s cubic-bezier(.3, 1.3, .5, 1); }
+  .u0 { transform: translateY(16px) rotate(-1.4deg) scale(0.97); z-index: 1; }
+  .u1 { transform: translateY(26px) rotate(1.8deg) scale(0.93); z-index: 0; background: color-mix(in oklch, var(--paper) 86%, var(--ink)); }
+  .ub { position: absolute; left: 14px; right: 14px; bottom: 4px; display: flex; align-items: center; gap: 10px; color: var(--ink); font: 400 15px/1.1 var(--display); white-space: nowrap; overflow: hidden; }
   .ub span { overflow: hidden; text-overflow: ellipsis; }
   .sealedb { justify-content: center; }
   .u0 .sealedb, .u1 .sealedb { color: var(--paper); }
@@ -127,6 +131,8 @@
   .topcard.dragging { transition: none; }
   .topcard.fling { transition: transform 0.2s ease-in; }
   .dealt { animation: deal 0.42s cubic-bezier(.2, .9, .3, 1.15); }
+  .dealt.slap :global(.emblem) { animation: stick 0.5s cubic-bezier(.3, 1.6, .5, 1); }
+  @keyframes stick { from { transform: scale(1.8) rotate(-20deg); opacity: 0; } }
   @keyframes deal { from { transform: translateY(26px) rotate(-3deg) scale(0.96); opacity: 0.4; } }
 
   .controls { display: flex; align-items: center; justify-content: center; gap: 14px; color: var(--text); margin-top: 14px; }

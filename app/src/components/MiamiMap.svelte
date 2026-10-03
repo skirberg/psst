@@ -198,9 +198,16 @@
       ctx.fillStyle = '#F37F5F'; ctx.beginPath(); ctx.arc(x, y, 6.5 * dpr, 0, Math.PI * 2); ctx.fill();
       ctx.lineWidth = 2 * dpr; ctx.strokeStyle = '#052739'; ctx.stroke();
     }
-    for (let i = 0; i < pins.length; i++) {
-      const el = pinEls[i]; if (!el) continue; const [x, y] = toScreen(project(pins[i].lat, pins[i].lng));
-      el.style.transform = `translate(${x / dpr}px, ${y / dpr}px)`;
+    const boxes = [], topEdge = (inset.top || 0) + 60, order = pins.map((p, i) => i).sort((a, b) => (pins[b].active ? 1 : 0) - (pins[a].active ? 1 : 0));
+    for (const i of order) {
+      const el = pinEls[i]; if (!el) continue; let [x, y] = toScreen(project(pins[i].lat, pins[i].lng));
+      x /= dpr; y /= dpr;
+      const off = x < (inset.left || 0) + 10 || x > cw / dpr - 10 || y < topEdge || y > ch / dpr - 10;
+      el.style.visibility = off ? 'hidden' : 'visible';
+      el.style.transform = `translate(${x}px, ${y}px)`;
+      const box = [x - 30, y - 70, x + 30, y + 4], hit = boxes.some((b) => !(box[2] < b[0] || box[0] > b[2] || box[3] < b[1] || box[1] > b[3]));
+      el.classList.toggle('crowded', hit && !pins[i].active);
+      if (!hit || pins[i].active) boxes.push(box);
     }
   }
   function loop(ts) {
@@ -271,8 +278,9 @@
   });
 </script>
 
-<div class="map" bind:this={wrap} role="img" aria-label="Map of Miami. Dots are spots open at the chosen hour; the list has the same information.">
+<div class="map" bind:this={wrap} role="img" aria-label="Miami map. Lit spots are open at this hour.">
   <canvas bind:this={canvas} class:interactive onpointerdown={onDown} onpointermove={onMove} onpointerup={onUp} onpointercancel={onUp}></canvas>
+  {#if labels}<p class="credit">Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></p>{/if}
   <div class="pins">
     {#each pins as p, i (p.id)}
       <button class="pin" bind:this={pinEls[i]} class:active={p.active} onclick={() => p.onclick?.()} aria-label={p.label} tabindex={p.onclick ? 0 : -1}>
@@ -288,9 +296,13 @@
   canvas.interactive { touch-action: none; cursor: grab; }
   canvas.interactive:active { cursor: grabbing; }
   .pins { position: absolute; inset: 0; pointer-events: none; }
+  .credit { position: absolute; right: 10px; bottom: 6px; margin: 0; font: 500 10.5px var(--body); color: var(--text); opacity: 0.7; z-index: 2; }
+  .credit a { color: inherit; }
   .pin { all: unset; position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer; will-change: transform; }
   .lift { position: absolute; transform: translate(-50%, -100%); display: grid; justify-items: center; gap: 2px; transition: transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
   .pin:hover .lift, .pin.active .lift { transform: translate(-50%, -100%) translateY(-6px); }
+  .pin:global(.crowded) .lift b { display: none; }
+  .pin:global(.crowded) { opacity: 0.85; }
   .lift b { font: 600 11px var(--mono); font-variation-settings: 'MONO' 1; background: var(--ink); color: var(--paper); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
   .pin:focus-visible { outline: none; }
   .pin:focus-visible .lift { outline: 3px solid var(--text); outline-offset: 2px; border-radius: 8px; }

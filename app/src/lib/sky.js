@@ -93,7 +93,7 @@ export function sunShade(date, h, color) {
   if (altitude <= 0) return { css: 'none', dx: 0, dy: 0, up: false };
   const side = Math.sin(((azimuth - 180) * Math.PI) / 180);
   // viewer faces north at a south-facing sign: a western sun throws shade to the right (east)
-  const dx = Math.round(side * 11), dy = Math.round(3 + 9 * Math.sin((altitude * Math.PI) / 180));
+  const dx = Math.round(side * 11), dy = Math.round(3 + 5 * Math.sin((altitude * Math.PI) / 180));
   const n = Math.max(1, Math.ceil(Math.hypot(dx, dy)));
   const steps = Array.from({ length: n }, (_, i) => `${((dx * (i + 1)) / n).toFixed(1)}px ${((dy * (i + 1)) / n).toFixed(1)}px 0 ${color}`);
   return { css: steps.join(','), dx, dy, up: true };

@@ -86,13 +86,16 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - Grain or riso texture as a global overlay.
 
 ## Open questions / candidates
+- Hotel pin clustering on the Stay map.
 - PNG share of the trip strip via the artifact downloads capability.
 - A Thursday 3:05 weekend drop.
 - Local curators program.
 - Production backend.
 
 ## Evidence log
-- 60 moves and 44 events, all adversarially fact-checked in two passes (data/verify-moves-r1.json, data/verify-r2.json). One event and three moves were dropped. Hotels are in research.
+- 60 moves and 44 events, all adversarially fact-checked in two passes (data/verify-moves-r1.json, data/verify-r2.json). One event and three moves were dropped.
+- 18 hotels verified (data/verify-hotels.json). Prices are Google Hotels totals for Nov 20 to 24, checked Oct 2, with resort fees folded into the nightly figure. Fees moved several hotels up a tier. Esmé lost its Michelin Key listing. Casa Faena was dropped on taste and the Ritz as a chain.
+- Final gate (design/round3-gate.json) scored 6.5. Fixed since: share link and ?code= redeem, peek card, sticker overlap, Events default range, Secret mood position, Stay pin to card, trip pins and clamping, Where mask, Later scroll reset, multi-day labels, note day checks, og image and noindex, leftover filler copy, event pins showing the artist surname. Not done: hotel pin clustering.
 - Independent review round 2 (design/round2-reviews.json): jury 6.0, product 6.0, engineering 6.5. r0 scored 3 to 3.5.
 - The planner is checked with app/scripts/plan-check.mjs (travel time, opening hours, day words in titles, slot fit, pre-show proximity).
 - Screens are checked with app/scripts/shots.mjs (fresh page per view; --motion for unreduced captures).
@@ -110,3 +113,9 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
   - Free now. Cost is near zero: a static page and baked data. Production on the Supabase free tier is roughly $0 to $25 a month.
   - Revenue options for later, never paid placement in picks: ticket affiliate links on Wall events, sponsored psst. nights with partner venues, a paid concierge tier for groups.
 - **What would change this:** visitors don't share → focus on locals and a weekly Thursday drop. Locals don't return → content freshness is the bottleneck, so recruit curators.
+
+## Hosting (2026-10-02)
+- **Code:** a private GitHub repo named psst on Sami's personal account, published from GitHub Desktop. Never on a company account.
+- **Hosting:** Sami's personal Vercel account, imported from that repo. Never a company team. vercel.json sets install, build and output, so the import needs no settings.
+- **Why Vercel for now:** the prototype is one static page, and every push redeploys with a preview URL per branch. Cloudflare Pages would serve it just as well; the choice only matters once there is a backend, and Supabase stays the backend pick then.
+- **Visibility:** the URL is public but the page is marked noindex. Data is public venue information. Fonts are Google Fonts (OFL), so nothing trial-licensed ships.

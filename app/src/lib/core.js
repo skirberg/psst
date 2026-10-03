@@ -126,6 +126,7 @@ export function rankNow({ dow, h, date, band = 'all', rainSafe = false, cheap = 
       const fit = bestFit(m, h);
       let s = (0.7 * fit + 0.15 + 0.03 * m.energy) * (m.secret === 2 ? 1.12 : m.secret === 1 ? 1.1 : 0.85);
       if (open && fit < 0.25) s *= 0.3;
+      const nd = noteDays(m); if (nd && !nd.includes(dow)) s *= 0.55;
       if (wet && !m.rainOk) s *= 0.45;
       if (!open) s *= soonIn <= 1.5 ? 0.55 : 0;
       if (m.energy < lo || m.energy > hi) s = 0;
@@ -159,6 +160,21 @@ const SLOT_FIT = {
 };
 // Moves whose title names a day ("A Saturday beer", "on a weeknight") only go on those days.
 const DAY_WORDS = [[/\bsundays?\b/i, [0]], [/\bmondays?\b/i, [1]], [/\btuesdays?\b/i, [2]], [/\bwednesdays?\b/i, [3]], [/\bthursdays?\b/i, [4]], [/\bfridays?\b/i, [5]], [/\bsaturdays?\b/i, [6]], [/\bweeknights?\b/i, [1, 2, 3, 4]], [/\bweekends?\b/i, [5, 6, 0]]];
+const DAYN = { sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6 };
+// Days a note recommends ("Go Wed or Thu", "weekends", "midweek"); null if it doesn't say.
+export function noteDays(m) {
+  const t = (m.theMove || '').toLowerCase();
+  const pair = t.match(/\b(sun|mon|tue|wed|thu|fri|sat)[a-z]*\.?\s+(or|and|to)\s+(sun|mon|tue|wed|thu|fri|sat)/);
+  if (pair) {
+    const a = DAYN[pair[1]], b = DAYN[pair[3]];
+    if (pair[2] !== 'to') return [a, b];
+    const out = []; for (let d = a; ; d = (d + 1) % 7) { out.push(d); if (d === b || out.length > 7) break; } return out;
+  }
+  if (/\bweekends?\b/.test(t)) return [5, 6, 0];
+  if (/\bmidweek\b/.test(t)) return [2, 3, 4];
+  if (/\bweekday\b/.test(t)) return [1, 2, 3, 4, 5];
+  return null;
+}
 export function titleDays(m) { const hit = DAY_WORDS.filter(([re]) => re.test(m.title)); return hit.length ? hit.flatMap(([, d]) => d) : null; }
 const MAX_STOPS = 4;
 const SLOT_DEFS = [

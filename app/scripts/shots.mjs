@@ -11,7 +11,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const views = [
   ['today-dawn', { hour: 7.25, tab: 'today' }], ['today-noon', { hour: 13, tab: 'today' }], ['today-golden', { hour: 18.6, tab: 'today' }],
   ['today-night', { hour: 22.5, tab: 'today' }], ['today-flip', { hour: 21, tab: 'today', flip: true }], ['today-sealed', { hour: 21, tab: 'today', sealed: true }],
-  ['where', { hour: 20, tab: 'today', where: true }], ['trip', { hour: 15, tab: 'trip' }], ['wall', { hour: 16, tab: 'wall' }], ['stay', { hour: 17, tab: 'stay' }], ['book', { hour: 12, tab: 'book' }], ['mood', { hour: 21, tab: 'today', mood: 'drink' }],
+  ['where', { hour: 20, tab: 'today', where: true }], ['trip', { hour: 15, tab: 'trip' }], ['wall', { hour: 16, tab: 'wall' }], ['stay', { hour: 17, tab: 'stay' }], ['stay-open', { hour: 17, tab: 'stay', hotel: 'the-elser' }], ['book', { hour: 12, tab: 'book' }], ['mood', { hour: 21, tab: 'today', mood: 'drink' }],
 ];
 const sizes = [['desktop', { width: 1440, height: 900, deviceScaleFactor: 1 }], ['mobile', { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }]];
 const motion = process.argv.includes('--motion');
@@ -30,6 +30,7 @@ for (const [sname, vp] of sizes) {
       if (v.flip) a.flipped = a.pad[0]?.m.id;
       if (v.sealed) { const x = a.pad.find((x) => x.sealed); if (x) a.padId = x.m.id; }
       if (v.mood) a.mood = v.mood;
+      if (v.hotel) a.stayFocus = v.hotel;
       if (v.where) a.where = a.pad.find((x) => !x.sealed)?.m.id;
     }, v);
     await sleep(1100);

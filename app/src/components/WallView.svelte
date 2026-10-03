@@ -13,7 +13,7 @@
     ['stay', 'Your trip', null, null],
     ['oct', 'Oct', today, '2026-10-31'], ['nov', 'Nov', '2026-11-01', '2026-11-30'], ['dec', 'Dec', '2026-12-01', '2026-12-31'],
   ];
-  let pick = $state(events.some((e) => e.date <= today && (e.endDate || e.date) >= today) ? 'tonight' : 'weekend');
+  let pick = $state(trip.end >= today ? 'stay' : 'tonight');
   const r = $derived.by(() => { const x = ranges.find((y) => y[0] === pick); return x[0] === 'stay' ? [x[0], x[1], trip.start, trip.end] : x; });
   const list = $derived(events.filter((e) => (e.endDate || e.date) >= r[2] && e.date <= r[3]));
   const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 3);
@@ -36,7 +36,7 @@
       <article class="post" style:--r="{(hash(e.id) % 7) - 3}deg" style:--i={i}>
         <button class="face" onclick={() => (open = open === e.id ? null : e.id)} aria-expanded={open === e.id} aria-label="{e.title}, {fmtDate(e.date, { weekday: 'long', month: 'long', day: 'numeric' })}"><Flyer ev={e} /></button>
         <button class="tabs" class:torn={added(e)} onclick={() => tearTab(e)}>
-          {#each [0, 1, 2] as t}<span class:gone={added(e) && t === 1}>{added(e) ? 'Saved' : inStay(e) ? `Add to ${fmtDate(e.date, { weekday: 'short' })}` : 'Save'}</span>{/each}
+          <span></span><span class="lab">{added(e) ? 'Saved' : inStay(e) ? `Add to ${fmtDate(e.date < trip.start ? trip.start : e.date, { weekday: 'short' })}` : 'Save'}</span><span></span>
         </button>
         {#if open === e.id}
           <div class="info">
@@ -47,7 +47,7 @@
         {/if}
       </article>
     {:else}
-      <p class="none">Nothing on {pick === 'tonight' ? 'tonight' : 'those dates'} yet.</p>
+      <p class="none">{pick === 'tonight' ? 'Quiet tonight.' : 'Nothing on those dates yet.'}</p>
     {/each}
   </div>
 </section>
@@ -60,16 +60,16 @@
   .chips button { flex: none; font: 650 14px var(--body); padding: 8px 13px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); cursor: pointer; }
   .chips button.on { background: var(--text); color: var(--sky); box-shadow: none; }
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; align-items: start; }
-  .wide .grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 30px 22px; }
+  .wide .grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 30px 22px; max-width: 1180px; }
   .post { transform: rotate(var(--r)); display: grid; filter: drop-shadow(0 12px 12px rgba(5, 39, 57, 0.28)); transition: transform 0.3s cubic-bezier(.3, 1.4, .5, 1); animation: paste 0.5s cubic-bezier(.2, .9, .3, 1.2) both; animation-delay: calc(min(var(--i), 10) * 40ms); }
   @keyframes paste { from { transform: rotate(calc(var(--r) * 4)) translateY(-16px) scale(1.05); opacity: 0; } }
   .post:hover { transform: rotate(0deg) translateY(-3px); }
   .face { all: unset; cursor: pointer; display: block; }
   .face:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
-  .tabs { all: unset; cursor: pointer; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--paper); color: var(--ink); border-top: 2px dashed var(--line); }
+  .tabs { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr 2fr 1fr; background: var(--paper); color: var(--ink); border-top: 2px dashed var(--line); }
   .tabs span { font: 650 11.5px var(--body); text-align: center; padding: 9px 2px 10px; border-left: 1px dashed var(--line); white-space: nowrap; overflow: hidden; text-overflow: clip; }
   .tabs span:first-child { border-left: 0; }
-  .tabs span.gone { visibility: hidden; }
+  .tabs .lab { font-weight: 750; }
   .tabs:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
   .torn { background: color-mix(in oklch, var(--paper) 82%, var(--mamey)); }
   .info { background: var(--paper); color: var(--ink); padding: 10px 12px 12px; display: grid; gap: 6px; font-size: 14px; }

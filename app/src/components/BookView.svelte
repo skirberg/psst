@@ -5,7 +5,7 @@
   import { moves, events, fmtDate } from '../lib/core.js';
   const GROUPS = [
     ['Little Havana', ['Little Havana']], ['Downtown and Brickell', ['Downtown', 'Brickell']], ['Wynwood, Edgewater, Allapattah', ['Wynwood', 'Edgewater', 'Allapattah']],
-    ['Upper East Side', ['Design District', 'Little River', 'Little Haiti', 'MiMo']], ['The Beach', ['South Beach', 'Mid-Beach', 'North Beach']],
+    ['Little Haiti to MiMo', ['Design District', 'Little River', 'Little Haiti', 'MiMo']], ['The Beach', ['South Beach', 'Mid-Beach', 'North Beach']],
     ['Gables and the Grove', ['Coral Gables', 'Coconut Grove']], ['The Keys', ['Key Biscayne', 'Virginia Key']], ['South Dade', ['South Miami-Dade']],
   ];
   const pages = GROUPS.map(([name, hoods]) => ({ name, list: moves.filter((m) => hoods.includes(m.hood)) })).filter((p) => p.list.length);
@@ -14,7 +14,7 @@
   function redeem(e) {
     e.preventDefault();
     const r = app.redeem(code);
-    msg = r === 'ok' ? 'One more secret unlocked.' : r === 'used' ? 'Already used.' : 'Codes look like PINA-7KQ2X.';
+    msg = r === 'ok' ? '+1 secret.' : r === 'used' ? 'Already used.' : 'Try PINA-XXXXX.';
     if (r === 'ok') code = '';
   }
   const locked = (m) => m.secret === 2 && !app.unlocked.includes(m.id);
@@ -22,7 +22,12 @@
 
 <section class="book">
   <h1>Kept</h1>
-  <p class="stats"><span>{app.kept.length} of {moves.length}</span><span>{app.leansLeft()} secrets left this week</span></p>
+  <p class="stats"><span>{app.leansLeft()} secrets this week</span></p>
+  <form class="code" onsubmit={redeem}>
+    <label for="code">Friend’s code</label>
+    <div class="f"><input id="code" name="code" bind:value={code} placeholder="PINA-XXXXX" autocomplete="off" spellcheck="false" /><button>Redeem</button></div>
+    {#if msg}<p class="msg" role="status">{msg}</p>{/if}
+  </form>
 
   {#each pages as p (p.name)}
     <div class="page">
@@ -48,11 +53,8 @@
     </div>
   {/if}
 
-  <form class="code" onsubmit={redeem}>
-    <label for="code">Friend’s code</label>
-    <div class="f"><input id="code" name="code" bind:value={code} placeholder="PINA-7KQ2X…" autocomplete="off" spellcheck="false" /><button>Redeem</button></div>
-    {#if msg}<p class="msg" role="status">{msg}</p>{/if}
-  </form>
+  <p class="credits">Checked Oct 2, 2026. Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>. Weather <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>.</p>
+
 </section>
 
 <style>
@@ -79,4 +81,6 @@
   input { flex: 1; min-width: 0; font: 600 15px var(--mono); font-variation-settings: 'MONO' 1; padding: 9px 10px; border: 0; border-bottom: 2px dashed var(--line); background: transparent; color: var(--ink); text-transform: uppercase; }
   .f button { font: 650 14px var(--body); padding: 9px 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   .msg { margin: 0; font-size: 13.5px; }
+  .credits { margin: 0; font: 500 12.5px/1.45 var(--body); opacity: 0.8; }
+  .credits a { color: inherit; }
 </style>

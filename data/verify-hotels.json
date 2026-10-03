@@ -1,0 +1,323 @@
+[
+ {
+  "id": "mayfair-house",
+  "verdict": "fix",
+  "reason": "Key count is out of date. Michelin's 2026 US Key selection (article dated Sept 18, 2026) and the hotel's own Michelin page (raw HTML: distinction '1 key', award 'One MICHELIN Key') both list Mayfair House at ONE Key, down from two in the April 2025 Miami list that the entry cites. Everything else checks out: the claw-foot tubs and vintage typewriters are named on the current Michelin page; Sipsip is the rooftop pool bar (2026 reviews show it operating); the garden atrium and 1980s Kenneth Treister building are confirmed by Michelin; the address matches the official site; the lat/lng reverse-geocodes to Sipsip Rum Bar, 3000 Florida Ave, within about 20m of Michelin's pin. Neither the official site nor recent coverage mentions a closure or renovation. Price note: it names a source and a date, 'from about' is hedged, and $415 sits in tier 3. I could not re-pull a live Google Hotels rate (the fetch returned nothing), so bookability for Nov 20-24 is inferred, not confirmed in a booking engine. Taste: a characterful Grove pick and a strong local recommendation.",
+  "evidence": [
+   "https://guide.michelin.com/us/en/hotels-stays/miami/mayfair-house-hotel-and-garden-13067",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://guide.michelin.com/us/en/article/travel/all-the-michelin-key-hotels-in-miami-best-hotels",
+   "https://www.mayfairhousemiami.com/",
+   "https://www.theinfatuation.com/miami/reviews/sipsip",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.728682&lon=-80.240805"
+  ],
+  "fixes": {
+   "why": "A Michelin Key 1980s icon wrapped around a garden",
+   "perks": [
+    "Michelin Key",
+    "garden atrium",
+    "Sipsip rooftop",
+    "walk the Grove"
+   ],
+   "sources": [
+    "https://www.mayfairhousemiami.com/",
+    "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+    "https://www.timeout.com/miami/hotels/best-miami-hotels",
+    "https://guide.michelin.com/us/en/hotels-stays/miami/mayfair-house-hotel-and-garden-13067"
+   ]
+  }
+ },
+ {
+  "id": "mr-c-coconut-grove",
+  "verdict": "keep",
+  "reason": "All claims verified. One Michelin Key, confirmed by the current Michelin page and the Sept 2026 US Key list. The official site confirms the rooftop pool ('set high above Coconut Grove'), Bellini on the rooftop with Biscayne Bay views, and bay-view rooms. Michelin describes Bellini as run by the fourth generation of the restaurant family, which supports 'the Cipriani family'. The address matches, and the lat/lng reverse-geocodes to the Mr. C hotel node at 2988 McFarlane Rd. No closure or renovation notices. The price note names a source and a date, and $472 fits tier 3. I did not re-pull the live rate, so bookability is inferred. Taste: a distinctive bayside Grove pick.",
+  "evidence": [
+   "https://www.mrchotels.com/hotels/coconut-grove",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/mr-c-miami-coconut-grove-9109",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.727305&lon=-80.242204"
+  ]
+ },
+ {
+  "id": "carillon-miami",
+  "verdict": "keep",
+  "reason": "The official site confirms the 6801 Collins Ave address, the 70,000 sq ft spa, the beachfront ('one of the longest beachfront stretches'), and the Tambourine Room as an 'intimate 12-seat restaurant' with one Michelin star. The Michelin restaurant page currently shows a distinction of '1 star'. Minor discrepancy: some secondary sources (an OpenTable list, Resy) give 18 seats. The official site's figure of 12 is defensible. To remove all risk, change theMove to 'the tiny, Michelin-starred Tambourine Room'. The lat/lng reverse-geocodes to The Strand at Carillon, 6801 Collins Ave. The resort was operating in 2026 (Global Wellness Day events on June 13, 2026), with no closure or rebrand found. The price note names Google Hotels and the hotel site with a date, and both $423 and $590 fall in tier 3. Live rates were not re-pulled. Taste: a credible, non-generic quiet North Beach wellness pick.",
+  "evidence": [
+   "https://www.carillonhotel.com/en/",
+   "https://guide.michelin.com/us/en/florida/miami-beach/restaurant/tambourine-room-by-tristan-brandt",
+   "https://www.fsrmagazine.com/industry-news/tambourine-room-at-carillon-miami-wellness-resort-receives-another-michelin-star",
+   "https://www.miamiandbeaches.com/event/global-wellness-day-2026/40668",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.852515&lon=-80.119808"
+  ]
+ },
+ {
+  "id": "the-standard-spa",
+  "verdict": "keep",
+  "reason": "The official site confirms the 40 Island Ave address, the adults-only policy ('18+ To Stay, 21+ To Check In'), and the hydrotherapy 'complimentary to hotel guests'. It also confirms the Bath Terrace Medium and Large rooms with private outdoor soaking tubs, plus a bayside infinity pool on Belle Isle. Michelin lists the property (no Key), and the entry does not claim one. The lat/lng reverse-geocodes to the parking lot at 40 Island Avenue West, about 60m from Michelin's pin (25.790566,-80.148328), so it sits within the property. Acceptable. No closure or renovation notices. The price note names a source and a date, and $480 fits tier 3. Live rates were not re-pulled. Taste: a characterful adults-only bathhouse and a classic local recommendation.",
+  "evidence": [
+   "https://www.standardhotels.com/miami/properties/miami-beach",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/the-standard-spa-miami-beach-44",
+   "https://www.hotels.com/ho185861",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.790882&lon=-80.148843"
+  ]
+ },
+ {
+  "id": "the-betsy",
+  "verdict": "keep",
+  "reason": "One Michelin Key, confirmed by the Sept 2026 US Key list. The hotel's '3 Time Michelin Key Award Winner' means three years running, not three Keys, so the singular is correct. The official site says 'Nightly live jazz at the Piano Bar' and lists Direct Beach Access and a Writer's Room page. One secondary source says 'most nights', but the official wording supports 'nightly'. The lat/lng reverse-geocodes to the Betsy hotel node at 1440 Ocean Dr. No closure notices. The price note honestly gives two checks ($535 and $626), with source and date, and both fall in tier 3. Live rates were not re-pulled. Taste: a literary, music-led Ocean Drive pick that locals respect.",
+  "evidence": [
+   "https://www.thebetsyhotel.com/",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://www.timeout.com/miami/hotels/betsy",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.786465&lon=-80.129768"
+  ]
+ },
+ {
+  "id": "the-moore",
+  "verdict": "keep",
+  "reason": "The current Michelin page confirms 13 suites, the 1921 building (a former neoclassical furniture showroom, so '1920s' holds), a 'Zaha Hadid installation anchors the atrium', One Michelin Key, and 21+ adults only. The Sept 2026 US list also shows one Key. The official site sells overnight stays to non-members and calls itself the only hotel in the heart of the Design District. Its 'booking soon' notices are for two venues (Torno Subito, The Roof), not the hotel. The lat/lng reverse-geocodes to 4040 NE 2nd Ave (ORNARE, a shop in the building), about 40m from Michelin's pin. The price note names a source and a date, and $862 fits tier 4. Live rates were not re-pulled. Taste: a distinctive design-led pick.",
+  "evidence": [
+   "https://www.mooremiami.com/",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/the-moore-14606",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.81414&lon=-80.191617"
+  ]
+ },
+ {
+  "id": "four-seasons-surf-club",
+  "verdict": "keep",
+  "reason": "Two Michelin Keys, confirmed by the current Michelin page and the Sept 2026 US list. The main fourseasons.com page returned 403, so I used the Four Seasons press fact sheet. It confirms 9011 Collins Ave, the clubhouse opening on New Year's Eve 1930, 40 day cabanas on Cabana Row, the Champagne Bar, and 900 ft of beachfront. Search results surfaced the official daytime-cabana listing, which shows daytime rental. Historical sources say the cabanas were designed by Russell Pancoast (the original architect) and preserved, which supports '1930s Cabana Row'. The lat/lng reverse-geocodes to The Surf Club South at 9001 Collins Ave, inside the same complex and about 20m from Michelin's pin. No renovation notices. The price note gives the hotel-site rate and the lowest elsewhere, with source and date, and both fall in tier 4. Live rates were not re-pulled. Taste: an expected luxury pick, but the right one for a splurge.",
+  "evidence": [
+   "https://press.fourseasons.com/surfside/hotel-facts",
+   "https://www.fourseasons.com/surfside/experiences/facilities-and-services/daytime-cabana/",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/four-seasons-hotel-at-the-surf-club-12443",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://mdpl.org/archives/2021/06/the-surf-club/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.877318&lon=-80.121166"
+  ]
+ },
+ {
+  "id": "faena-miami-beach",
+  "verdict": "keep",
+  "reason": "Two Michelin Keys, confirmed by the current Michelin page and the Sept 2026 US list. The official site currently lists Los Fuegos by Francis Mallmann, the Saxony Bar (late-night performances), the Faena Theater (live productions and a jazz series), and an eight-block oceanfront stretch. 'Gold-leaf' is supported by the gold-leafed columns of the Cathedral lobby and Juan Gatti's 23K-gold-leaf murals (EverGreene, the firm that did the gilding). The lat/lng reverse-geocodes to the Faena Hotel node at 3201 Collins Ave. No closure notices. The price note gives the hotel-site rate and the lowest elsewhere, with source and date, and both fall in tier 4. Live rates were not re-pulled. Taste: an iconic maximalist pick.",
+  "evidence": [
+   "https://www.faena.com/miami-beach",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/faena-hotel-miami-beach-7977",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://evergreene.com/?p=11277",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.807378&lon=-80.123139"
+  ]
+ },
+ {
+  "id": "the-setai",
+  "verdict": "keep",
+  "reason": "Two Michelin Keys, confirmed by the current Michelin page and the Sept 2026 US list. The official site confirms 2001 Collins Ave, the 1937 Dempsey-Vanderbilt building by Henry Hohauser, Art Deco Suites in that building with 'rich teak wood', 'Valmont for The Spa at The Setai', and private beach access. The lat/lng reverse-geocodes to Jaya at the Setai, 2001 Collins Ave. No closure notices. The price note names a source and a date, and $819 fits tier 4. Live rates were not re-pulled. Taste: the expected deco-luxury pick, but well chosen and characterful.",
+  "evidence": [
+   "https://www.thesetaihotel.com/",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/the-setai-miami-beach-1661",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.795799&lon=-80.128696"
+  ]
+ },
+ {
+  "id": "the-rover-miami",
+  "verdict": "keep",
+  "reason": "Everything checked out. The booking engine is live and there is no closure notice. Address and coordinates match (Nominatim returns 1645 SW 9th St). The 10 rooms, the Miami Suite, and the free bikes (WSVN says four) are confirmed. Mr & Mrs Smith says there are 40+ artworks by Little Havana artists, and WSVN names Domino Park as a stone's throw away. I found no resort fee, so $160 is honestly tier 1. Two limits: I could not check the price myself (Google Travel would not render), and I did not check that rooms are free for Nov 20-24, only that nothing says the hotel is closed. Mr & Mrs Smith's from-$148 with tax fits the price but does not prove it. Taste: a new, art-filled 10-room hotel off Calle Ocho is a strong, non-generic pick.",
+  "evidence": [
+   "https://www.therovermiami.com/",
+   "https://wsvn.com/entertainment/deco-drive/new-hotel-in-little-havana-puts-guests-steps-away-from-key-calle-ocho-hot-spots/",
+   "https://www.mrandmrssmith.com/luxury-hotels/the-rover-miami",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.765096&lon=-80.221476"
+  ]
+ },
+ {
+  "id": "freehand-miami",
+  "verdict": "fix",
+  "reason": "The facts hold. Broken Shaker is open Thu-Sun from 5pm (Thu 5pm-12am, Fri-Sat 5pm-1am, Sun 5pm-11pm). The hotel says 1 block from the beach, the rooms page lists private rooms (King, Premium King Suite and others), and coordinates resolve to The Broken Shaker at 2727 Indian Creek Dr. The price note is the problem. The hotel FAQ adds a mandatory $35 resort fee plus 14% tax, and the bikes are paid for by that fee, so 'free bikes' overclaims. $185 + $35 = $220 before tax, which puts it in tier 2. The rule I used for this whole batch: tier = hotel-site rate + mandatory nightly fee, before tax. If you tier on the room rate alone, keep tier 1 but still add the fee to the note. I also dropped 'from $111 elsewhere' because I could not confirm it is a private room rather than a bunk. The price itself and availability are unverified.",
+  "evidence": [
+   "https://freehandhotels.com/miami/",
+   "https://freehandhotels.com/miami/broken-shaker/",
+   "https://freehandhotels.com/miami/rooms/",
+   "https://freehandhotels.com/miami/faq/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.804542&lon=-80.126349"
+  ],
+  "fixes": {
+   "price": "About $185/night on the hotel site for Nov 20-24, plus a $35/night resort fee (hotel FAQ), before tax (Google Hotels, checked Oct 2)",
+   "tier": 2,
+   "perks": [
+    "private rooms",
+    "Broken Shaker",
+    "bikes included",
+    "1 block to beach"
+   ]
+  }
+ },
+ {
+  "id": "esme-miami-beach",
+  "verdict": "fix",
+  "reason": "The Michelin Key claim is out of date. Esm\u00e9 had One Key in the April 2025 list but is not in the 2026 selection. Michelin's US Keys article (Sept 18, 2026) and the Miami & Beaches 2026 list (Sept 21, 2026) both omit Esm\u00e9 but include Greystone. Michelin's own Esm\u00e9 page now says only 'Hotel selected by the MICHELIN Guide'. 'Under $200' also overclaims: the hotel FAQ charges a $40 resort fee plus tax, so $189 + $40 = $229, which is tier 2. Confirmed and kept: the rooftop pool is guests-only by day, two beach chairs come daily, and the address and coordinates are 1438 Washington Ave on Espa\u00f1ola Way. I rebuilt 'why' from Hotel Executive: the 1927 Spanish Village, eight buildings, 145 rooms. I swapped the 2025 Key article out of sources so the old claim does not come back. The price and availability are unverified.",
+  "evidence": [
+   "https://www.esmehotel.com/",
+   "https://www.esmehotel.com/faq",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/esme-miami-beach-12395",
+   "https://guide.michelin.com/us/en/article/travel/all-the-michelin-key-hotels-in-miami-best-hotels",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://miamiandbeaches.com/hotels/michelin-keys/michelin-key-hotels",
+   "https://www.hotelexecutive.com/newswire/69087/infinity-hospitality-opens-145-room-esmeacute-miami-beach",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.786795&lon=-80.131996"
+  ],
+  "fixes": {
+   "why": "The 1927 Spanish Village on Espa\u00f1ola Way",
+   "perks": [
+    "Michelin-selected",
+    "rooftop pool",
+    "Espa\u00f1ola Way",
+    "2 beach chairs daily"
+   ],
+   "price": "About $189/night on the hotel site for Nov 20-24, plus a $40/night resort fee (hotel FAQ), before tax; from $149 elsewhere (Google Hotels, checked Oct 2)",
+   "tier": 2,
+   "sources": [
+    "https://www.esmehotel.com/",
+    "https://www.esmehotel.com/faq",
+    "https://guide.michelin.com/us/en/hotels-stays/miami/esme-miami-beach-12395",
+    "https://www.hotelexecutive.com/newswire/69087/infinity-hospitality-opens-145-room-esmeacute-miami-beach",
+    "https://www.cntraveler.com/gallery/best-hotels-in-miami"
+   ]
+  }
+ },
+ {
+  "id": "the-vagabond-hotel",
+  "verdict": "keep",
+  "reason": "Everything checked out. Michelin confirms the 1953 landmark and the restored mermaid-and-dolphin mosaic in the pool. The official site confirms no resort fee and free parking, so $166 is honestly tier 1. 'Bar is shut for 2026' is right: Expedia lists the bar and dining closed from May 22 to Dec 31, 2026, and the pool is not affected. Rooms sit in an L around the pool and open onto walkways facing it (Time Out search excerpt), so 'poolside room' is a fair ask, although no room type is sold under that name. Coordinates resolve to The Vagabond Hotel. The price and availability are unverified. Taste: a classic MiMo pick.",
+  "evidence": [
+   "https://www.thevagabondhotelmiami.com/",
+   "https://www.thevagabondhotelmiami.com/rooms",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/the-vagabond-hotel-miami-7886",
+   "https://www.expedia.com/Miami-Hoteles-The-Vagabond-Hotel.h7714655.Informacion-Hotel",
+   "https://www.timeout.com/miami/bars/brigitte-at-the-vagabond-closed",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.842894&lon=-80.183697"
+  ]
+ },
+ {
+  "id": "the-plymouth",
+  "verdict": "fix",
+  "reason": "Most claims are confirmed by the official site, Michelin and Travel Weekly. The Art Deco pool, pool-view rooms ('many rooms also boast pool views'), Blue Ribbon Sushi in the building (open daily from noon), bikes, Collins Park, and 2 blocks to the beach all hold, and the address and coordinates match. Two problems. First, the hotel's write-up says 'peach-and-cream', but its own gallery photos and alt text show a white facade with peach awnings and loungers. I replaced 'why' with features visible in those photos. Second, Travelocity lists a $51.30/night resort fee including tax (about $45 plus tax), so $185 is really about $230 before tax, which is tier 2 under the batch rule. The price and availability are unverified.",
+  "evidence": [
+   "https://www.theplymouth.com/",
+   "https://www.theplymouth.com/our-hotel/gallery",
+   "https://image-tc.galaxy.tf/wipng-8gb2y4j9sxfv8cdn4xrvhlwvg/imgi-52-file-1.png?width=800",
+   "https://image-tc.galaxy.tf/wipng-9h86daq8nikqrdemwm3b6w59/imgi-47-file-1.png?width=800",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/the-plymouth-south-beach-8593",
+   "https://www.travelocity.com/es/Miami-Hoteles-The-Plymouth-South-Beach.h12580681.Informacion-Hotel",
+   "https://www.travelweekly.com/Hotels/Miami-Beach-FL/The-Plymouth-p51010640",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.796786&lon=-80.130582"
+  ],
+  "fixes": {
+   "why": "Deco spire and checkerboard pool on Collins Park",
+   "price": "About $185/night on the hotel site for Nov 20-24, plus a ~$51/night resort fee incl. its tax (Travelocity), before room tax; from $150 elsewhere (Google Hotels, checked Oct 2)",
+   "tier": 2
+  }
+ },
+ {
+  "id": "arlo-wynwood",
+  "verdict": "fix",
+  "reason": "Everything except the price checks out. Miami Herald, CBS Miami and Cond\u00e9 Nast Traveler confirm it is Wynwood's first hotel, with 250+ artworks, Hoxxoh's exterior murals and a 9th-floor rooftop pool. Miami & Beaches lists King Balcony and Double Balcony rooms. Coordinates resolve to Arlo Wynwood. The one fix: the hotel FAQ adds a mandatory $35 urban fee plus tax, which the price note should say. $203 + $35 = $238, still tier 2. The price and availability are unverified.",
+  "evidence": [
+   "https://arlohotels.com/wynwood/",
+   "https://arlohotels.com/wynwood/faqs/",
+   "https://www.miamiherald.com/miami-com/hotels-motels/article268259977.html",
+   "https://www.cbsnews.com/miami/news/arlo-wynwood-hotel-opens-in-miamis-preeminent-cultural-district",
+   "https://www.cntraveler.com/hotels/miami/arlo-wynwood",
+   "https://www.miamiandbeaches.com/l/hotels/arlo-wynwood/26595",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.798463&lon=-80.195602"
+  ],
+  "fixes": {
+   "price": "About $203/night on the hotel site for Nov 20-24, plus a $35/night urban fee (hotel FAQ), before tax; from $145 elsewhere (Google Hotels, checked Oct 2)"
+  }
+ },
+ {
+  "id": "hotel-greystone",
+  "verdict": "fix",
+  "reason": "The 2026 Michelin Key is confirmed: Michelin's page shows One Key, and the Sept 2026 US article and the Miami & Beaches 2026 list both include it. The FAQ confirms adults only (21+). The rooftop pool (Sora) and live jazz at Greystone Bar are confirmed. Michelin says some rooms and suites have private terraces with outdoor showers and jacuzzis. Coordinates resolve to Greystone Jazz Bar at 1920 Collins. Fixes: the hotel FAQ adds a $45/night resort fee ($51.30 with tax), so the price note should say so; $228 + $45 = $273, still tier 2. I changed theMove to 'Splurge on', because hot-tub rooms cost more than the $228 base rate. I also swapped the April 2025 Key article in sources for the 2026 one. The price and availability are unverified.",
+  "evidence": [
+   "https://www.greystonehotel.com/",
+   "https://www.greystonehotel.com/faq",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/hotel-greystone-adults-only-12219",
+   "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+   "https://miamiandbeaches.com/hotels/michelin-keys/michelin-key-hotels",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.795591&lon=-80.129512"
+  ],
+  "fixes": {
+   "theMove": "Splurge on a terrace room with its own outdoor hot tub.",
+   "price": "About $228/night on the hotel site for Nov 20-24, plus a $45/night resort fee (hotel FAQ), before tax; from $189 elsewhere (Google Hotels, checked Oct 2)",
+   "sources": [
+    "https://www.greystonehotel.com/",
+    "https://www.greystonehotel.com/faq",
+    "https://guide.michelin.com/us/en/article/travel/all-the-key-hotels-united-states",
+    "https://guide.michelin.com/us/en/hotels-stays/miami/hotel-greystone-adults-only-12219"
+   ]
+  }
+ },
+ {
+  "id": "casa-faena",
+  "verdict": "fix",
+  "reason": "Three claims come from Michelin's write-up and are contradicted by the hotel or recent guests. (1) theMove's 'ocean-view patio or balcony': faena.com lists all four room types (Casa Queen, Casa King, Double Double, King Studio Suite) as City View. (2) 'Beach cabanas': the hotel's fee policy covers beach lounge chairs, umbrella and towel service. A Nov 2025 Tripadvisor review says you get unbranded chairs and umbrellas to carry to the public beach yourself, and other reviewers say the beach is across the street. (3) 'Beachside': Nominatim shows the hotel on the inland side of Collins, with a public parking lot and the boardwalk between it and the sand. Confirmed: the 1930 Spanish-style building (Michelin), the Faena District, a quiet setting (reviews), and that the hotel is open and taking bookings. Faena's policy page adds a $28 resort fee plus 14% tax, so $209 + $28 = $237, still tier 2. The price and availability are unverified.",
+  "evidence": [
+   "https://www.faena.com/casa-faena",
+   "https://www.faena.com/casa-faena/accommodations",
+   "https://www.faena.com/hotel-policies",
+   "https://guide.michelin.com/us/en/hotels-stays/miami/casa-faena-7644",
+   "https://www.tripadvisor.com/Hotel_Review-g34439-d217412-Reviews-Casa_Faena_Miami_Beach-Miami_Beach_Florida.html",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.809251&lon=-80.123911",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.80925&lon=-80.1232&zoom=18"
+  ],
+  "fixes": {
+   "why": "Faena's quiet 1930 cousin, across from the beach",
+   "theMove": "Borrow the hotel's beach chairs and cross Collins to the sand.",
+   "perks": [
+    "1930 building",
+    "beach chairs + umbrellas",
+    "Faena District",
+    "quiet"
+   ],
+   "price": "From about $209/night for Nov 20-24, plus a $28/night resort fee (faena.com), before tax (lowest on Google Hotels, checked Oct 2)",
+   "sources": [
+    "https://www.faena.com/casa-faena",
+    "https://www.faena.com/casa-faena/accommodations",
+    "https://www.faena.com/hotel-policies",
+    "https://guide.michelin.com/us/en/hotels-stays/miami/casa-faena-7644"
+   ]
+  },
+  "tasteFlag": "A middling pick. A Nov 2025 guest calls it bare-bones, with paper-thin walls, no pool and no tie to the main Faena hotel's amenities. Others praise its charm and Campo restaurant. Fine for value, not a standout."
+ },
+ {
+  "id": "the-elser",
+  "verdict": "fix",
+  "reason": "The claims check out. The official room list has a Bay View Studio Suite and all suites have full kitchens. The hotel confirms the rooftop pool and hot tub, and ViceVersa in the lobby. Kaseya Center is about 0.2 miles away (the hotel says a 5-minute walk; Momondo and Kayak agree). Coordinates resolve to The Elser Hotel Miami. Fix: the hotel FAQ adds a mandatory $59/night amenity fee before tax. $275 + $59 = $334 is still tier 2 but close to the $350 ceiling. The price and availability are unverified.",
+  "evidence": [
+   "https://www.theelserhotel.com/",
+   "https://www.theelserhotel.com/faq",
+   "https://www.theelserhotel.com/stay",
+   "https://www.theelserhotel.com/amenities",
+   "https://www.momondo.com/hotels/miami/The-Elser-Hotel-Miami.mhd9174877.ksp",
+   "https://www.miamicondolifestyle.com/elser.php",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.778793&lon=-80.18925"
+  ],
+  "fixes": {
+   "price": "From about $275/night for Nov 20-24, plus a $59/night amenity fee (hotel FAQ), before tax (lowest on Google Hotels, checked Oct 2)"
+  },
+  "tasteFlag": "The weakest taste pick of these ten. It is a 49-storey condo-hotel tower with 636 residences, marketed as Airbnb-friendly. It earns its place only as the walk-to-Kaseya pick, plus ViceVersa, the lobby bar Michelin recognises."
+ },
+ {
+  "id": "east-miami",
+  "verdict": "keep",
+  "reason": "Everything checked out. The official site confirms four pools, Sugar on the roof, and that the Urban King has a private balcony. The free Metromover station at Brickell City Centre (Eighth Street) is steps away. Blackstone bought the hotel in 2025 and refinanced it in 2026, but Swire still runs it under the EAST name, so no rebrand. Travelocity lists only a deposit, no resort fee. Coordinates resolve to 788 Brickell Plaza (the tag shows Quinto, the hotel's restaurant). $348 is $2 under the tier 2 ceiling, so a small rate change would push it to tier 3. The price and availability are unverified.",
+  "evidence": [
+   "https://www.easthotels.com/en/miami/",
+   "https://www.travelocity.com/Miami-Hotels-EAST-Miami.h12078999.Hotel-Information",
+   "https://en.wikipedia.org/wiki/Brickell_City_Centre_station",
+   "https://rebusinessonline.com/trinity-certares-sell-352-room-east-miami-hotel-at-brickell-city-centre-to-blackstone/",
+   "https://nominatim.openstreetmap.org/reverse?format=json&lat=25.766658&lon=-80.192766"
+  ]
+ }
+]

@@ -4,7 +4,7 @@
   import { tick } from 'svelte';
   import Sticker from './Sticker.svelte';
   import { app, serialOf } from '../lib/state.svelte.js';
-  import { moves, openAt, closesAt, hm, fmtHour } from '../lib/core.js';
+  import { moves, openAt, closesAt, hm, fmtHour, fmtDate } from '../lib/core.js';
 
   let { item, compact = false, at = null, dow = null } = $props();
   const m = $derived(item.m);
@@ -115,15 +115,15 @@
       <div class="face front" id="front-{m.id}" inert={flipped} onclick={faceClick} role="presentation">
         <p class="top">
           {#if planned}<span>{closeAt != null ? `Open till ${fmtHour(closeAt, true)}` : 'Open late'}</span>
-          {:else if isOpen}<span class="live"><i></i>{closeAt != null ? `Open till ${fmtHour(closeAt, true)}` : 'Open now'}</span>
+          {:else if isOpen}<span class="live"><i></i>{closeAt != null ? `Open till ${fmtHour(closeAt, true)}` : 'Open now'}</span>{#if Math.min(Math.abs(nowH - hm(m.best)), 24 - Math.abs(nowH - hm(m.best))) > 1.5}<span class="best-at">best {fmtHour(hm(m.best), true)}</span>{/if}
           {:else}<span>{item.soon != null ? `Opens ${fmtHour(item.soon, true)}` : `Best at ${fmtHour(hm(m.best), true)}`}</span>{/if}
         </p>
+        <div class="emblem"><Sticker move={m} size={compact ? 66 : 88} /></div>
         <div class="bar" aria-hidden="true">
           {#each bars as o, i}{#if o}<i style:left="{(i / 48) * 100}%"></i>{/if}{/each}
           <b class="best" style:left="{(hm(m.best) / 24) * 100}%"></b>
           <b class="now" style:left="{(nowH / 24) * 100}%"></b>
         </div>
-        <div class="emblem"><Sticker move={m} size={compact ? 66 : 88} /></div>
         <h3 class="title">{m.title}</h3>
         <p class="note">{m.theMove}</p>
         <div class="meta"><span>{m.hood}</span><span>{'$'.repeat(m.cost)}</span><span>{energyWord}</span><button class="more" onclick={() => flip(true)}>More</button></div>
@@ -134,11 +134,11 @@
         <p class="b-line">{m.why}</p>
         <p class="b-line muted">{m.address}</p>
         <div class="b-actions">
-          <button class="pill" onclick={() => (app.where = m.id)}>Map</button>
+          <button class="pill" onclick={() => (app.where = m.id)}>On the map</button>
           <a class="pill ghost" href={apple} target="_blank" rel="noopener">Apple Maps</a>
           <a class="pill ghost" href={google} target="_blank" rel="noopener">Google Maps</a>
         </div>
-        <p class="b-src">Checked Oct 2{#if m.sources?.length}: {#each m.sources.slice(0, 2) as s, i}{i ? ', ' : ''}<a href={s} target="_blank" rel="noopener">{host(s)}</a>{/each}{/if}</p>
+        <p class="b-src">Checked {fmtDate(m.verifiedOn, { month: 'short', day: 'numeric' })}{#if m.sources?.length}: {#each m.sources.slice(0, 2) as s, i}{i ? ', ' : ''}<a href={s} target="_blank" rel="noopener">{host(s)}</a>{/each}{/if}</p>
       </div>
     </div>
     <div class="perf" aria-hidden="true"></div>
@@ -146,7 +146,7 @@
       <div class="ripped" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span><span class="no">No. {serial}</span></div>
     {:else}
       <div class="tearoff" class:tearing bind:this={tearoff} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
-        <span class="no">No. {serial}<small>/{total}</small></span>
+        <span class="no">No. {serial}{#if !compact}<small>/{total}</small>{/if}</span>
         <div class="acts">
           <button class="keep" onclick={tear}>Keep</button>
           <a class="go" href={apple} target="_blank" rel="noopener">Go</a>
@@ -171,15 +171,16 @@
 
   .top { margin: 0; font: 550 13.5px/1.2 var(--body); color: var(--muted); }
   .live { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); }
+  .best-at { margin-left: 10px; color: var(--muted); }
   .live i { width: 9px; height: 9px; border-radius: 50%; background: var(--mamey); box-shadow: 0 0 0 2px var(--ink); }
-  .bar { position: relative; height: 10px; margin: 9px 108px 14px 0; border-radius: 5px; background: oklch(0.93 0.012 80); overflow: hidden; }
+  .bar { position: relative; height: 10px; margin: 9px 0 14px 0; border-radius: 5px; background: oklch(0.93 0.012 80); overflow: hidden; }
   .bar i { position: absolute; top: 0; bottom: 0; width: calc(100% / 48 + 0.5px); background: color-mix(in oklch, var(--ink) 18%, var(--paper)); }
   .bar .best { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); }
   .bar .now { position: absolute; top: -1px; bottom: -1px; width: 3px; margin-left: -1.5px; background: var(--mamey); border-radius: 2px; }
-  .emblem { position: absolute; top: 24px; right: 10px; }
-  .title { margin: 0; padding-right: 96px; font: 400 30px/1.02 var(--display); letter-spacing: -0.005em; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-variation-settings: 'XROT' 0, 'YROT' calc(var(--lean, 0) * -20); transition: font-variation-settings .5s cubic-bezier(.3, 1.4, .5, 1); }
+  .emblem { float: right; margin: 2px -4px 4px 10px; shape-outside: circle(50%); }
+  .title { margin: 0; font: 400 30px/1.02 var(--display); letter-spacing: -0.005em; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-variation-settings: 'XROT' 0, 'YROT' calc(var(--lean, 0) * -20); transition: font-variation-settings .5s cubic-bezier(.3, 1.4, .5, 1); }
   .note { margin: 10px 0 0; font: 520 17px/1.35 var(--body); font-variation-settings: 'CASL' 1, 'MONO' 0; text-wrap: pretty; }
-  .meta { margin: 12px 0 0; display: flex; align-items: center; gap: 4px 14px; font: 500 13.5px var(--body); color: var(--muted); flex-wrap: wrap; }
+  .meta { clear: both; margin: 12px 0 0; display: flex; align-items: center; gap: 4px 14px; font: 500 13.5px var(--body); color: var(--muted); flex-wrap: wrap; }
   .meta span:first-child { color: var(--ink); font-weight: 650; }
   .more { margin-left: auto; font: 650 13px var(--body); padding: 5px 11px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
 
@@ -212,11 +213,9 @@
   @keyframes slap { from { transform: rotate(-6deg) scale(1.7); opacity: 0; } }
 
   .compact .face { padding: 12px 14px 10px; }
-  .compact .title { font-size: 22px; padding-right: 76px; }
+  .compact .title { font-size: 22px; }
   .compact .note { font-size: 15.5px; }
-  .compact .emblem { top: 20px; }
-  .compact .bar { margin-right: 84px; }
-  .compact .tearoff { padding: 2px 14px 10px; }
+      .compact .tearoff { padding: 2px 14px 10px; }
   .compact .keep, .compact .go { min-height: 38px; font-size: 14px; padding: 0 14px; }
 
   .sealed { --focus: var(--paper); min-height: 260px; padding: 22px 20px; background: var(--ink); color: var(--paper); display: grid; align-content: end; gap: 6px; cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: manipulation; overflow: hidden; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--paper) 30%, transparent); }

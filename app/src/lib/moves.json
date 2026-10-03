@@ -223,7 +223,7 @@
   "rainOk": true,
   "secret": 1,
   "theMove": "Skip the club line. Sit at the bar. Open till 7 on weekends.",
-  "why": "A real bar when the clubs let out.",
+  "why": "The bar for after the club.",
   "sources": [
    "http://www.thecornermiami.com",
    "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
@@ -298,8 +298,8 @@
   "cost": 3,
   "rainOk": true,
   "secret": 1,
-  "theMove": "Go Wed or Thu. Start with anything on the house orgeat.",
-  "why": "The one tiki bar locals point to.",
+  "theMove": "Go midweek. Order anything with the house orgeat.",
+  "why": "Tiki with house-made orgeat.",
   "sources": [
    "https://www.kaonaroom.com/",
    "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami"
@@ -337,7 +337,7 @@
   "rainOk": true,
   "secret": 0,
   "theMove": "Bring cash. Grab a stool under the neon.",
-  "why": "100 years old in 2026. The realest room on the Beach.",
+  "why": "A dive since 1926. Cash only.",
   "sources": [
    "http://www.macsclubdeuce.com",
    "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
@@ -348,7 +348,7 @@
  },
  {
   "id": "monterrey-bar-record-room",
-  "title": "Monterrey Bar on vinyl",
+  "title": "Monterrey Bar's record room",
   "place": "Monterrey Bar (The Standard Spa)",
   "address": "40 Island Ave, Miami Beach, FL 33139",
   "hood": "South Beach",
@@ -465,7 +465,7 @@
   "rainOk": true,
   "secret": 1,
   "theMove": "Cafecito at the window. Cubano to go for the beach.",
-  "why": "A real ventanita on the Beach.",
+  "why": "A walk-up window on the Beach.",
   "sources": [
    "https://lasolascafe.net/",
    "https://www.theinfatuation.com/miami/guides/best-cuban-sandwiches-miami",
@@ -502,7 +502,7 @@
   "rainOk": true,
   "secret": 1,
   "theMove": "Pour-over in a wine glass and the brûléed french toast.",
-  "why": "The best new coffee on the Beach.",
+  "why": "Coffee bar in a Park Ave hotel lobby.",
   "sources": [
    "https://www.casarassi.com/",
    "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
@@ -671,7 +671,7 @@
   "rainOk": true,
   "secret": 0,
   "theMove": "Sit at the bar for the band. Order the daiquiri.",
-  "why": "Famous, and it earns it.",
+  "why": "Live Cuban band nightly. Cantinero daiquiris.",
   "sources": [
    "https://www.cafelatrova.com",
    "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami",
@@ -713,7 +713,7 @@
   "rainOk": true,
   "secret": 0,
   "theMove": "Before noon. Order the cubano. Eat it hot.",
-  "why": "House-cured ham. Not Versailles.",
+  "why": "House-cured ham.",
   "sources": [
    "https://sanguich.com/",
    "https://www.theinfatuation.com/miami/guides/best-cuban-sandwiches-miami",
@@ -765,7 +765,7 @@
   "cost": 2,
   "rainOk": false,
   "secret": 1,
-  "theMove": "Fri or Sat after 11, when the yard is full.",
+  "theMove": "Weekends after 11, when the yard fills up.",
   "why": "A bungalow that feels like a house party.",
   "sources": [
    "https://zeyzeymiami.com/",
@@ -875,7 +875,7 @@
   "rainOk": false,
   "secret": 1,
   "theMove": "Saturday or Sunday after noon. Table under the tree.",
-  "why": "A brewery for neighbors, not influencers.",
+  "why": "Backyard brewery, table under the tree.",
   "sources": [
    "https://magic13brewing.com/",
    "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
@@ -1080,7 +1080,7 @@
   "rainOk": false,
   "secret": 1,
   "theMove": "Saturday at 9. Florida produce first.",
-  "why": "A real farmers market on the bay.",
+  "why": "Farmers market by the bay.",
   "sources": [
    "https://www.urbanoasisproject.org/farmers-markets.html",
    "https://www.miamiandbeaches.com/restaurants/best-miami-farmers-markets"
@@ -1124,7 +1124,7 @@
   "rainOk": false,
   "secret": 0,
   "theMove": "Arrive 8:30. Bottle from the fridge, table under the lights.",
-  "why": "Packed Saturdays. Perfect weeknights.",
+  "why": "Quiet on weeknights.",
   "sources": [
    "http://lagniappehouse.com",
    "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
@@ -1211,7 +1211,7 @@
   "rainOk": true,
   "secret": 0,
   "theMove": "Book the 90-minute seat on Tock. Order wasabi peas.",
-  "why": "A listening bar about the music.",
+  "why": "Hi-fi listening bar, 90-minute seats.",
   "sources": [
    "https://www.exploretock.com/danteshifi/",
    "https://danteshifi.com/",
@@ -1299,7 +1299,7 @@
   "rainOk": true,
   "secret": 0,
   "theMove": "Book a free timed ticket. Weekday afternoon.",
-  "why": "World-class art, zero cost.",
+  "why": "Free. Closed Mon and Tue.",
   "sources": [
    "https://icamiami.org/visit/",
    "https://icamiami.org/tickets/"
@@ -1354,7 +1354,7 @@
   "rainOk": true,
   "secret": 1,
   "theMove": "Book for 8, when the music starts.",
-  "why": "Live sets, real candles, a table you can book.",
+  "why": "Live sets by candlelight.",
   "sources": [
    "https://www.jasskitchenmiami.com/",
    "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
@@ -1499,7 +1499,7 @@
   "rainOk": false,
   "secret": 1,
   "theMove": "Get through the park gate before dusk. Table on the sand.",
-  "why": "The best sunset seat in the city.",
+  "why": "Sand tables facing west.",
   "sources": [
    "https://lighthouserestaurants.com/the-cleat",
    "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
@@ -1623,7 +1623,7 @@
   "rainOk": false,
   "secret": 0,
   "theMove": "Boardwalk at 10, nature tour at 12:30.",
-  "why": "Old Miami, far from the crowds.",
+  "why": "Mangrove boardwalk on the bay.",
   "sources": [
    "https://deeringestate.org/visit/plan-your-visit/",
    "https://en.wikipedia.org/wiki/Charles_Deering_Estate",
@@ -1835,7 +1835,7 @@
   "rainOk": true,
   "secret": 1,
   "theMove": "Muhammara, mixed grill, coffee brewed in hot sand.",
-  "why": "A Lebanese room built for lingering.",
+  "why": "Lebanese, coffee brewed in hot sand.",
   "sources": [
    "https://www.cafefenicia.com/",
    "https://www.theinfatuation.com/miami/reviews/cafe-fenicia",
@@ -1924,7 +1924,7 @@
   "rainOk": true,
   "secret": 0,
   "theMove": "Bar seat, 3 to 7pm. Oysters and a La Tropical.",
-  "why": "Brickell's honest seafood room.",
+  "why": "$2 oysters at the bar, 3 to 7.",
   "sources": [
    "https://www.therivermiami.com/location/the-river-miami/",
    "https://www.therivermiami.com/menus/",
@@ -1976,7 +1976,7 @@
   "secret": 0,
   "theMove": "Come with everyone. Order once: som tam, khao soi.",
   "getIn": "No reservations. Whole party present, one order.",
-  "why": "Tiny, strict and worth the rules.",
+  "why": "Whole party, one order.",
   "sources": [
    "https://lungyai.com/",
    "https://www.theinfatuation.com/miami/reviews/lung-yai-thai-tapas",
@@ -2121,7 +2121,7 @@
   "rainOk": true,
   "secret": 1,
   "theMove": "Natural wine. Ask if the smoked coconut rice is on.",
-  "why": "The Grove at its most grown-up.",
+  "why": "Natural-wine kitchen in the Grove.",
   "sources": [
    "https://www.kruskitchen.com/menu",
    "https://www.theinfatuation.com/miami/reviews/krus-kitchen",
@@ -2351,7 +2351,7 @@
   "secret": 1,
   "theMove": "Off the dance floor: chicharrón tacos and esquites.",
   "getIn": "The truck at ZeyZey's entrance.",
-  "why": "Real tacos till 3 on weekends.",
+  "why": "Tacos till 3 on weekends.",
   "sources": [
    "https://www.tacosmariamiami.com/menu",
    "https://www.zeyzeymiami.com",

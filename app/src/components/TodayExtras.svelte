@@ -7,12 +7,14 @@
   const tonight = $derived(events.filter((e) => e.date <= app.now.date && (e.endDate || e.date) >= app.now.date).slice(0, 4));
   const shows = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event)).length);
   const stops = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.move)).length);
+  const firstShow = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event).map((s) => s.event))[0]);
+  const daysTo = $derived(Math.round((new Date(trip.start + 'T12:00:00Z') - new Date(app.now.date + 'T12:00:00Z')) / 864e5));
 </script>
 
 {#if trip.days.length}
   <button class="tripticket" onclick={() => app.setTab('trip')}>
     <span class="tt-ic"><Icon name="trip" size={22} /></span>
-    <span class="tt-main"><b>Your trip</b><span>{fmtDate(trip.start, { month: 'short', day: 'numeric' })} to {fmtDate(trip.end, { month: 'short', day: 'numeric' })}</span></span>
+    <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} days` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && firstShow ? `to ${firstShow.title.split(':')[0]}` : `${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`}</span></span>
     <span class="tt-n"><b>{shows}</b>{shows === 1 ? 'show' : 'shows'}</span>
     <span class="tt-n"><b>{stops}</b>stops</span>
     <Icon name="right" size={18} />

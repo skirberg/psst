@@ -1,0 +1,250 @@
+{
+ "score": 6.5,
+ "ship": false,
+ "verdict": "r7 is a real step up from r5. The narration is gone: no \"Midday heat... 6 good moves open right now\", no Wall subtitle, no footer. Notes are one line, stickers say a word instead of showing clip art, and the tabs have icons. The psst shuffle, the card stack, the trip ticket and the Tonight flyers put value on the first screen, the neon night clock and moon slider are great, and Stay exists. It finally feels like a toy, not a list. It is not ready to go in front of the friend yet, for five reasons. (1) On every Today screen the card peeking under the deck shows its title cut in half, and some stickers sit on top of the note text (TIKI covers \"anything\"). (2) Events opens on two Oct 2 flyers, with \"Save Save Save\" under each, above a field of empty mint. r5 opened on \"Your stay\" with John Summit; this is a regression for the exact test case. (3) The Secret mood, which is the hook, is off-screen at 390px and at 1440px. (4) The share loop is broken: the copied plan has no link, and the box for a friend's code is buried under 60 ghost stickers. (5) On desktop, which is Sami's own view, clicking a Stay pin does nothing, the Trip map is a dotted line with no stops, pins clip at the top and pile on each other, and Where shows a flat purple void on the left. Stay looks good but tells you almost nothing. Each fob repeats the hotel name and a \"$\" sign. Price, neighborhood, the move, and how far it is from Kaseya (the friend's one real question) all sit behind a tap the screenshot harness never captured. Pill chips are also back on Events, Trip and Stay even though DECISIONS lists them as rejected. The fixes come to about half a day. Score: 6.5, against the r2 baseline of 6.0.",
+ "slop": [
+  {
+   "text": "0 of 60   3 secrets left this week",
+   "where": "Kept header, BookView.svelte:25",
+   "fix": "Drop \"0 of 60\" (narrated count). Use \"3 secrets this week\", or show three small seal icons instead of words."
+  },
+  {
+   "text": "Spots, hours and events checked Oct 2, 2026. Map \u00a9 OpenStreetMap contributors. Weather by Open-Meteo (CC BY 4.0).",
+   "where": "Kept footer, BookView.svelte:51",
+   "fix": "Checked Oct 2 \u00b7 Map \u00a9 OpenStreetMap \u00b7 Weather Open-Meteo"
+  },
+  {
+   "text": "Codes look like PINA-7KQ2X.",
+   "where": "Kept code error, BookView.svelte:17",
+   "fix": "Try PINA-XXXXX."
+  },
+  {
+   "text": "One more secret unlocked.",
+   "where": "Kept code success, BookView.svelte:17",
+   "fix": "+1 secret."
+  },
+  {
+   "text": "Save / Save / Save",
+   "where": "Under every Events flyer, WallView.svelte:39",
+   "fix": "Label only the middle tab (\"Add to Fri\" in trip range, otherwise \"Save\") and leave the two side tabs as blank perforation. Or make them different: Save / Tickets / Map."
+  },
+  {
+   "text": "Nothing on tonight yet.",
+   "where": "Events empty state, WallView.svelte:50",
+   "fix": "Quiet tonight."
+  },
+  {
+   "text": "About $160/night on the hotel site for Nov 20-24, before tax; from $134 elsewhere (Google Hotels, checked Oct 2)",
+   "where": "Stay hotel card price line, the same shape in all 19 hotels.json entries",
+   "fix": "$160/night direct \u00b7 $134 on Google Hotels. The source line below already says Checked Oct 2, and the dates are the trip's."
+  },
+  {
+   "text": "Book the Miami Suite; borrow a free bike for Calle Ocho.",
+   "where": "Stay card theMove (Rover). Semicolon pattern also in Freehand, Plymouth, Arlo, Elser, EAST, Moore",
+   "fix": "Miami Suite. Free bike to Calle Ocho. (Elser: \"Bay View Studio. Walk to Kaseya.\")"
+  },
+  {
+   "text": "Rates and booking",
+   "where": "Stay hotel card button, StayView.svelte:61",
+   "fix": "Book"
+  },
+  {
+   "text": "Hotels are being checked. Back soon.",
+   "where": "Stay empty state, StayView.svelte:30",
+   "fix": "Hotels soon."
+  },
+  {
+   "text": "Map | Apple Maps | Google Maps",
+   "where": "Stub back face, Stub.svelte:137",
+   "fix": "Swap the ambiguous \"Map\" for a pin icon plus \"On map\", or drop it and make the address itself tappable to the psst map."
+  },
+  {
+   "text": "The one tiki bar locals point to.",
+   "where": "Kaona Room back face (moves.json why)",
+   "fix": "Tiki with house-made orgeat."
+  },
+  {
+   "text": "Go Wed or Thu. Start with anything on the house orgeat.",
+   "where": "Kaona Room front note, dealt on a Friday",
+   "fix": "Go midweek. Order anything with the house orgeat."
+  },
+  {
+   "text": "Famous, and it earns it.",
+   "where": "Caf\u00e9 La Trova why",
+   "fix": "Live Cuban band nightly. Cantinero daiquiris. (Both facts are already in the r5 copy.)"
+  },
+  {
+   "text": "World-class art, zero cost.",
+   "where": "ICA Miami why",
+   "fix": "Free. Closed Mon and Tue."
+  },
+  {
+   "text": "The best sunset seat in the city.",
+   "where": "The Cleat why",
+   "fix": "Sand tables facing west."
+  },
+  {
+   "text": "The best new coffee on the Beach.",
+   "where": "Casa Rassi why",
+   "fix": "Cut it (the note already sells it), or \"Specialty bar, Beach prices.\" only if checked."
+  },
+  {
+   "text": "The Grove at its most grown-up.",
+   "where": "Kr\u00fcs Kitchen why",
+   "fix": "Natural-wine kitchen in the Grove."
+  },
+  {
+   "text": "A Lebanese room built for lingering.",
+   "where": "Caf\u00e9 Fenicia why",
+   "fix": "Lebanese, coffee brewed in hot sand."
+  },
+  {
+   "text": "Brickell's honest seafood room.",
+   "where": "The River why",
+   "fix": "$2 oysters at the bar, 3 to 7."
+  },
+  {
+   "text": "A brewery for neighbors, not influencers.",
+   "where": "Magic 13 why",
+   "fix": "Backyard brewery, table under the tree."
+  },
+  {
+   "text": "A listening bar about the music.",
+   "where": "Dante's HiFi why",
+   "fix": "Hi-fi listening bar, 90-minute seats."
+  },
+  {
+   "text": "Old Miami, far from the crowds.",
+   "where": "Deering Estate why",
+   "fix": "Mangrove boardwalk on the bay."
+  },
+  {
+   "text": "100 years old in 2026. The realest room on the Beach.",
+   "where": "Mac's Club Deuce why",
+   "fix": "A dive since 1926. Cash only."
+  },
+  {
+   "text": "A real bar when the clubs let out. / A real ventanita on the Beach. / A real farmers market on the bay. / Real tacos till 3 on weekends. / Live sets, real candles, a table you can book.",
+   "where": "why lines for The Corner, Las Olas, Legion Park, Tacos Mar\u00eda, Jass Kitchen (\"real\" appears 6 times, an AI tic)",
+   "fix": "The bar for after the club. / A walk-up window on the Beach. / Farmers market by the bay. / Tacos till 3 on weekends. / Live sets by candlelight."
+  },
+  {
+   "text": "Packed Saturdays. Perfect weeknights. / Tiny, strict and worth the rules. / House-cured ham. Not Versailles.",
+   "where": "Lagniappe, Lung Yai, Sanguich why lines (same X-dot-Y template cadence)",
+   "fix": "Quiet on weeknights. / Whole party, one order. / House-cured ham. (Keep \"Everyone knows Space. Few stay for daylight.\" It's the one that works.)"
+  },
+  {
+   "text": "Monterrey Bar on vinyl",
+   "where": "Move title, reads oddly in the Later strip",
+   "fix": "Monterrey Bar's record room"
+  },
+  {
+   "text": "No. 043/060",
+   "where": "Every compact stub on Trip (14 times in one scroll)",
+   "fix": "Drop \"/060\" on compact stubs, keeping just No. 043."
+  },
+  {
+   "text": "Send it with the plan. It opens a secret.",
+   "where": "Trip code box, TripView.svelte:97",
+   "fix": "Paste it with the plan. Unlocks a secret."
+  },
+  {
+   "text": "Pick dates between today and Dec 31.",
+   "where": "Trip empty state, TripView.svelte:102",
+   "fix": "Dates through Dec 31."
+  },
+  {
+   "text": "A sealed secret (open it in psst.)",
+   "where": "Copied plan text, TripView.svelte:28",
+   "fix": "A secret. Open it in psst."
+  },
+  {
+   "text": "Map of Miami. Dots are spots open at the chosen hour; the list has the same information.",
+   "where": "Map aria-label, MiamiMap.svelte:274 (wrong on mobile, where there is no list)",
+   "fix": "Miami map. Lit spots are open at this hour."
+  }
+ ],
+ "blockers": [
+  {
+   "issue": "The share loop is broken. The copied plan contains no link, so whoever receives it in the group chat can't open psst. The friend's-code box sits under 60 ghost stickers at the bottom of Kept, and there is no ?code= deep link.",
+   "where": "TripView.svelte:22-35 (copy), BookView.svelte:52-56 (redeem form), state.svelte.js (no URL parsing)",
+   "fix": "Append location.origin + location.pathname + '?code=' + code to the copied text. On load, read ?code=, call app.redeem, and play the seal-break plus a \"+1 secret from a friend\" toast. Move the code field to the top of Kept."
+  },
+  {
+   "issue": "The card peeking under the deck shows its title cut in half (\"ICA Miami, free\", \"Ring Panamericano's bell\", \"Mae's Room martini\") on every Today screen, mobile and desktop. It reads as a render bug on the first screen.",
+   "where": "Deck.svelte:112-116 (.under height 60px, .ub bottom 6px, .u0 translateY 8px)",
+   "fix": "Either show only the sticker in the peek (no title), or raise .u0 to translateY(16px), set .ub bottom to 2px and the stack padding-bottom to ~30px so the whole line shows."
+  },
+  {
+   "issue": "The sticker overlaps the note when the title fits on one line. The TIKI scallop covers \"anything\" on Kaona Room, and the desktop one sits on \"the\".",
+   "where": "Stub.svelte:179-181 (.title has padding-right 96px, .note has none)",
+   "fix": "Float the emblem (float:right; shape-outside: circle(50%)) so title and note both wrap around it, or give .title a min-height equal to the sticker so the note always starts below it."
+  },
+  {
+   "issue": "Events opens on \"Tonight\": two Oct 2 flyers and about 60% empty mint on mobile (75% on desktop). The friend's John Summit nights sit behind the third chip. r5 opened on \"Your stay\" with 9 events, so this is a regression.",
+   "where": "WallView.svelte:16 (default pick), desktop full-width layout",
+   "fix": "Default pick = 'stay' whenever trip.end >= today. On desktop, drop event pins on the dimmed map or cap the grid width so it doesn't float in a void."
+  },
+  {
+   "issue": "The Secret mood, the product's hook, is off-screen. MOODS has 8 entries; mobile shows 6 (Art and Secret hidden), desktop shows 7, and there is no scroll affordance.",
+   "where": "state.svelte.js:13-16, Deck.svelte:102-104",
+   "fix": "Move Secret to slot 2 with the seal icon. Shrink the buttons to 46px wide with 11px labels so all 8 fit at 390px, or add a right-edge fade plus a peeking chip."
+  },
+  {
+   "issue": "Clicking a hotel pin on the desktop Stay map highlights the pin, but the hotel card never opens.",
+   "where": "App.svelte:28 sets app.stayFocus; StayView.svelte:11 uses a local `open` and never reads it",
+   "fix": "Replace the local `open` with app.stayFocus (read and write), and scroll the matching rack into view."
+  },
+  {
+   "issue": "The desktop Trip map is a dashed line with two dots: no stickers, no time tags, no Kaseya. Half the screen is spent showing nothing.",
+   "where": "App.svelte:25-30 (pins returns [] for tab 'trip')",
+   "fix": "Map the focused day's route to pins exactly like Today (sticker plus time tag, events as a flyer chip), and number the stops 1 to 4."
+  },
+  {
+   "issue": "Desktop map pins clip at the top edge (KAIJU 10:30pm, SUNNY'S, NAOMI'S) and collide: \"6 7pm 1\" in Coconut Grove at golden hour, COYO 12:30am over TIKI in the mood view, and SETAI/FAENA/BETSY stacked on Stay.",
+   "where": "MiamiMap.svelte pin layout, App.svelte inset top:70",
+   "fix": "Clamp pins inside the inset. Show the time tag only on the active pin plus any whose boxes don't intersect (greedy, like the neighborhood labels). Cluster Stay pins into a \"4\" bubble that fans out on click."
+  },
+  {
+   "issue": "Desktop Where: the left 470px is a flat purple void, because the map mask for the left column still applies.",
+   "where": "App.svelte style .wide .mapwrap (mask linear-gradient transparent 0 470px)",
+   "fix": "Add mask: none when anyWhere, e.g. class:where={anyWhere} with .wide .mapwrap.where { mask: none }."
+  },
+  {
+   "issue": "On the desktop noon view, the first Later card is cut off on the left (\"r\u00fcs Kitchen / conut Grove\"). This was already present in r5.",
+   "where": "App.svelte .laterdock, Later.svelte .strip (scroll-snap mandatory)",
+   "fix": "Reset strip.scrollLeft = 0 when the hour changes, switch to scroll-snap-type x proximity, and add scroll-padding-left: 2px."
+  },
+  {
+   "issue": "Trip \"On during your dates\" leads with \"15 Sun Miami Book Fair 2026\", a date before arrival, so the list looks wrong.",
+   "where": "TripView.svelte:63",
+   "fix": "For multi-day events, show the first day inside the trip, or \"thru Sun 22\"."
+  },
+  {
+   "issue": "Kaona Room says \"Go Wed or Thu\" but is dealt first in Drink on a Friday night, so the app contradicts itself.",
+   "where": "moves.json kaona-room-tiki-night; rankNow / plan-check only check day words in titles",
+   "fix": "Rewrite the note to \"Go midweek\" and extend plan-check (and rankNow) to penalize notes that name other days."
+  },
+  {
+   "issue": "index.html has no link preview and no noindex. The channel is iMessage and group chats, so the friend gets a bare URL. A personal Vercel URL is also public and indexable, while DECISIONS says private link.",
+   "where": "app/index.html",
+   "fix": "Add og:title \"psst. Miami\", og:description \"The right move at the right hour.\", og:image (the golden-hour shot at 1200x630), a pineapple favicon, and <meta name=\"robots\" content=\"noindex\">."
+  }
+ ],
+ "quickWins": [
+  "Reason to use it over Google: put a Kaseya Center marker on the Trip and Stay maps and an \"~10 min to Kaseya\" chip on each hotel fob and on the John Summit night. Compute it from lat/lng and label it approximate. That answers the friend's one question.",
+  "Hotel fobs: replace the duplicated \"$\" (StayView.svelte:46) with the real sourced price (\"$160\") and put the neighborhood under the name. Add a tiny gold star for a Michelin Key.",
+  "Open the fob closest to Kaseya by default, and on entering Stay swing all fobs once with a stagger (the swing keyframe already exists; respect reduced motion). Add a stay-open view to shots.mjs; the harness never captured the hotel card.",
+  "Flyer tabs: reuse the Stub's seeded jagged clip-path and ghost-fly so tapping a tab rips it off and flies it to the Trip icon, like Keep does to Kept.",
+  "Friend code arrival (?code=): break the seal with the conic hold animation automatically, then slap a \"from a friend\" stamp using the existing slap keyframe.",
+  "Trip ticket on Today: add a countdown (\"49 days to John Summit\", then \"Doors in 3h\" on the day) instead of the static shows and stops counts.",
+  "After psst deals, slap the sticker onto the card (scale 1.7 to 1, the existing slap keyframe) with a 10ms vibrate, so the deal lands.",
+  "Stub top line: when the scrubbed hour isn't the move's best time, show \"Best at 3:05pm\" next to \"Open till 9pm\". The title says 3:05 while the clock says 1:00.",
+  "Trip: hide Keep and Go on compact stubs behind a tap, keep only Swap. Fourteen identical Keep/Go/Swap rows is the most templated-looking screen left.",
+  "Kept empty state: collapse each neighborhood to one row of ghosts plus \"+7\", so the album doesn't scroll for 3 screens before anything happens.",
+  "Use each move's verifiedOn instead of the hardcoded \"Checked Oct 2\" (Stub.svelte:141, StayView.svelte:64).",
+  "Rename the \"Upper East Side\" group. It holds Design District, Little Haiti and Little River, while the card says \"Design District\". Try \"Little Haiti to MiMo\".",
+  "At noon the sun-shade text-shadow on the hour reads like a print misregistration. Cap its offset and opacity when the sun is high.",
+  "Remove the unused gsap dependency and the duplicate BY_CAT0 map in Sticker.svelte (2 minutes, smaller bundle)."
+ ]
+}

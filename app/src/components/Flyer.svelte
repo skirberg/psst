@@ -20,7 +20,7 @@
   let box, titleEl, fit = $state({ size: 30, wdth: 100 });
   function fitTitle() {
     if (!box || !titleEl) return;
-    const W = box.clientWidth - 24; if (W <= 0) return;
+    const W = (box.clientWidth - 28) / 1.05; if (W <= 0) return;
     const words = ev.title.toUpperCase().split(/\s+/);
     const H = box.clientHeight - (box.querySelector('.num')?.offsetHeight || 0) - 60;
     const c = document.createElement('canvas').getContext('2d');

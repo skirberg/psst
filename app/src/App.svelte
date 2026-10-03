@@ -14,7 +14,7 @@
   import BookView from './components/BookView.svelte';
   import Icon from './components/Icon.svelte';
   import hotels from './lib/hotels.json';
-  import { app, trip } from './lib/state.svelte.js';
+  import { app, trip, codeFromUrl } from './lib/state.svelte.js';
   import { miamiNow, fmtHour, fmtDate, weatherFor, moves, hm } from './lib/core.js';
   import { PAPER, INK, MAMEY } from './lib/sky.js';
 
@@ -22,9 +22,17 @@
   const wx = $derived(weatherFor(app.now.date));
   const top = $derived(app.pad[app.padPos]);
   const focus = $derived(app.where || (app.tab === 'today' && top && !top.sealed ? top.m.id : null));
+  const evWord = (t = '') => { const w = t.split(':')[0].trim().split(/\s+/); return w.length === 2 ? w[1] : w[0]; };
   const pins = $derived.by(() => {
     if (!wide) return [];
     if (app.tab === 'today') return app.pad.filter((x) => !x.sealed).map((x) => ({ id: x.m.id, lat: x.m.lat, lng: x.m.lng, move: x.m, active: top?.m.id === x.m.id, tag: fmtHour(hm(x.m.best), true), label: `${x.m.title}, show this move`, onclick: () => { app.padId = x.m.id; app.flipped = null; } }));
+    if (app.tab === 'trip' && trip.days.length) {
+      const d = trip.days[Math.min(trip.focusDay, trip.days.length - 1)];
+      return d.slots.filter((s) => s.move || s.event).map((s, n) => {
+        const o = s.move || s.event;
+        return { id: 'trip-' + o.id, lat: o.lat, lng: o.lng, move: s.move || { id: o.id, hood: o.hood, category: 'music', word: evWord(o.title), place: o.venue }, active: !!s.event, tag: `${n + 1}  ${fmtHour(s.at % 24, true)}`, label: o.title || o.place };
+      });
+    }
     if (app.tab === 'stay') return hotels.map((h) => ({ id: h.id, lat: h.lat, lng: h.lng, move: { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }, active: app.stayFocus === h.id, tag: '$'.repeat(h.tier), label: h.name, onclick: () => (app.stayFocus = h.id) }));
     return [];
   });
@@ -49,6 +57,7 @@
 
   onMount(() => {
     const mq = matchMedia('(min-width: 900px)'); const set = () => (wide = mq.matches); set(); mq.addEventListener('change', set);
+    codeFromUrl();
     const tick = setInterval(() => { app.now = miamiNow(); if (app.following) app.hour = app.now.hour; }, 30000);
     return () => { clearInterval(tick); mq.removeEventListener('change', set); };
   });
@@ -58,7 +67,7 @@
 
 <div class="app" class:wide class:dark={app.dark} style={vars}>
   <a class="skip" href="#main">Skip to content</a>
-  <div class="mapwrap" class:live={wide || anyWhere} class:dim={app.tab === 'wall' || app.tab === 'book'}>
+  <div class="mapwrap" class:where={anyWhere} class:live={wide || anyWhere} class:dim={app.tab === 'wall' || app.tab === 'book'}>
     <MiamiMap bind:this={map} {pins} {route} {focus} interactive={wide || anyWhere} labels={wide || anyWhere} quiet={!wide && !anyWhere}
       inset={wide ? { left: full ? 0 : 500, top: 70, bottom: app.tab === 'today' ? 150 : 40, right: 20 } : { left: 0, top: 70, bottom: anyWhere ? 260 : 0 }} />
   </div>
@@ -123,6 +132,7 @@
   .mapwrap.dim { opacity: 0.22; }
   .mapwrap:not(.live) { -webkit-mask: linear-gradient(#000 0, #000 150px, transparent 330px); mask: linear-gradient(#000 0, #000 150px, transparent 330px); }
   .wide .mapwrap { -webkit-mask: linear-gradient(90deg, transparent 0 470px, #000 560px); mask: linear-gradient(90deg, transparent 0 470px, #000 560px); }
+  .mapwrap.where, .wide .mapwrap.where { -webkit-mask: none; mask: none; }
   .col { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px calc(env(safe-area-inset-bottom, 0px) + 104px); display: grid; align-content: start; gap: 18px; scrollbar-width: none; }
   .col::-webkit-scrollbar { display: none; }
   .wide .col { right: auto; width: 500px; padding: 26px 30px 40px; gap: 20px; }

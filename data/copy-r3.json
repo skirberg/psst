@@ -30,7 +30,7 @@
  "the-corner-4am-drink": {
   "title": "The Corner at 4am",
   "theMove": "Skip the club line. Sit at the bar. Open till 7 on weekends.",
-  "why": "A real bar when the clubs let out.",
+  "why": "The bar for after the club.",
   "word": "4AM"
  },
  "club-space-terrace-sunrise": {
@@ -41,18 +41,18 @@
  },
  "kaona-room-tiki-night": {
   "title": "Kaona Room tiki",
-  "theMove": "Go Wed or Thu. Start with anything on the house orgeat.",
-  "why": "The one tiki bar locals point to.",
+  "theMove": "Go midweek. Order anything with the house orgeat.",
+  "why": "Tiki with house-made orgeat.",
   "word": "TIKI"
  },
  "macs-club-deuce-100": {
   "title": "Mac's Club Deuce",
   "theMove": "Bring cash. Grab a stool under the neon.",
-  "why": "100 years old in 2026. The realest room on the Beach.",
+  "why": "A dive since 1926. Cash only.",
   "word": "DEUCE"
  },
  "monterrey-bar-record-room": {
-  "title": "Monterrey Bar on vinyl",
+  "title": "Monterrey Bar's record room",
   "theMove": "Friday or Saturday. Order a Paper Plane. Book on Resy.",
   "why": "A windowless room in a Belle Isle spa.",
   "word": "VINYL"
@@ -66,13 +66,13 @@
  "las-olas-305-cafecito": {
   "title": "3:05 at Las Olas",
   "theMove": "Cafecito at the window. Cubano to go for the beach.",
-  "why": "A real ventanita on the Beach.",
+  "why": "A walk-up window on the Beach.",
   "word": "CAFECITO"
  },
  "casa-rassi-pour-over": {
   "title": "Casa Rassi pour-over",
   "theMove": "Pour-over in a wine glass and the brûléed french toast.",
-  "why": "The best new coffee on the Beach.",
+  "why": "Coffee bar in a Park Ave hotel lobby.",
   "word": "POUR"
  },
  "panamericano-ring-the-bell": {
@@ -97,18 +97,18 @@
  "cafe-la-trova-back-bar": {
   "title": "Café La Trova daiquiri",
   "theMove": "Sit at the bar for the band. Order the daiquiri.",
-  "why": "Famous, and it earns it.",
+  "why": "Live Cuban band nightly. Cantinero daiquiris.",
   "word": "TROVA"
  },
  "sanguich-cubano-lunch": {
   "title": "Sanguich cubano",
   "theMove": "Before noon. Order the cubano. Eat it hot.",
-  "why": "House-cured ham. Not Versailles.",
+  "why": "House-cured ham.",
   "word": "CUBANO"
  },
  "zeyzey-bungalow-dance": {
   "title": "ZeyZey's backyard",
-  "theMove": "Fri or Sat after 11, when the yard is full.",
+  "theMove": "Weekends after 11, when the yard fills up.",
   "why": "A bungalow that feels like a house party.",
   "word": "ZEYZEY"
  },
@@ -121,7 +121,7 @@
  "magic-13-backyard-saturday": {
   "title": "Magic 13 backyard",
   "theMove": "Saturday or Sunday after noon. Table under the tree.",
-  "why": "A brewery for neighbors, not influencers.",
+  "why": "Backyard brewery, table under the tree.",
   "word": "BEER"
  },
  "sunnys-martini-at-opening": {
@@ -153,13 +153,13 @@
  "legion-park-saturday-market": {
   "title": "Legion Park market",
   "theMove": "Saturday at 9. Florida produce first.",
-  "why": "A real farmers market on the bay.",
+  "why": "Farmers market by the bay.",
   "word": "MARKET"
  },
  "lagniappe-weeknight-backyard": {
   "title": "Lagniappe on a Tuesday",
   "theMove": "Arrive 8:30. Bottle from the fridge, table under the lights.",
-  "why": "Packed Saturdays. Perfect weeknights.",
+  "why": "Quiet on weeknights.",
   "word": "LAGNIAPPE"
  },
  "zak-the-baker-early": {
@@ -171,7 +171,7 @@
  "dantes-hifi-listening-seat": {
   "title": "Dante's HiFi late seating",
   "theMove": "Book the 90-minute seat on Tock. Order wasabi peas.",
-  "why": "A listening bar about the music.",
+  "why": "Hi-fi listening bar, 90-minute seats.",
   "word": "HIFI"
  },
  "coyo-taco-back-lounge": {
@@ -184,13 +184,13 @@
  "ica-miami-free-afternoon": {
   "title": "ICA Miami, free",
   "theMove": "Book a free timed ticket. Weekday afternoon.",
-  "why": "World-class art, zero cost.",
+  "why": "Free. Closed Mon and Tue.",
   "word": "ICA"
  },
  "jass-kitchen-candlelit-jazz": {
   "title": "Jass Kitchen by candlelight",
   "theMove": "Book for 8, when the music starts.",
-  "why": "Live sets, real candles, a table you can book.",
+  "why": "Live sets by candlelight.",
   "word": "JASS"
  },
  "rubell-3pm-free-tour": {
@@ -208,7 +208,7 @@
  "the-cleat-no-name-harbor-sunset": {
   "title": "The Cleat at sunset",
   "theMove": "Get through the park gate before dusk. Table on the sand.",
-  "why": "The best sunset seat in the city.",
+  "why": "Sand tables facing west.",
   "word": "CLEAT"
  },
  "donut-gallery-teds-special": {
@@ -226,7 +226,7 @@
  "deering-estate-mangrove-morning": {
   "title": "Deering Estate mangroves",
   "theMove": "Boardwalk at 10, nature tour at 12:30.",
-  "why": "Old Miami, far from the crowds.",
+  "why": "Mangrove boardwalk on the bay.",
   "word": "DEERING"
  },
  "barnacle-house-tour": {
@@ -256,7 +256,7 @@
  "cafe-fenicia-muhammara-mixed-grill": {
   "title": "Café Fenicia, slowly",
   "theMove": "Muhammara, mixed grill, coffee brewed in hot sand.",
-  "why": "A Lebanese room built for lingering.",
+  "why": "Lebanese, coffee brewed in hot sand.",
   "word": "FENICIA"
  },
  "pho-nam-bun-bo-hue": {
@@ -268,13 +268,13 @@
  "river-oyster-bar-happy-hour": {
   "title": "$2 oysters at The River",
   "theMove": "Bar seat, 3 to 7pm. Oysters and a La Tropical.",
-  "why": "Brickell's honest seafood room.",
+  "why": "$2 oysters at the bar, 3 to 7.",
   "word": "OYSTERS"
  },
  "lung-yai-one-order-thai": {
   "title": "Lung Yai at 5",
   "theMove": "Come with everyone. Order once: som tam, khao soi.",
-  "why": "Tiny, strict and worth the rules.",
+  "why": "Whole party, one order.",
   "getIn": "No reservations. Whole party present, one order.",
   "word": "LUNG YAI"
  },
@@ -293,7 +293,7 @@
  "krus-kitchen-coconut-rice": {
   "title": "Krüs Kitchen",
   "theMove": "Natural wine. Ask if the smoked coconut rice is on.",
-  "why": "The Grove at its most grown-up.",
+  "why": "Natural-wine kitchen in the Grove.",
   "word": "KRÜS"
  },
  "hometown-bbq-beef-rib": {
@@ -323,7 +323,7 @@
  "tacos-maria-zeyzey-late": {
   "title": "Tacos María at 1am",
   "theMove": "Off the dance floor: chicharrón tacos and esquites.",
-  "why": "Real tacos till 3 on weekends.",
+  "why": "Tacos till 3 on weekends.",
   "getIn": "The truck at ZeyZey's entrance.",
   "word": "TACOS"
  },

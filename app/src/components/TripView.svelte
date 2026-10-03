@@ -25,10 +25,11 @@
       lines.push('', fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase() + (d.weather ? `  ${d.weather.hi}°${d.weather.kind === 'typical' ? ' typical' : ''}` : '') + `  sunset ${fmtHour(d.sun.set)}`);
       for (const s of d.slots) {
         const o = s.event || s.move; const locked = s.move && s.move.secret === 2 && !app.unlocked.includes(s.move.id);
-        lines.push(`${fmtHour(s.at % 24, true).padEnd(7)} ${s.event ? s.event.title + ' @ ' + s.event.venue : locked ? 'A sealed secret (open it in psst.)' : o.place + ', ' + o.hood}`);
+        lines.push(`${fmtHour(s.at % 24, true).padEnd(7)} ${s.event ? s.event.title + ' @ ' + s.event.venue : locked ? 'A secret. Open it in psst.' : o.place + ', ' + o.hood}`);
       }
     }
-    lines.push('', `Code ${code} opens a secret in psst.`, 'No refunds on sunsets.');
+    let link = ''; try { link = location.protocol.startsWith('http') && !/claude\.ai/.test(location.host) ? `${location.origin}${location.pathname}?code=${code}` : ''; } catch {}
+    lines.push('', link ? `Open it: ${link}` : `Code ${code} unlocks a secret in psst.`, 'No refunds on sunsets.');
     const text = lines.join('\n');
     try { await navigator.clipboard.writeText(text); copied = 'Copied.'; fallback = ''; }
     catch { copied = 'Select and copy:'; fallback = text; requestAnimationFrame(() => ta?.select()); }
@@ -60,7 +61,7 @@
       <div class="evs">
         {#each trip.inRange.slice(0, 14) as e (e.id)}
           <button class:on={trip.anchors.includes(e.id)} aria-pressed={trip.anchors.includes(e.id)} onclick={() => trip.toggleAnchor(e.id)}>
-            <span class="d">{fmtDate(e.date, { weekday: 'short', day: 'numeric' })}</span><span class="n">{e.title}</span>
+            <span class="d">{e.date < trip.start ? `thru ${fmtDate(e.endDate, { weekday: 'short', day: 'numeric' })}` : fmtDate(e.date, { weekday: 'short', day: 'numeric' })}</span><span class="n">{e.title}</span>
           </button>
         {/each}
       </div>
@@ -94,12 +95,12 @@
         {#if !d.slots.length}<p class="note">Travel day.</p>{/if}
       </div>
     {/each}
-    <div class="codebox"><b>{code}</b><span class="small">Send it with the plan. It opens a secret.</span></div>
+    <div class="codebox"><b>{code}</b><span class="small">Paste it with the plan. Unlocks a secret.</span></div>
     <button class="copy" onclick={copy}>Copy plan</button>
     {#if copied}<p class="note" role="status">{copied}</p>{/if}
     {#if fallback}<textarea class="fallback" readonly rows="10" bind:this={ta}>{fallback}</textarea>{/if}
   {:else}
-    <p class="note">Pick dates between today and Dec 31.</p>
+    <p class="note">Dates through Dec 31.</p>
   {/if}
 </section>
 

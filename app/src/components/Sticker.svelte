@@ -10,7 +10,7 @@
   const shape = $derived(BY_CAT0[move.category] || 'round');
   const word = $derived((move.word || move.place.split(' ')[0]).toUpperCase());
   const lines = $derived(word.length > 7 && word.includes(' ') ? word.split(' ') : [word]);
-  const shapeW = $derived({ shield: 118, ticket: 140, oval: 150, burst: 132, scallop: 134, round: 136 }[shape] || 136);
+  const shapeW = $derived({ shield: 118, ticket: 120, oval: 150, burst: 132, scallop: 134, round: 136 }[shape] || 136);
   const fs = $derived(Math.min(shape === 'shield' ? 24 : 28, shapeW / Math.max(...lines.map((l) => l.length + 0.9))));
   const SHAPES = {
     round: 'M50 4 a46 46 0 1 1 -0.01 0 Z',
@@ -20,7 +20,6 @@
     ticket: 'M6 18 H94 V40 A10 10 0 0 0 94 60 V82 H6 V60 A10 10 0 0 0 6 40 Z',
     oval: 'M50 12 C82 12 98 30 98 50 C98 70 82 88 50 88 C18 88 2 70 2 50 C2 30 18 12 50 12 Z',
   };
-  const BY_CAT = { coffee: 'round', food: 'burst', bar: 'scallop', speakeasy: 'shield', music: 'ticket', nightlife: 'ticket', water: 'oval', outdoors: 'round', art: 'oval', shop: 'round', market: 'scallop' };
 </script>
 
 <svg class="sticker" class:dim class:outline viewBox="-6 -6 112 112" width={size} height={size} style:transform="rotate({rot}deg)" aria-hidden="true">

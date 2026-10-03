@@ -11,8 +11,8 @@ export const LEANS_PER_WEEK = 3;
 const weekKey = (date) => { const d = new Date(date + 'T12:00:00Z'); const j = new Date(Date.UTC(d.getUTCFullYear(), 0, 1)); return d.getUTCFullYear() + '-' + Math.ceil(((d - j) / 864e5 + j.getUTCDay() + 1) / 7); };
 export const serialOf = (m) => moves.indexOf(m) + 1;
 export const MOODS = [
-  ['all', 'All', null], ['coffee', 'Coffee', ['coffee']], ['eat', 'Eat', ['food', 'market']], ['drink', 'Drink', ['bar', 'speakeasy']],
-  ['dance', 'Dance', ['music', 'nightlife']], ['outside', 'Outside', ['outdoors', 'water']], ['art', 'Art', ['art', 'shop']], ['secret', 'Secret', 'secret'],
+  ['all', 'All', null], ['secret', 'Secret', 'secret'], ['drink', 'Drink', ['bar', 'speakeasy']], ['eat', 'Eat', ['food', 'market']],
+  ['coffee', 'Coffee', ['coffee']], ['dance', 'Dance', ['music', 'nightlife']], ['outside', 'Outside', ['outdoors', 'water']], ['art', 'Art', ['art', 'shop']],
 ];
 
 class AppState {
@@ -95,6 +95,16 @@ class AppState {
   say(msg) { this.toast = msg; clearTimeout(this._t); this._t = setTimeout(() => (this.toast = ''), 2600); }
 }
 export const app = new AppState();
+// A friend's plan link carries ?code=PINA-XXXXX. Redeem it once on arrival.
+export function codeFromUrl() {
+  try {
+    const u = new URL(location.href), code = u.searchParams.get('code');
+    if (!code) return;
+    const r = app.redeem(code);
+    if (r === 'ok') app.say('+1 secret from a friend.');
+    u.searchParams.delete('code'); history.replaceState(null, '', u.pathname + u.search + u.hash);
+  } catch {}
+}
 
 // The visitor's stay. Inputs are state; the plan is derived from them. Inputs persist per viewer.
 const tripSaved = (() => { try { return JSON.parse(localStorage.getItem('psst.trip.v1')) || {}; } catch { return {}; } })();
