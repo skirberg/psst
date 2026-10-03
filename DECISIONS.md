@@ -29,7 +29,7 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **Stack (production):**
   - SvelteKit.
   - Supabase (Postgres + PostGIS, auth, realtime, storage). It replaces the D1 pick in the playbook, which was wrong: the core query is geo plus time.
-  - Cloudflare Pages on a personal account, never the company Vercel.
+  - Personal Vercel account for now (see Hosting, 2026-10-02), never a company team.
 - **Data rules:**
   - Every move and event carries sources and a checked date.
   - Weather is labeled forecast or typical.
@@ -124,4 +124,5 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **Code:** a private GitHub repo named psst on Sami's personal account, published from GitHub Desktop. Never on a company account.
 - **Hosting:** Sami's personal Vercel account, imported from that repo. Never a company team. vercel.json sets install, build and output, so the import needs no settings.
 - **Why Vercel for now:** the prototype is one static page, and every push redeploys with a preview URL per branch. Cloudflare Pages would serve it just as well; the choice only matters once there is a backend, and Supabase stays the backend pick then.
+- **After the first deploy:** check that og:image in the page source starts with https://. If not, turn on System Environment Variables in the project settings and redeploy.
 - **Visibility:** the URL is public but the page is marked noindex. Data is public venue information. Fonts are Google Fonts (OFL), so nothing trial-licensed ships.

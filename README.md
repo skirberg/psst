@@ -24,7 +24,7 @@ To build the single-file version: `npx vite build && node scripts/fragment.mjs`.
 |---|---|---|---|
 | UI | Svelte 5 + Vite, single file | SvelteKit | Small runtime for visitors on phones, built-in motion, and every move prerenders as its own page for search. Next.js would also work; the tie-breaker is bundle weight on 4G. |
 | Data | JSON in the bundle | Supabase (Postgres + PostGIS) | The core query is "open now, near me, matching filters," which is a geo plus time query that Postgres does natively. Supabase also gives magic-link login, realtime for group plan voting, storage for flyers, and row-level security. D1 was the wrong call in the playbook. |
-| Hosting | Claude artifact link | Cloudflare Pages (personal account) | Hosting is a commodity. Not the company Vercel. |
+| Hosting | Claude artifact link | Vercel (personal account) | Static page with a preview URL per push. Never a company team. See DECISIONS.md Hosting. |
 | Map | Canvas over OSM data | Same approach, or MapLibre + Protomaps for street-level zoom | A custom-drawn map keeps the look ours. |
 
 ## Icons

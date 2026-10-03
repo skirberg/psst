@@ -62,6 +62,7 @@ const manifest = {
   name: 'psst. Miami',
   short_name: 'psst.',
   description: 'The right move at the right hour.',
+  id: '/',
   start_url: '/',
   scope: '/',
   display: 'standalone',
