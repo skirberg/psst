@@ -21,19 +21,21 @@
   const range = $derived(`${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`);
 </script>
 
-{#if trip.days.length}
-  <button class="tripticket" onclick={() => app.setTab('trip', 'ticket')}>
+<button class="tripticket" onclick={() => app.setTab('trip', 'ticket')}>
     <span class="tt-ic"><Icon name="trip" size={22} /></span>
-    {#if next}
+    {#if !trip.days.length}
+      <span class="tt-main"><b>Your trip</b><span>Add your dates</span></span>
+    {:else if next}
       <span class="tt-main"><b>{next.label === 'Doors' ? 'Doors ' : ''}{fmtHour(next.at % 24, true)}</b><span>{next.event ? next.event.venue : next.move.place}</span></span>
     {:else}
       <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && nextShow ? `to ${nextShow.title.split(':')[0]}` : range}</span></span>
     {/if}
-    <span class="tt-n"><b>{shows}</b>{shows === 1 ? 'show' : 'shows'}</span>
-    <span class="tt-n"><b>{stops}</b>stops</span>
+    {#if trip.days.length}
+      <span class="tt-n"><b>{shows}</b>{shows === 1 ? 'show' : 'shows'}</span>
+      <span class="tt-n"><b>{stops}</b>stops</span>
+    {/if}
     <Icon name="right" size={18} />
   </button>
-{/if}
 
 {#if tonight.length}
   <section class="tonight" aria-label="On tonight">

@@ -2,7 +2,7 @@
   // Where to sleep: hotels as key fobs on a reception rack, one row per price tier.
   import Icon from './Icon.svelte';
   import hotels from '../lib/hotels.json';
-  import { app } from '../lib/state.svelte.js';
+  import { app, trip } from '../lib/state.svelte.js';
   import { km } from '../lib/core.js';
   import { onMount, tick } from 'svelte';
   import { radioKeys } from '../lib/a11y.js';
@@ -14,8 +14,10 @@
   let swing = $state(null), only = $state(0), entered = $state(false);
   const shown = $derived(TIERS.filter(([t]) => !only || only === t));
   const sel = $derived(hotels.find((h) => h.id === app.stayFocus));
-  const KASEYA = { lat: 25.7814, lng: -80.187 };
-  const toKaseya = (h) => { const d = km(h, KASEYA); return d < 1.6 ? `~${Math.max(5, Math.round((d / 4.8) * 12) * 5)} min walk to Kaseya` : `~${Math.max(10, Math.round(((0.2 + d / 26) * 60) / 5) * 5)} min to Kaseya by car`; };
+  // Distance to the first show on your trip (Kaseya for the John Summit weekend); hidden with no show.
+  const show = $derived(trip.inRange.find((e) => trip.anchors.includes(e.id) && Number.isFinite(e.lat)));
+  const short = (v) => v.replace(/\s*\(.*\)$/, '');
+  const toShow = (h) => { const d = km(h, show), v = short(show.venue); return d < 1.6 ? `~${Math.max(5, Math.round((d / 4.8) * 12) * 5)} min walk to ${v}` : `~${Math.max(10, Math.round(((0.2 + d / 26) * 60) / 5) * 5)} min to ${v} by car`; };
   const priceOf = (h) => h.nightly || (h.price.match(/\$\s?(\d[\d,]*)/) || [])[1];
   const keyed = (h) => (h.perks || []).some((p) => /michelin keys?/i.test(p)) || /michelin key/i.test(h.why || '');
   function tap(h) {
@@ -61,7 +63,7 @@
         {#if sel && sel.tier === t}
           <div class="card">
             <div class="ct"><h2>{sel.name}</h2><button class="x" onclick={async () => { const id = app.stayFocus; app.stayFocus = null; await tick(); document.getElementById('fob-' + id)?.focus(); }} aria-label="Close"><Icon name="close" size={18} /></button></div>
-            <p class="hood"><Icon name="pin" size={16} />{sel.hood}<span class="kz">{toKaseya(sel)}</span></p>
+            <p class="hood"><Icon name="pin" size={16} />{sel.hood}{#if show}<span class="kz">{toShow(sel)}</span>{/if}</p>
             <p class="move">{sel.theMove}</p>
             <p class="why">{sel.why}</p>
             {#if sel.perks?.length}<div class="perks">{#each sel.perks as p}<span>{p}</span>{/each}</div>{/if}

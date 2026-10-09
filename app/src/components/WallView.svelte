@@ -16,7 +16,7 @@
     ['weekend', 'This weekend', today, addDays(today, (7 - dowOf(today)) % 7)],
     ['stay', 'Your trip', null, null],
     ['oct', 'Oct', from('2026-10-01'), '2026-10-31'], ['nov', 'Nov', from('2026-11-01'), '2026-11-30'], ['dec', 'Dec', from('2026-12-01'), '2026-12-31'],
-  ].filter((x) => !x[3] || x[3] >= today));
+  ].filter((x) => (x[0] === 'stay' ? trip.hasDates : x[3] >= today)));
   let pick = $state(trip.end >= app.now.date ? 'stay' : 'tonight');
   const r = $derived.by(() => { const x = ranges.find((y) => y[0] === pick) ?? ranges[0]; return x[0] === 'stay' ? [x[0], x[1], from(trip.start), trip.end] : x; });
   const list = $derived(events.filter((e) => (e.endDate || e.date) >= r[2] && e.date <= r[3]));

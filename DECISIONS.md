@@ -57,7 +57,7 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **Text-led stickers:** each move's own word in Tilt Warp on a die-cut shape. Stock pictograms are gone.
 - **Tabs:** Today, Trip, Events, Stay, Kept, each with a custom icon. Stay shows hotels as key fobs on a rack, by price tier.
 - **Planner rules:**
-  - Both John Summit nights are anchored, including from the John Summit weekend preset.
+  - Strangers start with no trip (decided by Sami, 2026-10-09). The John Summit weekend, with both nights anchored, comes from the preset or the friend's link https://psst.miami/?trip=summit. A copied plan's link carries its own dates and shows.
   - A move whose note names days ("Weekday afternoon", "Friday or Saturday") only goes on those days.
   - At most 4 stops a day.
   - Every stop is within 1.5h of its best time.
@@ -80,6 +80,7 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - **Phone feel:** a vertical swipe on the tear strip or the time track scrolls the page (tear on touch starts from the No. tab); deck buttons stay put card to card; Go opens the phone's own maps app.
 - **Platform:** opens with no signal (service worker), first paint before the app script (0.3 s against 1.5 s on slow 4G), the map stops drawing when nothing moves, zero axe violations on every tab, keyboard focus never lost or hidden.
 - **Pre-ship review:** three reviewers tried to break the diff and found a blocker the dev server hides: moving the inlined script with a string replace turned every '$$' into '$' (Stay tiers and prices). Fixed with function replacers, and app/scripts/dist-check.mjs now checks the production file itself. Also fixed from that review: the late-night ticket, Later around shows without a published time, plan links held to the date inputs' bounds, the offline page never replaced by a non-HTML response, fonts cached only when they loaded.
+- **Sami's calls (2026-10-09):** strangers get a blank trip: the trip card reads "Your trip, Add your dates", Events opens on Tonight, and Stay measures to the first show on your trip, hidden when there is none. Kept opens with "Yours": what you kept, soonest best hour first, with Go and Went; the sticker book stays below it.
 - **Decisions made in this round:** "Miami" in the header; a copied plan's link carries its dates and shows, opening them only for someone with no trip of their own; the share image is the phone view on the golden sky with the wordmark; noindex extends to images and icons (X-Robots-Tag) until the experiment ends; the Michelin star marks only real Michelin Keys, with a legend.
 
 ## Rejected (do not revive)
@@ -100,9 +101,7 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - Grain or riso texture as a global overlay.
 
 ## Open questions / candidates
-- Default trip for strangers: today every first-time visitor sees the John Summit trip (ticket, Events range, Stay distances to Kaseya). Recommended: show it only to people who arrive with a plan link or set dates. Sami's call (round 4).
-- What Keep leads to: a "Yours" list at the top of Kept (best hour, Go, Went) and a small planner bonus for kept moves. Changes the sticker book, so Sami's call (round 4).
-- Hotel pin clustering on the Stay map.
+- A planner bonus for kept moves, so what you keep shows up in your trip (not chosen yet; Sami chose the Yours list on its own).- Hotel pin clustering on the Stay map.
 - PNG share of the trip strip via the artifact downloads capability.
 - A Thursday 3:05 weekend drop.
 - Local curators program.

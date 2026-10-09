@@ -107,11 +107,13 @@ export function codeFromUrl() {
     if (!code && !span) return;
     let msg = '';
     if (code) { const r = app.redeem(code); if (r === 'ok') msg = '+1 secret from a friend.'; }
-    const m = span?.match(/^(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)$/);
+    // ?trip=summit is the John Summit weekend, both nights.
+    const summit = span === 'summit';
+    const m = summit ? [span, '2026-11-20', '2026-11-24'] : span?.match(/^(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)$/);
     const real = (d) => { try { return addDays(d, 0) === d; } catch { return false; } };
     // Same bounds as the date inputs: real dates, from today, through Dec 31.
     if (m && real(m[1]) && real(m[2]) && m[2] >= m[1] && m[1] >= app.now.date && m[2] <= '2026-12-31' && !trip.saved) {
-      const ids = (u.searchParams.get('a') || '').split(',').filter((id) => events.some((e) => e.id === id));
+      const ids = summit ? events.filter((e) => e.id.includes('john-summit')).map((e) => e.id) : (u.searchParams.get('a') || '').split(',').filter((id) => events.some((e) => e.id === id));
       trip.start = m[1]; trip.end = m[2]; trip.anchors = ids; trip.persist();
       app.setTab('trip', 'link'); msg = msg ? 'Your friend\'s plan. +1 secret.' : 'Your friend\'s plan.';
     }
@@ -122,19 +124,21 @@ export function codeFromUrl() {
 }
 
 // The visitor's stay. Inputs are state; the plan is derived from them. Inputs persist per viewer.
+// A stranger starts with no dates; a friend's link (?trip=summit, or ?trip=START_END&a=IDS) fills them in.
 const tripSaved = (() => { try { return JSON.parse(localStorage.getItem('psst.trip.v1')) || {}; } catch { return {}; } })();
 class TripState {
   saved = !!tripSaved.start; // this viewer has set a trip before
-  start = $state(tripSaved.start || '2026-11-20');
-  end = $state(tripSaved.end || '2026-11-24');
+  start = $state(tripSaved.start || '');
+  end = $state(tripSaved.end || '');
   arrive = $state(tripSaved.arrive ?? 15);
   depart = $state(tripSaved.depart ?? 13);
   wild = $state(tripSaved.wild ?? 0.65);
-  anchors = $state(tripSaved.anchors || events.filter((e) => e.id.includes('john-summit')).map((e) => e.id));
+  anchors = $state(tripSaved.anchors || []);
   swaps = $state({});
   focusDay = $state(0);
-  inRange = $derived(this.end >= this.start ? eventsBetween(this.start, this.end) : []);
-  days = $derived(this.end >= this.start ? planStay({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.inRange.filter((e) => this.anchors.includes(e.id)), swaps: this.swaps }) : []);
+  hasDates = $derived(!!this.start && !!this.end && this.end >= this.start);
+  inRange = $derived(this.hasDates ? eventsBetween(this.start, this.end) : []);
+  days = $derived(this.hasDates ? planStay({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.inRange.filter((e) => this.anchors.includes(e.id)), swaps: this.swaps }) : []);
   swap(date, key) { const k = `${date}:${key}`; this.swaps = { ...this.swaps, [k]: (this.swaps[k] || 0) + 1 }; }
   toggleAnchor(id) { this.anchors = this.anchors.includes(id) ? this.anchors.filter((x) => x !== id) : [...this.anchors, id]; this.persist(); }
   persist() { this.saved = true; try { localStorage.setItem('psst.trip.v1', JSON.stringify({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.anchors })); } catch {} }

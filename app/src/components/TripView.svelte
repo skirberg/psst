@@ -16,7 +16,7 @@
     { k: 'basel', label: 'Art Basel week', start: '2026-12-03', end: '2026-12-06', anchor: (e) => e.id === 'art-basel-miami-beach-2026' },
   ]);
   const preset = $derived(presets.find((p) => p.start === trip.start && p.end === trip.end)?.k ?? 'custom');
-  const datesSet = (via) => track('Trip dates set', { nights: String(Math.max(0, daySpan(trip.start, trip.end))), via });
+  const datesSet = (via) => track('Trip dates set', { nights: trip.hasDates ? String(daySpan(trip.start, trip.end)) : '0', via });
   // Inputs persist only when someone changes them, so a visitor who only looks saves nothing.
   function use(p) { trip.start = p.start; trip.end = p.end; trip.swaps = {}; trip.focusDay = 0; trip.anchors = trip.inRange.filter(p.anchor).map((e) => e.id); trip.persist(); datesSet(p.k); }
   const ENERGY = [['low', 'Low-key', 0.3], ['mid', 'Balanced', 0.6], ['loud', 'Loud', 0.92]];
@@ -52,8 +52,8 @@
   <div class="presets">{#each presets as p}<button class:on={preset === p.k} onclick={() => use(p)}>{p.label}</button>{/each}</div>
 
   <div class="slip">
-    <label><span>Arrive</span><input type="date" id="trip-start" name="arrive" autocomplete="off" bind:value={trip.start} min={today} max="2026-12-31" onchange={() => { trip.persist(); datesSet('custom'); }} /></label>
-    <label><span>Leave</span><input type="date" id="trip-end" name="leave" autocomplete="off" bind:value={trip.end} min={trip.start} max="2026-12-31" onchange={() => { trip.persist(); datesSet('custom'); }} /></label>
+    <label><span>Arrive</span><input type="date" id="trip-start" name="arrive" autocomplete="off" bind:value={trip.start} min={today} max="2026-12-31" onchange={() => { if (trip.start && (!trip.end || trip.end < trip.start)) trip.end = addDays(trip.start, 3); trip.persist(); datesSet('custom'); }} /></label>
+    <label><span>Leave</span><input type="date" id="trip-end" name="leave" autocomplete="off" bind:value={trip.end} min={trip.start || today} max="2026-12-31" onchange={() => { trip.persist(); datesSet('custom'); }} /></label>
     <div class="stepper"><span>Landing</span><div><button onclick={() => step('arrive', -0.5)} aria-label="Land earlier">−</button><b>{fmtHour(trip.arrive)}</b><button onclick={() => step('arrive', 0.5)} aria-label="Land later">+</button></div></div>
     <div class="stepper"><span>Flight out</span><div><button onclick={() => step('depart', -0.5)} aria-label="Leave earlier">−</button><b>{fmtHour(trip.depart)}</b><button onclick={() => step('depart', 0.5)} aria-label="Leave later">+</button></div></div>
     <div class="seg" role="radiogroup" aria-label="Energy" tabindex="-1" onkeydown={radioKeys}>{#each ENERGY as [k, label, v]}<button role="radio" aria-checked={band === k} tabindex={band === k ? 0 : -1} class:on={band === k} onclick={() => { trip.wild = v; trip.persist(); }}>{label}</button>{/each}</div>
@@ -108,7 +108,7 @@
     {#if copied}<p class="note" role="status">{copied}</p>{/if}
     {#if fallback}<textarea class="fallback" readonly rows="10" bind:this={ta}>{fallback}</textarea>{/if}
   {:else}
-    <p class="note">Dates through Dec 31.</p>
+    <p class="note">Pick your dates or a weekend above. Plans run through Dec 31.</p>
   {/if}
 </section>
 
