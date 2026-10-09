@@ -3,24 +3,34 @@
   import Flyer from './Flyer.svelte';
   import Icon from './Icon.svelte';
   import { app, trip } from '../lib/state.svelte.js';
-  import { events, addDays, dowOf, fmtDate, fmtHour, hm } from '../lib/core.js';
+  import { track } from '@vercel/analytics';
+  import { events, addDays, dowOf, fmtDate, fmtHour, hm, mapsHref } from '../lib/core.js';
+  import { radioKeys } from '../lib/a11y.js';
   let { wide = false } = $props();
 
-  const today = app.now.date;
-  const ranges = [
+  // Ranges follow the clock: nothing that has already happened, and months that are over drop off.
+  const today = $derived(app.now.date);
+  const from = (d) => (d > today ? d : today);
+  const ranges = $derived([
     ['tonight', 'Tonight', today, today],
     ['weekend', 'This weekend', today, addDays(today, (7 - dowOf(today)) % 7)],
     ['stay', 'Your trip', null, null],
-    ['oct', 'Oct', today, '2026-10-31'], ['nov', 'Nov', '2026-11-01', '2026-11-30'], ['dec', 'Dec', '2026-12-01', '2026-12-31'],
-  ];
-  let pick = $state(trip.end >= today ? 'stay' : 'tonight');
-  const r = $derived.by(() => { const x = ranges.find((y) => y[0] === pick); return x[0] === 'stay' ? [x[0], x[1], trip.start, trip.end] : x; });
+    ['oct', 'Oct', from('2026-10-01'), '2026-10-31'], ['nov', 'Nov', from('2026-11-01'), '2026-11-30'], ['dec', 'Dec', from('2026-12-01'), '2026-12-31'],
+  ].filter((x) => !x[3] || x[3] >= today));
+  let pick = $state(trip.end >= app.now.date ? 'stay' : 'tonight');
+  const r = $derived.by(() => { const x = ranges.find((y) => y[0] === pick) ?? ranges[0]; return x[0] === 'stay' ? [x[0], x[1], from(trip.start), trip.end] : x; });
   const list = $derived(events.filter((e) => (e.endDate || e.date) >= r[2] && e.date <= r[3]));
   const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 3);
   let open = $state(null);
   const inStay = (e) => (e.endDate || e.date) >= trip.start && e.date <= trip.end;
   const added = (e) => trip.anchors.includes(e.id) || app.heldEvents.includes(e.id);
   function tearTab(e) {
+    if (added(e)) {
+      trip.anchors = trip.anchors.filter((x) => x !== e.id); trip.persist();
+      app.heldEvents = app.heldEvents.filter((x) => x !== e.id); app.persist();
+      app.say('Off your trip.'); return;
+    }
+    track('Event added', { trip: String(inStay(e)) });
     if (inStay(e)) { if (!trip.anchors.includes(e.id)) { trip.anchors = [...trip.anchors, e.id]; trip.persist(); } app.say(`On your trip: ${fmtDate(e.date, { weekday: 'short' })}.`); }
     else { if (!app.heldEvents.includes(e.id)) { app.heldEvents = [...app.heldEvents, e.id]; app.persist(); } app.say('Saved to Kept.'); }
   }
@@ -28,21 +38,22 @@
 
 <section class="wall" class:wide>
   <h1>Events</h1>
-  <div class="chips" role="radiogroup" aria-label="When">
-    {#each ranges as [k, label]}<button role="radio" aria-checked={pick === k} class:on={pick === k} onclick={() => (pick = k)}>{label}</button>{/each}
+  <div class="chips" role="radiogroup" aria-label="When" tabindex="-1" onkeydown={radioKeys}>
+    {#each ranges as [k, label]}<button role="radio" aria-checked={r[0] === k} tabindex={r[0] === k ? 0 : -1} class:on={r[0] === k} onclick={() => (pick = k)}>{label}</button>{/each}
   </div>
   <div class="grid">
     {#each list as e, i (e.id)}
       <article class="post" style:--r="{(hash(e.id) % 7) - 3}deg" style:--i={i}>
-        <button class="face" onclick={() => (open = open === e.id ? null : e.id)} aria-expanded={open === e.id} aria-label="{e.title}, {fmtDate(e.date, { weekday: 'long', month: 'long', day: 'numeric' })}"><Flyer ev={e} /></button>
+        <button class="face" onclick={() => (open = open === e.id ? null : e.id)} aria-expanded={open === e.id}><Flyer ev={e} /></button>
         <button class="tabs" class:torn={added(e)} onclick={() => tearTab(e)}>
           <span></span><span class="lab">{added(e) ? 'Saved' : inStay(e) ? `Add to ${fmtDate(e.date < trip.start ? trip.start : e.date, { weekday: 'short' })}` : 'Save'}</span><span></span>
         </button>
         {#if open === e.id}
           <div class="info">
             {#if e.why}<p>{e.why}</p>{/if}
-            <p class="m"><Icon name="pin" size={15} />{e.venue}{e.time ? `, ${fmtHour(hm(e.time))}` : ''}{e.price ? `, ${e.price}` : ''}</p>
-            {#if e.url}<a href={e.url} target="_blank" rel="noopener">Tickets <Icon name="external" size={14} /></a>{/if}
+            <p class="m"><Icon name="pin" size={15} />{e.venue}{e.doors ? `, doors ${fmtHour(hm(e.doors), true)}` : ''}{e.time && e.time !== e.doors ? `, show ${fmtHour(hm(e.time), true)}` : ''}{e.price ? `, ${e.price}` : ''}</p>
+            {#if e.getThere || e.bring || e.after}<dl class="tips">{#each [['Get there', e.getThere], ['Bring', e.bring], ['After', e.after]].filter((x) => x[1]) as [k, t]}<dt>{k}</dt><dd>{t}</dd>{/each}</dl>{/if}
+            <div class="links">{#if e.url}<a href={e.url} target="_blank" rel="noopener">Tickets <Icon name="external" size={14} /></a>{/if}<a href={mapsHref(e.venue, e.address, e.lat, e.lng)} target="_blank" rel="noopener">Go <Icon name="external" size={14} /></a></div>
           </div>
         {/if}
       </article>
@@ -74,8 +85,14 @@
   .torn { background: color-mix(in oklch, var(--paper) 82%, var(--mamey)); }
   .info { background: var(--paper); color: var(--ink); padding: 10px 12px 12px; display: grid; gap: 6px; font-size: 14px; }
   .info p { margin: 0; }
-  .info .m { display: flex; gap: 5px; align-items: center; font: 550 13px var(--body); color: var(--muted); }
+  .info .m { display: flex; gap: 5px; align-items: flex-start; font: 550 13px var(--body); color: var(--muted); }
   .info a { display: inline-flex; gap: 5px; align-items: center; font-weight: 650; color: var(--ink); }
+  .info .tips { margin: 0; display: grid; gap: 2px; }
+  .info dd + dt { margin-top: 6px; }
+  .info dt { font: 650 12.5px/1.45 var(--body); color: var(--muted); }
+  .info dd { margin: 0; font: 500 13.5px/1.4 var(--body); font-variation-settings: 'CASL' 1; }
+  .info .links { display: flex; gap: 18px; }
+  .info .links a { padding: 4px 0; }
   .none { margin: 0; font: 520 16px var(--body); }
   @media (prefers-reduced-motion: reduce) { .post { transition: none; animation: none; } }
 </style>

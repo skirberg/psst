@@ -1,0 +1,1014 @@
+{
+ "date": "2026-10-09",
+ "site": "https://psst.miami",
+ "method": "Three independent lenses (experience, truth, platform) audited the live site; a judge spot-checked evidence, dropped weak or duplicate findings and ranked the rest.",
+ "audits": [
+  {
+   "summary": "For the John Summit friend, the app loses track of the show when it matters: on Nov 20 at 5:30pm Today leads with Little River and Key Biscayne and never says \"Doors 7pm, Kaseya Center\", there is no Go link, transit, rideshare or bag info for Kaseya, and the Trip tab drops night 2 when the preset is tapped and forgets dates, landing time and energy on reload. For a generic visitor, the biggest problems are a John Summit trip shown to everyone, a first screen that never says Miami, Keep leading nowhere, thumb dead zones on the tear strip and time track, and deck controls that jump up to 59px between cards. Strengths: the decks fit the real hour (Coyo Taco open till 3am at 1am, The Corner at 4:30am), a stub reads in seconds, fling, psst, sealed hold, Keep and Copy plan all work, and the planner's pre-show pick (Pho Nam, 0.84 km from Kaseya) shows the data can already do this.",
+   "checked": [
+    "All scratch files are under /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/visitor/ (shots/ = my captures, std/ = shots.mjs views, *.log = run output).",
+    "Live psst.miami cold load at 390x844 (isMobile, hasTouch, DPR 2) and 1440x900, analytics aborted (1 request blocked per load), screenshots at 300ms, 1.2s, 3s and 10s: shots/live-m-*.png, shots/live-d-*.png. HTML 149 KB, DOMContentLoaded 1.6s, Tilt Warp, Recursive, League Gothic and Tilt Neon loaded, og:image is https://psst.miami/og.png, no page errors.",
+    "First-screen rule holds on the live phone view: the complete stub sits at 308 to 619px and the tab bar starts at 773px.",
+    "Live real hour was 1:08am Fri Oct 9: the deck correctly leads with Coyo Taco's back room, open till 3am, then Manolo & Rene 24/7.",
+    "Faked Miami clock (Date override) for Oct 9 at 8am and 6pm, Nov 20 at 10am, 5:30pm and 11:30pm, Nov 21 at 1am, Nov 22 at noon and Nov 24 at 9am: shots/d-*.png and d-dates.log. Scrubbed to 4:30am the deck is The Corner at 4am, La Sandwicherie, Mac's Club Deuce, Ted's, Manolo: right for the hour.",
+    "Gestures sent through Chrome's real touch input: a left fling on the face goes to the next card, a vertical swipe on the face scrolls the page, a diagonal swipe goes to the next card. Arrows work. psst deals vary (4,7,4,6,8,9,6,4 over 8 taps). Holding the sealed card 1.3s opens it with the toast 'Opened.' Keep flies to Kept, sets the badge to 1 and shows 'Kept. No. 031.'",
+    "Moods counted at 9am, 3pm, 8pm and 2am. Empty states show 'Show everything'. Dragging the track by touch scrubs the hour (8pm to 6:45pm).",
+    "Trip: presets, date inputs, landing steppers, energy, Swap (Pho Nam on Flagler to $2 oysters at The River), Copy plan writes the clipboard (full text in e-trip.log). The plan puts dinner 0.84 km from Kaseya before doors. Desktop route map runs Pho to Summit to Coyo (std/desktop-trip.png).",
+    "Events filters: Tonight 1, This weekend 3, Your trip 9, Oct 11, Nov 15, Dec 15. 'Add to Fri' shows 'On your trip: Fri.' and the flyer info panel opens (shots/f2-event-open.png).",
+    "Stay: price tiers, fob swing, card, Book and On the map. The Elser card says '~5 min walk to Kaseya'. Kaseya walk or drive lines checked for all 18 hotels.",
+    "Kept code box: a malformed code, a valid-format code, the same code in lowercase ('Already used.') and a code with a disallowed character.",
+    "Kaseya facts come only from kaseyacenter.com pages (A-Z Guide, Directions & Parking, FAQ), read through search extracts. Those pages are about 1 to 2 years old and need a recheck before Nov 20.",
+    "Repo untouched (git status clean). Dev server on 5191 stopped. One Chrome at a time, closed in finally."
+   ],
+   "findings": [
+    {
+     "id": "JS1",
+     "severity": "high",
+     "title": "On show day, Today ignores the show",
+     "who": "The John Summit friend on Nov 20 and 21, and any visitor with an event on their trip",
+     "evidence": "Clock set to Nov 20 at 5:30pm (shots/d-nov20-1730-0.png and -1.png). Top card is 'Sunny's at 5:15' in Little River, whose note says 'At the door by 5:15' when it is already 5:30. The deck also includes The Cleat on Key Biscayne. The trip ticket reads 'Today / Nov 20 to Nov 24' with no doors time or venue. The John Summit flyer is 4th in Tonight, off screen to the right, behind two Book Fair flyers and Chris Lorenzo. Later offers 7pm Double Luck and 8pm Jass Kitchen, both during the show. The data has 7 moves within 2 km of Kaseya (Manolo & Rene 0.62 km, The Corner 0.78, Pho Nam 0.84, Cafe Fenicia 0.97, Kaona Room 1.17, The River 1.60), but only the Trip tab uses them.",
+     "fix": "TodayExtras.svelte: (1) add const day = $derived(trip.days.find((d) => d.date === app.now.date)) and const next = $derived(day?.slots.find((s) => s.at >= 24 || s.at % 24 >= app.now.hour - 0.25)). When next exists, the ticket shows <b>{next.event ? 'Doors ' + fmtHour(next.at % 24, true) : fmtHour(next.at % 24, true)}</b><span>{next.event ? next.event.venue : next.move.place}</span>, so it reads 'Doors 7pm / Kaseya Center', or '6pm / Pho Nam' before that. Keep the shows and stops counts. (2) Sort Tonight with anchored events first: add .sort((a, b) => trip.anchors.includes(b.id) - trip.anchors.includes(a.id)) before .slice(0, 4). (3) state.svelte.js later: on a day with an anchored show, drop items between doors minus 1h and doors plus 4h.",
+     "effort": "M",
+     "decision": false
+    },
+    {
+     "id": "JS2",
+     "severity": "high",
+     "title": "No way to get to Kaseya, and no bag rule, anywhere in the app",
+     "who": "The John Summit friend, and every visitor going to a show",
+     "evidence": "The Trip event slot offers only 'Tickets' (e-trip.log: 'Tickets | Tickets'; std/mobile-trip-scrolled.png). The flyer info panel has the why line, 'Kaseya Center, 7:00pm' and Tickets (shots/f2-event-open.png). Neither has a Go or map link for the venue. Every visible field in moves, events and hotels was searched for metromover, metrorail, airport, uber, lyft, rideshare, bag policy, dress code and parking. The only hits are parking notes for Matheson and the Barnacle, 'free parking' at the Vagabond and 'free Metromover' at EAST. Nothing covers getting from MIA, getting home after the show, or bags. kaseyacenter.com (A-Z Guide, Directions & Parking, FAQ) says: bags up to 10 x 6 x 2 in; Binbox lockers on the South Plaza above Gate 7 from $10, from 1h before doors to 1h after the show; rideshare at Bayshore Dr and HEAT Blvd, use Gate 6; Metrorail to Government Center, then the Omni Loop to Park West; Metromover runs 5am to midnight, sometimes to 1am after events. Some event pages override the bag size (Drake listed 14 x 14 x 6).",
+     "fix": "data/events.json, both john-summit records: add \"getThere\": \"Metromover Omni Loop to Park West. Rideshare drops at Bayshore Dr and HEAT Blvd, Gate 6.\", \"bring\": \"Bags up to 10 x 6 x 2 in. Lockers by Gate 7 from $10.\", \"after\": \"Metromover runs till midnight.\". Add the kaseyacenter.com A-Z guide, directions-parking and event page as sources, with a checked date. Recheck the John Summit event page for a tour-specific bag size before Nov 20. Render these as up to three one-line notes in TripView.svelte .ev-t and WallView.svelte .info. Add a Go link next to Tickets in the Trip event slot, using Stub.svelte's maps URL pattern with e.venue + ' ' + e.address. Do not add what-to-wear copy: nothing sources it. Run sync-data.mjs.",
+     "effort": "M",
+     "decision": false
+    },
+    {
+     "id": "JS3",
+     "severity": "high",
+     "title": "Trip drops night 2 and forgets the friend's inputs on reload",
+     "who": "The John Summit friend, and anyone who sets real dates or flight times",
+     "evidence": "e-trip.log. A fresh load anchors both nights. Tapping 'This weekend' and then 'John Summit weekend' leaves only 'night 1', because the preset anchors only the Nov 20 event (TripView.svelte: e.id.includes('john-summit') && e.date === '2026-11-20'). That contradicts DECISIONS Planner rules: 'Both John Summit nights are anchored.' Second bug: I set Leave to Nov 23, landing to 4pm and energy to Loud, then reloaded. Everything went back to Nov 24, 3pm and Balanced, and localStorage psst.trip.v1 was null. persist() is called only in toggleAnchor (state.svelte.js), contradicting DECISIONS Engineering: 'Trip inputs ... persist.' The preset highlight is local $state('summit'), so it would also claim 'John Summit weekend' over custom dates.",
+     "fix": "TripView.svelte: set the summit preset to anchor: (e) => e.id.includes('john-summit'). Add $effect(() => { trip.start; trip.end; trip.arrive; trip.depart; trip.wild; trip.anchors; trip.persist(); }). Replace let preset = $state('summit') with const preset = $derived(presets.find((p) => p.start === trip.start && p.end === trip.end)?.k ?? 'custom'). Add a plan-check.mjs assertion that the summit preset anchors 2 events.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "GV1",
+     "severity": "high",
+     "title": "Every visitor gets a stranger's John Summit trip",
+     "who": "Locals, Art Basel visitors, and anyone opening a shared link",
+     "evidence": "Live cold load (shots/live-m-scroll1.png, shots/live-d-3s.png): a first-time visitor who set nothing sees the ticket '42 days to John Summit, 2 shows, 14 stops'. Events opens on 'Your trip' (Nov 20 to 24) instead of tonight (std/mobile-wall.png), because WallView picks 'stay' whenever trip.end >= today. Every Stay card measures to Kaseya (f-tabs.log: '~25 min to Kaseya by car' for Esme and others). The defaults are hardcoded in state.svelte.js TripState (start '2026-11-20', John Summit anchors).",
+     "fix": "state.svelte.js: default start, end and anchors to empty unless saved, or unless the URL has ?trip=summit (Sami sends the friend psst.miami/?trip=summit, and codeFromUrl() applies the summit preset). TodayExtras.svelte: with no dates, the ticket reads <b>Your trip</b><span>Add your dates</span>. WallView.svelte: let pick = $state(trip.start && trip.end >= today ? 'stay' : 'tonight'). StayView.svelte: measure to the first anchored venue on the trip and name that venue; hide the line when nothing is anchored.",
+     "effort": "M",
+     "decision": true
+    },
+    {
+     "id": "GV2",
+     "severity": "medium",
+     "title": "First screen never says Miami or what psst does",
+     "who": "First-time visitors, especially friends in another time zone",
+     "evidence": "Live phone view at 1:08am (shots/live-m-3s.png): the wordmark, 'Fri, Oct 9 86°', a big 1:08am clock, the sky track, 8 mood icons, a Coyo Taco stub and the psst button. The word Miami appears nowhere on screen. The promise exists only in the meta description ('The right move at the right hour in Miami.'). The clock shows Miami time but says so only in its aria-label. Nothing shows the track can be dragged, and the 6 blue rain ticks around 2 to 5pm are explained only by a title attribute, which touch never shows. Desktop is the same (shots/live-d-3s.png). What does land within 10 seconds: the stub is an obvious recommendation (place, open till 3am, what to do, Keep, Go).",
+     "fix": "App.svelte header: <span>Miami, {fmtDate(app.now.date, ...)}</span>, which reads 'Miami, Fri Oct 9'. TimeHead.svelte lede(): when there is no psst.v2 in storage and app.following is true, return 'Drag the sun. The deck follows.' It uses the empty lede slot and stops after the first scrub. Check it against 'No explanatory footers' before shipping.",
+     "effort": "S",
+     "decision": true
+    },
+    {
+     "id": "GV3",
+     "severity": "medium",
+     "title": "Keep leads nowhere",
+     "who": "Every visitor who keeps moves; it is also the experiment's 'kept 3 or more' metric",
+     "evidence": "With one kept move (Coyo, Wynwood), Kept opens on the code box and then two pages of grey ghost slots (Little Havana 0/5, Downtown and Brickell 0/10) before the kept sticker appears (shots/h1-kept.png). The 59 ghost slots are plain spans, not buttons (f-tabs.log: ghosts 59, buttons 1), so a visitor cannot find out what No. 015 DOMINO is. planStay in core.js never reads app.kept, so moves kept on Today never shape the trip.",
+     "fix": "BookView.svelte: when app.kept.length > 0, add a 'Yours' page above the neighborhood pages listing each kept move (Sticker, title, best hour, Go link, Went toggle). With nothing kept, show one line: 'Tear a stub to keep it.' Make ghost slots buttons that open the move (app.where = m.id), except sealed ones. core.js planStay: take a kept list and add if (kept.includes(m.id)) sc += 0.6 to the ranking; TripState passes app.kept.",
+     "effort": "M",
+     "decision": true
+    },
+    {
+     "id": "G1",
+     "severity": "high",
+     "title": "Thumb dead zones on Today: tear strip and time track",
+     "who": "Every phone visitor scrolling Today",
+     "evidence": "a-gestures run, touch sent through Chrome's real input pipeline. A vertical swipe that starts on the tear-off strip (y 534 to 596 on the first screen, full card width) does not scroll: scrollTop stays 0, because .tearoff has touch-action: pan-x. Dragging down 120px on the same strip keeps the move (kept became ['jass-kitchen-candlelit-jazz']), so pulling to scroll back up tears the stub by accident. A vertical swipe that starts on the time track (touch-action: none, y 160 to 194) jumps the hour from 8:00pm to 12:00pm. For comparison, fling and vertical scroll on the card face both behave correctly.",
+     "fix": "Stub.svelte: .tearoff { touch-action: pan-y } and .tearoff .no { touch-action: none; cursor: grab }, and in pullStart add if (!e.target.closest('.no')) return;. Drag-to-tear moves to the serial tab and the rest of the strip scrolls; the accepted tear gesture stays. TimeHead.svelte: .track { touch-action: pan-y }. For pointerType 'touch', set the hour on pointerup only if the finger moved less than 8px, and start scrubbing only once horizontal movement exceeds vertical by 8px.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "G2",
+     "severity": "medium",
+     "title": "Deck controls jump up to 59px between cards",
+     "who": "Phone visitors tapping Next or psst repeatedly",
+     "evidence": "b-controls and c-today runs. Centre y of the Next arrow, card by card: at 8pm 679, 702, 651 (sealed), 672, 672, 702; at 11:30pm 743, 743, 692, 720, 743, ..., 751. Stub heights range from 265 to 344px (9am 312 to 344, 11:30pm 265 to 321). After a 51 to 59px jump, a second tap on the 44px arrow misses.",
+     "fix": "Deck.svelte: .stack { min-height: 374px; } (the tallest stub, 344px, plus 30px padding). Stub.svelte: .sealed { min-height: 312px }, so the sealed card matches a normal stub. The controls then stay put at 390px.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "G3",
+     "severity": "medium",
+     "title": "Planner puts moves on days their own note rules out",
+     "who": "The John Summit friend reading the plan; it undermines trust",
+     "evidence": "e-trip.log plan for Nov 20 to 24: Sat Nov 21 at 2pm is 'ICA Miami, free', whose note says 'Weekday afternoon.' (shots/e4-after-dayhead.png). Mon Nov 23 at 10pm is 'Monterrey Bar's record room', whose note says 'Friday or Saturday.' noteDays() is used in rankNow (core.js:129), but planStay checks only titleDays (core.js:241), and plan-check.mjs has no note-day check.",
+     "fix": "core.js planStay pool filter, after the titleDays line: const nd = noteDays(m); if (nd && !nd.includes(dowAt)) return false;. Add the same assertion to scripts/plan-check.mjs.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "G4",
+     "severity": "medium",
+     "title": "Secret mood shows the same deck as All",
+     "who": "Visitors who tap Secret and see nothing change",
+     "evidence": "i-secret run: the Secret deck is identical to All (same ids, 9 cards) at 6pm, 8pm and 11:30pm, and has equal counts at 9am and 3pm. 36 of 60 moves have secret >= 1, and the filter is x.m.secret >= 1 || speakeasy (state.svelte.js pad).",
+     "fix": "state.svelte.js pad filter: cats === 'secret' ? x.m.secret === 2 || x.m.category === 'speakeasy'. That leaves up to 10 moves. Hours with none fall back to the existing empty state with 'Show everything'. No new chips.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "G5",
+     "severity": "medium",
+     "title": "Go always opens Apple Maps, including on Android",
+     "who": "Android visitors: Go is the main action on every stub",
+     "evidence": "Stub.svelte line 303: <a class=\"go\" href={apple}>. The captured href is https://maps.apple.com/?q=Jass%20Kitchen&ll=25.817736,-80.19172. The back face repeats it as an 'Apple Maps' pill.",
+     "fix": "Stub.svelte: const goHref = $derived(/iPhone|iPad|Macintosh/.test(navigator.userAgent) ? apple : google), used on .go. Same switch on the first pill in Where.svelte.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "G6",
+     "severity": "medium",
+     "title": "Tap targets under 44px on frequent controls",
+     "who": "Phone visitors",
+     "evidence": "Measured at 390px: More 53x25 and Back 52x25 on the stub, Swap 57x27 on Trip, the hotel card close button 26x26, event tear-tab row 35 to 41px tall, source links 15px tall. These pass: Keep 72x44, Go 55x44, arrows 44x44, moods 50x62, tab bar 76x55.",
+     "fix": "Stub.svelte and TripView.svelte: .more, .b-close, .swap { position: relative } plus ::after { content: ''; position: absolute; inset: -10px -4px }, a 45px hit area with no layout change. StayView.svelte: .x { width: 44px; height: 44px; display: grid; place-items: center }. WallView.svelte: .tabs span { padding: 14px 2px 15px }.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "G7",
+     "severity": "medium",
+     "title": "Copied plan link doesn't carry the plan",
+     "who": "Friends receiving the plan in a group chat",
+     "evidence": "The clipboard text ends 'Open it: http://localhost:5191/?code=PINA-8MUGX' (e-trip.log step 11). codeFromUrl() only redeems the code, so the person receiving it opens psst on its default trip, not the days they were sent.",
+     "fix": "TripView.svelte copy(): append &trip=${trip.start}_${trip.end}&a=${trip.anchors.join(',')} to the link. state.svelte.js codeFromUrl(): when trip and a are present and valid, set trip.start, end and anchors, then setTab('trip').",
+     "effort": "M",
+     "decision": true
+    },
+    {
+     "id": "L1",
+     "severity": "low",
+     "title": "Michelin Key star is wrong twice, and nothing explains it",
+     "who": "Visitors choosing a hotel",
+     "evidence": "keyed() in StayView.svelte matches /michelin/i on any perk. Carillon gets the gold star for 'Michelin-star dinner' (shots/g2-stay-carillon.png) and Esme for 'Michelin-selected' (std/mobile-stay.png), but DECISIONS says Esme lost its Key listing. No legend says what the star means.",
+     "fix": "StayView.svelte: const keyed = (h) => (h.perks || []).some((p) => /michelin keys?/i.test(p));. In .rl, append <span>★ Michelin Key</span> when the row contains a keyed hotel.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "L2",
+     "severity": "low",
+     "title": "Trip day header does nothing visible on phone",
+     "who": "Phone visitors on Trip",
+     "evidence": "shots/e3-before-dayhead.png vs shots/e4-after-dayhead.png: the button labelled 'Show Saturday on the map' only moves the mamey underline. The route map exists only at 900px and wider.",
+     "fix": "TripView.svelte: below 900px, make the day header open the full-screen map with that day's route (a new app.whereDay feeding the existing Where layer and map.fitPoints(route)). Otherwise remove the aria-label's map claim on phone.",
+     "effort": "M",
+     "decision": false
+    },
+    {
+     "id": "L3",
+     "severity": "low",
+     "title": "Flipped card hides its sources line",
+     "who": "Visitors checking where a tip comes from",
+     "evidence": "Back face scrollHeight 237 vs clientHeight 207 at 390px. std/mobile-today-flip.png shows no 'Checked Oct 2' line: it sits inside a nested scroller in a card that also flings.",
+     "fix": "Stub.svelte back face: drop the 'Apple Maps' pill (Go already opens maps). 'On the map' and 'Google Maps' then fit on one row and the Checked line shows.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "L4",
+     "severity": "low",
+     "title": "Saved event can't be undone on Events",
+     "who": "Visitors who add an event by mistake",
+     "evidence": "Tapping 'Saved' again repeats the toast 'On your trip: Fri.' and the tab stays Saved (f-tabs.log). Removing it is only possible from the Trip chips.",
+     "fix": "WallView.svelte tearTab(): if added(e), remove it from trip.anchors and app.heldEvents, persist, and say 'Off your trip.'",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "L5",
+     "severity": "low",
+     "title": "Empty-state copy reads oddly for some moods",
+     "who": "Visitors filtering at off hours",
+     "evidence": "Deck.svelte builds 'Nothing ' + mood label lowercased + ' open at <hour>'. Counts show Drink is empty at 9am and Dance at 9am, which gives 'Nothing drink open at 9am.' and 'Nothing dance open at 9am.'",
+     "fix": "Deck.svelte: map moods to nouns for this line, {drink: 'drinks', eat: 'food', dance: 'dancing', outside: 'outdoors', art: 'art', coffee: 'coffee', secret: 'secret'}, which gives 'Nothing drinks open at 9am.' or better 'No drinks open at 9am.'",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "L6",
+     "severity": "low",
+     "title": "En dash in flyer date ranges",
+     "who": "Project copy rule",
+     "evidence": "Flyer.svelte line 18 joins the two days with an en dash, so the Book Fair flyers render 15 en dash 22 and 20 en dash 22 (std/mobile-wall.png). CLAUDE.md bans en dashes in copy.",
+     "fix": "Flyer.svelte line 18: use a hyphen, `${day}-${fmtDate(ev.endDate, { day: 'numeric' })}`.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "L7",
+     "severity": "low",
+     "title": "Header temperature is the day's high, from a week-old forecast",
+     "who": "Visitors checking the weather at night",
+     "evidence": "At 1:08am the header shows 86° (the day's high) while weather.json hourly for Oct 9 at 1am is 83°. weather.json was fetched 2026-10-02, so from Oct 18 every day falls back to typical values.",
+     "fix": "App.svelte: {wx.hourly?.[Math.floor(app.hour)]?.[0] ?? wx.hi}°. Rerun scripts/weather.mjs before each deploy.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "L8",
+     "severity": "low",
+     "title": "Any made-up PINA code adds a secret",
+     "who": "The weekly secret limit; the group-chat code loses meaning",
+     "evidence": "Redeeming the invented 'PINA-ABCDE' gave '+1 secret.' and raised '3 secrets this week' to 4 (f-tabs.log). 'PINA-ABCD1' is rejected with 'Try PINA-XXXXX.' and no hint that 0, 1, I and O are never used.",
+     "fix": "TripView.svelte code: make the 5th character a checksum of the first 4 (A[(sum of their indexes) % 32]). state.svelte.js redeem(): reject codes whose checksum fails with 'That code doesn't match.'",
+     "effort": "S",
+     "decision": false
+    }
+   ]
+  },
+  {
+   "summary": "Biggest problems: the weather baked on Oct 2 is still shown as today's forecast (an unlabeled 86° and six 43% rain ticks, while the live model says 25% max), and on Oct 14 to 16 it will flip the deck into rain mode on a two week old forecast, cutting the 10am deck from 18 cards to 9; Rawayana added a third Kaseya night (Fri Dec 4) on Oct 7 that the site lacks; and Headache (Sun Nov 22, doors 8pm, ends midnight) has no time, so the planner sends trip visitors at 11:30pm. Strengths: both John Summit nights are exact (Kaseya: Fri Nov 20 and Sat Nov 21, doors 7pm, show 8pm, on sale), all 35 places in the default plan and the 6pm and 11pm decks are open and 33 match their own published hours (AZ.85 omits Wednesday, Dante's HiFi publishes none), the Nov 20 to 24 sunsets match USNO, and the 42 day countdown is right today. Of 358 source links only one link users can see is dead (La Casita's parked domain), and no past event shows anywhere today, though the Nov chip will list past events during the trip itself and the default plan sends people to Monterrey Bar on a Monday and ICA on a Saturday, against what their own cards say.",
+   "checked": [
+    "Method: read DECISIONS.md (incl. Rejected), BRIEF.md, core.js, state.svelte.js, App/TodayExtras/WallView/TripView/TimeHead/BookView/Stub. Repo untouched (git status clean at end); all scratch in /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/truth/. Dev server on 5192 killed.",
+    "Links: 358 unique URLs from moves/events/hotels (url + sources), GET one at a time, 1 per second, Chrome UA, redirects followed manually (linkcheck.jsonl, linkcheck.log). 320 OK, no redirect to a generic homepage, no soft 404, no parked domain except La Casita. 31 blocked by bot walls and not judged broken: floridastateparks.org (7), kaseyacenter.com (4, readable via WebFetch), songkick (3), ra.co (2), miamibeachconvention (2), greystonehotel (2), hauteliving, exploretock, naomismiami, onlyinyourstate, axios, ticketmaster, jambase, lennoxmiamibeach, landofbasketball, expedia, thesetaihotel. maesmiami.com and chuggiesmiami.com timed out once, then returned 200 on recheck.",
+    "Live site: curl of https://psst.miami (no JS) shows the bundle equals repo data (Oct 9 forecast row code 51 hi 86 rain 43, Rawayana still Dec 5, 'Checked Oct 2, 2026', og:image https://psst.miami/og.png, noindex). One headless load of psst.miami with request interception; the only analytics request (/_vercel/insights/script.js) was aborted.",
+    "John Summit: kaseyacenter.com/events/detail/john-summit lists Fri Nov 20 and Sat Nov 21, doors 7:00PM, show 8:00PM, On Sale Now, Ticketmaster 0D0064B2B883819E and 0D0064B3A9E1800A; independent: TickPick Nov 21 8:00 PM, 19hz both nights 8pm, Songkick both dates. Data (19:00, labeled Doors in the plan) is correct.",
+    "Events Oct 9 to Dec 7, own source plus one independent: Black Country New Road Oct 9 8pm (Bandshell + TickPick, doors 7), Igor Marijuan Oct 10 10pm $24.25 (19hz), Salsa Fest Oct 11 5pm, III Points Oct 16 to 17 Mana Wynwood, Satellite Four Tet b2b Floating Points b2b Daphni Oct 17 11pm, Scofield Oct 24 8pm, Seafood Slam Oct 24 1 to 5pm from $160, Bomba y Plena Oct 25 5pm, Bad Gyal Oct 28 8pm, Viernes Culturales Oct 30 and Nov 27 (official site and Miami and Beaches: last Friday, noon till late, through Nov 27), Halloweek Oct 31 11pm, Rocky Horror Nov 1 7pm (doors 6), Roda de Samba Nov 7 8pm, Carl Cox + Carlita Nov 14 11pm, Book Fair Nov 15 to 22 and Street Fair Nov 20 to 22 (prices match), Jack White Nov 17 and 18 8pm, Chris Lorenzo Nov 20 11pm, Madre Cumbia Nov 20 8pm (doors 7), Buena Vista Orchestra Nov 21 8pm (doors 7), Fernando Olaya Nov 21 10pm $24.25, NADA Dec 1 to 5, Design Miami public Dec 2 to 6 (Dec 1 invite only), Untitled Dec 2 to 6, Pinta Dec 3 to 6, Art Basel Dec 4 to 6, Music On Dec 4 11pm $40+. All still on, none sold out or moved. Corrections only for Rawayana and Headache (findings).",
+    "808 Life: clubspace.com has pages for both Fri Nov 6 and Sat Nov 7 (doors 11pm, from $10); the DICE event page (the seller) is titled Nov 7, so the data date stands (finding T15).",
+    "Places: the 14 stops of the default John Summit plan (plan-check.mjs) plus app.ranked top 15 at 6pm and 11pm on Fri Oct 9 (the pad itself shows 9), 35 places in total. Each one confirmed open on its own site or published hours JSON. Hours match data for Phở Nam, Coyo Taco (lounge 9pm to 2/3am), ICA, Rubell (3pm tour Wed to Sun), Café Fenicia, ZeyZey, Broken Shaker, Double Luck, Bar Kaiju, Las Olas, Mae's (walk-ins only), La Casita (Time Out), Monterrey Bar, Domino Park, Sunny's, The Cleat, Katana, Conventillo, Locura Marina (Thu closes 5pm, matches), Vinya, Krüs, Naomi's, Fiorito, Hometown, Swizzle, Saxony (Thu to Sat 10pm to 3am), Mangrove, Panamericano, Manolo & Rene (24/7), Tacos María, Café La Trova, Mac's Club Deuce (8am to 5am, cash). Exceptions: AZ.85 (T13), Dante's HiFi (T14). No closures found.",
+    "Weather: weather.json fetched 2026-10-02 (data/raw mtime Oct 2 16:12); build does not re-bake. Live Open-Meteo pulled Oct 9 for comparison (openmeteo-live.json). Typical values from Oct 18 on are labeled typical and plausible.",
+    "Sunsets: app shows 5:30pm Nov 20 to 23 and 5:29pm Nov 24 (calc); USNO API gives 17:30 for Nov 20, 22 and 24. Within one minute (truncation), fine. Today's 6:58pm sunset matches the live Open-Meteo value.",
+    "Countdown: live trip ticket reads '42 days to John Summit'; Oct 9 to Nov 20 is 42 days. Correct today.",
+    "Past events: none of the Oct 2 to 3 events (Andy Stott, Thundercat, Âme) appear in any live Today or Wall view today. Dev time travel to Nov 21 shows the Nov chip problem (T8) and Kept problem (T12)."
+   ],
+   "findings": [
+    {
+     "id": "T1",
+     "severity": "high",
+     "title": "A 7 day old forecast is shown as today's weather and switches the deck into rain mode",
+     "who": "Everyone opening psst Oct 9 to 17, locals and early visitors; the header and time slider are on the first screen",
+     "evidence": "app/src/lib/weather.json was baked 2026-10-02 and the build never re-bakes it. Live bundle has Oct 9 as code 51 (drizzle), hi 86, rain 43%. Live header reads 'Fri, Oct 9 86°' with no forecast label, and the time slider draws six '43% rain' ticks from 3pm to 8pm (scratch live-today.png). Open-Meteo today: overcast, 86/79, max 25%, so no tick should show. Oct 14/15/16 are baked at 52/65/62% vs live 12/24/29%. On Oct 15 at 10am the baked 64% sets app.wet, rankNow drops every non-rainOk move: 9 cards instead of 18, losing The Barnacle, Matheson atoll pool, Morning dominoes, the 1825 lighthouse and Deering mangroves; Oct 16 9am: 5 instead of 14. planStay treats rain >= 45 as wet, so Oct 10 (baked exactly 45) and Oct 14 to 16 plan as rain days. The typical fallback cannot simply replace it as is: typical 'wet' is the share of wet days (60 for Oct 9), and rainAt feeds it into the same >= 50 rain switch.",
+     "fix": "app/src/lib/core.js: (1) in weatherFor use only forecast rows within 4 days of the bake: const fc = weather.days.find((d) => d.date === date && daySpan(weather.fetched, d.date) <= 4); (daySpan is already defined above). (2) rainAt: const w = weatherFor(date); return w?.hourly ? (w.hourly[Math.floor(h) % 24]?.[1] ?? w.rain) : 0; so climate averages never switch on rain mode. (3) planStay: const wet = w?.kind === 'forecast' && (w.rain ?? 0) >= 45; Leave sunFor on the baked sunrise and sunset (verified accurate). app/src/App.svelte line 82: label both kinds, {wx.hi}° {wx.kind === 'typical' ? 'typical' : 'forecast'}. Today the header then reads '84° typical' until the next bake.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T2",
+     "severity": "medium",
+     "title": "Weather never refreshes after deploy",
+     "who": "Every visitor from now on; after Oct 17 the whole site runs on climate averages only",
+     "evidence": "vercel.json buildCommand is 'npm run build --prefix app' = 'vite build' only. app/scripts/weather.mjs reads data/raw/forecast.json, which is gitignored (data/raw/ in .gitignore), so it cannot run on Vercel, and it hardcodes fetched:'2026-10-02'. The baked forecast covers Oct 2 to 17 only.",
+     "fix": "Add app/scripts/weather-fetch.mjs: GET Open-Meteo with the same parameters as data/raw/forecast.json (lat 25.7729, lng -80.1983, daily weather_code, temperature_2m_max, temperature_2m_min, precipitation_probability_max, sunrise, sunset, uv_index_max; hourly temperature_2m, precipitation_probability, weather_code; fahrenheit; America/New_York; 16 days), rewrite days, hourly and fetched (today) in src/lib/weather.json, keep typical, and keep the committed file if the fetch fails. app/package.json: \"build\": \"node scripts/weather-fetch.mjs && vite build\". Then a daily rebuild through a Vercel Deploy Hook created in the vercel.com dashboard (personal SK scope) and called by a daily schedule. Build-time fetch keeps the no-fetch-at-runtime rule. Record the choice in DECISIONS.md (Data rules).",
+     "effort": "M",
+     "decision": true
+    },
+    {
+     "id": "T3",
+     "severity": "medium",
+     "title": "Rawayana added a third Kaseya night, Fri Dec 4",
+     "who": "Art Basel week visitors (the second test case, preset Dec 3 to 6) and locals",
+     "evidence": "kaseyacenter.com/news, item dated Wed Oct 7 2026: 'RAWAYANA ANNOUNCE THIRD NIGHT OF \"¿DÓNDE ES EL AFTER? WORLD TOUR\" COMING TO KASEYA CENTER'. The detail page lists 'Friday, December 4 - Sunday, December 6, 2026', new show on sale Fri Oct 9 at 10:00 a.m. Data: date 2026-12-05, endDate 2026-12-06; the live Dec chip shows 'Saturday, December 5'. Live Nation, TickPick and EventWorld still list only Dec 5 and 6, so aggregators had not caught up today.",
+     "fix": "data/events.json, rawayana-kaseya-center-2026-12-05: set \"date\": \"2026-12-04\", keep the id and \"endDate\": \"2026-12-06\" (saved anchors in localStorage reference the id), add source https://www.kaseyacenter.com/news/detail/rawayana-announce-third-night-of-donde-es-el-after-world-tour-coming-to-kaseya-center. Then cd app && node scripts/sync-data.mjs.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T4",
+     "severity": "medium",
+     "title": "Headache (Nov 22) has no time, so the plan puts an 8pm show at 11:30pm",
+     "who": "John Summit weekend visitors: Nov 22 is inside the default trip and the Wall's Your trip chip offers 'Add to Sun'",
+     "evidence": "clubspace.com/shows/headache-22nd-nov-the-ground-miami-miami-tickets: Sunday Nov 22, The Ground, doors 8:00 PM, ends Monday 12:00 AM, from $20, 18+. concerts50 also lists 8:00 PM. Data has no \"time\" and category club, so planStay starts it at 23.5. planStay with Headache anchored prints '11:30pm Late ★ Headache' on Nov 22, after the room is almost closed.",
+     "fix": "data/events.json, headache-the-ground-2026-11-22: add \"time\": \"20:00\", set \"category\": \"concert\" (the planner then labels it Doors 8:00pm and blocks 8pm to midnight), replace the source \"https://dice.fm/venue/the-ground-miami-qkma (seen via search excerpt; direct fetch 403)\" with \"https://www.clubspace.com/shows/headache-22nd-nov-the-ground-miami-miami-tickets\". Then node scripts/sync-data.mjs.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T5",
+     "severity": "medium",
+     "title": "Default plan books two stops on days their own cards rule out",
+     "who": "The John Summit visitor following the default Trip plan",
+     "evidence": "plan-check.mjs: Sat Nov 21 2:00pm 'ICA Miami, free' whose card says 'Book a free timed ticket. Weekday afternoon.'; Mon Nov 23 10:00pm 'Monterrey Bar's record room' whose card says 'Friday or Saturday. Order a Paper Plane. Book on Resy.' noteDays() parses these to Mon to Fri and Fri, Sat, but planStay's pool filter only checks titleDays(); noteDays is used only by rankNow.",
+     "fix": "app/src/lib/core.js, planStay pool filter, right after `const td = titleDays(m); if (td && !td.includes(dowAt)) return false;` add `const nd = noteDays(m); if (nd && !nd.includes(dowAt)) return false;`. Tested on a scratch copy: Sat Nov 21 becomes Rubell's 3pm tour, Mon Nov 23 night becomes Swizzle then Mac's Club Deuce, both John Summit nights unchanged. Re-run plan-check.mjs.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T6",
+     "severity": "medium",
+     "title": "Phở Nam is the night 1 pre-show dinner but needs booking weeks ahead",
+     "who": "John Summit visitor: the plan's 6pm Fri Nov 20 stop before doors",
+     "evidence": "Axios Miami review dated Oct 2 2026 (axios.com/local/miami/2026/10/02/pho-nam-miami-downtown-tam-tam-restaurant): the reviewer booked three weeks out for a 5pm table and still found a line. phonammia.com has a Reservations page; hours Thu to Sun 5 to 10pm match data. The card says only 'Viet pizza, then bún bò huế. Thu to Sun.'",
+     "fix": "data/moves.json, pho-nam-bun-bo-hue: \"theMove\": \"Book weeks ahead. Viet pizza, then bún bò huế. Thu to Sun.\" (noteDays still parses Thu to Sun) and add the Axios URL to sources. Then sync-data.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T7",
+     "severity": "medium",
+     "title": "'The Cleat at sunset' tops the deck an hour after November sunset",
+     "who": "Nov 20 to Dec 7 visitors using Today in the evening",
+     "evidence": "rankNow for Sat Nov 21: The Cleat is #1 of 38 at 6:30pm and #1 at 7:00pm (#2 at 5pm and 6pm). Sunset is 5:30pm (app and USNO). Florida State Parks: Bill Baggs is open '8 a.m. until sundown'. Data best is 18:30, and the card itself says 'Get through the park gate before dusk.'",
+     "fix": "data/moves.json, the-cleat-no-name-harbor-sunset: \"best\": \"17:00\" (30 minutes before the Nov sunset, still before the Oct sunset of about 6:55pm). Then sync-data.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T8",
+     "severity": "medium",
+     "title": "Month chips list past events during the trip",
+     "who": "Visitors during Nov 20 to 24 and Art Basel week, and locals from Nov 2 on",
+     "evidence": "Fine today: live chips start at Oct 9, no past event visible. Dev server with now set to Sat Nov 21: the Nov chip opens with Rocky Horror Nov 1, 808 Life Nov 7, Roda de Samba Nov 7, Carl Cox Nov 14 and Jack White Nov 17, each with a live Save tab (scratch dev-nov21-wall-Nov.png); the Oct chip still shows and reads 'Nothing on those dates yet.' (dev-nov21-wall-Oct.png). Cause: WallView.svelte ranges start at fixed '2026-11-01' and '2026-12-01', and `const today = app.now.date` is read once, not reactive.",
+     "fix": "app/src/components/WallView.svelte: const today = $derived(app.now.date); const from = (d) => (d > today ? d : today); ranges as ['nov', 'Nov', from('2026-11-01'), '2026-11-30'] and ['dec', 'Dec', from('2026-12-01'), '2026-12-31'], then .filter((x) => !x[3] || x[3] >= today) so a finished month's chip disappears. Make ranges a $derived so it follows the clock.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T9",
+     "severity": "low",
+     "title": "Countdown counts to the trip start, not the show it names",
+     "who": "Anyone who arrives before the show, and the Art Basel preset",
+     "evidence": "Right today: '42 days to John Summit'. With trip start Nov 18 the ticket reads '40 days to John Summit' (scratch dev-ticket-nov18.png); the show is 42 days out. Art Basel preset (start Dec 3, first event Dec 4) computes 55 days to a show 56 days out. On the day before, the label reads '1 days'. TodayExtras.svelte line 11 uses trip.start.",
+     "fix": "app/src/components/TodayExtras.svelte: import daySpan from core.js; const daysTo = $derived(daySpan(app.now.date, firstShow?.date ?? trip.start)); and render `${daysTo} ${daysTo === 1 ? 'day' : 'days'}`.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T10",
+     "severity": "low",
+     "title": "Event times mix doors and show",
+     "who": "Anyone reading flyers or the Trip plan for concerts",
+     "evidence": "John Summit time 19:00 is doors (Kaseya: doors 7PM, show 8PM), so the flyer and Wall info read 7pm with no 'doors'. Bandshell times are show starts (Madre Cumbia and Buena Vista: doors 7pm, show 8pm per Miami and Beaches), yet planStay labels every timed concert 'Doors', so a Bandshell show appears as 'Doors 8:00pm'.",
+     "fix": "data/events.json: add optional \"doors\": John Summit both nights \"doors\": \"19:00\", \"time\": \"20:00\"; Madre Cumbia and Buena Vista Orchestra \"doors\": \"19:00\". core.js planStay: st = e.doors ? hm(e.doors) : e.time ? hm(e.time) : (club ? 23.5 : show ? 19.5 : 14); label = e.doors ? 'Doors' : e.time && ['concert', 'sports'].includes(e.category) ? 'Show' : (club ? 'Late' : 'All day'). WallView info: `${e.venue}${e.doors ? `, doors ${fmtHour(hm(e.doors))}` : ''}${e.time ? `, show ${fmtHour(hm(e.time))}` : ''}`.",
+     "effort": "M",
+     "decision": false
+    },
+    {
+     "id": "T11",
+     "severity": "low",
+     "title": "La Casita card links to a parked domain; notes are left inside 7 source URLs",
+     "who": "Anyone flipping the La Casita card (Nov 23 dinner in the default plan); bundle hygiene",
+     "evidence": "The card's back shows the first two sources. La Casita sources[0] https://lacasitacubancuisine.com/ fails TLS (tlsv1 unrecognized name); http serves a GoDaddy lander (window.location.href=\"/lander\"). The restaurant itself is open, and Time Out hours match the data. Verifier notes sit inside URL strings: la-casita sources[3] and [4], marcs-bianca-normandy-isle [3] (resolves to New Times 'Best Bar (Broward)'), fernando-olaya [2], [4], [5] (dice one returns 404), headache [1] (404). They ship in the live HTML.",
+     "fix": "data/moves.json la-casita-vaca-frita: \"sources\": [\"https://www.timeout.com/miami/restaurants/la-casita\", \"https://www.theinfatuation.com/miami/reviews/la-casita-restaurant\"]. Strip the parenthetical notes from the other five (marcs becomes https://www.miaminewtimes.com/best-of-miami/2026/eat-and-drink/best-pizza-40556981, which resolves to 'Best Pizza | Marc's Artisanal Pizza'). Then sync-data.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T12",
+     "severity": "low",
+     "title": "Kept lists saved events after they happen",
+     "who": "Repeat users and locals who save flyers",
+     "evidence": "Dev with heldEvents set: Kept shows 'Saved events' with 'Oct 2: Andy Stott & Carrier, The Ground (Club Space)' on Oct 9, no past marking. BookView.svelte line 12 filters by id only.",
+     "fix": "app/src/components/BookView.svelte line 12: const held = $derived(events.filter((e) => app.heldEvents.includes(e.id) && (e.endDate || e.date) >= app.now.date));",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T13",
+     "severity": "low",
+     "title": "AZ.85 hours leave out Wednesday",
+     "who": "Wednesday night users; it is a sealed secret at 11pm",
+     "evidence": "biltmorehotel.com Biltmore Bar page: Wednesday and Thursday 4pm to 12am, Friday and Saturday 4pm to 1am. Data windows: Thu 16:00 to 00:00, Fri and Sat 16:00 to 01:00. Only Miami New Times (2026) names AZ.85 as a room; the hotel page mentions 'AZ-85 Old Fashion' only as a cocktail.",
+     "fix": "data/moves.json az85-poker-chip-biltmore: first window \"days\": [3, 4]. Then sync-data.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T14",
+     "severity": "low",
+     "title": "Dante's HiFi hours could not be confirmed",
+     "who": "Late-night deck users (#12 at 11pm) and the This weekend plan (Fri 11pm)",
+     "evidence": "Data: Sun, Tue, Wed 7pm to 2am; Thu to Sat 7pm to 3am. danteshifi.com lists no hours, Tock returns 403 to fetches, Time Out (Dec 2021) says Thu to Sat 7pm to 2am and Sun 7pm to 1am, and World's 50 Best says Wed to Sun.",
+     "fix": "Check exploretock.com/danteshifi in a normal browser. If it matches Time Out, set windows to [{\"days\": [0], \"from\": \"19:00\", \"to\": \"01:00\"}, {\"days\": [4, 5, 6], \"from\": \"19:00\", \"to\": \"02:00\"}] and update verifiedOn.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "T15",
+     "severity": "low",
+     "title": "808 Life has two official pages, Nov 6 and Nov 7",
+     "who": "Anyone who opens the sources",
+     "evidence": "clubspace.com has live pages for Fri Nov 6 (doors 11pm, ends Sat 7am) and Sat Nov 7 (doors 11pm, ends Sun 5am), both from $10. The DICE event page (the seller) is titled 'Nov 7'. Data date Nov 7 stands.",
+     "fix": "data/events.json 808-life-dj-assault-dj-godfather-the-ground-2026-11-07: remove the '6th-nov' clubspace URL from sources and keep the DICE and 7th-nov URLs.",
+     "effort": "S",
+     "decision": false
+    }
+   ]
+  },
+  {
+   "summary": "The biggest gaps are on the platform side. With no signal, the saved home-screen app opens Chrome's offline error page; a first visit on a throttled phone shows nothing (a white frame at night) until the whole 460 KB bundle has run, and a stalled Google Fonts request holds the app for as long as it stalls (8.1 s in a 6 s stall test); and the canvas map spends 12 to 14 percent of a throttled core redrawing frames where nothing moves. Keyboard users lose focus under the mobile tab bar (12 stops fully hidden on Trip) and back to the top of the page after Keep, deck arrows, opening a secret and closing the map, and og.png reads as a tiny desktop screenshot in chat previews; on the plus side, every link-preview bot gets complete absolute tags, all four aliases 308 to psst.miami keeping ?code and #trip, reduced motion is respected, CLS stays at 0.001, analytics fire exactly once per action, and the offline, first-paint and tab-bar focus fixes below were verified before being proposed.",
+   "checked": [
+    "Method: live psst.miami tested with puppeteer-core, with analytics requests ('/_vercel/insights', 'va.vercel-scripts.com') aborted on every page. State-controlled tests ran on a dev server on port 5193 with a private dep cache (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/vcfg/vite.config.mjs), because the three reviewers' servers were overwriting each other's dependency cache in app/node_modules/.vite (Vite returned 504 Outdated Optimize Dep). Fix trials ran on scratch copies of the app (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/fb-asis, fb-fonts, fb-fontsonly, fb-full), served brotli q4 (146 KB, close to Vercel's 149 KB) by /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/serve.mjs on 127.0.0.1:5293. Repo untouched (git status clean); servers stopped.",
+    "Perf numbers are ranges because two other reviewers ran Chrome on the same 8 GB laptop during the runs; single numbers would mislead.",
+    "Live cold load, DevTools Slow 4G (562.5 ms RTT, 1.44 Mbps) + 4x CPU: TTFB 0.28 to 0.49 s, HTML done 1.67 to 1.81 s, FCP = LCP 3.3 to 3.5 s (LCP element p.note on the stub), long tasks 0.6 to 1.6 s in the first 5 s (largest 518 to 1381 ms), CLS 0.0008 to 0.001, 11 requests, 376 to 414 KB (HTML 146 KB br; fonts 208 to 245 KB: Recursive 102 to 139, Tilt Warp 67, Tilt Neon 21, League Gothic 18). With Lighthouse-like settings (150 ms RTT, 1.6 Mbps): FCP = LCP 1.9 to 2.6 s (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/live-slow4g.json, live-slow4g-2.json, live-lh-1.json, live-lh-2.json).",
+    "Font subsetting: no saving available. XROT/YROT (Wordmark lean), CASL, MONO and weights 400 to 750 are all used, so Recursive at 102 to 139 KB is the cost of the accepted type decision. Google Fonts CSS is cached 'private, max-age=86400'.",
+    "Map geometry: delta-encoding geo.json saves only 4 KB brotli (40.3 down to 36.4 KB); Vite already embeds it as JSON.parse; not worth the change (analysis of /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/live-raw.html). buildLayers costs about 4 ms of main thread at load (rasterization happens off the main thread).",
+    "The map draw loop already stops on visibilitychange (MiamiMap.svelte onMount). Panning on desktop is smooth at 4x CPU: median and p95 frame 16.7 to 16.8 ms, 42.5% busy.",
+    "Reduced motion: under prefers-reduced-motion no CSS or WAAPI animation runs on any tab except a 500 ms emblem 'stick' after psst (Deck.svelte) and a 200 ms fob transform transition (StayView.svelte); StayView scrollIntoView still uses behavior 'smooth' (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/rm.mjs). Map cars, wave and pulse stop; only the redraw cost remains (see the map finding).",
+    "axe-core 4.10.2 at 390 wide on 15 states (all tabs, flipped stub, sealed, Where, open flyer, open hotel, day and night) reports only 'region' (moderate, .mapwrap outside landmarks), plus 'nested-interactive' and 'skip-link' in Where (both in findings). The 15 Stay and 2 Trip-night color-contrast hits are false positives: axe reads the sky behind color-mix() chips and SVG fobs, and /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/axe-stay.png and /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/axe-trip-night.png show readable text (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/axe.json).",
+    "Contrast on all 7 skies: the repo's contrast-check.mjs gives a worst primary text contrast of 4.60:1 (passes). A scan of every text node that sits on the sky, on 5 tabs x 7 skies, found only the two labels in the dusk finding (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/skytext.mjs).",
+    "Focus visibility: the 3px outline in the text color is visible on sky and paper, day and night, including map pins (ring on .lift) (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/kbd-more-night.png, kbd-mood-night.png, kbd-desktop-pin.png).",
+    "Sharing: facebookexternalhit/1.1, Twitterbot/1.0, WhatsApp/2 and Slackbot all get HTTP 200 with og:title 'psst. Miami', og:description, absolute og:image https://psst.miami/og.png (200, image/png, 1200x630, 175,322 bytes, under WhatsApp's 300 KB), og:image width and height, and twitter:card summary_large_image. The tags sit in the first 2 KB, so crawlers that read only the start of the page still find them. ?code= URLs get the same HTML (cache HIT).",
+    "Shared links: https://psst-miami.vercel.app/?code=PINA-REDIR#trip and https://psst.miami/?code=PINA-LIVE2#trip both land on https://psst.miami/#trip with Trip open and the toast '+1 secret from a friend.'. The code is stripped from the URL, a repeat code is silent, lowercase is accepted and a malformed code is dropped (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/redir.mjs, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/va.mjs). Copied plan text ends with 'Open it: <origin>/?code=PINA-XXXXX'.",
+    "Redirects: psst.ooo, www.psst.ooo, psst-miami.vercel.app and psst-omega.vercel.app all 308 to https://psst.miami keeping path and query; http to https is 308; /index.html 308s to /.",
+    "robots.txt and sitemap.xml return 404, which is correct while noindex holds: crawlers must fetch the page to see the meta tag, and a 'Disallow: /' would hide it. A sitemap is pointless under noindex.",
+    "Caching: the HTML is 'public, max-age=0, must-revalidate' with an ETag, and a second load got a 304 (no body). HSTS with a 2-year max-age is present.",
+    "Manifest: parses with no errors, Chrome reports no installability errors, id '/', display standalone, icons 192, 512 and maskable.",
+    "Analytics: with window.va stubbed, every action fires exactly once; nothing fires on load or on re-tapping the current tab (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/va.mjs).",
+    "Not tested: real iOS Safari or iMessage (the og preview is a size simulation), screen readers (only the Chrome accessibility tree was checked), and the Vercel Analytics beacon under the proposed CSP (aborted by rule).",
+    "An empty app/node_modules/.vite-temp directory exists (Vite creates it on every start, including the other reviewers' servers); left in place."
+   ],
+   "findings": [
+    {
+     "id": "offline-no-service-worker",
+     "severity": "high",
+     "title": "Saved home-screen app opens the browser's offline error page with no signal",
+     "who": "Anyone opening psst from the home screen in a club, on the beach or roaming without data, which is exactly when they need tonight's move.",
+     "evidence": "Live psst.miami has 0 service worker registrations, and an offline reload rendered Chrome's ERR_INTERNET_DISCONNECTED dino page (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/offline.mjs, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/offline-reload.png). Fix verified on a scratch build of the same source (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/fb-full, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/swverify2.mjs): after Network.clearBrowserCache and going offline, a reload rendered the deck with all four font families served from the service worker cache. The offline link /?code=PINA-OFFLN#trip opened Trip with '+1 secret from a friend.' (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/sw-offline-full.png).",
+     "fix": "Add app/public/sw.js with the content of /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/fb-full/public/sw.js. What it does: (1) Precaches '/', /site.webmanifest, /favicon.svg, /icon-192.png and /apple-touch-icon.png. icons.mjs always emits these; addAll fails the whole install if one returns 404. (2) Page loads go to the network first. After 4 s, or with no signal, they fall back to the cached '/', and to the pending network response if nothing is cached. (3) Same-origin files and fonts.googleapis.com and fonts.gstatic.com are served from the cache first. Opaque responses are stored too, because the font CSS link is no-cors. (4) It never touches /_vercel/. Register it in app/src/main.js after mount: if (import.meta.env.PROD && 'serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {})). With skipWaiting plus clients.claim, a new deploy takes over on the next open, which is fine for one static file; bump V when the precache list changes. Record it under Hosting in DECISIONS.md.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "first-paint-blank",
+     "severity": "medium",
+     "title": "First visit shows nothing (white at night) until the whole bundle runs; a slow Google Fonts request holds the entire app",
+     "who": "First-time visitors arriving from the group-chat link on a phone with weak signal, the main distribution channel; night visitors get a white flash before the navy screen.",
+     "evidence": "Live, Slow 4G + 4x CPU: the HTML is done at 1.67 to 1.81 s but FCP = LCP is 3.3 to 3.5 s. The filmstrip shows no paint until about 2.3 s, then the full app at once (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/filmstrip.png). Live with fonts.googleapis.com stalled 6 s: app in DOM after 6.47 s (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/fontstall.mjs). Scratch builds, Slow 4G + 4x, 3 runs each plus a 6 s CSS stall (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/variants-asis.json, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/variants-fonts.json, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/variants-full.json, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/var-compare.png). As built: FCP 1.76 to 2.01 s with a white frame before the night screen, and 7.7 to 8.1 s with the CSS stalled. Non-blocking font CSS alone: FCP 1.88 to 2.55 s (no gain), stalled 1.72 s. Full fix: first paint 0.67 to 0.76 s (sky plus wordmark), LCP 1.70 to 2.40 s (unchanged), stalled first paint 0.68 s and LCP 1.70 s, CLS 0.0006 to 0.001. Flyer titles fit identically (28px/80%) in every variant.",
+     "fix": "Ship all four changes together. The font change alone does not speed up a normal load (it only removes the stall), so do not ship it by itself. Files used in the trial: /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/fb-full/index.html, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/fb-full/src/main.js, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/fb-full/vite.config.mjs, /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shell-sky.js. (1) app/index.html: each Google Fonts link becomes <link rel=\"stylesheet\" href=\"(same URL)\" media=\"print\" onload=\"this.media='all'\">. (2) app/index.html: change the app div to <div id=\"app\"><div class=\"boot\" aria-hidden=\"true\"><span>psst</span></div></div>. In head, add the style .boot{position:fixed;inset:0;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px;font:400 34px/0.9 'Tilt Warp','Arial Rounded MT Bold',system-ui,sans-serif;letter-spacing:-0.02em}. Right after the theme-color meta, add the inline script in /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shell-sky.js. It picks the sky color for the current Miami hour from a 12-month sunrise and sunset table taken from the app's own sunFor(), switching halfway between the sky.js stops. It sets the html background, the text color and theme-color. Checked: Nov 20 at 6:30pm gives dusk #834791, 5:12pm golden, 7:12pm night; Jul 15 at 7:30pm golden. (3) app/src/main.js: const target = document.getElementById('app'); target.replaceChildren(); mount(App, { target }). In App.svelte's existing $effect that sets document.body.style.background, also set document.documentElement.style.background = app.sky; otherwise the load-time color stays visible in iOS overscroll. (4) app/vite.config.js, after viteSingleFile(): { name: 'script-last', enforce: 'post', generateBundle(_, bundle) { for (const f of Object.values(bundle)) if (f.fileName.endsWith('.html') && typeof f.source === 'string') { const m = f.source.match(/<script type=\"module\"[^>]*>[\\s\\S]*?<\\/script>/); if (m) f.source = f.source.replace(m[0], '').replace('</body>', m[0] + '</body>'); } } }, so the shell reaches the phone before the 412 KB script. It is still one HTML file, and fragment.mjs keeps working because it copies the body as is.",
+     "effort": "M",
+     "decision": false
+    },
+    {
+     "id": "map-redraws-idle",
+     "severity": "medium",
+     "title": "The canvas map redraws 60 times a second even when nothing on it moves, including under reduced motion and behind paper",
+     "who": "Phone battery and heat: for everyone by day, for reduced-motion users at all hours, and on Events and Kept, where the map sits at 22% opacity under paper.",
+     "evidence": "Dev server, 390x844, 4x CPU, 5 s idle (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/map-baseline.mjs). Noon on Today: 13.8% main thread busy with the loop running vs 0.2% with it stopped after one paint. Reduced motion: 11.9% vs 0.1%. 10:30pm: 22.2% vs 1.0% (the cars are intended motion). Events tab at 10:30pm with the map dimmed under paper: 22.9%; desktop 1440 at night, idle: 35.4% (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/map-cpu.json). Live at 1am on Today: 21 to 27% at 4x (idle block in /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/live-slow4g.json). GPU work to clear and redraw the full screen each frame comes on top and is not counted.",
+     "fix": "app/src/components/MiamiMap.svelte: draw only when something changes. Keep let dirty = true and a kick() that requests a frame only when none is pending and the page is visible. Set dirty and call kick from one $effect that reads app.hour, app.sky, app.unlocked, pins, route, focus, inset, labels and quiet. Also call it from the pointer and wheel handlers, flyTo steps, resize and fonts.ready. In loop(), request the next frame only while something animates: !reduce && ((d > 0.25 && !paused) || waveStart || (!quiet && focus) || route.length > 1), or within 200 ms of lastInteract; otherwise set raf = 0. Add a paused prop that App.svelte sets to app.tab === 'wall' || app.tab === 'book' (the .dim states). Expected, based on the stopped-loop measurement: about 0.2% idle by day and under reduced motion, about 1% on Events and Kept at night, and Today at night unchanged.",
+     "effort": "M",
+     "decision": false
+    },
+    {
+     "id": "glow-reparses-hours",
+     "severity": "low",
+     "title": "Every map frame re-parses opening hours from 'HH:MM' strings for all 60 moves",
+     "who": "Phone CPU during load and whenever the map animates at night.",
+     "evidence": "Dev, 4x CPU, first 2.5 s of load (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/load-fn.mjs): the map's frame() took 231 ms in total, of which glow() took 127 ms. hm() is the hottest JS function at 95 ms of its own time (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/load-profile.mjs). openAt is 3.5 to 4.3% of all samples in every idle state (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/map-cpu.json). glow() calls openAt 3 times per move per frame, and openAt splits the time strings on every call.",
+     "fix": "app/src/lib/core.js: parse once at module load (for every move window set w.f = hm(w.from) and w.t = hm(w.to)) and read w.f and w.t in openAt and closesAt. app/src/components/MiamiMap.svelte: keep the glow values in an array keyed by `${dow}:${h}` and recompute only when the hour or day changes.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "focus-under-tabbar",
+     "severity": "medium",
+     "title": "Keyboard focus lands hidden under the mobile tab bar (WCAG 2.2 AA 2.4.11)",
+     "who": "Keyboard and switch users on phones and narrow windows, mostly on Trip and Events.",
+     "evidence": "/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/obscured.mjs at 390x844: Trip has 12 Tab stops fully hidden behind the tab bar (Keep, Go, Swap) and 4 more partly hidden; Events has 3 fully hidden ('Add to Fri'); Today has 1 partly hidden. /private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/kbd-hidden-trip.png shows focus on Keep with no visible ring. With the CSS below injected, no stop is hidden or partly hidden on Today, Trip, Events or Kept.",
+     "fix": "app/src/App.svelte: add scroll-padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); to .col, and scroll-padding-bottom: 40px; to .wide .col.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "focus-lost-after-actions",
+     "severity": "medium",
+     "title": "Focus falls back to the top of the page after Keep, deck arrows, opening a secret and closing the map; the Where dialog does not hold focus",
+     "who": "Keyboard and screen reader users, who lose their place and have to tab back through the header, slider and eight moods.",
+     "evidence": "/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/kbd.log (dev, 390 wide). ArrowRight on the deck changes 2/8 to 3/8, and focus goes to the page body (BODY in the log). Enter on Keep shows 'Kept. No. 017.' and focus goes to BODY. Enter twice on a sealed secret unlocks it, and focus goes to BODY. Escape in Where closes it, focus goes to BODY, and the next Tab lands on the hour button at the top. Closing the Stay card: focus goes to BODY. Inside Where (role=dialog, aria-modal=true), Tab goes from Google Maps to BODY, then to the skip link and the OSM link outside the dialog. axe flags skip-link because #main is not rendered while Where is open (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/axe.json).",
+     "fix": "app/src/components/Deck.svelte go(d): if focus was inside .stack, await tick() then focus '.stack .more' (or '.stack .stub.sealed'). app/src/components/Stub.svelte tear(): after app.keep, give the .ripped stamp tabindex=\"-1\" and focus it so screen readers hear 'Kept No. 017'. Stub.svelte open(): after a successful unlock, await tick() then focus `#front-${m.id} .more`. app/src/App.svelte leaveWhere(): remember app.where before clearing it, then await tick() and focus `#back-${id} .pill` or '.stack .more'; the button that opened Where is unmounted while Where is open, so it cannot be refocused directly. Render the skip link only when Where is closed. app/src/components/Where.svelte: on Tab and Shift+Tab inside .where, wrap focus between the Back button and the last link. app/src/components/StayView.svelte close button: after clearing app.stayFocus, focus `#fob-${id}`.",
+     "effort": "M",
+     "decision": false
+    },
+    {
+     "id": "radio-and-slider-keys",
+     "severity": "low",
+     "title": "Radio groups ignore arrow keys and the time slider ignores Home and End",
+     "who": "Keyboard and screen reader users: screen readers announce 'radio button, 1 of 8', so users press the arrow keys.",
+     "evidence": "/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/kbd.log: ArrowRight on the 'All' mood leaves both focus and mood on All. Tab stops per group: moods 8, Stay price 5, Trip energy 3, Events 'When' 6. Slider: ArrowRight moves 13.00 to 13.25 and PageUp to 14.25, but End stays at 14.25.",
+     "fix": "Deck.svelte, StayView.svelte, TripView.svelte, WallView.svelte: give only the selected option a Tab stop (tabindex={on ? 0 : -1}) and add one keydown on each role=\"radiogroup\" that moves selection and focus with ArrowLeft, ArrowRight, Home and End. Alternatively, drop role=\"radio\" and use aria-pressed buttons inside role=\"group\". TimeHead.svelte key(): Home calls app.scrubTo(0), End calls app.scrubTo(23.75).",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "map-pins-and-dom-order",
+     "severity": "low",
+     "title": "Map pins are hidden from screen readers and come first in Tab order on desktop; the mobile tab bar comes last",
+     "who": "Screen reader users on desktop and in the Where view; keyboard users on phones who want to switch sections.",
+     "evidence": "axe flags nested-interactive (serious) on div.map role=img in Where (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/axe.json). Chrome's accessibility tree on desktop shows only the image 'Miami map. Lit spots are open at this hour.' although 9 buttons and links sit inside it (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/kbd-shots.mjs). Desktop Tab order: skip link, OSM credit, 7 pins, then the section tabs. On mobile Today it takes 27 Tab presses to reach the section tab bar (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/kbd.log).",
+     "fix": "app/src/components/MiamiMap.svelte: move role=\"img\" and the aria-label from div.map to the canvas, and make div.pins role=\"group\" aria-label=\"Moves on the map\". app/src/App.svelte: put .mapwrap after <main> in the DOM and the mobile <nav class=\"tabbar\"> before <main>. Both are absolutely positioned, so nothing moves on screen, and the skip link then jumps past the tabs.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "dusk-label-contrast",
+     "severity": "low",
+     "title": "Two small labels dip under 4.5:1 on the dusk sky",
+     "who": "Low-vision users around 7:40pm in October (and at the matching minutes on other dates).",
+     "evidence": "A scan of every text node that sits on the sky, on 5 tabs x 7 skies (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/skytext.mjs), found everything at 4.5:1 or above except two labels: Trip slot labels (.when span, 12px, opacity 0.8) at 4.21:1 and the mood labels (.lb, 12px, opacity 0.85) at 4.53:1, both at 19:40 on Oct 9 (sky #8B4F90). At opacity 0.92 both reach 5.0:1.",
+     "fix": "app/src/components/TripView.svelte line 140: change the .when span opacity from 0.8 to 0.92. app/src/components/Deck.svelte line 112: change the .lb opacity from 0.85 to 0.92.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "og-stale-chips-and-tags",
+     "severity": "low",
+     "title": "Share image shows a stale date and 'Now' chip; og:url, og:site_name and og:image:alt are missing",
+     "who": "Everyone who receives a psst link; screen reader users in apps that read og:image:alt.",
+     "evidence": "/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/og.png (fetched from live): 'Fri, Oct 2 86°' and 'Now 8:14pm' sit beside the 6:33pm clock. Bot fetches return no og:url, og:site_name or og:image:alt; X falls back to the og tags for title, description and image.",
+     "fix": "app/scripts/og.mjs, before the screenshot: await p.addStyleTag({ content: '.top .today, .nowchip { visibility: hidden !important; }' }). app/index.html: add <meta property=\"og:url\" content=\"__SITE__/\">, <meta property=\"og:site_name\" content=\"psst.\"> and <meta property=\"og:image:alt\" content=\"psst. Miami at golden hour: the clock, a move and the map.\">. Regenerate og.png on the dev server before deploying.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "og-composition",
+     "severity": "medium",
+     "title": "The share image reads as a tiny desktop screenshot in iMessage and WhatsApp",
+     "who": "Friends receiving a plan in the group chat: the preview is their first impression of psst and their reason to tap.",
+     "evidence": "/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/shots/og-preview-sim.png renders og.png at an iMessage bubble width (264pt) and as WhatsApp's 84pt square thumbnail. The wordmark is about 10px tall, the pineapple disappears, the image reads as a desktop app, and the square crop shows only map and clipped cards. DECISIONS.md: 'The shareable visual is the golden-hour screen.'",
+     "fix": "Keep the golden-hour screen but frame it for chat. app/scripts/og.mjs renders the 390x844 Today view at golden hour at 2x and places it right of center on a 1200x630 canvas painted the golden sky (#FCA864). The wordmark goes on the left at about 140px with the existing line 'The right move at the right hour.', and the phone and wordmark stay inside the central 630x630 square so square crops keep them. Sami's call, because it changes how the decided shareable visual is presented.",
+     "effort": "M",
+     "decision": true
+    },
+    {
+     "id": "security-headers",
+     "severity": "low",
+     "title": "No CSP, nosniff, referrer, permissions or framing headers",
+     "who": "Nobody today. This is protection in advance: any site could embed psst.miami in a frame, and nothing restricts where scripts can load from.",
+     "evidence": "Live response headers carry only strict-transport-security. The CSP below, served with the live HTML, triggered no CSP violation events on any of the five tabs at 390 and 1440 wide; fonts loaded and the analytics script was allowed (/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/csp.mjs). Not exercised: the analytics beacon (aborted by the test rule) and the service worker (connect-src includes the font hosts, so the service worker's font requests are allowed).",
+     "fix": "vercel.json: add \"headers\": [{ \"source\": \"/(.*)\", \"headers\": [ { \"key\": \"X-Content-Type-Options\", \"value\": \"nosniff\" }, { \"key\": \"Referrer-Policy\", \"value\": \"strict-origin-when-cross-origin\" }, { \"key\": \"Permissions-Policy\", \"value\": \"camera=(), microphone=(), geolocation=(), payment=(), usb=()\" }, { \"key\": \"X-Frame-Options\", \"value\": \"DENY\" }, { \"key\": \"Content-Security-Policy-Report-Only\", \"value\": \"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; manifest-src 'self'; worker-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'\" } ] }]. After one deploy with a clean browser console and Analytics still counting, rename the key to Content-Security-Policy. 'unsafe-inline' is unavoidable while the bundle is one inline module; a hash-based policy would need headers generated per build, which a static vercel.json cannot do.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "plain-404",
+     "severity": "low",
+     "title": "Any wrong path shows Vercel's plain-text error",
+     "who": "Someone who types or pastes a mangled link (psst.miami/trip, or a chat link cut short).",
+     "evidence": "https://psst.miami/random and /some/random-path return a 404 in plain text: 'The page could not be found NOT_FOUND iad1::...' (curl).",
+     "fix": "Add app/public/404.html (Vercel serves it for any path that doesn't exist in a static site): <!doctype html> with charset and viewport metas, body background #AEE6F4, color #052739, the wordmark 'psst' in Tilt Warp with system fallbacks, <h1>Nothing here.</h1> and <a href=\"/\">Back to today's moves</a>; inline styles only.",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "www-307-and-icon-cache",
+     "severity": "low",
+     "title": "www.psst.miami answers 307 and every visit revalidates the icons",
+     "who": "Search engines and link-preview bots treat the www alias as a temporary redirect; on slow networks each open pays extra round trips.",
+     "evidence": "curl: www.psst.miami returns 307 (temporary) while psst.ooo, www.psst.ooo, psst-miami.vercel.app and psst-omega.vercel.app return 308. favicon.ico, favicon.svg, apple-touch-icon.png, icon-192.png, icon-512.png, icon-maskable-512.png and og.png are all 'public, max-age=0, must-revalidate', and the cold load re-requests favicon.svg and icon-192.png.",
+     "fix": "In the Vercel dashboard (Domains, www.psst.miami), set the redirect to psst.miami to 308. In vercel.json headers: { \"source\": \"/(favicon.ico|favicon.svg|apple-touch-icon.png|icon-192.png|icon-512.png|icon-maskable-512.png|og.png)\", \"headers\": [{ \"key\": \"Cache-Control\", \"value\": \"public, max-age=86400, stale-while-revalidate=604800\" }] }, and once the service worker ships, { \"source\": \"/sw.js\", \"headers\": [{ \"key\": \"Cache-Control\", \"value\": \"no-cache\" }] }. Keep the HTML caching as it is (ETag 304 works).",
+     "effort": "S",
+     "decision": false
+    },
+    {
+     "id": "analytics-gaps",
+     "severity": "low",
+     "title": "Analytics fire exactly once, but tab names are internal ids and the experiment's 'built a stay' and 'went' are not measured",
+     "who": "Sami reading the Vercel dashboard during the Nov 15 to Dec 7 experiment.",
+     "evidence": "/private/tmp/claude-501/-Users-sami-dev-psst/a5dd429e-5ae3-4865-a2a3-a5b8244f0c26/scratchpad/audit/platform/va.mjs with window.va stubbed. Each event fires once per action: Tab opened per new tab (none on load or re-tap), Move kept on Keep and on the drag tear, Secret unlocked on hold, Code redeemed ok, used and bad (once from Kept and once from ?code=, none on reload), and Plan copied. Gaps: Tab opened logs 'wall' and 'book' rather than Events and Kept, and tapping a tonight flyer on Today also logs as Tab opened wall. Adding an event from a flyer tab (WallView.svelte), changing trip dates (TripView.svelte) and the Went toggle (BookView.svelte line 42) send nothing, while DECISIONS.md measures 'built a stay' and 'marked 1 or more went'.",
+     "fix": "app/src/lib/state.svelte.js setTab: send the visible label (Today, Trip, Events, Stay, Kept) and a source ('tabbar' or 'flyer'). Add track('Event added') where WallView adds to anchors or heldEvents, track('Trip dates set', { nights }) on date change in TripView, and track('Went') when BookView marks a move as went. Sami decides which counts the experiment needs before these are added.",
+     "effort": "S",
+     "decision": true
+    },
+    {
+     "id": "noindex-tradeoff",
+     "severity": "low",
+     "title": "Decision: keep noindex on psst.miami or let the homepage be found",
+     "who": "Friends who hear 'psst' and search 'psst miami' instead of typing the domain; the cleanliness of the first experiment's numbers.",
+     "evidence": "app/index.html ships <meta name=\"robots\" content=\"noindex, nofollow\">, and robots.txt and sitemap.xml are 404 (correct for noindex). Link previews work regardless (bots fetched every tag). og.png and the icons are not covered by the meta tag, so image search can still list them. The Objective section of DECISIONS.md still says 'Delivered as a private link. Not deployed publicly', which already conflicts with a public domain plus analytics.",
+     "fix": "Option 1, keep noindex: it protects the private-link posture and keeps the Nov 15 to Dec 7 cohort to Sami's network. It costs almost nothing, since the site is one client-rendered URL with little to index beyond the brand name. If kept, add an X-Robots-Tag: noindex header for /(.*) in vercel.json so the images stay out of search too. Option 2, drop it after the experiment: change the meta to index, follow so a search for 'psst miami' finds the homepage, and leave robots.txt as a 404 or allow-all (never Disallow). Either way, update the Objective line in DECISIONS.md so it matches a public domain.",
+     "effort": "S",
+     "decision": true
+    }
+   ]
+  }
+ ],
+ "ranked": {
+  "headline": "psst.miami is in good shape where it matters most: the deck fits the real hour, both John Summit nights are listed with the right date and time, and the reviewers checked 35 places and 33 match their own published hours (AZ.85 leaves out Wednesday and is fixed below; Dante's HiFi publishes no hours). The John Summit friend still hits real problems: Trip drops night 2 and forgets their dates on reload, show day never mentions the show or how to get in with a bag, and everyone else sees a week-old forecast shown as today's weather.",
+  "fixNow": [
+   {
+    "title": "Trip keeps both John Summit nights and remembers the friend's inputs",
+    "why": "High, John Summit friend. DECISIONS Planner rules say both John Summit nights are anchored, but the 'John Summit weekend' preset only anchors Nov 20 (TripView.svelte line 13), so tapping it drops night 2. DECISIONS Engineering also says trip inputs persist, but trip.persist() only runs in toggleAnchor (state.svelte.js line 124) and WallView tearTab. Dates, landing time, flight out, energy and preset picks are all lost on reload. The preset highlight is a local $state('summit'), so it still says 'John Summit weekend' after custom dates. Checked in the source.",
+    "fix": "app/src/components/TripView.svelte: (a) Line 13: anchor: (e) => e.id.includes('john-summit'). (b) Replace `let preset = $state('summit')` with `const preset = $derived(presets.find((p) => p.start === trip.start && p.end === trip.end)?.k ?? 'custom')`. Delete `preset = p.k;` in use(). Delete both `oninput={() => (preset = 'custom')}` handlers on the date inputs, because a $derived cannot be assigned, and give both inputs `onchange={() => trip.persist()}`. (c) Call trip.persist() at the end of use() and at the end of step(), and change the energy button to onclick={() => { trip.wild = v; trip.persist(); }}. Use these explicit calls, not an $effect, so the defaults are never saved for someone who only looks. (d) app/scripts/plan-check.mjs: assert that the summit preset's anchor matches 2 events and that the default plan has both john-summit events as slots. Ship this before the GV1 decision below. If GV1 is accepted, it changes the TripState fallbacks in state.svelte.js (tripSaved.start || '2026-11-20' and the anchors default), and trips people already saved keep their values. Run plan-check.mjs and shots.mjs.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/TripView.svelte",
+     "/Users/sami/dev/psst/app/scripts/plan-check.mjs"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "JS3"
+    ]
+   },
+   {
+    "title": "Planner respects the days named in each move's note",
+    "why": "Medium, but it is in the friend's default plan. Sat Nov 21 2pm is ICA Miami, whose note says 'Weekday afternoon.' Mon Nov 23 10pm is Monterrey Bar, whose note says 'Friday or Saturday.' planStay only checks titleDays (core.js line 241); noteDays is only used by rankNow. I re-ran planStay on a scratch copy with the fix: Sat Nov 21 becomes Rubell's 3pm tour, Mon Nov 23 night becomes Swizzle then Mac's Club Deuce, and both John Summit nights stay the same.",
+    "fix": "app/src/lib/core.js line 241, right after `const td = titleDays(m); if (td && !td.includes(dowAt)) return false;` add `const nd = noteDays(m); if (nd && !nd.includes(dowAt)) return false;`. app/scripts/plan-check.mjs: add the same check for every planned move (noteDays(m) is null or includes the slot's day of week). Run plan-check.mjs.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/lib/core.js",
+     "/Users/sami/dev/psst/app/scripts/plan-check.mjs"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "G3",
+     "T5"
+    ]
+   },
+   {
+    "title": "Trip week data: Headache time, Pho Nam booking, The Cleat before dusk",
+    "why": "Medium, John Summit friend. (1) Headache, Sun Nov 22: the Club Space page, fetched today, says Sunday Nov 22, Doors 8:00 PM, ends Mon 12:00 AM, from $20, 18+. Our data has no time, so when it is added to the trip the planner puts it at '11:30pm Late'. On a scratch run with the fix the plan reads '8pm Doors Headache', then 1am Mac's Club Deuce. (2) Pho Nam is the 6pm dinner before doors on Nov 20. The Axios review (Oct 2 2026) says the writer booked three weeks ahead for 5pm and still found a line. A direct fetch returned 403; I confirmed this through a search summary of the article. The card doesn't mention booking. (3) The Cleat has best 18:30, so on Sat Nov 21 rankNow puts it #1 of 38 at 6:30pm and 7pm. Sunset is 5:30pm, and the card itself says to get through the park gate before dusk. On a scratch run with best 17:00 it ranks #2 at 5:30pm, #12 at 6:30pm and #14 at 7pm, so it drops out of the 9-card deck after dark.",
+    "fix": "data/events.json, headache-the-ground-2026-11-22: add \"time\": \"20:00\"; set \"category\": \"concert\" so the planner labels it Doors and holds 8pm to midnight; set \"url\": \"https://www.clubspace.com/shows/headache-22nd-nov-the-ground-miami-miami-tickets\"; replace sources[1] (the dice URL with a note inside it) with that same clubspace URL; add \"verifiedOn\": \"2026-10-09\". data/moves.json, pho-nam-bun-bo-hue: \"theMove\": \"Book weeks ahead. Viet pizza, then bún bò huế. Thu to Sun.\" (noteDays still reads Thu to Sun). Append \"https://www.axios.com/local/miami/2026/10/02/pho-nam-miami-downtown-tam-tam-restaurant\" to sources with no note inside the string, and set \"verifiedOn\": \"2026-10-09\". data/moves.json, the-cleat-no-name-harbor-sunset: \"best\": \"17:00\". Then run cd app && node scripts/sync-data.mjs to copy into app/src/lib, and run plan-check.mjs.",
+    "files": [
+     "/Users/sami/dev/psst/data/events.json",
+     "/Users/sami/dev/psst/data/moves.json",
+     "/Users/sami/dev/psst/app/src/lib/events.json",
+     "/Users/sami/dev/psst/app/src/lib/moves.json"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "T4",
+     "T6",
+     "T7"
+    ]
+   },
+   {
+    "title": "Getting to Kaseya, the bag limit, and a Go link for shows",
+    "why": "High, John Summit friend and anyone going to a show. Nothing in the moves, events or hotels data covers getting to Kaseya, where rideshare drops off, or the bag limit. The Trip event slot only offers Tickets, and the flyer panel has no Go link. A bag over the limit can get you turned away at the gate. Checked today on kaseyacenter.com/a-z-guide: bags no larger than 10 x 6 x 2 in, and Binbox lockers on the South Plaza above the steps at Gate 7 and by the box office near Gates 4/5 (the page gives no price or hours). kaseyacenter.com/plan-your-visit/directions-parking: rideshare drop-off at Bayshore Drive and HEAT Blvd, use Gate 6. By transit, take Metrorail to Government Center, then the Omni Loop to Park West, then walk east across Biscayne. Trains run 5am to midnight and may run to 1am after Kaseya events. The John Summit event page has no bag rule of its own (18+ recommended, all ages welcome).",
+    "fix": "data/events.json, both john-summit-ctrl-escape-kaseya records, add: \"getThere\": \"Metromover Omni Loop to Park West, then cross Biscayne. Rideshare drops at Bayshore Dr and HEAT Blvd, Gate 6.\", \"bring\": \"Bags up to 10 x 6 x 2 in. Lockers by Gate 7 and the box office.\", \"after\": \"Metromover runs till midnight, sometimes 1am after shows.\". Append the sources https://www.kaseyacenter.com/a-z-guide and https://www.kaseyacenter.com/plan-your-visit/directions-parking, and add \"verifiedOn\": \"2026-10-09\". Do not add locker prices or what-to-wear copy, because nothing sources them. app/src/components/TripView.svelte .ev-t (line 87): after the venue span, render {#each [s.event.getThere, s.event.bring, s.event.after].filter(Boolean) as t}<span class=\"tip\">{t}</span>{/each}, and next to Tickets add a Go link (<a target=\"_blank\" rel=\"noopener\">Go</a>) built with the mapsHref helper from the Go-link item below. Until that ships, use Stub.svelte line 25's Apple Maps pattern with e.venue, e.lat, e.lng. Style .tip like the existing .ev-t span (13.5px, var(--muted)). app/src/components/WallView.svelte .info (lines 42 to 46): render the same three lines as <p> elements and the same Go link next to Tickets. Then run cd app && node scripts/sync-data.mjs and shots.mjs on Trip and Events. Recheck both Kaseya pages the week of Nov 16.",
+    "files": [
+     "/Users/sami/dev/psst/data/events.json",
+     "/Users/sami/dev/psst/app/src/lib/events.json",
+     "/Users/sami/dev/psst/app/src/components/TripView.svelte",
+     "/Users/sami/dev/psst/app/src/components/WallView.svelte"
+    ],
+    "effort": "M",
+    "sourceIds": [
+     "JS2"
+    ]
+   },
+   {
+    "title": "On show day, Today leads with the show: next stop on the ticket, the show first in Tonight, nothing in Later that clashes with it",
+    "why": "High, John Summit friend on Nov 20 and 21. I looked at visitor/shots/d-nov20-1730-0.png and -1.png. At 5:30pm on Nov 20 the top card is Sunny's 'At the door by 5:15' in Little River. The ticket reads 'Today / Nov 20 to Nov 24' with no doors time or venue. Tonight lists Book Fair, Chris Lorenzo, Street Fair, and then John Summit fourth, off screen (events are sorted by date then time, and the John Summit time is 19:00). Later offers 7pm Double Luck and 8pm Jass Kitchen, both during the show. The countdown also counts to trip.start, not the show it names: a trip starting Nov 18 reads '40 days to John Summit', and 1 day reads '1 days'.",
+    "fix": "app/src/components/TodayExtras.svelte: import { events, fmtDate, fmtHour, daySpan } from '../lib/core.js'. (1) const tonight = $derived(events.filter((e) => e.date <= app.now.date && (e.endDate || e.date) >= app.now.date).sort((a, b) => trip.anchors.includes(b.id) - trip.anchors.includes(a.id)).slice(0, 4)). (2) const day = $derived(trip.days.find((d) => d.date === app.now.date)); const next = $derived(day?.slots.find((s) => s.at >= app.now.hour - 0.25)). (3) const daysTo = $derived(daySpan(app.now.date, firstShow?.date ?? trip.start)). (4) In .tt-main: {#if next}<b>{next.label === 'Doors' ? 'Doors ' : ''}{fmtHour(next.at % 24, true)}</b><span>{next.event ? next.event.venue : next.move.place}</span>{:else} the current lines, with `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` in place of `${daysTo} days` {/if}. The ticket then reads '6pm / Phở Nam on Flagler' before dinner and 'Doors 7pm / Kaseya Center' after it. Keep the shows and stops counts. (5) app/src/lib/state.svelte.js `later`: on the current date, drop items that fall within a show. const shows = trip.days.find((d) => d.date === this.now.date)?.slots.filter((s) => s.label === 'Doors').map((s) => s.at) ?? []; then add .filter((x) => !shows.some((st) => x.t >= st - 1 && x.t < st + 4)) before the hour de-dup filter. trip is declared after app in that module, but the $derived.by is evaluated lazily, so this is safe. Check with shots.mjs and the dev clock at Nov 20 5:30pm.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/TodayExtras.svelte",
+     "/Users/sami/dev/psst/app/src/lib/state.svelte.js"
+    ],
+    "effort": "M",
+    "sourceIds": [
+     "JS1",
+     "T9"
+    ]
+   },
+   {
+    "title": "Scrolling works over the tear strip and the time track on phones",
+    "why": "High, every phone visitor including the friend. In Stub.svelte line 202, .tearoff has touch-action: pan-x, so a vertical swipe that starts on the 62px strip doesn't scroll. pullStart then reads a downward drag as a tear, so pulling down to scroll back up keeps the move by accident (the visitor run kept jass-kitchen this way). In TimeHead.svelte line 87, .track has touch-action: none, and down() calls setFrom(e) on pointerdown, so a scroll that starts on the track jumps the hour (8pm to noon in the run). Both are confirmed in the source; the visitor reviewer also measured both with Chrome touch input.",
+    "fix": "app/src/components/Stub.svelte: .tearoff { touch-action: pan-y } (was pan-x). Add .tearoff .no { touch-action: none; cursor: grab; padding: 10px 8px 10px 0 } so the serial tab is a bigger grab handle. In pullStart, after the button and link check, add `if (e.pointerType === 'touch' && !e.target.closest('.no')) return;`. On touch, drag-to-tear now starts from the 'No. 021' tab. Keep is unchanged, and mouse drag still works anywhere on the strip. This keeps the accepted 'tear (drag, or press Keep)'. app/src/components/TimeHead.svelte: .track { touch-action: pan-y }. In down(e), for e.pointerType === 'touch', store sx, sy and return without calling setFrom. In move(e), once |dx| > |dy| + 8, set dragging = true, call track.setPointerCapture(e.pointerId), and start calling setFrom(e). In up(e), if the touch never started dragging and moved under 8px, call setFrom(e) so a tap still sets the hour. On pointercancel (the browser took the vertical scroll), reset. Mouse and pen keep the current behavior. Check with a touch run in shots.mjs or the visitor's a-gestures.mjs pattern.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/Stub.svelte",
+     "/Users/sami/dev/psst/app/src/components/TimeHead.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "G1"
+    ]
+   },
+   {
+    "title": "psst opens with no signal (service worker)",
+    "why": "High. The site has a manifest and installs to the home screen, but it has no service worker (live /sw.js returns 404). An offline reload shows Chrome's ERR_INTERNET_DISCONNECTED page (I looked at platform/shots/offline-reload.png). For the friend, this hits inside a full arena after the show, or on a roaming plan, exactly when they want the late move. The whole guide, including the map, is one HTML file, so caching it is enough. The platform reviewer built this on a scratch copy and confirmed an offline reload rendered the deck with all four fonts, and the ?code= link still redeemed.",
+    "fix": "Add app/public/sw.js: const V = 'psst-v1'; const CORE = ['/', '/site.webmanifest', '/favicon.svg', '/icon-192.png', '/apple-touch-icon.png']. On install: e.waitUntil(caches.open(V).then((c) => c.addAll(CORE))); self.skipWaiting(). On activate: delete every cache except V, then self.clients.claim(). On fetch: ignore anything that isn't GET, and return early for any path starting with /_vercel/ so analytics stays network only. For request.mode === 'navigate', go to the network first, and when the response is ok put a clone into cache V under '/'. Race the network against a 4 s timeout, and on timeout or failure respond with caches.match('/'), falling back to the pending network promise. For same-origin requests and the hosts fonts.googleapis.com and fonts.gstatic.com, serve from the cache first, and on a miss fetch and store the response when res.ok || res.type === 'opaque' (the font CSS link is no-cors). app/src/main.js, after mount: if (import.meta.env.PROD && 'serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {})). Bump V when the CORE list changes. DECISIONS.md, Hosting: add one line, 'Offline: a service worker caches the page and fonts so psst opens with no signal.' After the deploy, check DevTools Application: Service Workers, then reload offline.",
+    "files": [
+     "/Users/sami/dev/psst/app/public/sw.js",
+     "/Users/sami/dev/psst/app/src/main.js",
+     "/Users/sami/dev/psst/DECISIONS.md"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "offline-no-service-worker"
+    ]
+   },
+   {
+    "title": "Stop showing a week-old forecast as today's weather, and refresh it on every build",
+    "why": "High, every visitor and local now. weather.json was baked 2026-10-02, and the build never refreshes it (vercel.json runs vite build only; weather.mjs reads the gitignored data/raw and hardcodes fetched). The live HTML still has Oct 9 as drizzle, hi 86, rain 43. The header reads 'Fri, Oct 9 86°' with no label, which breaks the DECISIONS data rule that weather is labelled forecast or typical. The slider draws six 43% rain ticks from 3 to 8pm (truth/live-today.png). Open-Meteo today, fetched by me: code 3, 86°, 24% max. Oct 14, 15 and 16 are baked at 52, 65 and 62% against 12, 24 and 29% live. On Oct 15 the baked hourly rain is 50% or more from midnight to 5pm, which sets app.wet and drops every non-rainOk move from the deck. The typical 'wet' value is the share of wet days, not an hourly chance, so it must never trigger rain mode.",
+    "fix": "app/src/lib/core.js: (1) In weatherFor (line 68): const fc = weather.days.find((d) => d.date === date && daySpan(weather.fetched, d.date) <= 4); (daySpan is defined on line 34). Leave sunFor as is, because the baked sunrise and sunset are accurate. (2) rainAt (line 74): const w = weatherFor(date); return w?.hourly ? (w.hourly[Math.floor(h) % 24]?.[1] ?? w.rain) : 0;. (3) In planStay (line 194): const wet = w?.kind === 'forecast' && (w.rain ?? 0) >= 45;. app/src/App.svelte line 82: <span>{wx.hi}° {wx.kind === 'typical' ? 'typical' : 'forecast'}</span>. Today that reads '84° typical' with no rain ticks. Add app/scripts/weather-fetch.mjs, which GETs https://api.open-meteo.com/v1/forecast?latitude=25.7729&longitude=-80.1983&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max&hourly=temperature_2m,precipitation_probability,weather_code&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=16 with an 8 s timeout. Map days and hourly exactly as weather.mjs lines 4 and 5 do, read the existing src/lib/weather.json, keep its typical, set fetched to today's Miami date, and write the file. On any error, log and exit 0, leaving the committed file in place. app/package.json: \"build\": \"node scripts/weather-fetch.mjs && vite build\". Build-time fetching keeps the no-runtime-fetch rule. DECISIONS.md, Data rules: add 'Forecast is fetched at build time and used for at most 4 days ahead of the fetch; otherwise typical.' A daily rebuild is a separate decision (see decisions).",
+    "files": [
+     "/Users/sami/dev/psst/app/src/lib/core.js",
+     "/Users/sami/dev/psst/app/src/App.svelte",
+     "/Users/sami/dev/psst/app/scripts/weather-fetch.mjs",
+     "/Users/sami/dev/psst/app/package.json",
+     "/Users/sami/dev/psst/DECISIONS.md"
+    ],
+    "effort": "M",
+    "sourceIds": [
+     "T1",
+     "T2",
+     "L7"
+    ]
+   },
+   {
+    "title": "Events and Kept follow the clock: no past events during the trip",
+    "why": "Medium, the friend during Nov 20 to 24 and Art Basel visitors. WallView.svelte reads `const today = app.now.date` once (line 9), and the Nov and Dec chips start at a fixed '2026-11-01' and '2026-12-01'. On Nov 21 the Nov chip opens with Rocky Horror Nov 1, 808 Life Nov 7, Carl Cox Nov 14 and Jack White Nov 17, each with a live Save tab, and the Oct chip still shows (truth/dev-nov21-wall-Nov.png). 'Your trip' also lists events that already happened earlier in the trip. Kept keeps listing saved events after they happen (BookView.svelte line 12 filters by id only). TripView.svelte line 10 has the same one-time `today`, which feeds the date input min and the weekend preset.",
+    "fix": "app/src/components/WallView.svelte: const today = $derived(app.now.date); const from = (d) => (d > today ? d : today); const ranges = $derived([['tonight', 'Tonight', today, today], ['weekend', 'This weekend', today, addDays(today, (7 - dowOf(today)) % 7)], ['stay', 'Your trip', null, null], ['oct', 'Oct', today, '2026-10-31'], ['nov', 'Nov', from('2026-11-01'), '2026-11-30'], ['dec', 'Dec', from('2026-12-01'), '2026-12-31']].filter((x) => !x[3] || x[3] >= today)). Keep let pick = $state(trip.end >= app.now.date ? 'stay' : 'tonight'). In r: const x = ranges.find((y) => y[0] === pick) ?? ranges[0]; and for 'stay' return [x[0], x[1], from(trip.start), trip.end]. app/src/components/BookView.svelte line 12: const held = $derived(events.filter((e) => app.heldEvents.includes(e.id) && (e.endDate || e.date) >= app.now.date)). app/src/components/TripView.svelte lines 10 to 16: make today a $derived(app.now.date), and sat and presets $derived from it. Check with the dev clock set to Nov 21.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/WallView.svelte",
+     "/Users/sami/dev/psst/app/src/components/BookView.svelte",
+     "/Users/sami/dev/psst/app/src/components/TripView.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "T8",
+     "T12"
+    ]
+   },
+   {
+    "title": "Event data outside the trip week: Rawayana third night, dead and messy sources, AZ.85 Wednesday",
+    "why": "Medium, Art Basel visitors (the second test case) and anyone who opens a source. Rawayana: the Kaseya news item dated Oct 7 2026, fetched today, gives the run as Friday Dec 4 to Sunday Dec 6, 2026, with the new show on sale Oct 9 at 10am. Our data starts Dec 5. La Casita: the first source shown on the back of the card, lacasitacubancuisine.com, is a GoDaddy parked domain (our own sources[3] note says so). Seven source strings carry verifier notes inside the URL: la-casita [3] and [4], marcs-bianca-normandy-isle [3], fernando-olaya [2], [4] and [5], and headache [1], which the trip-week item replaces. 808 Life keeps a Nov 6 Club Space URL next to the Nov 7 DICE page it is dated by. AZ.85: biltmorehotel.com/coral-gables-dining/biltmore-bar, fetched today, lists Wednesday and Thursday 4pm to 12am and Friday and Saturday 4pm to 1am. Our data, which uses this bar's hours, leaves out Wednesday.",
+    "fix": "data/events.json, rawayana-kaseya-center-2026-12-05: \"date\": \"2026-12-04\". Keep the id and \"endDate\": \"2026-12-06\", because saved anchors reference the id. Leave \"url\" as it is (it is the Tickets link) and append to sources only: https://www.kaseyacenter.com/news/detail/rawayana-announce-third-night-of-donde-es-el-after-world-tour-coming-to-kaseya-center. Set \"why\": \"Venezuelan funk-pop band, three arena nights over Art Week weekend.\" and \"verifiedOn\": \"2026-10-09\". data/moves.json, la-casita-vaca-frita: \"sources\": [\"https://www.timeout.com/miami/restaurants/la-casita\", \"https://www.theinfatuation.com/miami/reviews/la-casita-restaurant\", \"https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables\"]. marcs-bianca-normandy-isle sources[3]: \"https://www.miaminewtimes.com/best-of-miami/2026/eat-and-drink/best-pizza-40556981\". data/events.json, fernando-olaya-do-not-sit-2026-11-21: strip the parenthetical notes from sources [2], [4] and [5], leaving the bare URLs. In 808-life-dj-assault-dj-godfather-the-ground-2026-11-07, remove the clubspace URL containing '6th-nov'. data/moves.json, az85-poker-chip-biltmore: change the first window's \"days\" from [4] to [3, 4]. Then run cd app && node scripts/sync-data.mjs.",
+    "files": [
+     "/Users/sami/dev/psst/data/events.json",
+     "/Users/sami/dev/psst/data/moves.json",
+     "/Users/sami/dev/psst/app/src/lib/events.json",
+     "/Users/sami/dev/psst/app/src/lib/moves.json"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "T3",
+     "T11",
+     "T13",
+     "T15"
+    ]
+   },
+   {
+    "title": "Deck controls stay put from card to card",
+    "why": "Medium, phone visitors tapping Next or psst. Stub heights range from 265 to 344px, so the Next arrow moves by up to 59px between cards and a second tap on the 44px arrow misses (visitor b-controls and c-today runs). The reviewer's proposal of a min-height on .stack would detach the two .under cards, because they are absolutely positioned at the bottom of .stack (Deck.svelte lines 115 to 117).",
+    "fix": "app/src/components/Deck.svelte <style>: give the stub itself a minimum height and let the extra space sit inside the face. Add .stack :global(.stub:not(.sealed)) { min-height: 344px; display: flex; flex-direction: column; } and .stack :global(.stub:not(.sealed) .faces) { flex: 1; }, plus .stack :global(.stub.sealed) { min-height: 344px; } (sealed is 260px today, Stub.svelte line 221). Inside @media (max-height: 760px), use the tallest stub measured at that size instead of 344px. Run shots.mjs and confirm the first-screen rule (one complete stub above the tab bar at 390x844), and that the Next arrow's y stays constant across 9am, 8pm and 11:30pm.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/Deck.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "G2"
+    ]
+   },
+   {
+    "title": "Go opens the phone's own maps app, and the card back shows its sources",
+    "why": "Medium. Go is the main action on every stub, and it always links to maps.apple.com (Stub.svelte line 152). The captured href is https://maps.apple.com/?q=Jass%20Kitchen&ll=25.817736,-80.19172. I verified the href; I did not verify what Android does with it. The back of the card repeats an Apple Maps pill, which pushes the 'Checked Oct 2' sources line out of view in a nested scroller (scrollHeight 237 vs clientHeight 207 at 390px, std/mobile-today-flip.png).",
+    "fix": "app/src/lib/core.js: export const mapsHref = (name, address, lat, lng) => (typeof navigator !== 'undefined' && /iPhone|iPad|Macintosh/.test(navigator.userAgent)) ? `https://maps.apple.com/?q=${encodeURIComponent(name)}&ll=${lat},${lng}` : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + address)}`. app/src/components/Stub.svelte: .go href={mapsHref(m.place, m.address, m.lat, m.lng)}, and remove the 'Apple Maps' pill on the back (line 138), leaving 'On the map' and 'Google Maps'. app/src/components/Where.svelte line 31: the first pill becomes 'Go' with mapsHref(...); keep the Google Maps pill. Reuse mapsHref for the event Go links in the Kaseya item. Run shots.mjs and check the flipped stub shows the Checked line at 390px.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/lib/core.js",
+     "/Users/sami/dev/psst/app/src/components/Stub.svelte",
+     "/Users/sami/dev/psst/app/src/components/Where.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "G5",
+     "L3"
+    ]
+   },
+   {
+    "title": "Keyboard focus never hides under the phone tab bar",
+    "why": "Medium, accessibility: WCAG 2.2 AA 2.4.11, Focus Not Obscured. At 390x844, 12 Trip tab stops (Keep, Go, Swap) and 3 Events stops ('Add to Fri') sit fully hidden behind the tab bar when focused (platform/shots/kbd-hidden-trip.png). The reviewer confirmed the CSS below clears every case on Today, Trip, Events and Kept.",
+    "fix": "app/src/App.svelte <style>: add scroll-padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); to .col, and scroll-padding-bottom: 40px; to .wide .col.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/App.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "focus-under-tabbar"
+    ]
+   },
+   {
+    "title": "The Michelin star only marks real Michelin Keys",
+    "why": "Low, but it is wrong data. keyed() in StayView.svelte line 19 matches /michelin/i on any perk, so Esmé ('Michelin-selected') and Carillon ('Michelin-star dinner') get the gold star. The DECISIONS evidence log says Esmé lost its Key listing. Nothing on screen explains the star.",
+    "fix": "app/src/components/StayView.svelte line 19: const keyed = (h) => (h.perks || []).some((p) => /michelin keys?/i.test(p)) || /michelin key/i.test(h.why || '');. In the tier row label (line 44, .rl), append <span> ★ Michelin Key</span> when that tier contains a keyed hotel. Check shots.mjs on Stay: Esmé and Carillon show no star.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/StayView.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "L1"
+    ]
+   },
+   {
+    "title": "Copy fixes: en dash on flyers, 'Nothing drink open'",
+    "why": "Low. Flyer.svelte line 18 joins date ranges with an en dash ('15 en dash 22' on the Book Fair flyers, visible in d-nov20-1730-1.png), which breaks the project's no-dash rule. It is the only en or em dash in the components, lib or data. Deck.svelte line 98 builds 'Nothing ' + lowercased mood label, which gives 'Nothing drink open at 9am.' and 'Nothing dance open at 9am.'",
+    "fix": "app/src/components/Flyer.svelte line 18: `${day}-${fmtDate(ev.endDate, { day: 'numeric' })}` (hyphen). app/src/components/Deck.svelte line 98: const NOUN = { secret: 'secrets', drink: 'bars', eat: 'kitchens', coffee: 'coffee counters', dance: 'dance floors', outside: 'outdoor spots', art: 'galleries' }. Render {app.mood === 'all' ? 'Nothing open' : `No ${NOUN[app.mood]} open`} at {fmtHour(app.hour, true)}., which reads 'No bars open at 9am.'",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/Flyer.svelte",
+     "/Users/sami/dev/psst/app/src/components/Deck.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "L6",
+     "L5"
+    ]
+   },
+   {
+    "title": "Secret mood actually filters",
+    "why": "Medium, anyone who taps Secret and sees nothing change. The filter is secret >= 1 || speakeasy (state.svelte.js line 49). 36 of 60 moves have secret >= 1, and rankNow boosts them, so the Secret deck matched All card for card at 6pm, 8pm and 11:30pm (visitor i-secret run).",
+    "fix": "app/src/lib/state.svelte.js line 49: cats === 'secret' ? x.m.secret === 2 || x.m.category === 'speakeasy'. That covers 7 speakeasies plus the 3 sealed moves. Hours with none fall back to the existing empty state, which offers 'Show everything'. Run shots.mjs with mood 'secret' at 3pm and 11pm.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/lib/state.svelte.js"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "G4"
+    ]
+   },
+   {
+    "title": "Focus stays in place after Keep, deck arrows, opening a secret and closing the map",
+    "why": "Medium, accessibility for keyboard and screen reader users (platform/kbd.log). After ArrowRight on the deck, Keep, a secret unlock, Escape in Where, or closing a Stay card, focus drops to BODY, and the next Tab goes back to the hour button at the top. The Where dialog (aria-modal) lets Tab escape to the skip link and the OSM credit. axe flags skip-link because #main is not rendered while Where is open.",
+    "fix": "app/src/components/Deck.svelte go(d): if document.activeElement is inside .stack, await tick() and then focus '.stack .more', or '.stack .stub.sealed' when the top card is sealed. app/src/components/Stub.svelte tear(): after app.keep, give the .ripped stamp tabindex=\"-1\" and focus it. open(): after a successful unlock, await tick() and then focus `#front-${m.id} .more`. app/src/App.svelte leaveWhere(): save const id = app.where before clearing it, then await tick() and focus `#back-${id} .pill`, falling back to '.stack .more'. Render the skip link only when !anyWhere. app/src/components/Where.svelte: on Tab and Shift+Tab inside .where, wrap focus between the Back button and the last link. app/src/components/StayView.svelte close button: after clearing app.stayFocus, focus `#fob-${id}`, adding that id to the fob if it is missing.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/Deck.svelte",
+     "/Users/sami/dev/psst/app/src/components/Stub.svelte",
+     "/Users/sami/dev/psst/app/src/App.svelte",
+     "/Users/sami/dev/psst/app/src/components/Where.svelte",
+     "/Users/sami/dev/psst/app/src/components/StayView.svelte"
+    ],
+    "effort": "M",
+    "sourceIds": [
+     "focus-lost-after-actions"
+    ]
+   },
+   {
+    "title": "The map only redraws when something on it changes",
+    "why": "Medium, performance: phone battery and heat on the street. MiamiMap.svelte loop() requests a frame on every frame (line 218), even by day with nothing moving, under reduced motion, and on Events and Kept where the map sits at 22% opacity under paper. At 4x CPU with the map idle: noon 13.8% busy vs 0.2% stopped, reduced motion 11.9% vs 0.1%, Events at night 22.9%, desktop at night 35.4% (platform/map-cpu.json). glow() re-parses 'HH:MM' strings through openAt 3 times per move per frame, and hm() is the hottest JS function at load.",
+    "fix": "app/src/components/MiamiMap.svelte: add let dirty = true and a kick() that requests a frame only when none is pending and the page is visible. Set dirty and call kick() from one $effect that reads app.hour, app.sky, app.unlocked, pins, route, focus, inset, labels and quiet, and also from the pointer and wheel handlers, the flyTo steps, resize and document.fonts.ready. In loop(), request the next frame only while something animates: !reduce && ((d > 0.25 && !paused) || waveStart || (!quiet && focus) || route.length > 1), or within 200 ms of lastInteract. Otherwise set raf = 0. Add a paused prop, which App.svelte sets to app.tab === 'wall' || app.tab === 'book'. app/src/lib/core.js: parse once at module load (for every move window, set w.f = hm(w.from) and w.t = hm(w.to)) and read w.f and w.t in openAt and closesAt. In MiamiMap, cache the glow values keyed by `${dow}:${h}`. Check with reduced motion on and off, and that the sunset wave and night cars still run.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/MiamiMap.svelte",
+     "/Users/sami/dev/psst/app/src/App.svelte",
+     "/Users/sami/dev/psst/app/src/lib/core.js"
+    ],
+    "effort": "M",
+    "sourceIds": [
+     "map-redraws-idle",
+     "glow-reparses-hours"
+    ]
+   },
+   {
+    "title": "First paint before the 412 KB script, and a slow Google Fonts request no longer holds the app",
+    "why": "Medium, performance for friends opening the group-chat link on a weak signal. Live on Slow 4G with 4x CPU, the HTML finishes at 1.67 to 1.81 s, but nothing paints until 3.3 to 3.5 s, and a night visit shows a white frame first. With fonts.googleapis.com stalled 6 s, the app took 6.47 s. On scratch builds the reviewer measured the full change below at a first paint of 0.67 to 0.76 s (sky plus wordmark), with LCP unchanged and CLS at 0.001 or less. Making the font CSS non-blocking on its own doesn't speed up a normal load, so ship all four parts together.",
+    "fix": "(1) app/index.html: give each Google Fonts link media=\"print\" onload=\"this.media='all'\". (2) app/index.html: <div id=\"app\"><div class=\"boot\" aria-hidden=\"true\"><span>psst</span></div></div>, with this in head: <style>.boot{position:fixed;inset:0;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px;font:400 34px/0.9 'Tilt Warp','Arial Rounded MT Bold',system-ui,sans-serif;letter-spacing:-0.02em}</style>. Right after the theme-color meta, add an inline script that paints the current Miami sky: (function(){try{var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',month:'numeric',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date()),g=function(t){for(var i=0;i<p.length;i++)if(p[i].type===t)return +p[i].value},m=g('month')-1,h=g('hour')+g('minute')/60,R=[7.13,6.93,7.5,6.95,6.58,6.48,6.63,6.88,7.1,7.32,6.63,6.98][m],S=[17.85,18.22,19.48,19.72,19.98,20.22,20.23,19.93,19.42,18.88,17.53,17.53][m],c=h<R-.6||h>=S+1.1?'#042234':h<R+1.1?'#F9C5C8':h<11.65?'#AEE6F4':h<15.1?'#FBF2D0':h<S-.95?'#B0F1DF':h<S+.45?'#FCA864':'#834791',s=document.documentElement.style;s.background=c;s.color=c=='#042234'||c=='#834791'?'#FEFAF1':'#052739';document.querySelector('meta[name=theme-color]').content=c}catch(e){}})(). The colors are the sky.js stops. (3) app/src/main.js: const target = document.getElementById('app'); target.replaceChildren(); mount(App, { target }). In App.svelte's $effect that sets document.body.style.background (line 49), also set document.documentElement.style.background = app.sky. (4) app/vite.config.js: after viteSingleFile(), add { name: 'script-last', enforce: 'post', generateBundle(_, bundle) { for (const f of Object.values(bundle)) if (f.fileName.endsWith('.html') && typeof f.source === 'string') { const m = f.source.match(/<script type=\"module\"[^>]*>[\\s\\S]*?<\\/script>/); if (m) f.source = f.source.replace(m[0], '').replace('</body>', m[0] + '</body>'); } } }. The output is still one HTML file. Check that fragment.mjs, shots.mjs and console-check.mjs pass, and that flyer titles still fit.",
+    "files": [
+     "/Users/sami/dev/psst/app/index.html",
+     "/Users/sami/dev/psst/app/src/main.js",
+     "/Users/sami/dev/psst/app/src/App.svelte",
+     "/Users/sami/dev/psst/app/vite.config.js"
+    ],
+    "effort": "M",
+    "sourceIds": [
+     "first-paint-blank"
+    ]
+   },
+   {
+    "title": "Doors and show times stop being mixed up",
+    "why": "Low, but it is wrong labelling. The John Summit time 19:00 is doors (the Kaseya event page, fetched today, says Doors 7:00PM, show 8:00PM), and planStay labels every timed concert 'Doors'. So a show with a show-start time, such as Headache after the trip-week fix, or the Bandshell shows, reads 'Doors' at the show time.",
+    "fix": "data/events.json, both john-summit records: \"time\": \"20:00\", \"doors\": \"19:00\". app/src/lib/core.js planStay (lines 198 and 217): const st = e.doors ? hm(e.doors) : e.time ? hm(e.time) : club ? 23.5 : show ? 19.5 : 14. The label becomes e.doors ? 'Doors' : e.time && ['concert', 'sports'].includes(e.category) ? 'Show' : e.category === 'club' ? 'Late' : 'All day'. app/src/components/WallView.svelte line 44: {e.venue}{e.doors ? `, doors ${fmtHour(hm(e.doors))}` : ''}{e.time ? `, show ${fmtHour(hm(e.time))}` : ''}. After this the John Summit flyer and Tonight row show 8pm (the show), and Trip and the Today ticket show 'Doors 7pm'. That is intended, not a regression. Add doors to Madre Cumbia and Buena Vista Orchestra only after checking their Bandshell pages. Then run sync-data and plan-check.mjs.",
+    "files": [
+     "/Users/sami/dev/psst/data/events.json",
+     "/Users/sami/dev/psst/app/src/lib/events.json",
+     "/Users/sami/dev/psst/app/src/lib/core.js",
+     "/Users/sami/dev/psst/app/src/components/WallView.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "T10"
+    ]
+   },
+   {
+    "title": "A saved event can be unsaved on Events",
+    "why": "Low. Tapping 'Saved' again repeats the toast 'On your trip: Fri.' and nothing changes (visitor f-tabs.log). The only way to remove it is from the Trip chips.",
+    "fix": "app/src/components/WallView.svelte tearTab(e): start with if (added(e)) { trip.anchors = trip.anchors.filter((x) => x !== e.id); trip.persist(); app.heldEvents = app.heldEvents.filter((x) => x !== e.id); app.persist(); app.say('Off your trip.'); return; }.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/WallView.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "L4"
+    ]
+   },
+   {
+    "title": "Share card: no stale date in og.png, and the missing og tags",
+    "why": "Low. The live og.png shows 'Fri, Oct 2 86°' and a 'Now 8:14pm' chip beside the 6:33pm clock (platform/og.png). Bots get no og:url, og:site_name or og:image:alt.",
+    "fix": "app/scripts/og.mjs, before the screenshot: await p.addStyleTag({ content: '.top .today, .nowchip { visibility: hidden !important; }' }). app/index.html: add <meta property=\"og:url\" content=\"__SITE__/\">, <meta property=\"og:site_name\" content=\"psst.\"> and <meta property=\"og:image:alt\" content=\"psst. Miami at golden hour: the clock, a move and the map.\">. Regenerate og.png on the dev server before deploying.",
+    "files": [
+     "/Users/sami/dev/psst/app/scripts/og.mjs",
+     "/Users/sami/dev/psst/app/index.html",
+     "/Users/sami/dev/psst/app/public/og.png"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "og-stale-chips-and-tags"
+    ]
+   },
+   {
+    "title": "Keyboard and screen reader polish: arrow keys in radio groups, slider End, map pins, tab order, dusk contrast",
+    "why": "Low, accessibility (platform/kbd.log, axe.json, skytext.mjs). Radio groups take one Tab stop per option and ignore the arrow keys (8 for moods). The slider ignores End. axe flags nested-interactive on div.map role=img, which hides 9 pins from screen readers. On desktop the pins come before the section tabs in Tab order, and on mobile Today it takes 27 Tabs to reach the tab bar. At dusk (#8B4F90), the Trip .when labels measure 4.21:1, under the 4.5:1 minimum.",
+    "fix": "Deck.svelte moods, StayView.svelte price, TripView.svelte energy, WallView.svelte chips: tabindex={on ? 0 : -1} on each option, plus one keydown on each role=\"radiogroup\" that moves both selection and focus with ArrowLeft, ArrowRight, Home and End. TimeHead.svelte key(): Home calls app.scrubTo(0) and End calls app.scrubTo(23.75), matching the ARIA slider pattern; the clock button still returns to now. MiamiMap.svelte: move role=\"img\" and the aria-label from div.map to the canvas, and make div.pins role=\"group\" aria-label=\"Moves on the map\". App.svelte: put .mapwrap after <main> in the DOM and the mobile nav.tabbar before <main>; both are absolutely positioned, so nothing moves on screen. TripView.svelte line 140: .when span opacity 0.92 (was 0.8). Deck.svelte line 112: .lb opacity 0.92 (was 0.85). Run contrast-check.mjs.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/components/Deck.svelte",
+     "/Users/sami/dev/psst/app/src/components/StayView.svelte",
+     "/Users/sami/dev/psst/app/src/components/TripView.svelte",
+     "/Users/sami/dev/psst/app/src/components/WallView.svelte",
+     "/Users/sami/dev/psst/app/src/components/TimeHead.svelte",
+     "/Users/sami/dev/psst/app/src/components/MiamiMap.svelte",
+     "/Users/sami/dev/psst/app/src/App.svelte"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "radio-and-slider-keys",
+     "map-pins-and-dom-order",
+     "dusk-label-contrast"
+    ]
+   },
+   {
+    "title": "Analytics measure the experiment's own metrics: built a stay, went, event added",
+    "why": "Low, Sami's measurement loop. The DECISIONS first experiment measures 'built a stay' and 'marked 1 or more went', but changing trip dates (TripView), adding an event from a flyer tab (WallView) and the Went toggle (BookView line 42) send nothing. Tapping a Tonight flyer on Today also logs as 'Tab opened: wall'. With window.va stubbed, every existing event fires exactly once (platform/va.mjs). This only wires up metrics DECISIONS already names, so it is not a new decision.",
+    "fix": "app/src/lib/state.svelte.js setTab(t, source = 'tabbar'): track('Tab opened', { tab: t, source }). Keep the tab value as the id, so the dashboard series started Oct 8 doesn't split. app/src/components/TodayExtras.svelte: the flyer buttons call app.setTab('wall', 'flyer'), and the ticket calls app.setTab('trip', 'ticket'). app/src/components/TripView.svelte: track('Trip dates set', { nights: String(daySpan(trip.start, trip.end)), preset }) in the date onchange and in use(). app/src/components/WallView.svelte tearTab: track('Event added', { trip: String(inStay(e)) }) when an event is newly added. app/src/components/BookView.svelte: track('Went') when a move switches to went. DECISIONS.md, Analytics line: list the three new events.",
+    "files": [
+     "/Users/sami/dev/psst/app/src/lib/state.svelte.js",
+     "/Users/sami/dev/psst/app/src/components/TodayExtras.svelte",
+     "/Users/sami/dev/psst/app/src/components/TripView.svelte",
+     "/Users/sami/dev/psst/app/src/components/WallView.svelte",
+     "/Users/sami/dev/psst/app/src/components/BookView.svelte",
+     "/Users/sami/dev/psst/DECISIONS.md"
+    ],
+    "effort": "S",
+    "sourceIds": [
+     "analytics-gaps"
+    ]
+   }
+  ],
+  "decisions": [
+   {
+    "title": "Who sees the John Summit trip by default",
+    "recommendation": "Show the John Summit trip only to people who have saved a trip, or who arrive through psst.miami/?trip=summit (codeFromUrl applies the summit preset). Send the friend that link. Everyone else gets the ticket 'Your trip / Add your dates', Events opens on Tonight, and Stay measures to the first anchored venue, hiding the line when nothing is anchored. Today every first-time visitor, local or Art Basel guest sees '42 days to John Summit, 2 shows, 14 stops', Events opens on Nov 20 to 24, and every hotel card measures to Kaseya (live-m-scroll1.png, std/mobile-wall.png).",
+    "tradeoff": "Round 3 put the trip ticket under the deck 'so the value shows on the first screen'. An empty ticket shows less until someone sets dates. In exchange, strangers stop seeing a stranger's plan. Ship the persistence fix first so saved trips keep their dates."
+   },
+   {
+    "title": "Daily rebuild so the forecast stays fresh",
+    "recommendation": "After the build-time weather fetch ships, add a Vercel Deploy Hook in the vercel.com dashboard (personal SK scope) and call it once a day from a scheduled GitHub Action in the private repo, with the hook URL stored as a repo secret. Do this before Nov 15, so the trip days show a real forecast in the week before the visit.",
+    "tradeoff": "It adds one moving part and a daily deploy to Vercel usage. Without it, the forecast is only as fresh as the last push, and the 4-day guard falls back to typical values between pushes."
+   },
+   {
+    "title": "First screen says Miami",
+    "recommendation": "Header reads 'Miami, Fri Oct 9' (App.svelte line 82). Hold the drag hint ('Drag the sun. The deck follows.' in the empty lede slot, shown only before the first scrub), because it is close to the 'No explanatory footers' rule, even though the empty deck already says 'Drag the sun forward.' The word Miami appears nowhere on the live first screen; the promise lives only in the meta description (live-m-3s.png).",
+    "tradeoff": "Adding 'Miami' costs about 45px of header width at 390px next to '86° forecast'; check that it doesn't wrap. A drag hint helps first-timers but adds narrated UI to a screen Round 3 cleaned of it."
+   },
+   {
+    "title": "What Keep leads to",
+    "recommendation": "When something is kept, add a 'Yours' page at the top of Kept that lists each kept move with its best hour, Go and Went, and give planStay a +0.6 bonus for kept moves. Today one kept move sits below the code box and two pages of grey ghost slots (h1-kept.png), and planStay never reads app.kept. With nothing kept, show one line: 'Tear a stub to keep it.'",
+    "tradeoff": "The sticker book by neighborhood is the collecting device. A list page dilutes it, and a planner bias changes plans people have already copied. 'Kept 3 or more' is an experiment metric, so Keep needs a payoff."
+   },
+   {
+    "title": "Does the copied plan link carry the plan",
+    "recommendation": "Yes. Append &trip=START_END&a=ANCHOR_IDS to the link in TripView copy(), and in codeFromUrl apply the dates and anchors, then open Trip, but only when the person receiving it has no saved trip. Today the link only redeems the code, so the friend opens psst on its default trip, not the days they were sent.",
+    "tradeoff": "It makes a longer link in the chat, and it can overwrite the receiver's own trip unless it is guarded. The plan text in the chat already carries the days."
+   },
+   {
+    "title": "Share image framed for chat",
+    "recommendation": "Keep the golden-hour screen, but render it as the 390x844 Today view at 2x, placed right of center on a 1200x630 canvas painted #FCA864. Put the wordmark at about 140px on the left, with the line 'The right move at the right hour.', and keep both inside the central 630x630 square so square crops still show them. At iMessage bubble width the current og.png reads as a tiny desktop screenshot with a 10px wordmark (og-preview-sim.png).",
+    "tradeoff": "It changes how the decided shareable visual is presented, and og.mjs gets more complex. The group-chat preview is the first impression for every friend you send it to."
+   },
+   {
+    "title": "noindex, and the Objective line in DECISIONS",
+    "recommendation": "Keep noindex through the Dec 7 experiment so the cohort stays your network, and add an X-Robots-Tag: noindex header for /(.*) in vercel.json so og.png and the icons stay out of image search. Update the Objective line, which still says 'Delivered as a private link. Not deployed publicly', to match psst.miami with analytics.",
+    "tradeoff": "Friends who search 'psst miami' instead of typing the domain won't find it until noindex is lifted."
+   }
+  ],
+  "later": [
+   "Header temperature: show the current hour's forecast temperature instead of the day's high (App.svelte, wx.hourly[Math.floor(app.hour)][0]) once the forecast is fresh (L7).",
+   "Tap targets: More 53x25, Back 52x25, Swap 57x27, the Stay close button 26x26, and event tear tabs 35 to 41px tall all pass WCAG 2.2 AA (24px), but a ::after hit area of about 45px would help thumbs (G6).",
+   "Trip day header on phone only moves an underline, although its aria-label says it shows the day on the map. Either open Where with that day's route below 900px, or drop the map wording on phone (L2).",
+   "PINA codes: any well-formed made-up code adds a secret. A checksum character would make the code mean something, but it is low risk with 20 to 30 users (L8).",
+   "Dante's HiFi hours: no official source. Check exploretock.com/danteshifi in a normal browser, then update windows and verifiedOn (T14).",
+   "Bandshell doors for Madre Cumbia and Buena Vista Orchestra (reviewer says doors 7pm, show 8pm): add the doors field once checked against the Bandshell or Miami and Beaches page (T10).",
+   "404 page: psst.miami/anything returns Vercel's plain-text NOT_FOUND. Add app/public/404.html with the wordmark, 'Nothing here.' and a link back to today's moves (plain-404).",
+   "www.psst.miami answers 307 while the other aliases use 308; switch it in the Vercel dashboard. Give the icons and og.png a one-day cache in vercel.json headers (www-307-and-icon-cache).",
+   "Security headers (nosniff, Referrer-Policy, Permissions-Policy, frame-ancestors) through vercel.json, starting with CSP Report-Only. They protect nothing users touch today (security-headers)."
+  ],
+  "rejectedFindings": [
+   "T5 (planner note days): duplicate of G3, merged into 'Planner respects the days named in each move's note'.",
+   "T9 (countdown counts to trip start): merged into the show-day Today item, which rewrites the same ticket.",
+   "L3 (flipped card hides sources): merged into the Go-link item, since dropping the Apple Maps pill is part of that fix.",
+   "glow-reparses-hours: merged into the map redraw item (same component, same goal).",
+   "T12 (Kept lists past saved events): merged into the 'Events and Kept follow the clock' item.",
+   "T15 (808 Life duplicate source) and T13 (AZ.85 Wednesday): merged into the data cleanup item with T3 and T11.",
+   "L5 and L6: merged into one copy item.",
+   "L7: merged into the weather item for the label. Showing the hourly temperature moved to later.",
+   "JS2 sub-claims dropped: 'Binbox lockers from $10' and 'from 1h before doors to 1h after the show' are not on kaseyacenter.com/a-z-guide today (no price or hours listed), and DECISIONS bans invented prices. 'Some event pages override the bag size (Drake 14 x 14 x 6)' doesn't apply: the John Summit event page states no bag rule.",
+   "G2's proposed fix (min-height on .stack) dropped: the .under cards are absolutely positioned at the bottom of .stack and would detach from a short stub. Replaced with a min-height on the stub itself.",
+   "G5's claim about what Android does with maps.apple.com links is unverified (only the href was captured). The fix is kept because it is cheap and harmless.",
+   "G6 severity: not an accessibility violation. Every listed control passes WCAG 2.2 AA 2.5.8 (24px). Moved to later.",
+   "analytics-gaps: the proposal to rename the Tab opened value to visible labels is dropped, because it would split the dashboard series started Oct 8. A source prop is added instead. The rest moved from decision to fixNow, because it only wires up metrics DECISIONS already names.",
+   "T2's daily Deploy Hook moved to decisions (account configuration and a scheduler). The build-time fetch stays in fixNow.",
+   "security-headers, plain-404 and www-307-and-icon-cache moved to later: no user is hurt today, and CSP Report-Only without a report endpoint only logs to the console.",
+   "No finding revives an item on the DECISIONS Rejected list. GV1, GV2, GV3, G7, og-composition and noindex-tradeoff are product or brand calls, listed under decisions."
+  ]
+ }
+}

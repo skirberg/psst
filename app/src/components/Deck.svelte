@@ -5,7 +5,10 @@
   import Sticker from './Sticker.svelte';
   import Icon from './Icon.svelte';
   import { app, MOODS } from '../lib/state.svelte.js';
+  import { tick } from 'svelte';
   import { fmtHour } from '../lib/core.js';
+  import { radioKeys } from '../lib/a11y.js';
+  let stack = $state();
 
   const pad = $derived(app.pad);
   const i = $derived(app.padPos);
@@ -17,11 +20,14 @@
 
   let dx = $state(0), dragging = $state(false), flinging = $state(0), shuffling = $state(false);
   let sx = null, sy = null, moved = 0;
-  function go(d) {
+  async function go(d) {
     if (pad.length < 2) return;
+    const hadFocus = stack?.contains(document.activeElement);
     app.flipped = null;
     app.padId = pad[(i + d + pad.length) % pad.length].m.id;
+    if (hadFocus) { await tick(); (stack?.querySelector('.more') || stack?.querySelector('.stub.sealed') || stack)?.focus(); }
   }
+  const NOUN = { secret: 'secrets', drink: 'bars', eat: 'kitchens', coffee: 'coffee counters', dance: 'dance floors', outside: 'outdoor spots', art: 'galleries' };
   function down(e) {
     if (e.target.closest('.tearoff, button, a, [role=button], .back')) return;
     sx = e.clientX; sy = e.clientY; moved = 0; dragging = true;
@@ -61,16 +67,17 @@
 </script>
 
 <section class="deck" aria-label="Moves for this hour">
-  <div class="moods" role="radiogroup" aria-label="Mood">
+  <div class="moods" role="radiogroup" aria-label="Mood" tabindex="-1" onkeydown={radioKeys}>
     {#each MOODS as [k, label]}
-      <button role="radio" aria-checked={app.mood === k} class:on={app.mood === k} onclick={() => { app.mood = k; app.padId = null; app.flipped = null; }}>
+      <button role="radio" aria-checked={app.mood === k} tabindex={app.mood === k ? 0 : -1} class:on={app.mood === k} onclick={() => { app.mood = k; app.padId = null; app.flipped = null; }}>
         <span class="ic"><Icon name={ICON[k]} size={22} /></span><span class="lb">{label}</span>
       </button>
     {/each}
   </div>
 
   {#if item}
-    <div class="stack" class:shuffling role="group" aria-roledescription="deck" aria-label="{i + 1} of {pad.length}" tabindex="-1" onkeydown={key}>
+    <div class="deckbox">
+    <div class="stack" bind:this={stack} class:shuffling role="group" aria-roledescription="deck" aria-label="{i + 1} of {pad.length}" tabindex="-1" onkeydown={key}>
       {#each behind as b, k (b.m.id + 'b')}
         <div class="under u{k}" aria-hidden="true">
           {#if k === 0}
@@ -87,15 +94,16 @@
         </div>
       {/key}
     </div>
+    </div>
     <div class="controls">
       <button class="nav" onclick={() => go(-1)} aria-label="Previous move" disabled={pad.length < 2}><Icon name="left" size={20} /></button>
       <span class="count">{i + 1}/{pad.length}</span>
-      <button class="psst" onclick={psst} aria-label="Shuffle and deal me one move"><Icon name="shuffle" size={18} /><span>psst</span></button>
+      <button class="psst" onclick={psst} aria-label="psst: shuffle and deal me one move"><Icon name="shuffle" size={18} /><span>psst</span></button>
       <button class="nav" onclick={() => go(1)} aria-label="Next move" disabled={pad.length < 2}><Icon name="right" size={20} /></button>
     </div>
   {:else}
     <div class="empty">
-      <p class="e1">Nothing {app.mood === 'all' ? '' : MOODS.find((x) => x[0] === app.mood)[1].toLowerCase() + ' '}open at {fmtHour(app.hour, true)}.</p>
+      <p class="e1">{app.mood === 'all' ? 'Nothing open' : `No ${NOUN[app.mood]} open`} at {fmtHour(app.hour, true)}.</p>
       {#if app.mood !== 'all'}<button class="reset" onclick={() => (app.mood = 'all')}>Show everything</button>{:else}<p class="e2">Drag the sun forward.</p>{/if}
     </div>
   {/if}
@@ -109,10 +117,14 @@
   .ic { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); transition: transform 0.18s cubic-bezier(.3, 1.6, .5, 1), background 0.2s; }
   .moods button:active .ic { transform: scale(0.9); }
   .moods button.on .ic { background: var(--text); color: var(--sky); box-shadow: none; transform: scale(1.06); }
-  .lb { opacity: 0.85; }
+  .lb { opacity: 0.92; }
   .moods button.on .lb { opacity: 1; }
 
   .stack { position: relative; padding-bottom: 30px; outline: none; }
+  /* Room for a typical card (nine in ten are this tall), so Next and psst stay under the thumb from card to card.
+     Only a three-line title pushes them down. */
+  .deckbox { min-height: calc(var(--card-h, 312px) + 30px); }
+  @media (max-height: 760px) { .deckbox { --card-h: 303px; } }
   .under { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; border-radius: 4px; background: color-mix(in oklch, var(--paper) 94%, var(--ink)); box-shadow: 0 10px 16px rgba(5, 39, 57, 0.2); transition: transform 0.3s cubic-bezier(.3, 1.3, .5, 1); }
   .u0 { transform: translateY(16px) rotate(-1.4deg) scale(0.97); z-index: 1; }
   .u1 { transform: translateY(26px) rotate(1.8deg) scale(0.93); z-index: 0; background: color-mix(in oklch, var(--paper) 86%, var(--ink)); }

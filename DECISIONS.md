@@ -1,9 +1,9 @@
 # psst. decisions (source of truth)
 
-Updated 2026-10-02. Accepted decisions, candidates and rejections, with the reasons. Newer entries win.
+Updated 2026-10-09. Accepted decisions, candidates and rejections, with the reasons. Newer entries win.
 
 ## Objective now
-A working, award-level prototype of psst. Miami that a visitor (test case: a friend in Miami Nov 20 to 24, 2026 for John Summit at Kaseya Center, Nov 20 and 21) and a local would actually use instead of Google Maps or Instagram. Delivered as a private link. Not deployed publicly.
+A working, award-level prototype of psst. Miami that a visitor (test case: a friend in Miami Nov 20 to 24, 2026 for John Summit at Kaseya Center, Nov 20 and 21) and a local would actually use instead of Google Maps or Instagram. Live at https://psst.miami, marked noindex and shared by hand.
 
 ## Customer and promise
 - The user is anyone visiting or curious about Miami, plus locals looking for the non-obvious. Nobody is paying yet.
@@ -33,6 +33,9 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **Data rules:**
   - Every move and event carries sources and a checked date.
   - Weather is labeled forecast or typical.
+  - The forecast is fetched at build time and again every morning, and used for at most 4 days past its fetch; after that, typical. Typical (share of wet days) never turns on rain mode.
+  - Events carry doors and show times separately when the venue publishes both.
+  - Sources are bare URLs, no verifier notes inside them.
   - Traffic is labeled illustrative.
   - No invented prices, dishes or door details.
 
@@ -54,7 +57,8 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **Text-led stickers:** each move's own word in Tilt Warp on a die-cut shape. Stock pictograms are gone.
 - **Tabs:** Today, Trip, Events, Stay, Kept, each with a custom icon. Stay shows hotels as key fobs on a rack, by price tier.
 - **Planner rules:**
-  - Both John Summit nights are anchored.
+  - Both John Summit nights are anchored, including from the John Summit weekend preset.
+  - A move whose note names days ("Weekday afternoon", "Friday or Saturday") only goes on those days.
   - At most 4 stops a day.
   - Every stop is within 1.5h of its best time.
   - No secret spots in plans.
@@ -67,6 +71,15 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
   - inert hidden stub faces.
   - Persistent live region for toasts.
 - **Engineering:** the map reuses cached layers while moving. Trip inputs, bonus secrets from codes, and redeemed codes persist.
+
+## Round 4 (2026-10-09, audit of the live site)
+Three lenses (visitor experience, is everything still true, platform) audited psst.miami, and a judge spot-checked and ranked the findings. Full record: design/round4-audit.json. All 24 fixes shipped:
+- **For the John Summit friend:** Trip keeps both nights and remembers dates, landing time and energy. On show day the trip ticket names the next stop ("Doors 7pm, Kaseya Center"), the show leads Tonight, and Later skips show hours. Kaseya entries carry how to get there, the bag limit and the last train, with a Go link. Doors 7pm and show 8pm are shown separately.
+- **Data:** Headache doors 8pm, Phở Nam books weeks ahead, The Cleat best before dusk, Rawayana's third night (Dec 4), AZ.85 Wednesdays, a parked domain and dead sources removed.
+- **Truth:** no more week-old forecast shown as today's weather; Events and Kept drop what has already happened.
+- **Phone feel:** a vertical swipe on the tear strip or the time track scrolls the page (tear on touch starts from the No. tab); deck buttons stay put card to card; Go opens the phone's own maps app.
+- **Platform:** opens with no signal (service worker), first paint before the app script (0.3 s against 1.5 s on slow 4G), the map stops drawing when nothing moves, zero axe violations on every tab, keyboard focus never lost or hidden.
+- **Decisions made in this round:** "Miami" in the header; a copied plan's link carries its dates and shows, opening them only for someone with no trip of their own; the share image is the phone view on the golden sky with the wordmark; noindex extends to images and icons (X-Robots-Tag) until the experiment ends; the Michelin star marks only real Michelin Keys, with a legend.
 
 ## Rejected (do not revive)
 - Hotel Piña (metaphor tax).
@@ -86,6 +99,8 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - Grain or riso texture as a global overlay.
 
 ## Open questions / candidates
+- Default trip for strangers: today every first-time visitor sees the John Summit trip (ticket, Events range, Stay distances to Kaseya). Recommended: show it only to people who arrive with a plan link or set dates. Sami's call (round 4).
+- What Keep leads to: a "Yours" list at the top of Kept (best hour, Go, Went) and a small planner bonus for kept moves. Changes the sticker book, so Sami's call (round 4).
 - Hotel pin clustering on the Stay map.
 - PNG share of the trip strip via the artifact downloads capability.
 - A Thursday 3:05 weekend drop.
@@ -127,5 +142,7 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **After the first deploy:** check that og:image in the page source starts with https://. If not, turn on System Environment Variables in the project settings and redeploy.
 - **Live (2026-10-02):** https://psst-miami.vercel.app (also psst-omega.vercel.app). Repo: github.com/skirberg/psst, private. Vercel project psst on the personal Hobby team "Sami" (slug skirberg), Root Directory ./, preset Other, auto-deploy on push to main. The same Vercel login also belongs to a company team, so always check the scope says Sami (Hobby) before creating anything.
 - **Domain (2026-10-08):** https://psst.miami is the production domain. psst.ooo, www.psst.ooo, psst-miami.vercel.app and psst-omega.vercel.app 308-redirect to it. og:image comes from VERCEL_PROJECT_PRODUCTION_URL at build time, so any domain change needs a redeploy before share cards point at the new host.
-- **Analytics (2026-10-08):** Vercel Web Analytics (Pro, no cookies) via `inject()` in app/src/main.js. Custom events: Plan copied (days, copied/manual), Code redeemed (ok/used/bad), Secret unlocked, Move kept, Tab opened (tab). These measure the group-chat loop: plans copied, then codes redeemed by friends.
-- **Visibility:** the URL is public but the page is marked noindex. Data is public venue information. Fonts are Google Fonts (OFL), so nothing trial-licensed ships.
+- **Analytics (2026-10-08):** Vercel Web Analytics (Pro, no cookies) via `inject()` in app/src/main.js. Custom events: Plan copied (days, copied/manual), Code redeemed (ok/used/bad), Secret unlocked, Move kept, Tab opened (tab, source: tabbar, ticket, flyer, link), and since Oct 9 Trip dates set (nights, via), Event added (trip), Went. These measure the group-chat loop: plans copied, then codes redeemed by friends.
+- **Forecast (2026-10-09):** app/scripts/weather-fetch.mjs runs before every build, and .github/workflows/forecast.yml commits a fresh forecast every morning (6:17am Miami), which redeploys the site. Pull in GitHub Desktop before committing, since the repo moves on its own.
+- **Offline (2026-10-09):** app/public/sw.js caches the page, fonts and icons so psst opens with no signal. Bump its cache name when the cached file list changes.
+- **Visibility:** the URL is public but the page is marked noindex, and vercel.json sends X-Robots-Tag: noindex for every file. Data is public venue information. Fonts are Google Fonts (OFL), so nothing trial-licensed ships.

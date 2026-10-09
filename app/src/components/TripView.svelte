@@ -5,20 +5,23 @@
   import Stub from './Stub.svelte';
   import Flyer from './Flyer.svelte';
   import { app, trip } from '../lib/state.svelte.js';
-  import { fmtDate, fmtHour, hm, addDays, dowOf } from '../lib/core.js';
+  import { fmtDate, fmtHour, hm, addDays, dowOf, daySpan, mapsHref } from '../lib/core.js';
+  import { radioKeys } from '../lib/a11y.js';
 
-  const today = app.now.date;
-  const sat = addDays(today, (6 - dowOf(today) + 7) % 7);
-  const presets = [
-    { k: 'summit', label: 'John Summit weekend', start: '2026-11-20', end: '2026-11-24', anchor: (e) => e.id.includes('john-summit') && e.date === '2026-11-20' },
+  const today = $derived(app.now.date);
+  const sat = $derived(addDays(today, (6 - dowOf(today) + 7) % 7));
+  const presets = $derived([
+    { k: 'summit', label: 'John Summit weekend', start: '2026-11-20', end: '2026-11-24', anchor: (e) => e.id.includes('john-summit') },
     { k: 'weekend', label: 'This weekend', start: today, end: addDays(sat, 1), anchor: () => false },
     { k: 'basel', label: 'Art Basel week', start: '2026-12-03', end: '2026-12-06', anchor: (e) => e.id === 'art-basel-miami-beach-2026' },
-  ];
-  let preset = $state('summit');
-  function use(p) { preset = p.k; trip.start = p.start; trip.end = p.end; trip.swaps = {}; trip.focusDay = 0; trip.anchors = trip.inRange.filter(p.anchor).map((e) => e.id); }
+  ]);
+  const preset = $derived(presets.find((p) => p.start === trip.start && p.end === trip.end)?.k ?? 'custom');
+  const datesSet = (via) => track('Trip dates set', { nights: String(Math.max(0, daySpan(trip.start, trip.end))), via });
+  // Inputs persist only when someone changes them, so a visitor who only looks saves nothing.
+  function use(p) { trip.start = p.start; trip.end = p.end; trip.swaps = {}; trip.focusDay = 0; trip.anchors = trip.inRange.filter(p.anchor).map((e) => e.id); trip.persist(); datesSet(p.k); }
   const ENERGY = [['low', 'Low-key', 0.3], ['mid', 'Balanced', 0.6], ['loud', 'Loud', 0.92]];
   const band = $derived(trip.wild < 0.45 ? 'low' : trip.wild < 0.8 ? 'mid' : 'loud');
-  const step = (k, d) => { trip[k] = Math.min(23.5, Math.max(5, trip[k] + d)); };
+  const step = (k, d) => { trip[k] = Math.min(23.5, Math.max(5, trip[k] + d)); trip.persist(); };
   let copied = $state(''), fallback = $state(''), ta = $state();
   async function copy() {
     const lines = [`psst. Miami, ${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`];
@@ -26,10 +29,10 @@
       lines.push('', fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase() + (d.weather ? `  ${d.weather.hi}°${d.weather.kind === 'typical' ? ' typical' : ''}` : '') + `  sunset ${fmtHour(d.sun.set)}`);
       for (const s of d.slots) {
         const o = s.event || s.move; const locked = s.move && s.move.secret === 2 && !app.unlocked.includes(s.move.id);
-        lines.push(`${fmtHour(s.at % 24, true).padEnd(7)} ${s.event ? s.event.title + ' @ ' + s.event.venue : locked ? 'A secret. Open it in psst.' : o.place + ', ' + o.hood}`);
+        lines.push(`${fmtHour(s.at % 24, true).padEnd(7)} ${s.event ? s.event.title + ' @ ' + s.event.venue + (s.label === 'Doors' ? ', doors' : '') : locked ? 'A secret. Open it in psst.' : o.place + ', ' + o.hood}`);
       }
     }
-    let link = ''; try { link = location.protocol.startsWith('http') && !/claude\.ai/.test(location.host) ? `${location.origin}${location.pathname}?code=${code}` : ''; } catch {}
+    let link = ''; try { link = location.protocol.startsWith('http') && !/claude\.ai/.test(location.host) ? `${location.origin}${location.pathname}?code=${code}&trip=${trip.start}_${trip.end}${trip.anchors.length ? '&a=' + trip.anchors.join(',') : ''}` : ''; } catch {}
     lines.push('', link ? `Open it: ${link}` : `Code ${code} unlocks a secret in psst.`, 'No refunds on sunsets.');
     const text = lines.join('\n');
     try { await navigator.clipboard.writeText(text); copied = 'Copied.'; fallback = ''; track('Plan copied', { days: String(trip.days.length), result: 'copied' }); }
@@ -49,11 +52,11 @@
   <div class="presets">{#each presets as p}<button class:on={preset === p.k} onclick={() => use(p)}>{p.label}</button>{/each}</div>
 
   <div class="slip">
-    <label><span>Arrive</span><input type="date" id="trip-start" name="arrive" autocomplete="off" bind:value={trip.start} min={today} max="2026-12-31" oninput={() => (preset = 'custom')} /></label>
-    <label><span>Leave</span><input type="date" id="trip-end" name="leave" autocomplete="off" bind:value={trip.end} min={trip.start} max="2026-12-31" oninput={() => (preset = 'custom')} /></label>
+    <label><span>Arrive</span><input type="date" id="trip-start" name="arrive" autocomplete="off" bind:value={trip.start} min={today} max="2026-12-31" onchange={() => { trip.persist(); datesSet('custom'); }} /></label>
+    <label><span>Leave</span><input type="date" id="trip-end" name="leave" autocomplete="off" bind:value={trip.end} min={trip.start} max="2026-12-31" onchange={() => { trip.persist(); datesSet('custom'); }} /></label>
     <div class="stepper"><span>Landing</span><div><button onclick={() => step('arrive', -0.5)} aria-label="Land earlier">−</button><b>{fmtHour(trip.arrive)}</b><button onclick={() => step('arrive', 0.5)} aria-label="Land later">+</button></div></div>
     <div class="stepper"><span>Flight out</span><div><button onclick={() => step('depart', -0.5)} aria-label="Leave earlier">−</button><b>{fmtHour(trip.depart)}</b><button onclick={() => step('depart', 0.5)} aria-label="Leave later">+</button></div></div>
-    <div class="seg" role="radiogroup" aria-label="Energy">{#each ENERGY as [k, label, v]}<button role="radio" aria-checked={band === k} class:on={band === k} onclick={() => (trip.wild = v)}>{label}</button>{/each}</div>
+    <div class="seg" role="radiogroup" aria-label="Energy" tabindex="-1" onkeydown={radioKeys}>{#each ENERGY as [k, label, v]}<button role="radio" aria-checked={band === k} tabindex={band === k ? 0 : -1} class:on={band === k} onclick={() => { trip.wild = v; trip.persist(); }}>{label}</button>{/each}</div>
   </div>
 
   {#if trip.inRange.length}
@@ -72,9 +75,9 @@
   {#if trip.days.length}
     {#each trip.days as d, di (d.date)}
       <div class="day" class:focus={trip.focusDay === di}>
-        <button class="dh" onclick={() => (trip.focusDay = di)} aria-label="Show {fmtDate(d.date, { weekday: 'long' })} on the map">
+        <button class="dh" onclick={() => (trip.focusDay = di)}>
           <span class="dn">{fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' })}</span>
-          <span class="dm">{#if d.weather}<span>{d.weather.hi}° {d.weather.kind === 'typical' ? 'typical' : 'forecast'}</span>{/if}<span>Sunset {fmtHour(d.sun.set, true)}</span></span>
+          <span class="dm">{#if d.weather}<span>{d.weather.hi}° {d.weather.kind === 'typical' ? 'typical' : 'forecast'}</span>{/if}<span>Sunset {fmtHour(d.sun.set, true)}</span></span><span class="vh">. Show on the map</span>
         </button>
         {#if d.wet}<p class="note">Rain likely. Covered spots only.</p>{/if}
         {#each d.slots as s (s.key)}
@@ -84,7 +87,11 @@
               {#if s.event}
                 <div class="evstub">
                   <div class="art"><Flyer ev={s.event} mini /></div>
-                  <div class="ev-t"><b>{s.event.title}</b><span>{s.event.venue}</span>{#if s.event.url}<a href={s.event.url} target="_blank" rel="noopener">Tickets</a>{/if}</div>
+                  <div class="ev-t"><b>{s.event.title}</b><span class="venue">{s.event.venue}{s.event.doors && s.event.time ? `, show ${fmtHour(hm(s.event.time), true)}` : ''}</span>
+                    <span class="links">{#if s.event.url}<a href={s.event.url} target="_blank" rel="noopener">Tickets</a>{/if}<a href={mapsHref(s.event.venue, s.event.address, s.event.lat, s.event.lng)} target="_blank" rel="noopener">Go</a></span></div>
+                  {#if s.event.getThere || s.event.bring || s.event.after}
+                    <dl class="tips">{#each [['Get there', s.event.getThere], ['Bring', s.event.bring], ['After', s.event.after]].filter((x) => x[1]) as [k, t]}<dt>{k}</dt><dd>{t}</dd>{/each}</dl>
+                  {/if}
                 </div>
               {:else}
                 <Stub item={{ m: s.move, sealed: s.move.secret === 2 }} compact at={s.at % 24} dow={(d.dow + (s.at >= 24 ? 1 : 0)) % 7} />
@@ -130,6 +137,7 @@
   .evs .d { font: 500 11px var(--mono); font-variation-settings: 'MONO' 1; opacity: 0.75; white-space: nowrap; }
   .day { display: grid; gap: 12px; padding-top: 14px; border-top: 2px dashed color-mix(in oklch, var(--text) 35%, transparent); }
   .dh { all: unset; cursor: pointer; display: grid; gap: 4px; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .dh:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .dn { font: 400 26px/1 var(--display); }
   .focus .dn { text-decoration: underline; text-decoration-color: var(--mamey); text-decoration-thickness: 4px; text-underline-offset: 6px; }
@@ -137,14 +145,18 @@
   .slot { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: start; }
   .when { display: grid; gap: 2px; padding-top: 8px; }
   .when b { font: 600 14px var(--mono); font-variation-settings: 'MONO' 1; }
-  .when span { font: 600 12px var(--body); opacity: 0.8; }
+  .when span { font: 600 12px var(--body); opacity: 0.92; }
   .obj { display: grid; gap: 6px; min-width: 0; }
   .swap { justify-self: start; font: 600 13px var(--body); padding: 6px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
   .evstub { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 10px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 14px 16px -12px rgba(5, 39, 57, 0.45); }
   .ev-t { display: grid; gap: 3px; align-content: start; min-width: 0; }
   .ev-t b { font: 400 22px/1.05 var(--display); }
-  .ev-t span:not(.lbl) { font-size: 13.5px; color: var(--muted); }
-  .ev-t a { font: 650 14px var(--body); color: var(--ink); margin-top: 4px; }
+  .ev-t .venue { font-size: 13.5px; color: var(--muted); }
+  .ev-t .links { display: flex; gap: 16px; margin-top: 4px; }
+  .tips { grid-column: 1 / -1; margin: 2px 0 0; padding-top: 10px; border-top: 2px dashed var(--line); display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+  .tips dt { font: 650 13px/1.45 var(--body); color: var(--muted); }
+  .tips dd { margin: 0; font: 500 14px/1.4 var(--body); font-variation-settings: 'CASL' 1; }
+  .ev-t a { font: 650 14px var(--body); color: var(--ink); padding: 6px 0; }
   .note { margin: 0; font: 500 14px/1.4 var(--body); font-variation-settings: 'CASL' 1; opacity: 0.9; }
   .codebox { display: grid; gap: 4px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; border: 2px dashed var(--line); }
   .codebox b { font: 400 30px/1 var(--display); letter-spacing: 0.04em; }

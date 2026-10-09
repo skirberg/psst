@@ -11,6 +11,7 @@
   "windows": [
    {
     "days": [
+     3,
      4
     ],
     "from": "16:00",
@@ -1493,7 +1494,7 @@
     "to": "20:00"
    }
   ],
-  "best": "18:30",
+  "best": "17:00",
   "energy": 3,
   "cost": 2,
   "rainOk": false,
@@ -1870,16 +1871,17 @@
   "cost": 2,
   "rainOk": true,
   "secret": 0,
-  "theMove": "Viet pizza, then bún bò huế. Thu to Sun.",
+  "theMove": "Book weeks ahead. Viet pizza, then bún bò huế. Thu to Sun.",
   "why": "A short walk from Kaseya.",
   "sources": [
    "https://www.phonammia.com/",
    "https://www.theinfatuation.com/miami/reviews/pho-nam-downtown",
    "https://www.theinfatuation.com/miami/guides/downtown-miami-restaurants",
    "https://www.phonammia.com/menu",
-   "https://www.phonammia.com/reservations"
+   "https://www.phonammia.com/reservations",
+   "https://www.axios.com/local/miami/2026/10/02/pho-nam-miami-downtown-tam-tam-restaurant"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-10-09",
   "word": "PHỞ"
  },
  {
@@ -2068,12 +2070,9 @@
   "theMove": "Vaca frita with yuca and mojo. Mariquitas for the table.",
   "why": "A family Cuban dinner without the line.",
   "sources": [
-   "https://lacasitacubancuisine.com/",
+   "https://www.timeout.com/miami/restaurants/la-casita",
    "https://www.theinfatuation.com/miami/reviews/la-casita-restaurant",
-   "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables",
-   "http://lacasitacubancuisine.com/ (GoDaddy parking lander, script redirects to /lander with ap:'parking')",
-   "http://lacasitamiami.com/ (301 to lacasitacubancuisine.com)",
-   "https://www.timeout.com/miami/restaurants/la-casita"
+   "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables"
   ],
   "verifiedOn": "2026-10-02",
   "word": "VACA"
@@ -2496,7 +2495,7 @@
    "https://marcsartisanalpizzeria.com/",
    "https://www.theinfatuation.com/miami/reviews/marcs-artisanal-pizzeria",
    "https://marcsartisanalpizzeria.com/menu",
-   "https://www.miaminewtimes.com/best-of-miami/2026/eat-and-drink/best-pizza-40556981 (page title: 'Best Pizza | Marc's Artisanal Pizza')"
+   "https://www.miaminewtimes.com/best-of-miami/2026/eat-and-drink/best-pizza-40556981"
   ],
   "verifiedOn": "2026-10-02",
   "word": "MARC'S"

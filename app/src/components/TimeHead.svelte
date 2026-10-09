@@ -27,18 +27,32 @@
   }
   const line = $derived(lede(app.hour));
 
-  let dragging = false;
+  // Mouse and pen scrub at once. Touch scrubs on a tap or a sideways drag; a vertical swipe scrolls the page.
+  let dragging = false, tx = null, ty = 0, tmoved = 0;
   function setFrom(e) {
     const r = track.getBoundingClientRect();
     const x = Math.min(1, Math.max(0, (e.clientX - r.left - 13) / (r.width - 26)));
     app.scrubTo(Math.round(x * 96) / 4);
   }
-  function down(e) { dragging = true; track.setPointerCapture?.(e.pointerId); setFrom(e); }
-  function move(e) { if (dragging) setFrom(e); }
-  function up() { dragging = false; }
+  function down(e) {
+    if (e.pointerType === 'touch') { tx = e.clientX; ty = e.clientY; tmoved = 0; return; }
+    dragging = true; track.setPointerCapture?.(e.pointerId); setFrom(e);
+  }
+  function move(e) {
+    if (dragging) { setFrom(e); return; }
+    if (tx == null) return;
+    const dx = Math.abs(e.clientX - tx), dy = Math.abs(e.clientY - ty); tmoved = Math.max(tmoved, dx, dy);
+    if (dx > dy + 8) { dragging = true; track.setPointerCapture?.(e.pointerId); setFrom(e); }
+    else if (dy > dx + 8) tx = null;
+  }
+  function up(e) {
+    if (!dragging && tx != null && tmoved < 8) setFrom(e);
+    dragging = false; tx = null;
+  }
+  function cancel() { dragging = false; tx = null; }
   function key(e) {
     const d = { ArrowRight: 0.25, ArrowLeft: -0.25, PageUp: 1, PageDown: -1 }[e.key];
-    if (e.key === 'Home') { e.preventDefault(); app.backToNow(); return; }
+    if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); app.scrubTo(e.key === 'Home' ? 0 : 23.75); return; }
     if (d == null) return;
     e.preventDefault(); app.scrubTo(app.hour + d);
   }
@@ -55,7 +69,7 @@
 
   <div class="track" bind:this={track} role="slider" tabindex="0" aria-label="Time of day in Miami"
        aria-valuemin="0" aria-valuemax="24" aria-valuenow={app.hour.toFixed(2)} aria-valuetext={fmtHour(app.hour)}
-       onpointerdown={down} onpointermove={move} onpointerup={up} onpointercancel={up} onkeydown={key}>
+       onpointerdown={down} onpointermove={move} onpointerup={up} onpointercancel={cancel} onkeydown={key}>
     <div class="ribbon" style:background={grad}></div>
     {#if hourly}{#each hourly as hr, i}{#if hr[1] >= 30}<i class="rain" style:left={pos(i + 0.5)} style:height="{4 + hr[1] * 0.08}px" title="{hr[1]}% rain"></i>{/if}{/each}{/if}
     <span class="tick" style:left={pos(app.sun.rise)}></span>
@@ -84,7 +98,7 @@
   .hour:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 6px; }
   .nowchip { font: 650 13px var(--body); padding: 7px 12px; border-radius: 999px; border: 0; background: var(--text); color: var(--sky); cursor: pointer; }
 
-  .track { position: relative; height: 34px; margin-top: 4px; cursor: ew-resize; touch-action: none; }
+  .track { position: relative; height: 34px; margin-top: 4px; cursor: ew-resize; touch-action: pan-y; }
   .track:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; border-radius: 10px; }
   .ribbon { position: absolute; left: 0; right: 0; top: 12px; height: 10px; border-radius: 6px; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); }
   .rain { position: absolute; bottom: 24px; width: 2px; margin-left: -1px; border-radius: 1px; background: color-mix(in oklch, var(--text) 45%, #4AC9EC); }

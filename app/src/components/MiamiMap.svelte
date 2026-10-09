@@ -9,7 +9,7 @@
   import { app } from '../lib/state.svelte.js';
   import Sticker from './Sticker.svelte';
 
-  let { inset = { left: 0, top: 0, bottom: 0, right: 0 }, pins = [], route = [], focus = null, interactive = true, labels = true, quiet = false } = $props();
+  let { inset = { left: 0, top: 0, bottom: 0, right: 0 }, pins = [], route = [], focus = null, interactive = true, labels = true, quiet = false, paused = false } = $props();
 
   const [S, W, N, E] = geo.bbox;
   const wDeg = (E - W) * geo.k, hDeg = N - S;
@@ -123,6 +123,11 @@
 
   // lights-on wave when the city crosses into night
   let wasDark = false, waveStart = 0, lastTs = 0, slow = 0; // starts false so a night-time first open plays the wave once
+  // The map draws only when something on it changes or moves: night traffic, the sunset wave,
+  // the focus pulse, a route, or a pan that is settling. Idle daytime and paused screens stop the loop.
+  let animating = false;
+  let glowKey = '', glowVals = new Map();
+  function kick() { if (!raf && ctx && !document.hidden) { lastTs = 0; raf = requestAnimationFrame(loop); } }
   function frame(ts) {
     if (!ctx || !cw) return;
     const dt = Math.min(0.05, lastTs ? (ts - lastTs) / 1000 : 0); lastTs = ts;
@@ -148,12 +153,14 @@
     ctx.globalAlpha = 1;
     const z = Math.min(1.7, Math.max(0.7, Math.sqrt(view.s / 0.25)));
     const h = app.hour, dow = app.dow;
+    const gk = `${dow}:${h}:${quiet}`;
+    if (gk !== glowKey) { glowKey = gk; glowVals = new Map(pts.map(({ m }) => [m.id, glow(m, dow, h % 24) * (quiet ? 0.6 : 1)])); }
     if (d > 0.25 && sprites) {
       const share = trafficAt(h);
       ctx.globalCompositeOperation = 'lighter';
       ctx.globalAlpha = Math.min(1, (d - 0.25) * 1.6) * (quiet ? 0.6 : 1);
       for (const c of CARS) {
-        if (!reduce) { c.d += c.v * dt; if (c.d > c.r.len) c.d -= c.r.len; if (c.d < 0) c.d += c.r.len; }
+        if (!reduce && !paused) { c.d += c.v * dt; if (c.d > c.r.len) c.d -= c.r.len; if (c.d < 0) c.d += c.r.len; }
         if (c.k > share) continue;
         const [x, y] = toScreen(carPos(c)); if (x < -8 || y < -8 || x > cw + 8 || y > ch + 8) continue;
         const r = 4.5 * dpr * z;
@@ -162,7 +169,7 @@
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
     }
     for (const { m, p } of pts) {
-      const g = glow(m, dow, h % 24) * (quiet ? 0.6 : 1); if (g <= 0.02) continue;
+      const g = glowVals.get(m.id) ?? 0; if (g <= 0.02) continue;
       const [x, y] = toScreen(p); if (x < -30 || y < -30 || x > cw + 30 || y > ch + 30) continue;
       const locked = m.secret === 2 && !app.unlocked.includes(m.id);
       if (d > 0.4 && sprites) {
@@ -191,6 +198,7 @@
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
     }
     const f = !quiet && focus && pts.find((x) => x.m.id === focus);
+    animating = !reduce && !paused && (d > 0.25 || !!waveStart || !!f || route.length > 1);
     if (f) {
       const [x, y] = toScreen(f.p), pulse = reduce ? 0.5 : (Math.sin(ts / 420) + 1) / 2;
       ctx.strokeStyle = d > 0.5 ? 'rgba(254,250,241,0.85)' : 'rgba(5,39,57,0.8)'; ctx.lineWidth = 1.5 * dpr;
@@ -211,28 +219,30 @@
     }
   }
   function loop(ts) {
+    raf = 0;
     const t0 = performance.now();
     try { frame(ts); } catch (e) { if (!loop.warned) { console.warn('map frame', e); loop.warned = true; } }
     slow = performance.now() - t0 > 20 ? slow + 1 : 0;
     if (slow >= 3 && CARS.length > 80) { CARS = CARS.filter((_, i) => i % 2 === 0); slow = 0; }
-    raf = requestAnimationFrame(loop);
+    if (animating || performance.now() - lastInteract < 400) kick();
   }
+  $effect(() => { app.hour; app.sky; app.dow; app.unlocked; pins; route; focus; inset; labels; quiet; paused; kick(); });
   function resize() {
     const r = wrap.getBoundingClientRect(); if (!r.width || !r.height) return;
     dpr = Math.min(2, window.devicePixelRatio || 1); cw = Math.round(r.width * dpr); ch = Math.round(r.height * dpr);
-    canvas.width = cw; canvas.height = ch; if (!view.user) fit(); layerKey = '';
+    canvas.width = cw; canvas.height = ch; if (!view.user) fit(); layerKey = ''; kick();
   }
 
   const ptrs = new Map(); let moved = 0, pinch0 = null, downAt = null;
   function zoomAt(sx, sy, k) {
     const ns = Math.min(3, Math.max(0.12, view.s * k)); const gx = (sx - cw / 2) / view.s + view.cx, gy = (sy - ch / 2) / view.s + view.cy;
-    view.s = ns; view.cx = gx - (sx - cw / 2) / ns; view.cy = gy - (sy - ch / 2) / ns; view.user = true; lastInteract = performance.now();
+    view.s = ns; view.cx = gx - (sx - cw / 2) / ns; view.cy = gy - (sy - ch / 2) / ns; view.user = true; lastInteract = performance.now(); kick();
   }
   function onDown(e) { if (!interactive) return; canvas.setPointerCapture?.(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); moved = 0; downAt = [e.clientX, e.clientY]; if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch0 = Math.hypot(a[0] - b[0], a[1] - b[1]); } }
   function onMove(e) {
     if (!ptrs.has(e.pointerId)) return; const prev = ptrs.get(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]);
     if (ptrs.size === 2 && pinch0) { const [a, b] = [...ptrs.values()], dd = Math.hypot(a[0] - b[0], a[1] - b[1]); const r = canvas.getBoundingClientRect(); zoomAt(((a[0] + b[0]) / 2 - r.left) * dpr, ((a[1] + b[1]) / 2 - r.top) * dpr, dd / pinch0); pinch0 = dd; moved += 10; return; }
-    const dx = e.clientX - prev[0], dy = e.clientY - prev[1]; moved += Math.abs(dx) + Math.abs(dy); view.cx -= (dx * dpr) / view.s; view.cy -= (dy * dpr) / view.s; view.user = true; lastInteract = performance.now();
+    const dx = e.clientX - prev[0], dy = e.clientY - prev[1]; moved += Math.abs(dx) + Math.abs(dy); view.cx -= (dx * dpr) / view.s; view.cy -= (dy * dpr) / view.s; view.user = true; lastInteract = performance.now(); kick();
   }
   function onUp(e) {
     ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch0 = null;
@@ -250,7 +260,7 @@
     const [tx0, ty0] = project(lat, lng), s1 = scale ?? Math.max(view.s, 0.5);
     const off = (((inset.left || 0) - (inset.right || 0)) * dpr) / 2 / s1, offY = (((inset.top || 0) - (inset.bottom || 0)) * dpr) / 2 / s1;
     const from = { ...view }, to = { cx: tx0 - off, cy: ty0 - offY, s: s1 }, t0 = performance.now(), dur = reduce ? 1 : 700;
-    const step = (now) => { const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; view.cx = from.cx + (to.cx - from.cx) * e; view.cy = from.cy + (to.cy - from.cy) * e; view.s = from.s + (to.s - from.s) * e; view.user = true; lastInteract = performance.now(); if (k < 1) requestAnimationFrame(step); };
+    const step = (now) => { const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; view.cx = from.cx + (to.cx - from.cx) * e; view.cy = from.cy + (to.cy - from.cy) * e; view.s = from.s + (to.s - from.s) * e; view.user = true; lastInteract = performance.now(); kick(); if (k < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   }
   export function fitPoints(list) {
@@ -262,26 +272,27 @@
     const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2;
     flyTo(N - (cy / geo.h) * hDeg, W + ((cx / geo.w) * wDeg) / geo.k, s);
   }
-  export function recenter() { view.user = false; fit(); layerKey = ''; }
+  export function recenter() { view.user = false; fit(); layerKey = ''; kick(); }
 
   onMount(() => {
     ctx = canvas.getContext('2d'); sprites = makeSprites();
     const n = matchMedia('(max-width: 760px)').matches ? 280 : 600;
     CARS = Array.from({ length: n }, (_, i) => { const r = pickRoad(rnd()); return { r, d: rnd() * r.len, v: (14 + rnd() * 16) * (rnd() < 0.5 ? 1 : -1), k: i / n }; });
     const ro = new ResizeObserver(resize); ro.observe(wrap); resize();
-    raf = requestAnimationFrame(loop);
+    kick();
     canvas.addEventListener('wheel', onWheel, { passive: false });
-    const vis = () => { cancelAnimationFrame(raf); if (!document.hidden) { lastTs = 0; raf = requestAnimationFrame(loop); } };
+    const vis = () => { cancelAnimationFrame(raf); raf = 0; kick(); };
     document.addEventListener('visibilitychange', vis);
-    if (document.fonts?.ready) document.fonts.ready.then(() => { layerKey = ''; });
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); document.removeEventListener('visibilitychange', vis); };
+    const fontsIn = () => { layerKey = ''; kick(); };
+    document.fonts?.ready.then(fontsIn); document.fonts?.addEventListener('loadingdone', fontsIn);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); document.removeEventListener('visibilitychange', vis); document.fonts?.removeEventListener('loadingdone', fontsIn); };
   });
 </script>
 
-<div class="map" bind:this={wrap} role="img" aria-label="Miami map. Lit spots are open at this hour.">
-  <canvas bind:this={canvas} class:interactive onpointerdown={onDown} onpointermove={onMove} onpointerup={onUp} onpointercancel={onUp}></canvas>
+<div class="map" bind:this={wrap}>
+  <canvas bind:this={canvas} role="img" aria-label="Miami map. Lit spots are open at this hour." class:interactive onpointerdown={onDown} onpointermove={onMove} onpointerup={onUp} onpointercancel={onUp}></canvas>
   {#if labels}<p class="credit">Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></p>{/if}
-  <div class="pins">
+  <div class="pins" role="group" aria-label="Moves on the map">
     {#each pins as p, i (p.id)}
       <button class="pin" bind:this={pinEls[i]} class:active={p.active} onclick={() => p.onclick?.()} aria-label={p.label} tabindex={p.onclick ? 0 : -1}>
         <span class="lift"><Sticker move={p.move} size={p.active ? 52 : 38} />{#if p.tag}<b>{p.tag}</b>{/if}</span>

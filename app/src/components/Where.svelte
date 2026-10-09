@@ -4,22 +4,31 @@
   import Icon from './Icon.svelte';
   import hotels from '../lib/hotels.json';
   import { app } from '../lib/state.svelte.js';
-  import { moves, openAt, hm, fmtHour } from '../lib/core.js';
+  import { moves, openAt, hm, fmtHour, mapsHref } from '../lib/core.js';
   let { onclose } = $props();
-  let back = $state();
+  let back = $state(), box = $state();
   const m = $derived(app.where ? moves.find((x) => x.id === app.where) : null);
   const h = $derived(app.whereHotel ? hotels.find((x) => x.id === app.whereHotel) : null);
   const o = $derived(m || h);
   const status = $derived(m ? (openAt(m, app.dow, app.hour) ? (app.following ? 'Open now' : `Open at ${fmtHour(app.hour, true)}`) : `Best at ${fmtHour(hm(m.best), true)}`) : h ? '$'.repeat(h.tier) : '');
-  const apple = $derived(o && `https://maps.apple.com/?q=${encodeURIComponent(o.place || o.name)}&ll=${o.lat},${o.lng}`);
+  const onApple = typeof navigator !== 'undefined' && /iPhone|iPad|Macintosh/.test(navigator.userAgent);
+  const go = $derived(o && mapsHref(o.place || o.name, o.address, o.lat, o.lng));
   const google = $derived(o && `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((o.place || o.name) + ' ' + o.address)}`);
-  function key(e) { if (e.key === 'Escape') onclose(); }
+  function key(e) {
+    if (e.key === 'Escape') { onclose(); return; }
+    if (e.key !== 'Tab' || !box) return;
+    // aria-modal: Tab wraps between Back and the last link instead of leaving the dialog
+    const f = [...box.querySelectorAll('button, a[href]')], first = f[0], last = f.at(-1);
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (!box.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+  }
   $effect(() => { back?.focus(); });
 </script>
 
 <svelte:window onkeydown={key} />
 {#if o}
-  <div class="where" role="dialog" aria-modal="true" aria-label="{o.place || o.name} on the map">
+  <div class="where" bind:this={box} role="dialog" aria-modal="true" aria-label="{o.place || o.name} on the map">
     <button class="back" bind:this={back} onclick={onclose}><Icon name="left" size={18} />Back</button>
     <div class="card">
       <Sticker move={m || { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }} size={64} />
@@ -28,8 +37,8 @@
         <h2>{o.place || o.name}</h2>
         <p class="addr">{o.address}</p>
         <div class="acts">
-          <a class="pill" href={apple} target="_blank" rel="noopener">Apple Maps</a>
-          <a class="pill ghost" href={google} target="_blank" rel="noopener">Google Maps</a>
+          <a class="pill" href={go} target="_blank" rel="noopener">Go</a>
+          {#if onApple}<a class="pill ghost" href={google} target="_blank" rel="noopener">Google Maps</a>{/if}
         </div>
       </div>
     </div>

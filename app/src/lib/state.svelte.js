@@ -52,7 +52,7 @@ class AppState {
   padId = $state(null);
   pad = $derived.by(() => {
     const cats = MOODS.find((x) => x[0] === this.mood)?.[2];
-    const list = this.ranked.filter((x) => !cats || (cats === 'secret' ? x.m.secret >= 1 || x.m.category === 'speakeasy' : cats.includes(x.m.category)));
+    const list = this.ranked.filter((x) => !cats || (cats === 'secret' ? x.m.secret === 2 || x.m.category === 'speakeasy' : cats.includes(x.m.category)));
     const open = [], sealed = [];
     for (const x of list) (x.m.secret === 2 && !this.unlocked.includes(x.m.id) ? sealed : open).push(x);
     const pad = open.slice(0, 8);
@@ -62,9 +62,12 @@ class AppState {
   padPos = $derived.by(() => { const i = this.pad.findIndex((x) => x.m.id === this.padId); return i >= 0 ? i : 0; });
   later = $derived.by(() => {
     const h = this.hour, ids = new Set(this.pad.map((x) => x.m.id));
+    // On a show day, nothing that clashes with the show (an hour before doors to four after).
+    const shows = trip.days.find((d) => d.date === this.now.date)?.slots.filter((s) => s.event && s.label === 'Doors').map((s) => s.at) ?? [];
     return moves
       .map((m) => { const b = hm(m.best); return { m, b, t: b + (b < h ? 24 : 0) }; })
       .filter((x) => !ids.has(x.m.id) && x.t > h + 1 && x.t < 24 && openAt(x.m, (this.dow + (x.t >= 24 ? 1 : 0)) % 7, x.b) && !(x.m.secret === 2 && !this.unlocked.includes(x.m.id)))
+      .filter((x) => !shows.some((st) => x.t >= st - 1 && x.t < st + 4))
       .sort((a, b) => a.t - b.t)
       .filter((x, i, arr) => i === 0 || Math.floor(x.t) !== Math.floor(arr[i - 1].t))
       .slice(0, 8);
@@ -90,26 +93,36 @@ class AppState {
   }
   toggle(list, id) { this[list] = this[list].includes(id) ? this[list].filter((x) => x !== id) : [...this[list], id]; this.persist(); }
   keep(id) { if (!this.kept.includes(id)) { this.kept = [...this.kept, id]; this.persist(); track('Move kept'); } }
-  setTab(t) { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { history.replaceState(null, '', '#' + t); } catch {} }
+  setTab(t, source = 'tabbar') { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t, source }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { history.replaceState(null, '', '#' + t); } catch {} }
   scrubTo(h, id = null) { this.hour = ((h % 24) + 24) % 24; this.following = false; this.padId = id; this.flipped = null; }
   backToNow() { this.following = true; this.hour = this.now.hour; this.padId = null; }
   say(msg) { this.toast = msg; clearTimeout(this._t); this._t = setTimeout(() => (this.toast = ''), 2600); }
 }
 export const app = new AppState();
-// A friend's plan link carries ?code=PINA-XXXXX. Redeem it once on arrival.
+// A friend's plan link carries ?code=PINA-XXXXX, and the stay as &trip=START_END&a=EVENT_IDS.
+// Redeem the code once; open the friend's dates only if this viewer has no trip of their own.
 export function codeFromUrl() {
   try {
-    const u = new URL(location.href), code = u.searchParams.get('code');
-    if (!code) return;
-    const r = app.redeem(code);
-    if (r === 'ok') app.say('+1 secret from a friend.');
-    u.searchParams.delete('code'); history.replaceState(null, '', u.pathname + u.search + u.hash);
+    const u = new URL(location.href), code = u.searchParams.get('code'), span = u.searchParams.get('trip');
+    if (!code && !span) return;
+    let msg = '';
+    if (code) { const r = app.redeem(code); if (r === 'ok') msg = '+1 secret from a friend.'; }
+    const m = span?.match(/^(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)$/);
+    if (m && m[2] >= m[1] && !trip.saved) {
+      const ids = (u.searchParams.get('a') || '').split(',').filter((id) => events.some((e) => e.id === id));
+      trip.start = m[1]; trip.end = m[2]; trip.anchors = ids; trip.persist();
+      app.setTab('trip', 'link'); msg = msg ? 'Your friend\'s plan. +1 secret.' : 'Your friend\'s plan.';
+    }
+    if (msg) app.say(msg);
+    for (const k of ['code', 'trip', 'a']) u.searchParams.delete(k);
+    history.replaceState(null, '', u.pathname + u.search + location.hash);
   } catch {}
 }
 
 // The visitor's stay. Inputs are state; the plan is derived from them. Inputs persist per viewer.
 const tripSaved = (() => { try { return JSON.parse(localStorage.getItem('psst.trip.v1')) || {}; } catch { return {}; } })();
 class TripState {
+  saved = !!tripSaved.start; // this viewer has set a trip before
   start = $state(tripSaved.start || '2026-11-20');
   end = $state(tripSaved.end || '2026-11-24');
   arrive = $state(tripSaved.arrive ?? 15);
@@ -122,6 +135,6 @@ class TripState {
   days = $derived(this.end >= this.start ? planStay({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.inRange.filter((e) => this.anchors.includes(e.id)), swaps: this.swaps }) : []);
   swap(date, key) { const k = `${date}:${key}`; this.swaps = { ...this.swaps, [k]: (this.swaps[k] || 0) + 1 }; }
   toggleAnchor(id) { this.anchors = this.anchors.includes(id) ? this.anchors.filter((x) => x !== id) : [...this.anchors, id]; this.persist(); }
-  persist() { try { localStorage.setItem('psst.trip.v1', JSON.stringify({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.anchors })); } catch {} }
+  persist() { this.saved = true; try { localStorage.setItem('psst.trip.v1', JSON.stringify({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.anchors })); } catch {} }
 }
 export const trip = new TripState();

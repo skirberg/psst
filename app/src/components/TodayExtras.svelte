@@ -3,18 +3,27 @@
   import Flyer from './Flyer.svelte';
   import Icon from './Icon.svelte';
   import { app, trip } from '../lib/state.svelte.js';
-  import { events, fmtDate } from '../lib/core.js';
-  const tonight = $derived(events.filter((e) => e.date <= app.now.date && (e.endDate || e.date) >= app.now.date).slice(0, 4));
+  import { events, fmtDate, fmtHour, daySpan } from '../lib/core.js';
+  // Shows on your trip lead Tonight.
+  const tonight = $derived(events.filter((e) => e.date <= app.now.date && (e.endDate || e.date) >= app.now.date)
+    .sort((a, b) => trip.anchors.includes(b.id) - trip.anchors.includes(a.id)).slice(0, 4));
   const shows = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event)).length);
   const stops = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.move)).length);
-  const firstShow = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event).map((s) => s.event))[0]);
-  const daysTo = $derived(Math.round((new Date(trip.start + 'T12:00:00Z') - new Date(app.now.date + 'T12:00:00Z')) / 864e5));
+  const nextShow = $derived(trip.days.filter((d) => d.date >= app.now.date).flatMap((d) => d.slots.filter((s) => s.event).map((s) => s.event))[0]);
+  const daysTo = $derived(daySpan(app.now.date, nextShow?.date ?? trip.start));
+  // During the trip the ticket names the next stop: '6pm, Phở Nam', then 'Doors 7pm, Kaseya Center'.
+  const next = $derived(trip.days.find((d) => d.date === app.now.date)?.slots.find((s) => s.at >= app.hour - 0.25));
+  const range = $derived(`${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`);
 </script>
 
 {#if trip.days.length}
-  <button class="tripticket" onclick={() => app.setTab('trip')}>
+  <button class="tripticket" onclick={() => app.setTab('trip', 'ticket')}>
     <span class="tt-ic"><Icon name="trip" size={22} /></span>
-    <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} days` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && firstShow ? `to ${firstShow.title.split(':')[0]}` : `${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`}</span></span>
+    {#if next}
+      <span class="tt-main"><b>{next.label === 'Doors' ? 'Doors ' : ''}{fmtHour(next.at % 24, true)}</b><span>{next.event ? next.event.venue : next.move.place}</span></span>
+    {:else}
+      <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && nextShow ? `to ${nextShow.title.split(':')[0]}` : range}</span></span>
+    {/if}
     <span class="tt-n"><b>{shows}</b>{shows === 1 ? 'show' : 'shows'}</span>
     <span class="tt-n"><b>{stops}</b>stops</span>
     <Icon name="right" size={18} />
@@ -26,7 +35,7 @@
     <h2>Tonight</h2>
     <div class="row">
       {#each tonight as e (e.id)}
-        <button class="mini" onclick={() => app.setTab('wall')} aria-label="{e.title}, {e.venue}"><Flyer ev={e} /></button>
+        <button class="mini" onclick={() => app.setTab('wall', 'flyer')} aria-label="{e.title}, {e.venue}"><Flyer ev={e} /></button>
       {/each}
     </div>
   </section>

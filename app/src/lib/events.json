@@ -315,7 +315,6 @@
   "sources": [
    "https://dice.fm/venue/the-ground-miami-qkma",
    "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets",
-   "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-6th-nov-the-ground-miami-miami-tickets",
    "https://dice.fm/event/pyxgxy-808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets"
   ]
  },
@@ -418,7 +417,7 @@
   "id": "john-summit-ctrl-escape-kaseya-2026-11-20",
   "title": "John Summit: CTRL Escape Tour (night 1)",
   "date": "2026-11-20",
-  "time": "19:00",
+  "time": "20:00",
   "venue": "Kaseya Center",
   "address": "601 Biscayne Blvd, Miami, FL 33132",
   "hood": "Downtown",
@@ -431,8 +430,15 @@
   "sources": [
    "https://www.kaseyacenter.com/events/detail/john-summit",
    "https://www.miamiandbeaches.com/event/john-summit-ctrl-escape-tour/40578",
-   "https://songkick.com/concerts/42975394-john-summit-at-kaseya-center"
-  ]
+   "https://songkick.com/concerts/42975394-john-summit-at-kaseya-center",
+   "https://www.kaseyacenter.com/a-z-guide",
+   "https://www.kaseyacenter.com/plan-your-visit/directions-parking"
+  ],
+  "doors": "19:00",
+  "getThere": "Metromover Omni Loop to Park West, then cross Biscayne. Rideshare drops at Bayshore Dr and HEAT Blvd, Gate 6.",
+  "bring": "Bags up to 10 x 6 x 2 in. Lockers by Gate 7 and the box office.",
+  "after": "Metromover runs till midnight, sometimes 1am after shows.",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "madre-cumbia-bandshell-2026-11-20",
@@ -512,17 +518,17 @@
   "sources": [
    "https://donotsitonthefurniture.com/",
    "https://www.timeout.com/miami/nightlife/do-not-sit-on-the-furniture",
-   "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5 (seen via search excerpt; direct fetch 403)",
+   "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5",
    "https://19hz.info/eventlisting_Miami.php",
-   "https://www.jambase.com/venue/do-not-sit-on-the-furniture (search excerpt)",
-   "https://www.lennoxmiamibeach.com/events/miami-beach/fernando-olaya-the-soundgarden-balance-music-13015854 (search excerpt)"
+   "https://www.jambase.com/venue/do-not-sit-on-the-furniture",
+   "https://www.lennoxmiamibeach.com/events/miami-beach/fernando-olaya-the-soundgarden-balance-music-13015854"
   ]
  },
  {
   "id": "john-summit-ctrl-escape-kaseya-2026-11-21",
   "title": "John Summit: CTRL Escape Tour (night 2)",
   "date": "2026-11-21",
-  "time": "19:00",
+  "time": "20:00",
   "venue": "Kaseya Center",
   "address": "601 Biscayne Blvd, Miami, FL 33132",
   "hood": "Downtown",
@@ -535,8 +541,15 @@
   "sources": [
    "https://www.kaseyacenter.com/events/detail/john-summit",
    "https://www.miamiandbeaches.com/event/john-summit-ctrl-escape-tour/40578",
-   "https://19hz.info/eventlisting_Miami.php"
-  ]
+   "https://19hz.info/eventlisting_Miami.php",
+   "https://www.kaseyacenter.com/a-z-guide",
+   "https://www.kaseyacenter.com/plan-your-visit/directions-parking"
+  ],
+  "doors": "19:00",
+  "getThere": "Metromover Omni Loop to Park West, then cross Biscayne. Rideshare drops at Bayshore Dr and HEAT Blvd, Gate 6.",
+  "bring": "Bags up to 10 x 6 x 2 in. Lockers by Gate 7 and the box office.",
+  "after": "Metromover runs till midnight, sometimes 1am after shows.",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "headache-the-ground-2026-11-22",
@@ -547,17 +560,19 @@
   "hood": "Downtown",
   "lat": 25.784555,
   "lng": -80.193153,
-  "category": "club",
+  "category": "concert",
   "price": "$20",
-  "url": "https://dice.fm/venue/the-ground-miami-qkma",
+  "url": "https://www.clubspace.com/shows/headache-22nd-nov-the-ground-miami-miami-tickets",
   "why": "Sunday-night curveball in Space's live room to close out Book Fair weekend.",
   "energy": 3,
   "sources": [
    "https://dice.fm/venue/the-ground-miami-qkma",
-   "https://dice.fm/venue/the-ground-miami-qkma (seen via search excerpt; direct fetch 403)",
+   "https://www.clubspace.com/shows/headache-22nd-nov-the-ground-miami-miami-tickets",
    "https://www.songkick.com/artists/516097-headache/calendar",
    "https://concerts50.com/artists/headache-tour-dates/usa"
-  ]
+  ],
+  "doors": "20:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "viernes-culturales-2026-11-27",
@@ -700,7 +715,7 @@
  {
   "id": "rawayana-kaseya-center-2026-12-05",
   "title": "Rawayana: ¿Dónde Es El After? World Tour",
-  "date": "2026-12-05",
+  "date": "2026-12-04",
   "endDate": "2026-12-06",
   "venue": "Kaseya Center",
   "address": "601 Biscayne Blvd, Miami, FL 33132",
@@ -709,12 +724,14 @@
   "lng": -80.187944,
   "category": "concert",
   "url": "https://www.kaseyacenter.com/events",
-  "why": "Venezuelan funk-pop band booked for two arena nights during Art Week weekend.",
+  "why": "Venezuelan funk-pop band, three arena nights over Art Week weekend.",
   "energy": 4,
   "sources": [
    "https://www.kaseyacenter.com/events",
-   "https://www.kaseyacenter.com/news/detail/second-show-added-to-rawayana-donde-es-el-after-tour-coming-to-kaseya-center"
-  ]
+   "https://www.kaseyacenter.com/news/detail/second-show-added-to-rawayana-donde-es-el-after-tour-coming-to-kaseya-center",
+   "https://www.kaseyacenter.com/news/detail/rawayana-announce-third-night-of-donde-es-el-after-world-tour-coming-to-kaseya-center"
+  ],
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "gente-de-zona-kaseya-center-2026-12-11",

@@ -5,4 +5,15 @@ import { viteSingleFile } from 'vite-plugin-singlefile';
 const site = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : '';
 if (!site && process.env.VERCEL) console.warn('[site-url] VERCEL_PROJECT_PRODUCTION_URL is not set, so og:image is the relative /og.png. Turn on System Environment Variables in the Vercel project settings and redeploy.');
 const siteUrl = { name: 'site-url', transformIndexHtml: (html) => html.replaceAll('__SITE__', site) };
-export default defineConfig({ base: './', plugins: [svelte(), viteSingleFile(), siteUrl], build: { target: 'es2020' } });
+// The single file inlines the 400 KB app script in <head>; move it to the end of <body> so the boot sky paints first.
+const scriptLast = {
+  name: 'script-last', enforce: 'post',
+  generateBundle(_, bundle) {
+    for (const f of Object.values(bundle)) {
+      if (!f.fileName.endsWith('.html') || typeof f.source !== 'string') continue;
+      const m = f.source.match(/<script type="module"[^>]*>[\s\S]*?<\/script>/);
+      if (m) f.source = f.source.replace(m[0], '').replace('</body>', m[0] + '</body>');
+    }
+  },
+};
+export default defineConfig({ base: './', plugins: [svelte(), viteSingleFile(), siteUrl, scriptLast], build: { target: 'es2020' } });

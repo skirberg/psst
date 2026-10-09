@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import MiamiMap from './components/MiamiMap.svelte';
   import SkyFx from './components/SkyFx.svelte';
   import Wordmark from './components/Wordmark.svelte';
@@ -46,7 +46,7 @@
   const anyWhere = $derived(!!(app.where || app.whereHotel));
 
   $effect(() => {
-    document.body.style.background = app.sky; document.documentElement.style.colorScheme = app.dark ? 'dark' : 'light';
+    document.body.style.background = app.sky; document.documentElement.style.background = app.sky; document.documentElement.style.colorScheme = app.dark ? 'dark' : 'light';
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', app.sky);
   });
   $effect(() => { if (map && route.length && app.tab === 'trip') map.fitPoints(route); });
@@ -62,16 +62,26 @@
     return () => { clearInterval(tick); mq.removeEventListener('change', set); };
   });
   const TABS = [['today', 'Today', 'today'], ['trip', 'Trip', 'trip'], ['wall', 'Events', 'events'], ['stay', 'Stay', 'stay'], ['book', 'Kept', 'kept']];
-  function leaveWhere() { app.where = null; app.whereHotel = null; if (!wide) map?.recenter(); }
+  // Closing the full-screen map puts focus back where it was: the move's card or the hotel's key fob.
+  async function leaveWhere() {
+    const id = app.where, hid = app.whereHotel;
+    app.where = null; app.whereHotel = null; if (!wide) map?.recenter();
+    await tick();
+    (hid ? document.getElementById('fob-' + hid) : document.querySelector(`#back-${id} .pill`) || document.querySelector('.stack .more'))?.focus();
+  }
 </script>
 
 <div class="app" class:wide class:dark={app.dark} style={vars}>
-  <a class="skip" href="#main">Skip to content</a>
-  <div class="mapwrap" class:where={anyWhere} class:live={wide || anyWhere} class:dim={app.tab === 'wall' || app.tab === 'book'}>
-    <MiamiMap bind:this={map} {pins} {route} {focus} interactive={wide || anyWhere} labels={wide || anyWhere} quiet={!wide && !anyWhere}
-      inset={wide ? { left: full ? 0 : 500, top: 70, bottom: app.tab === 'today' ? 150 : 40, right: 20 } : { left: 0, top: 70, bottom: anyWhere ? 260 : 0 }} />
-  </div>
-  {#if !anyWhere && (app.tab === 'today' || !wide)}<SkyFx />{/if}
+  {#if !anyWhere}<a class="skip" href="#main">Skip to content</a>{/if}
+  {#if !wide && !anyWhere}
+    <nav class="tabbar" aria-label="Sections">
+      {#each TABS as [k, label, ic]}
+        <button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}>
+          <span class="ti"><Icon name={ic} size={22} />{#if k === 'book' && app.kept.length}<i>{app.kept.length}</i>{/if}</span><span class="tl">{label}</span>
+        </button>
+      {/each}
+    </nav>
+  {/if}
 
   {#if anyWhere}
     <Where onclose={leaveWhere} />
@@ -79,7 +89,7 @@
     <main class="col" class:full id="main" tabindex="-1" bind:this={scroller}>
       <header class="top">
         <Wordmark size={wide ? 40 : 34} />
-        <p class="today"><span>{fmtDate(app.now.date, { weekday: 'short', month: 'short', day: 'numeric' })}</span>{#if wx}<span>{wx.hi}° {wx.kind === 'typical' ? 'typical' : ''}</span>{/if}</p>
+        <p class="today"><span>Miami, {fmtDate(app.now.date, { weekday: 'short' })} {fmtDate(app.now.date, { month: 'short', day: 'numeric' })}</span>{#if wx}<span>{wx.hi}° {wx.kind === 'typical' ? 'typical' : 'forecast'}</span>{/if}</p>
       </header>
       {#if wide}
         <nav class="tabs" aria-label="Sections">{#each TABS as [k, label, ic]}<button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}><Icon name={ic} size={18} />{label}{#if k === 'book' && app.kept.length}<i>{app.kept.length}</i>{/if}</button>{/each}</nav>
@@ -103,15 +113,11 @@
     {#if wide && app.tab === 'today'}<div class="laterdock"><Later /></div>{/if}
   {/if}
 
-  {#if !wide && !anyWhere}
-    <nav class="tabbar" aria-label="Sections">
-      {#each TABS as [k, label, ic]}
-        <button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}>
-          <span class="ti"><Icon name={ic} size={22} />{#if k === 'book' && app.kept.length}<i>{app.kept.length}</i>{/if}</span><span class="tl">{label}</span>
-        </button>
-      {/each}
-    </nav>
-  {/if}
+  <div class="mapwrap" role="region" aria-label="Map" class:where={anyWhere} class:live={wide || anyWhere} class:dim={app.tab === 'wall' || app.tab === 'book'}>
+    <MiamiMap bind:this={map} {pins} {route} {focus} interactive={wide || anyWhere} labels={wide || anyWhere} quiet={!wide && !anyWhere} paused={!anyWhere && (app.tab === 'wall' || app.tab === 'book')}
+      inset={wide ? { left: full ? 0 : 500, top: 70, bottom: app.tab === 'today' ? 150 : 40, right: 20 } : { left: 0, top: 70, bottom: anyWhere ? 260 : 0 }} />
+  </div>
+  {#if !anyWhere && (app.tab === 'today' || !wide)}<SkyFx />{/if}
   <div class="toast" class:show={!!app.toast} role="status" aria-live="polite">{app.toast}</div>
 </div>
 
@@ -122,20 +128,20 @@
   .app { --display: 'Tilt Warp', 'Arial Rounded MT Bold', system-ui, sans-serif; --body: 'Recursive', ui-sans-serif, system-ui, sans-serif; --mono: 'Recursive', ui-monospace, Menlo, monospace;
     --t-ui: 240ms cubic-bezier(.2, .8, .2, 1); --t-paper: 520ms cubic-bezier(.3, 1.35, .5, 1);
     position: fixed; inset: 0; background: var(--sky); color: var(--text); font: 450 16px/1.45 var(--body); overflow: hidden; transition: background-color 0.25s; }
-  .app :global(button), .app :global(a), .app :global([role='button']), .app :global([role='slider']) { touch-action: manipulation; }
+  .app :global(button), .app :global(a), .app :global([role='button']) { touch-action: manipulation; }
   .app :global(:focus-visible) { outline: 3px solid var(--text); outline-offset: 2px; }
   .skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; border-radius: 999px; background: var(--ink); color: var(--paper); font: 650 14px var(--body); }
   .skip:focus { top: 12px; }
   main:focus { outline: none; }
-  .mapwrap { position: absolute; inset: 0; pointer-events: none; transition: opacity 0.4s; }
+  .mapwrap { position: absolute; inset: 0; z-index: 0; pointer-events: none; transition: opacity 0.4s; }
   .mapwrap.live { pointer-events: auto; }
   .mapwrap.dim { opacity: 0.22; }
   .mapwrap:not(.live) { -webkit-mask: linear-gradient(#000 0, #000 150px, transparent 330px); mask: linear-gradient(#000 0, #000 150px, transparent 330px); }
   .wide .mapwrap { -webkit-mask: linear-gradient(90deg, transparent 0 470px, #000 560px); mask: linear-gradient(90deg, transparent 0 470px, #000 560px); }
   .mapwrap.where, .wide .mapwrap.where { -webkit-mask: none; mask: none; }
-  .col { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px calc(env(safe-area-inset-bottom, 0px) + 104px); display: grid; align-content: start; gap: 18px; scrollbar-width: none; }
+  .col { position: absolute; inset: 0; z-index: 2; scroll-padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); overflow-y: auto; overscroll-behavior: contain; padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px calc(env(safe-area-inset-bottom, 0px) + 104px); display: grid; align-content: start; gap: 18px; scrollbar-width: none; }
   .col::-webkit-scrollbar { display: none; }
-  .wide .col { right: auto; width: 500px; padding: 26px 30px 40px; gap: 20px; }
+  .wide .col { scroll-padding-bottom: 40px; right: auto; width: 500px; padding: 26px 30px 40px; gap: 20px; }
   .wide .col.full { right: 0; width: auto; padding-inline: 40px; }
   .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 42px; }
   .today { margin: 0; display: flex; gap: 12px; font: 600 13px var(--body); flex-wrap: wrap; justify-content: flex-end; }
@@ -143,7 +149,7 @@
   .tabs button { display: inline-flex; align-items: center; gap: 6px; font: 650 14.5px var(--body); padding: 8px 13px 8px 10px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
   .tabs button.on { background: var(--text); color: var(--sky); }
   .tabs i { font-style: normal; font: 700 11px var(--mono); font-variation-settings: 'MONO' 1; padding: 1px 6px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
-  .laterdock { position: absolute; left: 520px; right: 24px; bottom: 18px; }
+  .laterdock { z-index: 2; position: absolute; left: 520px; right: 24px; bottom: 18px; }
   .tabbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: space-around; padding: 8px 6px calc(env(safe-area-inset-bottom, 0px) + 8px); background: var(--paper); box-shadow: 0 -1px 0 rgba(5, 39, 57, 0.08), 0 -10px 24px rgba(5, 39, 57, 0.12); }
   .tabbar button { flex: 1; display: grid; justify-items: center; gap: 3px; padding: 4px 0; min-height: 50px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 650 11.5px var(--body); }
   .tabbar button:focus-visible { outline-color: var(--ink); }

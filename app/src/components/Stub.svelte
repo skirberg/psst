@@ -4,7 +4,7 @@
   import { tick } from 'svelte';
   import Sticker from './Sticker.svelte';
   import { app, serialOf } from '../lib/state.svelte.js';
-  import { moves, openAt, closesAt, hm, fmtHour, fmtDate } from '../lib/core.js';
+  import { moves, openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core.js';
 
   let { item, compact = false, at = null, dow = null } = $props();
   const m = $derived(item.m);
@@ -22,7 +22,9 @@
   const energyWord = $derived(m.energy <= 2 ? 'low-key' : m.energy === 3 ? 'lively' : 'loud');
   const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const apple = $derived(`https://maps.apple.com/?q=${encodeURIComponent(m.place)}&ll=${m.lat},${m.lng}`);
+  // Go opens the phone's own maps app; Apple devices also get a Google Maps link on the back.
+  const go = $derived(mapsHref(m.place, m.address, m.lat, m.lng));
+  const onApple = typeof navigator !== 'undefined' && /iPhone|iPad|Macintosh/.test(navigator.userAgent);
   const google = $derived(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.place + ' ' + m.address)}`);
 
   // jagged tear line, seeded by the move so it's always the same rip
@@ -49,9 +51,12 @@
     raf = requestAnimationFrame(step);
   }
   function holdEnd() { cancelAnimationFrame(raf); if (hold < 1) hold = 0; document.documentElement.style.setProperty('--lean', '0'); }
-  function open() {
+  async function open() {
     document.documentElement.style.setProperty('--lean', '0');
-    if (app.unlock(m.id)) { try { navigator.vibrate?.([12, 40, 18]); } catch {} app.say('Opened.'); }
+    if (app.unlock(m.id)) {
+      try { navigator.vibrate?.([12, 40, 18]); } catch {} app.say('Opened.');
+      await tick(); document.querySelector(`#front-${m.id} .more`)?.focus();
+    }
   }
   function sealedKey(e) {
     if (!sealed) return;
@@ -83,10 +88,18 @@
       ghost.remove();
       target.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: 260 });
     }
+    const hadFocus = tearoff?.contains(document.activeElement);
     app.keep(m.id); tearing = false; pull = 0;
     app.say(`Kept. No. ${serial}.`);
+    if (hadFocus) { await tick(); ripped?.focus(); }
   }
-  function pullStart(e) { if (kept || e.target.closest('button, a')) return; py = e.clientY; e.currentTarget.setPointerCapture?.(e.pointerId); }
+  let ripped = $state();
+  // On touch, tearing starts from the 'No.' tab so a vertical swipe on the strip still scrolls the page.
+  function pullStart(e) {
+    if (kept || e.target.closest('button, a')) return;
+    if (e.pointerType === 'touch' && !e.target.closest('.no')) return;
+    py = e.clientY; e.currentTarget.setPointerCapture?.(e.pointerId);
+  }
   function pullMove(e) { if (py == null) return; pull = Math.max(0, Math.min(80, e.clientY - py)); }
   function pullEnd() { if (py == null) return; py = null; if (pull > 56) tear(); else pull = 0; }
 
@@ -135,21 +148,20 @@
         <p class="b-line muted">{m.address}</p>
         <div class="b-actions">
           <button class="pill" onclick={() => (app.where = m.id)}>On the map</button>
-          <a class="pill ghost" href={apple} target="_blank" rel="noopener">Apple Maps</a>
-          <a class="pill ghost" href={google} target="_blank" rel="noopener">Google Maps</a>
+          {#if onApple}<a class="pill ghost" href={google} target="_blank" rel="noopener">Google Maps</a>{/if}
         </div>
         <p class="b-src">Checked {fmtDate(m.verifiedOn, { month: 'short', day: 'numeric' })}{#if m.sources?.length}: {#each m.sources.slice(0, 2) as s, i}{i ? ', ' : ''}<a href={s} target="_blank" rel="noopener">{host(s)}</a>{/each}{/if}</p>
       </div>
     </div>
     <div class="perf" aria-hidden="true"></div>
     {#if kept}
-      <div class="ripped" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span><span class="no">No. {serial}</span></div>
+      <div class="ripped" bind:this={ripped} tabindex="-1" aria-label="Kept. No. {serial}" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span><span class="no">No. {serial}</span></div>
     {:else}
       <div class="tearoff" class:tearing bind:this={tearoff} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
         <span class="no">No. {serial}{#if !compact}<small>/{total}</small>{/if}</span>
         <div class="acts">
           <button class="keep" onclick={tear}>Keep</button>
-          <a class="go" href={apple} target="_blank" rel="noopener">Go</a>
+          <a class="go" href={go} target="_blank" rel="noopener">Go</a>
         </div>
       </div>
     {/if}
@@ -199,9 +211,11 @@
   .perf { position: relative; height: 20px; }
   .perf::before { content: ''; position: absolute; left: 14px; right: 14px; top: 9px; border-top: 2px dashed var(--line); }
   .perf::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 9px at 0 50%, var(--sky) 96%, transparent) left / 18px 20px no-repeat, radial-gradient(circle 9px at 100% 50%, var(--sky) 96%, transparent) right / 18px 20px no-repeat; }
-  .tearoff { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 16px 14px; touch-action: pan-x; transform: translateY(var(--pull)) rotate(calc(var(--pull) * 0.06deg)); transition: transform 0.2s; cursor: grab; }
+  .tearoff { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 16px 14px; touch-action: pan-y; transform: translateY(var(--pull)) rotate(calc(var(--pull) * 0.06deg)); transition: transform 0.2s; cursor: grab; }
   .tearoff.tearing { opacity: 0; transition: opacity 0.12s; }
   .no { font: 600 13px var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); }
+  .tearoff .no { touch-action: none; cursor: grab; padding: 12px 10px 12px 0; }
+  .ripped:focus { outline: none; }
   .no small { color: var(--muted); font-weight: 500; }
   .acts { display: flex; gap: 8px; }
   .keep, .go { min-height: 44px; display: inline-grid; place-items: center; font: 650 15px var(--body); padding: 0 18px; border-radius: 999px; cursor: pointer; text-decoration: none; }

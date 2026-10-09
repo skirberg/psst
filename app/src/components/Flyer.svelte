@@ -9,13 +9,13 @@
   const LATE = [['#042234', '#4AC9EC', '#FEFAF1'], ['#733EA4', '#FED252', '#FEFAF1'], ['#052739', '#C8F56D', '#FEFAF1']];
   const hash = (s) => [...s].reduce((a, c) => (a * 33 + c.charCodeAt(0)) >>> 0, 5381);
   const h = $derived(hash(ev.id));
-  const start = $derived(ev.time ? hm(ev.time) : ev.category === 'club' ? 23 : ['concert', 'sports'].includes(ev.category) ? 20 : 12);
+  const start = $derived(ev.time || ev.doors ? hm(ev.time || ev.doors) : ev.category === 'club' ? 23 : ['concert', 'sports'].includes(ev.category) ? 20 : 12);
   const ink = $derived((start >= 21 || start < 5 ? LATE : start >= 17 ? EVE : DAY)[h % 3]);
   const layout = $derived(h % 3);
   const day = $derived(fmtDate(ev.date, { day: 'numeric' }));
   const mon = $derived(fmtDate(ev.date, { month: 'short' }));
   const wk = $derived(fmtDate(ev.date, { weekday: 'short' }));
-  const range = $derived(ev.endDate && ev.endDate !== ev.date ? `${day}–${fmtDate(ev.endDate, { day: 'numeric' })}` : '');
+  const range = $derived(ev.endDate && ev.endDate !== ev.date ? `${day}-${fmtDate(ev.endDate, { day: 'numeric' })}` : '');
 
   let box, titleEl, fit = $state({ size: 30, wdth: 100 });
   function fitTitle() {
@@ -38,7 +38,7 @@
     }
     fit = { size: 16, wdth: 75 };
   }
-  onMount(() => { fitTitle(); document.fonts?.ready.then(fitTitle); const ro = new ResizeObserver(fitTitle); ro.observe(box); return () => ro.disconnect(); });
+  onMount(() => { fitTitle(); document.fonts?.ready.then(fitTitle); document.fonts?.addEventListener('loadingdone', fitTitle); const ro = new ResizeObserver(fitTitle); ro.observe(box); return () => { ro.disconnect(); document.fonts?.removeEventListener('loadingdone', fitTitle); }; });
 </script>
 
 <div class="flyer l{layout}" class:mini bind:this={box} style:--paper={ink[0]} style:--a={ink[1]} style:--b={ink[2]}>
@@ -46,7 +46,7 @@
   <div class="num" aria-hidden="true">{range || day}</div>
   {#if mini}<div class="mwk">{wk}</div>{/if}
   <div class="title" bind:this={titleEl} style:font-size="{fit.size}px" style:font-stretch="{fit.wdth}%">{ev.title}</div>
-  <div class="foot"><span>{wk} {mon} {day}{ev.time ? `, ${fmtHour(hm(ev.time), true)}` : ''}</span><span>{ev.venue}</span></div>
+  <div class="foot"><span>{wk} {mon} {day}{ev.time || ev.doors ? `, ${fmtHour(hm(ev.time || ev.doors), true)}` : ''}</span><span>{ev.venue}</span></div>
 </div>
 
 <style>

@@ -9,10 +9,12 @@ export const MIAMI = { lat: 25.7617, lng: -80.1918 };
 export const moves = movesRaw.filter((m) => Number.isFinite(m.lat) && Number.isFinite(m.lng));
 export const events = eventsRaw
   .filter((e) => Number.isFinite(e.lat) && Number.isFinite(e.lng))
-  .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+  .sort((a, b) => (a.date + (a.time || a.doors || '')).localeCompare(b.date + (b.time || b.doors || '')));
 export { weather };
+// Opening hours are read every frame by the map; parse them once.
+for (const m of moves) for (const w of m.windows || []) { w.f = hm(w.from); w.t = hm(w.to); }
 
-export const hm = (s) => { if (!s) return 0; const [h, m] = s.split(':').map(Number); return h + (m || 0) / 60; };
+export function hm(s) { if (!s) return 0; const [h, m] = s.split(':').map(Number); return h + (m || 0) / 60; }
 export const fmtHour = (h, compact = false) => {
   h = ((h % 24) + 24) % 24;
   let H = Math.floor(h), M = Math.round((h - H) * 60);
@@ -65,19 +67,20 @@ export function daylight(h, sun) {
 // --- Weather -----------------------------------------------------------
 const WMO = (c) => (c >= 95 ? 'storms' : c >= 80 ? 'showers' : c >= 61 ? 'rain' : c >= 51 ? 'drizzle' : c >= 45 ? 'fog' : c >= 3 ? 'cloudy' : c >= 1 ? 'some clouds' : 'clear');
 export function weatherFor(date) {
-  const fc = weather.days.find((d) => d.date === date);
+  const fc = weather.days.find((d) => d.date === date && daySpan(weather.fetched, d.date) <= 4);
   if (fc) return { kind: 'forecast', hi: fc.hi, lo: fc.lo, rain: fc.rain, sky: WMO(fc.code), uv: fc.uv, hourly: weather.hourly[date] };
   const t = weather.typical[date.slice(5)];
   if (t) return { kind: 'typical', hi: t.hi, lo: t.lo, rain: t.wet, sky: 'typical' };
   return null;
 }
-export const rainAt = (date, h) => { const w = weatherFor(date); return w?.hourly ? w.hourly[Math.floor(h) % 24]?.[1] ?? w.rain : w?.rain ?? 0; };
+// Typical 'wet' is the share of wet days, not an hourly chance, so only a forecast can mean rain.
+export const rainAt = (date, h) => { const w = weatherFor(date); return w?.hourly ? (w.hourly[Math.floor(h) % 24]?.[1] ?? w.rain) : 0; };
 
 // --- Opening hours -----------------------------------------------------
 export function openAt(m, dow, h) {
   h = ((h % 24) + 24) % 24;
   for (const w of m.windows || []) {
-    const f = hm(w.from), t = hm(w.to), days = w.days || [];
+    const f = w.f ?? hm(w.from), t = w.t ?? hm(w.to), days = w.days || [];
     if (f === t) { if (days.includes(dow)) return true; continue; }
     if (t > f) { if (days.includes(dow) && h >= f && h < t) return true; }
     else {
@@ -91,7 +94,7 @@ export function openAt(m, dow, h) {
 export function closesAt(m, dow, h) {
   h = ((h % 24) + 24) % 24;
   for (const w of m.windows || []) {
-    const f = hm(w.from), t = hm(w.to), days = w.days || [];
+    const f = w.f ?? hm(w.from), t = w.t ?? hm(w.to), days = w.days || [];
     if (f === t && days.includes(dow)) return null; // open all day
     if (t > f && days.includes(dow) && h >= f && h < t) return t;
     if (t <= f && ((days.includes(dow) && h >= f) || (days.includes((dow + 6) % 7) && h < t))) return t;
@@ -137,6 +140,11 @@ export function rankNow({ dow, h, date, band = 'all', rainSafe = false, cheap = 
     .filter((x) => x.s > 0.08)
     .sort((a, b) => b.s - a.s);
 }
+
+// Go: Apple Maps on Apple devices, Google Maps everywhere else.
+export const mapsHref = (name, address, lat, lng) => (typeof navigator !== 'undefined' && /iPhone|iPad|Macintosh/.test(navigator.userAgent))
+  ? `https://maps.apple.com/?q=${encodeURIComponent(name)}&ll=${lat},${lng}`
+  : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + (address || ''))}`;
 
 export function eventsBetween(a, b) { return events.filter((e) => (e.endDate || e.date) >= a && e.date <= b); }
 
@@ -191,11 +199,11 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
   const n = daySpan(start, end);
   for (let i = 0; i <= n; i++) {
     const date = addDays(start, i), dow = dowOf(date), sun = sunFor(date), w = weatherFor(date);
-    const wet = (w?.rain ?? 0) >= 45;
+    const wet = w?.kind === 'forecast' && (w.rain ?? 0) >= 45;
     // Events block out their real time window.
     const spans = anchors.filter((e) => e.date <= date && (e.endDate || e.date) >= date && (e.date === date || !['concert', 'club', 'sports'].includes(e.category))).map((e) => {
       const club = e.category === 'club', show = ['concert', 'sports'].includes(e.category);
-      const st = e.time ? hm(e.time) : club ? 23.5 : show ? 19.5 : 14;
+      const st = e.doors ? hm(e.doors) : e.time ? hm(e.time) : club ? 23.5 : show ? 19.5 : 14;
       return { e, st, en: st + (club ? 4.5 : show ? 4 : 3) };
     }).filter((sp) => !(i === 0 && sp.en < arrive + 0.75) && !(i === n && sp.st > depart - 2.5));
     const items = [];
@@ -214,7 +222,7 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
       }
       items.push({ def, at });
     }
-    for (const sp of spans) items.push({ def: { key: 'event-' + sp.e.id, label: sp.e.time && ['concert', 'sports'].includes(sp.e.category) ? 'Doors' : sp.e.category === 'club' ? 'Late' : 'All day' }, at: sp.st, event: sp.e });
+    for (const sp of spans) items.push({ def: { key: 'event-' + sp.e.id, label: sp.e.doors ? 'Doors' : sp.e.time && ['concert', 'sports'].includes(sp.e.category) ? 'Show' : sp.e.category === 'club' ? 'Late' : 'All day' }, at: sp.st, event: sp.e });
     items.sort((a, b) => a.at - b.at);
 
     const slots = [];
@@ -239,6 +247,7 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
       let pool = moves.filter((m) => {
         if (used.has(m.id) || m.secret === 2 || (wet && !m.rainOk) || fitOf(m) <= 0) return false;
         const td = titleDays(m); if (td && !td.includes(dowAt)) return false;
+        const nd = noteDays(m); if (nd && !nd.includes(dowAt)) return false;
         // snap to the move's best time when it is near the slot, and require it to be open then
         const b = hm(m.best), when = def.key !== 'sunset' && Math.abs(b - hAt) <= 1.75 ? b : hAt;
         const whenAbs = (at >= 24 ? 24 : 0) + when;

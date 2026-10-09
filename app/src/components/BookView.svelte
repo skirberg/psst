@@ -3,13 +3,14 @@
   import Sticker from './Sticker.svelte';
   import { app, serialOf, LEANS_PER_WEEK } from '../lib/state.svelte.js';
   import { moves, events, fmtDate } from '../lib/core.js';
+  import { track } from '@vercel/analytics';
   const GROUPS = [
     ['Little Havana', ['Little Havana']], ['Downtown and Brickell', ['Downtown', 'Brickell']], ['Wynwood, Edgewater, Allapattah', ['Wynwood', 'Edgewater', 'Allapattah']],
     ['Little Haiti to MiMo', ['Design District', 'Little River', 'Little Haiti', 'MiMo']], ['The Beach', ['South Beach', 'Mid-Beach', 'North Beach']],
     ['Gables and the Grove', ['Coral Gables', 'Coconut Grove']], ['The Keys', ['Key Biscayne', 'Virginia Key']], ['South Dade', ['South Miami-Dade']],
   ];
   const pages = GROUPS.map(([name, hoods]) => ({ name, list: moves.filter((m) => hoods.includes(m.hood)) })).filter((p) => p.list.length);
-  const held = $derived(events.filter((e) => app.heldEvents.includes(e.id)));
+  const held = $derived(events.filter((e) => app.heldEvents.includes(e.id) && (e.endDate || e.date) >= app.now.date));
   let code = $state(''), msg = $state('');
   function redeem(e) {
     e.preventDefault();
@@ -39,7 +40,7 @@
             {#if k}<button class="sb" onclick={() => (app.where = m.id)} aria-label="{m.place} on the map"><Sticker move={m} size={58} /></button>{:else}<span class="ghost"><Sticker move={m} size={58} outline tilt={false} /></span>{/if}
             <span class="no">No. {String(serialOf(m)).padStart(3, '0')}</span>
             {#if k}<span class="clue">{m.place}</span>{:else if locked(m)}<span class="clue">Sealed</span>{/if}
-            {#if k}<button class="went" class:on={app.went.includes(m.id)} onclick={() => app.toggle('went', m.id)}>{app.went.includes(m.id) ? 'Went' : 'Went?'}</button>{/if}
+            {#if k}<button class="went" class:on={app.went.includes(m.id)} onclick={() => { if (!app.went.includes(m.id)) track('Went'); app.toggle('went', m.id); }}>{app.went.includes(m.id) ? 'Went' : 'Went?'}</button>{/if}
           </div>
         {/each}
       </div>
