@@ -76,7 +76,9 @@
   "sources": [
    "https://miamibeachbandshell.com/events/",
    "https://miamibeachbandshell.com/event/black-country-new-road/"
-  ]
+  ],
+  "doors": "19:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "igor-marijuan-do-not-sit-2026-10-10",
@@ -99,7 +101,9 @@
    "https://dice.fm/event/v3x2xd-igor-marijuan-all-day-i-dream-10th-oct-do-not-sit-on-the-furniture-miami-beach-tickets",
    "https://ra.co/events/2515749",
    "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5"
-  ]
+  ],
+  "doors": "22:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "miami-beach-salsa-fest-2026-10-11",
@@ -152,14 +156,17 @@
   "lat": 25.784555,
   "lng": -80.193153,
   "category": "club",
-  "url": "https://www.clubspace.com/shows",
+  "url": "https://www.clubspace.com/shows/satellite-disco-lines-four-tet-b2b-floating-points-b2b-daphni-horsegiirl-kettama-more-17th-oct-club-space-miami-miami-tickets",
   "why": "III Points satellite night with a dream three-way b2b on the Terrace.",
   "energy": 5,
   "sources": [
    "https://www.clubspace.com/shows",
    "https://www.clubspace.com/clubshows",
-   "https://dice.fm/bundles/october-2026-at-club-space-27xp"
-  ]
+   "https://dice.fm/bundles/october-2026-at-club-space-27xp",
+   "https://www.clubspace.com/shows/satellite-disco-lines-four-tet-b2b-floating-points-b2b-daphni-horsegiirl-kettama-more-17th-oct-club-space-miami-miami-tickets"
+  ],
+  "doors": "23:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "john-scofield-electrospective-bandshell-2026-10-24",
@@ -178,7 +185,9 @@
   "sources": [
    "https://miamibeachbandshell.com/events/",
    "https://miamibeachbandshell.com/event/john-scofields-electrospective/"
-  ]
+  ],
+  "doors": "19:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "south-beach-seafood-festival-seafood-slam-2026-10-24",
@@ -230,7 +239,7 @@
   "lat": 25.79293,
   "lng": -80.133107,
   "category": "concert",
-  "url": "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events",
+  "url": "https://www.livenation.com/event/vvG1VZ_amhljrd/bad-gyal-mas-cara-world-tour-2026",
   "why": "Catalan dancehall-reggaeton star in a 2,700-cap theater. Perreo with good sightlines.",
   "energy": 4,
   "sources": [
@@ -239,7 +248,9 @@
    "https://www.livenation.com/event/vvG1VZ_amhljrd/bad-gyal-mas-cara-world-tour-2026",
    "https://www.fillmoremb.com/",
    "https://www.ticketmaster.com/bad-gyal-mas-cara-world-tour-miami-beach-florida-10-28-2026/event/0D00649B9BADC783"
-  ]
+  ],
+  "time": "20:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "viernes-culturales-2026-10-30",
@@ -269,7 +280,7 @@
   "lat": 25.784555,
   "lng": -80.193153,
   "category": "club",
-  "url": "https://www.clubspace.com/shows",
+  "url": "https://www.clubspace.com/shows/halloweek-bedouin-seth-troxler-b2b-victor-calderone-jamback-b2b-toman-31st-oct-club-space-miami-miami-tickets",
   "why": "Halloween night on the Terrace. Costumes mandatory in spirit, sunrise guaranteed.",
   "energy": 5,
   "sources": [
@@ -277,7 +288,9 @@
    "https://www.clubspace.com/shows/halloweek-bedouin-seth-troxler-b2b-victor-calderone-jamback-b2b-toman-31st-oct-club-space-miami-miami-tickets",
    "https://www.clubspace.com/shows/halloweek-halloween-night-31st-oct-club-space-miami-miami-tickets",
    "https://dice.fm/event/bbglrx-halloweek-bedouin-seth-troxler-b2b-victor-calderone-jamback-b2b-toman-31st-oct-club-space-miami-miami-tickets"
-  ]
+  ],
+  "doors": "23:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "rocky-horror-day-of-the-dead-bandshell-2026-11-01",
@@ -309,14 +322,16 @@
   "lng": -80.193153,
   "category": "club",
   "price": "from $10",
-  "url": "https://dice.fm/venue/the-ground-miami-qkma",
+  "url": "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets",
   "why": "Detroit ghettotech originators in a tiny room. Fast, filthy and cheap.",
   "energy": 5,
   "sources": [
    "https://dice.fm/venue/the-ground-miami-qkma",
    "https://www.clubspace.com/shows/808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets",
    "https://dice.fm/event/pyxgxy-808-life-dj-assault-dj-godfather-7th-nov-the-ground-miami-miami-tickets"
-  ]
+  ],
+  "doors": "23:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "roda-de-samba-soul-samba-bandshell-2026-11-07",
@@ -335,7 +350,9 @@
   "sources": [
    "https://miamibeachbandshell.com/events/",
    "https://miamibeachbandshell.com/event/roda-de-samba-with-soul-samba/"
-  ]
+  ],
+  "doors": "19:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "carl-cox-carlita-club-space-2026-11-14",
@@ -347,13 +364,15 @@
   "lat": 25.784555,
   "lng": -80.193153,
   "category": "club",
-  "url": "https://www.clubspace.com/shows",
+  "url": "https://www.clubspace.com/shows/carl-cox-carlita-14th-nov-club-space-miami-miami-tickets",
   "why": "The godfather of the long set on Miami's best terrace.",
   "energy": 5,
   "sources": [
    "https://www.clubspace.com/shows",
    "https://www.clubspace.com/shows/carl-cox-carlita-14th-nov-club-space-miami-miami-tickets"
-  ]
+  ],
+  "doors": "23:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "miami-book-fair-2026",
@@ -386,13 +405,16 @@
   "lat": 25.79293,
   "lng": -80.133107,
   "category": "concert",
-  "url": "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events",
+  "url": "https://www.livenation.com/event/vvG1VZ_FjZL_D1/jack-white-live-2026",
   "why": "Two nights of raw garage-blues in a 2,700-seat theater, not an arena.",
   "energy": 4,
   "sources": [
    "https://www.livenation.com/venue/KovZpZAEkedA/the-fillmore-miami-beach-at-jackie-gleason-theater-events",
-   "https://www.songkick.com/venues/244628-fillmore-miami-beach-at-jackie-gleason-theater"
-  ]
+   "https://www.songkick.com/venues/244628-fillmore-miami-beach-at-jackie-gleason-theater",
+   "https://www.livenation.com/event/vvG1VZ_FjZL_D1/jack-white-live-2026"
+  ],
+  "time": "20:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "chris-lorenzo-club-space-2026-11-20",
@@ -404,14 +426,16 @@
   "lat": 25.784555,
   "lng": -80.193153,
   "category": "club",
-  "url": "https://www.clubspace.com/shows",
+  "url": "https://www.clubspace.com/shows/chris-lorenzo-20th-nov-club-space-miami-miami-tickets",
   "why": "Bass-house Friday on the Terrace, same night as Summit's first Kaseya show.",
   "energy": 5,
   "sources": [
    "https://www.clubspace.com/shows",
    "https://www.clubspace.com/shows/chris-lorenzo-20th-nov-club-space-miami-miami-tickets",
    "https://www.kaseyacenter.com/events/detail/john-summit"
-  ]
+  ],
+  "doors": "23:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "john-summit-ctrl-escape-kaseya-2026-11-20",
@@ -457,7 +481,9 @@
   "sources": [
    "https://miamibeachbandshell.com/events/",
    "https://miamibeachbandshell.com/event/madre-cumbia/"
-  ]
+  ],
+  "doors": "19:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "miami-book-fair-street-fair-2026",
@@ -498,7 +524,9 @@
   "sources": [
    "https://miamibeachbandshell.com/events/",
    "https://miamibeachbandshell.com/event/buena-vista-orchestra/"
-  ]
+  ],
+  "doors": "19:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "fernando-olaya-do-not-sit-2026-11-21",
@@ -521,8 +549,11 @@
    "https://dice.fm/venue/do-not-sit-on-the-furniture-ovk5",
    "https://19hz.info/eventlisting_Miami.php",
    "https://www.jambase.com/venue/do-not-sit-on-the-furniture",
-   "https://www.lennoxmiamibeach.com/events/miami-beach/fernando-olaya-the-soundgarden-balance-music-13015854"
-  ]
+   "https://www.lennoxmiamibeach.com/events/miami-beach/fernando-olaya-the-soundgarden-balance-music-13015854",
+   "https://dice.fm/event/dk72ev-fernando-olaya-the-soundgarden-balance-music-21st-nov-do-not-sit-on-the-furniture-miami-beach-tickets"
+  ],
+  "doors": "22:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "john-summit-ctrl-escape-kaseya-2026-11-21",
@@ -710,7 +741,9 @@
    "https://www.clubspace.com/shows/-music-on-space-basel-4th-dec-club-space-miami-miami-tickets"
   ],
   "time": "23:00",
-  "price": "from $40"
+  "price": "from $40",
+  "doors": "23:00",
+  "verifiedOn": "2026-10-09"
  },
  {
   "id": "rawayana-kaseya-center-2026-12-05",
@@ -723,15 +756,18 @@
   "lat": 25.78136,
   "lng": -80.187944,
   "category": "concert",
-  "url": "https://www.kaseyacenter.com/events",
+  "url": "https://www.kaseyacenter.com/events/detail/rawayana",
   "why": "Venezuelan funk-pop band, three arena nights over Art Week weekend.",
   "energy": 4,
   "sources": [
    "https://www.kaseyacenter.com/events",
    "https://www.kaseyacenter.com/news/detail/second-show-added-to-rawayana-donde-es-el-after-tour-coming-to-kaseya-center",
-   "https://www.kaseyacenter.com/news/detail/rawayana-announce-third-night-of-donde-es-el-after-world-tour-coming-to-kaseya-center"
+   "https://www.kaseyacenter.com/news/detail/rawayana-announce-third-night-of-donde-es-el-after-world-tour-coming-to-kaseya-center",
+   "https://www.kaseyacenter.com/events/detail/rawayana"
   ],
-  "verifiedOn": "2026-10-09"
+  "verifiedOn": "2026-10-09",
+  "doors": "19:00",
+  "time": "20:00"
  },
  {
   "id": "gente-de-zona-kaseya-center-2026-12-11",

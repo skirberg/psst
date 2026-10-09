@@ -34,7 +34,7 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
   - Every move and event carries sources and a checked date.
   - Weather is labeled forecast or typical.
   - The forecast is fetched at build time and again every morning, and used for at most 4 days past its fetch; after that, typical. Typical (share of wet days) never turns on rain mode.
-  - Events carry doors and show times separately when the venue publishes both.
+  - Events carry doors and show times separately when the venue publishes both. As of Oct 9 every concert and club night through Dec 7 has its published doors or start time from the venue or its ticketing page; Fillmore shows publish a start time only, Club Space doors only. Dante's HiFi publishes no weekly hours, so its listed windows stay unconfirmed.
   - Sources are bare URLs, no verifier notes inside them.
   - Traffic is labeled illustrative.
   - No invented prices, dishes or door details.
