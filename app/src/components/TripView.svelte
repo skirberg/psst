@@ -1,4 +1,5 @@
 <script>
+  import { track } from '@vercel/analytics';
   // The stay as a strip of stubs, one perforated band per day. Built from real opening hours,
   // real sunsets, travel time and the events you pick.
   import Stub from './Stub.svelte';
@@ -31,8 +32,8 @@
     let link = ''; try { link = location.protocol.startsWith('http') && !/claude\.ai/.test(location.host) ? `${location.origin}${location.pathname}?code=${code}` : ''; } catch {}
     lines.push('', link ? `Open it: ${link}` : `Code ${code} unlocks a secret in psst.`, 'No refunds on sunsets.');
     const text = lines.join('\n');
-    try { await navigator.clipboard.writeText(text); copied = 'Copied.'; fallback = ''; }
-    catch { copied = 'Select and copy:'; fallback = text; requestAnimationFrame(() => ta?.select()); }
+    try { await navigator.clipboard.writeText(text); copied = 'Copied.'; fallback = ''; track('Plan copied', { days: String(trip.days.length), result: 'copied' }); }
+    catch { copied = 'Select and copy:'; fallback = text; requestAnimationFrame(() => ta?.select()); track('Plan copied', { days: String(trip.days.length), result: 'manual' }); }
   }
   const code = $derived.by(() => {
     let h = 2166136261; for (const c of JSON.stringify(trip.days.map((d) => d.slots.map((x) => (x.move || x.event).id)))) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;

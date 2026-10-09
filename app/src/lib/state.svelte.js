@@ -1,4 +1,5 @@
 // App state. Per-viewer bits (kept, went, unlocked, leans) persist in localStorage when available.
+import { track } from '@vercel/analytics';
 import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor } from './core.js';
 import { skyAt, phaseAt, lightness, sunShade, mixHex, textOn, INK, PAPER } from './sky.js';
 
@@ -75,9 +76,9 @@ class AppState {
   leansLeft() { return (this.leanWeek !== weekKey(this.now.date) ? LEANS_PER_WEEK : Math.max(0, LEANS_PER_WEEK - this.leansUsed)) + this.bonusLeans; }
   redeem(code) {
     code = code.trim().toUpperCase();
-    if (!/^PINA-[A-Z2-9]{5}$/.test(code)) return 'bad';
-    if (this.redeemed.includes(code)) return 'used';
-    this.redeemed = [...this.redeemed, code]; this.bonusLeans += 1; this.persist(); return 'ok';
+    if (!/^PINA-[A-Z2-9]{5}$/.test(code)) { track('Code redeemed', { result: 'bad' }); return 'bad'; }
+    if (this.redeemed.includes(code)) { track('Code redeemed', { result: 'used' }); return 'used'; }
+    this.redeemed = [...this.redeemed, code]; this.bonusLeans += 1; this.persist(); track('Code redeemed', { result: 'ok' }); return 'ok';
   }
   unlock(id) {
     if (this.unlocked.includes(id)) return true;
@@ -85,11 +86,11 @@ class AppState {
     if (this.leanWeek !== wk) { this.leanWeek = wk; this.leansUsed = 0; }
     if (this.leansUsed >= LEANS_PER_WEEK) { if (this.bonusLeans <= 0) return false; this.bonusLeans -= 1; }
     else this.leansUsed += 1;
-    this.unlocked = [...this.unlocked, id]; this.padId = id; this.persist(); return true;
+    this.unlocked = [...this.unlocked, id]; this.padId = id; this.persist(); track('Secret unlocked'); return true;
   }
   toggle(list, id) { this[list] = this[list].includes(id) ? this[list].filter((x) => x !== id) : [...this[list], id]; this.persist(); }
-  keep(id) { if (!this.kept.includes(id)) { this.kept = [...this.kept, id]; this.persist(); } }
-  setTab(t) { this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { history.replaceState(null, '', '#' + t); } catch {} }
+  keep(id) { if (!this.kept.includes(id)) { this.kept = [...this.kept, id]; this.persist(); track('Move kept'); } }
+  setTab(t) { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { history.replaceState(null, '', '#' + t); } catch {} }
   scrubTo(h, id = null) { this.hour = ((h % 24) + 24) % 24; this.following = false; this.padId = id; this.flipped = null; }
   backToNow() { this.following = true; this.hour = this.now.hour; this.padId = null; }
   say(msg) { this.toast = msg; clearTimeout(this._t); this._t = setTimeout(() => (this.toast = ''), 2600); }
