@@ -11,7 +11,8 @@
     [1, '$', 'Under $200 a night'], [2, '$$', '$200 to $350'], [3, '$$$', '$350 to $650'], [4, '$$$$', '$650 and up'],
   ];
   const INK = { 1: ['#4AC9EC', '#052739'], 2: ['#117555', '#FEFAF1'], 3: ['#733EA4', '#FEFAF1'], 4: ['#052739', '#FED252'] };
-  let swing = $state(null), only = $state(0), entered = $state(false);
+  let swing = $state(null), entered = $state(false);
+  const only = $derived(app.stayTier);
   const shown = $derived(TIERS.filter(([t]) => !only || only === t));
   const sel = $derived(hotels.find((h) => h.id === app.stayFocus));
   // Distance to the first show on your trip (Kaseya for the John Summit weekend); hidden with no show.
@@ -32,8 +33,8 @@
 <section class="stay">
   <h1>Stay</h1>
   <div class="tiers" role="radiogroup" aria-label="Price" tabindex="-1" onkeydown={radioKeys}>
-    <button role="radio" aria-checked={only === 0} tabindex={only === 0 ? 0 : -1} class:on={only === 0} onclick={() => (only = 0)}>Any</button>
-    {#each TIERS as [t, sym]}<button role="radio" aria-checked={only === t} tabindex={only === t ? 0 : -1} class:on={only === t} onclick={() => (only = t)}>{sym}</button>{/each}
+    <button role="radio" aria-checked={only === 0} tabindex={only === 0 ? 0 : -1} class:on={only === 0} onclick={() => (app.stayTier = 0)}>Any</button>
+    {#each TIERS as [t, sym]}<button role="radio" aria-checked={only === t} tabindex={only === t ? 0 : -1} class:on={only === t} onclick={() => (app.stayTier = t)}>{sym}</button>{/each}
   </div>
 
   {#if !hotels.length}

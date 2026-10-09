@@ -35,7 +35,7 @@
         return { id: 'trip-' + o.id, lat: o.lat, lng: o.lng, move: s.move || { id: o.id, hood: o.hood, category: 'music', word: evWord(o.title), place: o.venue }, active: !!s.event, tag: `${n + 1}  ${fmtHour(s.at % 24, true)}`, label: o.title || o.place };
       });
     }
-    if (app.tab === 'stay') return hotels.map((h) => ({ id: h.id, lat: h.lat, lng: h.lng, move: { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }, active: app.stayFocus === h.id, tag: '$'.repeat(h.tier), label: h.name, onclick: () => (app.stayFocus = h.id) }));
+    if (app.tab === 'stay') return hotels.filter((h) => !app.stayTier || h.tier === app.stayTier || h.id === app.stayFocus).map((h) => ({ id: h.id, lat: h.lat, lng: h.lng, move: { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }, active: app.stayFocus === h.id, tag: '$'.repeat(h.tier), label: h.name, onclick: () => (app.stayFocus = h.id) }));
     return [];
   });
   const route = $derived.by(() => {
@@ -54,7 +54,7 @@
   $effect(() => { if (map && route.length && app.tab === 'trip') map.fitPoints(route); });
   $effect(() => { const id = app.where; if (!map || !id) return; const m = moves.find((x) => x.id === id); if (m) map.flyTo(m.lat, m.lng, wide ? 0.9 : 0.7); });
   $effect(() => { const id = app.whereHotel; if (!map || !id) return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng, wide ? 0.9 : 0.7); });
-  $effect(() => { if (!map || app.tab !== 'stay' || !wide || !hotels.length) return; map.fitPoints(hotels); });
+  $effect(() => { if (!map || app.tab !== 'stay' || !wide || !hotels.length) return; const list = hotels.filter((h) => !app.stayTier || h.tier === app.stayTier); map.fitPoints(list.length ? list : hotels); });
   // Desktop: picking a hotel in the rack brings its pin into view.
   $effect(() => { const id = app.stayFocus; if (!map || !wide || !id) return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng); });
   $effect(() => { app.tab; scroller?.scrollTo?.({ top: 0 }); });

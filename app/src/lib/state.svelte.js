@@ -27,6 +27,7 @@ class AppState {
   where = $state(null);          // move id shown full-screen on the map
   whereHotel = $state(null);     // hotel id shown full-screen on the map
   stayFocus = $state(null);
+  stayTier = $state(0);            // Stay price filter, shared by the rack and the map
   mood = $state('all');
   kept = $state(saved.kept || []);
   went = $state(saved.went || []);
