@@ -37,7 +37,7 @@
         {#each p.list as m (m.id)}
           {@const k = app.kept.includes(m.id)}
           <div class="slot" class:k>
-            {#if k}<button class="sb" onclick={() => (app.where = m.id)} aria-label="{m.place} on the map"><Sticker move={m} size={58} /></button>{:else}<span class="ghost"><Sticker move={m} size={58} outline tilt={false} /></span>{/if}
+            {#if k}<button class="sb" id="sb-{m.id}" onclick={() => (app.where = m.id)} aria-label="{m.place} on the map"><Sticker move={m} size={58} /></button>{:else}<span class="ghost"><Sticker move={m} size={58} outline tilt={false} /></span>{/if}
             <span class="no">No. {String(serialOf(m)).padStart(3, '0')}</span>
             {#if k}<span class="clue">{m.place}</span>{:else if locked(m)}<span class="clue">Sealed</span>{/if}
             {#if k}<button class="went" class:on={app.went.includes(m.id)} onclick={() => { if (!app.went.includes(m.id)) track('Went'); app.toggle('went', m.id); }}>{app.went.includes(m.id) ? 'Went' : 'Went?'}</button>{/if}

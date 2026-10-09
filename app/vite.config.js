@@ -12,7 +12,8 @@ const scriptLast = {
     for (const f of Object.values(bundle)) {
       if (!f.fileName.endsWith('.html') || typeof f.source !== 'string') continue;
       const m = f.source.match(/<script type="module"[^>]*>[\s\S]*?<\/script>/);
-      if (m) f.source = f.source.replace(m[0], '').replace('</body>', m[0] + '</body>');
+      // Function replacers: a string replacement would turn every '$$' in the script into '$'.
+      if (m) f.source = f.source.replace(m[0], () => '').replace('</body>', () => m[0] + '</body>');
     }
   },
 };

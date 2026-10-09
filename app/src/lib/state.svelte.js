@@ -1,6 +1,6 @@
 // App state. Per-viewer bits (kept, went, unlocked, leans) persist in localStorage when available.
 import { track } from '@vercel/analytics';
-import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor } from './core.js';
+import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor, addDays } from './core.js';
 import { skyAt, phaseAt, lightness, sunShade, mixHex, textOn, INK, PAPER } from './sky.js';
 
 const KEY = 'psst.v2';
@@ -63,7 +63,7 @@ class AppState {
   later = $derived.by(() => {
     const h = this.hour, ids = new Set(this.pad.map((x) => x.m.id));
     // On a show day, nothing that clashes with the show (an hour before doors to four after).
-    const shows = trip.days.find((d) => d.date === this.now.date)?.slots.filter((s) => s.event && s.label === 'Doors').map((s) => s.at) ?? [];
+    const shows = trip.days.find((d) => d.date === this.now.date)?.slots.filter((s) => s.event && ['concert', 'sports', 'club'].includes(s.event.category)).map((s) => s.at) ?? [];
     return moves
       .map((m) => { const b = hm(m.best); return { m, b, t: b + (b < h ? 24 : 0) }; })
       .filter((x) => !ids.has(x.m.id) && x.t > h + 1 && x.t < 24 && openAt(x.m, (this.dow + (x.t >= 24 ? 1 : 0)) % 7, x.b) && !(x.m.secret === 2 && !this.unlocked.includes(x.m.id)))
@@ -108,7 +108,9 @@ export function codeFromUrl() {
     let msg = '';
     if (code) { const r = app.redeem(code); if (r === 'ok') msg = '+1 secret from a friend.'; }
     const m = span?.match(/^(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)$/);
-    if (m && m[2] >= m[1] && !trip.saved) {
+    const real = (d) => { try { return addDays(d, 0) === d; } catch { return false; } };
+    // Same bounds as the date inputs: real dates, from today, through Dec 31.
+    if (m && real(m[1]) && real(m[2]) && m[2] >= m[1] && m[1] >= app.now.date && m[2] <= '2026-12-31' && !trip.saved) {
       const ids = (u.searchParams.get('a') || '').split(',').filter((id) => events.some((e) => e.id === id));
       trip.start = m[1]; trip.end = m[2]; trip.anchors = ids; trip.persist();
       app.setTab('trip', 'link'); msg = msg ? 'Your friend\'s plan. +1 secret.' : 'Your friend\'s plan.';

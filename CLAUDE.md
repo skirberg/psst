@@ -4,4 +4,4 @@
 - DECISIONS.md is the source of truth. Update it when a decision changes.
 - A GitHub Action commits a fresh forecast every morning, so pull (Fetch origin) in GitHub Desktop before committing or pushing.
 - No em dashes or en dashes in copy or docs.
-- Check rendered output before calling work done: `node app/scripts/shots.mjs`, `plan-check.mjs`, `contrast-check.mjs`.
+- Check rendered output before calling work done: `node app/scripts/shots.mjs`, `plan-check.mjs`, `contrast-check.mjs`, and after `npm run build`, `dist-check.mjs` plus a look at the built page (`npx vite preview`), since the dev server cannot show build-only bugs.

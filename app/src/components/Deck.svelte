@@ -124,7 +124,8 @@
   /* Room for a typical card (nine in ten are this tall), so Next and psst stay under the thumb from card to card.
      Only a three-line title pushes them down. */
   .deckbox { min-height: calc(var(--card-h, 312px) + 30px); }
-  @media (max-height: 760px) { .deckbox { --card-h: 303px; } }
+  @media (min-width: 900px) { .deckbox { --card-h: 289px; } }
+  @media (max-height: 800px) { .deckbox { min-height: 0; } }
   .under { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; border-radius: 4px; background: color-mix(in oklch, var(--paper) 94%, var(--ink)); box-shadow: 0 10px 16px rgba(5, 39, 57, 0.2); transition: transform 0.3s cubic-bezier(.3, 1.3, .5, 1); }
   .u0 { transform: translateY(16px) rotate(-1.4deg) scale(0.97); z-index: 1; }
   .u1 { transform: translateY(26px) rotate(1.8deg) scale(0.93); z-index: 0; background: color-mix(in oklch, var(--paper) 86%, var(--ink)); }

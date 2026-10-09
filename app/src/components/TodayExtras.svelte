@@ -3,16 +3,21 @@
   import Flyer from './Flyer.svelte';
   import Icon from './Icon.svelte';
   import { app, trip } from '../lib/state.svelte.js';
-  import { events, fmtDate, fmtHour, daySpan } from '../lib/core.js';
+  import { events, fmtDate, fmtHour, daySpan, addDays } from '../lib/core.js';
   // Shows on your trip lead Tonight.
   const tonight = $derived(events.filter((e) => e.date <= app.now.date && (e.endDate || e.date) >= app.now.date)
     .sort((a, b) => trip.anchors.includes(b.id) - trip.anchors.includes(a.id)).slice(0, 4));
   const shows = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event)).length);
   const stops = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.move)).length);
-  const nextShow = $derived(trip.days.filter((d) => d.date >= app.now.date).flatMap((d) => d.slots.filter((s) => s.event).map((s) => s.event))[0]);
-  const daysTo = $derived(daySpan(app.now.date, nextShow?.date ?? trip.start));
+  const showDay = $derived(trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event)));
+  const nextShow = $derived(showDay?.slots.find((s) => s.event)?.event);
+  const daysTo = $derived(daySpan(app.now.date, showDay?.date ?? trip.start));
   // During the trip the ticket names the next stop: '6pm, Phở Nam', then 'Doors 7pm, Kaseya Center'.
-  const next = $derived(trip.days.find((d) => d.date === app.now.date)?.slots.find((s) => s.at >= app.hour - 0.25));
+  // After midnight, last night's late stop (planned on the previous day at 24h and up) comes first.
+  const next = $derived.by(() => {
+    const spill = trip.days.find((d) => d.date === addDays(app.now.date, -1))?.slots.find((s) => s.at >= 24 && s.at - 24 >= app.hour - 0.25);
+    return spill ?? trip.days.find((d) => d.date === app.now.date)?.slots.find((s) => s.at >= app.hour - 0.25);
+  });
   const range = $derived(`${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`);
 </script>
 

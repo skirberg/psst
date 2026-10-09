@@ -67,7 +67,7 @@
     const id = app.where, hid = app.whereHotel;
     app.where = null; app.whereHotel = null; if (!wide) map?.recenter();
     await tick();
-    (hid ? document.getElementById('fob-' + hid) : document.querySelector(`#back-${id} .pill`) || document.querySelector('.stack .more'))?.focus();
+    (hid ? document.getElementById('fob-' + hid) : document.querySelector(`#back-${id} .pill`) || document.getElementById('sb-' + id) || document.querySelector('.stack .more'))?.focus();
   }
 </script>
 

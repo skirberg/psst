@@ -222,7 +222,7 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
       }
       items.push({ def, at });
     }
-    for (const sp of spans) items.push({ def: { key: 'event-' + sp.e.id, label: sp.e.doors ? 'Doors' : sp.e.time && ['concert', 'sports'].includes(sp.e.category) ? 'Show' : sp.e.category === 'club' ? 'Late' : 'All day' }, at: sp.st, event: sp.e });
+    for (const sp of spans) items.push({ def: { key: 'event-' + sp.e.id, label: sp.e.doors ? 'Doors' : ['concert', 'sports'].includes(sp.e.category) ? 'Show' : sp.e.category === 'club' ? 'Late' : 'All day' }, at: sp.st, event: sp.e });
     items.sort((a, b) => a.at - b.at);
 
     const slots = [];
