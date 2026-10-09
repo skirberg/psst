@@ -9,8 +9,10 @@
     .sort((a, b) => trip.anchors.includes(b.id) - trip.anchors.includes(a.id)).slice(0, 4));
   const shows = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event)).length);
   const stops = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.move)).length);
-  const showDay = $derived(trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event)));
-  const nextShow = $derived(showDay?.slots.find((s) => s.event)?.event);
+  // Count down to the next show (a concert, game or club night beats an all-day fair).
+  const isShow = (e) => ['concert', 'sports', 'club'].includes(e.category);
+  const showDay = $derived(trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event && isShow(s.event))) ?? trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event)));
+  const nextShow = $derived(showDay?.slots.find((s) => s.event && isShow(s.event))?.event ?? showDay?.slots.find((s) => s.event)?.event);
   const daysTo = $derived(daySpan(app.now.date, showDay?.date ?? trip.start));
   // During the trip the ticket names the next stop: '6pm, Phở Nam', then 'Doors 7pm, Kaseya Center'.
   // After midnight, last night's late stop (planned on the previous day at 24h and up) comes first.
@@ -28,7 +30,7 @@
     {:else if next}
       <span class="tt-main"><b>{next.label === 'Doors' ? 'Doors ' : ''}{fmtHour(next.at % 24, true)}</b><span>{next.event ? next.event.venue : next.move.place}</span></span>
     {:else}
-      <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && nextShow ? `to ${nextShow.title.split(':')[0]}` : range}</span></span>
+      <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && nextShow ? (nextShow.date === showDay.date ? `to ${nextShow.title.split(':')[0]}` : 'to your trip') : range}</span></span>
     {/if}
     {#if trip.days.length}
       <span class="tt-n"><b>{shows}</b>{shows === 1 ? 'show' : 'shows'}</span>

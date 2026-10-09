@@ -194,7 +194,7 @@ const SLOT_DEFS = [
   { key: 'late', label: 'Late', at: 25, base: 4.4 },
 ];
 
-export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anchors = [], swaps = {} }) {
+export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anchors = [], swaps = {}, kept = [] }) {
   const days = [], used = new Set();
   const n = daySpan(start, end);
   for (let i = 0; i <= n; i++) {
@@ -270,6 +270,7 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
           if (i === n) sc -= Math.min(0.9, km(MIA_AIRPORT, m) / 14);
           if (slots.some((x) => x.move?.category === m.category)) sc -= 0.35;
           if (m.secret === 2 && def.key !== 'morning') sc += 0.12;
+          if (kept.includes(m.id)) sc += 1; // what you kept wins any slot it fits
           return { m, sc };
         })
         .sort((a, b) => b.sc - a.sc);

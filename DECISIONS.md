@@ -59,6 +59,7 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **Planner rules:**
   - Strangers start with no trip (decided by Sami, 2026-10-09). The John Summit weekend, with both nights anchored, comes from the preset or the friend's link https://psst.miami/?trip=summit. A copied plan's link carries its own dates and shows.
   - A move whose note names days ("Weekday afternoon", "Friday or Saturday") only goes on those days.
+  - What you keep wins any slot it fits (+1 in the planner's score, decided by Sami 2026-10-09). The hard rules still decide fit: open, near its best hour, reachable in time, near the venue before a show. For the John Summit weekend, 11 of the 43 places outside the default plan can fit, and all 11 get in once kept (checked by plan-check.mjs).
   - At most 4 stops a day.
   - Every stop is within 1.5h of its best time.
   - No secret spots in plans.
@@ -101,7 +102,7 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - Grain or riso texture as a global overlay.
 
 ## Open questions / candidates
-- A planner bonus for kept moves, so what you keep shows up in your trip (not chosen yet; Sami chose the Yours list on its own).- Hotel pin clustering on the Stay map.
+- Hotel pin clustering on the Stay map.
 - PNG share of the trip strip via the artifact downloads capability.
 - A Thursday 3:05 weekend drop.
 - Local curators program.

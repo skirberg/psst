@@ -138,7 +138,7 @@ class TripState {
   focusDay = $state(0);
   hasDates = $derived(!!this.start && !!this.end && this.end >= this.start);
   inRange = $derived(this.hasDates ? eventsBetween(this.start, this.end) : []);
-  days = $derived(this.hasDates ? planStay({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.inRange.filter((e) => this.anchors.includes(e.id)), swaps: this.swaps }) : []);
+  days = $derived(this.hasDates ? planStay({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.inRange.filter((e) => this.anchors.includes(e.id)), swaps: this.swaps, kept: app.kept }) : []);
   swap(date, key) { const k = `${date}:${key}`; this.swaps = { ...this.swaps, [k]: (this.swaps[k] || 0) + 1 }; }
   toggleAnchor(id) { this.anchors = this.anchors.includes(id) ? this.anchors.filter((x) => x !== id) : [...this.anchors, id]; this.persist(); }
   persist() { this.saved = true; try { localStorage.setItem('psst.trip.v1', JSON.stringify({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.anchors })); } catch {} }
