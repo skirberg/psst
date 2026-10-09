@@ -148,7 +148,7 @@
   .when span { font: 600 12px var(--body); opacity: 0.92; }
   .obj { display: grid; gap: 6px; min-width: 0; }
   .swap { position: relative; }
-  .swap::after { content: ''; position: absolute; inset: -9px -4px; }
+  .swap::after { content: ''; position: absolute; inset: -6px -4px -11px; }
   .swap { justify-self: start; font: 600 13px var(--body); padding: 6px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
   .evstub { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 10px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 14px 16px -12px rgba(5, 39, 57, 0.45); }
   .ev-t { display: grid; gap: 3px; align-content: start; min-width: 0; }

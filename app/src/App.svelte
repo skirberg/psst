@@ -1,5 +1,5 @@
 <script>
-  import { onMount, tick } from 'svelte';
+  import { onMount, tick, untrack } from 'svelte';
   import MiamiMap from './components/MiamiMap.svelte';
   import SkyFx from './components/SkyFx.svelte';
   import Wordmark from './components/Wordmark.svelte';
@@ -26,7 +26,9 @@
   const focus = $derived(app.where || (app.tab === 'today' && top && !top.sealed ? top.m.id : null));
   const evWord = (t = '') => { const w = t.split(':')[0].trim().split(/\s+/); return w.length === 2 ? w[1] : w[0]; };
   const pins = $derived.by(() => {
-    if (!wide) return [];
+    // Phone: only the full-screen map from a hotel card shows a pin (the hotel itself).
+    const wh = app.whereHotel && hotels.find((h) => h.id === app.whereHotel);
+    if (!wide) return wh ? [{ id: wh.id, lat: wh.lat, lng: wh.lng, move: { id: wh.id, hood: wh.hood, category: 'stay', word: wh.word, place: wh.name }, active: true, tag: '$'.repeat(wh.tier), label: wh.name }] : [];
     if (app.tab === 'today') return app.pad.filter((x) => !x.sealed).map((x) => ({ id: x.m.id, lat: x.m.lat, lng: x.m.lng, move: x.m, active: top?.m.id === x.m.id, tag: fmtHour(hm(x.m.best), true), label: `${x.m.title}, show this move`, onclick: () => { app.padId = x.m.id; app.flipped = null; } }));
     if (app.tab === 'trip' && trip.days.length) {
       const d = trip.days[Math.min(trip.focusDay, trip.days.length - 1)];
@@ -35,7 +37,7 @@
         return { id: 'trip-' + o.id, lat: o.lat, lng: o.lng, move: s.move || { id: o.id, hood: o.hood, category: 'music', word: evWord(o.title), place: o.venue }, active: !!s.event, tag: `${n + 1}  ${fmtHour(s.at % 24, true)}`, label: o.title || o.place };
       });
     }
-    if (app.tab === 'stay') return hotels.filter((h) => !app.stayTier || h.tier === app.stayTier || h.id === app.stayFocus).map((h) => ({ id: h.id, lat: h.lat, lng: h.lng, move: { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }, active: app.stayFocus === h.id, tag: '$'.repeat(h.tier), label: h.name, onclick: () => (app.stayFocus = h.id) }));
+    if (app.tab === 'stay') return hotels.filter((h) => !app.stayTier || h.tier === app.stayTier).map((h) => ({ id: h.id, lat: h.lat, lng: h.lng, move: { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }, active: app.stayFocus === h.id, tag: '$'.repeat(h.tier), label: h.name, onclick: () => (app.stayFocus = h.id) }));
     return [];
   });
   const route = $derived.by(() => {
@@ -56,7 +58,10 @@
   $effect(() => { const id = app.whereHotel; if (!map || !id) return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng, wide ? 0.9 : 0.7); });
   $effect(() => { if (!map || app.tab !== 'stay' || !wide || !hotels.length) return; const list = hotels.filter((h) => !app.stayTier || h.tier === app.stayTier); map.fitPoints(list.length ? list : hotels); });
   // Desktop: picking a hotel in the rack brings its pin into view.
-  $effect(() => { const id = app.stayFocus; if (!map || !wide || !id) return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng); });
+  // untrack: flyTo reads the inset prop, which would re-run this (and fly back to the hotel) on every tab change.
+  $effect(() => { const id = app.stayFocus; if (!map || !wide || !id) return; untrack(() => { if (app.tab !== 'stay') return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng); }); });
+  // Desktop: Today always opens on the whole-city view, whatever Stay or a badge zoomed into.
+  $effect(() => { if (map && wide && app.tab === 'today') untrack(() => map.recenter()); });
   $effect(() => { app.tab; scroller?.scrollTo?.({ top: 0 }); });
 
   onMount(() => {

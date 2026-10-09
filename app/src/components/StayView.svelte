@@ -34,7 +34,7 @@
   <h1>Stay</h1>
   <div class="tiers" role="radiogroup" aria-label="Price" tabindex="-1" onkeydown={radioKeys}>
     <button role="radio" aria-checked={only === 0} tabindex={only === 0 ? 0 : -1} class:on={only === 0} onclick={() => (app.stayTier = 0)}>Any</button>
-    {#each TIERS as [t, sym]}<button role="radio" aria-checked={only === t} tabindex={only === t ? 0 : -1} class:on={only === t} onclick={() => (app.stayTier = t)}>{sym}</button>{/each}
+    {#each TIERS as [t, sym]}<button role="radio" aria-checked={only === t} tabindex={only === t ? 0 : -1} class:on={only === t} onclick={() => { app.stayTier = t; if (sel && sel.tier !== t) app.stayFocus = null; }}>{sym}</button>{/each}
   </div>
 
   {#if !hotels.length}

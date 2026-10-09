@@ -1,6 +1,6 @@
 // psst. offline: the whole guide is one HTML page, so caching it (plus fonts and icons) lets it open with no signal.
 // Pages: network first, cached copy after 4 s or offline. Fonts and icons: cache first. Analytics: never cached.
-const V = 'psst-v2';
+const V = 'psst-v3';
 const CORE = ['/', '/site.webmanifest', '/favicon.svg', '/icon-192.png', '/apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(V).then((c) => c.addAll(CORE))); self.skipWaiting(); });
@@ -16,7 +16,7 @@ self.addEventListener('fetch', (e) => {
   if (req.mode === 'navigate') {
     e.respondWith((async () => {
       const shell = u.pathname === '/' || !/\.[a-z0-9]+$/i.test(u.pathname);
-      const net = fetch(req).then((res) => { if (shell && res.ok && (res.headers.get('content-type') || '').includes('text/html')) { const copy = res.clone(); caches.open(V).then((c) => c.put('/', copy)); } return res; });
+      const net = fetch(req).then((res) => { if (u.pathname === '/' && res.ok && (res.headers.get('content-type') || '').includes('text/html')) { const copy = res.clone(); caches.open(V).then((c) => c.put('/', copy)); } return res; });
       try { const res = await Promise.race([net, new Promise((ok) => setTimeout(ok, 4000))]); if (res) return res; } catch {}
       return (shell && (await caches.match('/'))) || net;
     })());

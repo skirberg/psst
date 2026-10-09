@@ -241,6 +241,12 @@
       el.classList.toggle('crowded', hit && !pins[i].active);
       if (!hit || pins[i].active) boxes.push(box);
     }
+    if (refocus && performance.now() - lastInteract > 150) {
+      const ids = refocus; refocus = null;
+      const k = pins.findIndex((p, n) => ids.includes(p.id) && pinEls[n]?.style.visibility === 'visible');
+      const gr = groups.find((x) => x.ids.some((id) => ids.includes(id)));
+      (k >= 0 ? pinEls[k] : gr && groupEls[gr.key])?.focus({ preventScroll: true });
+    }
   }
   function loop(ts) {
     raf = 0;
@@ -291,14 +297,18 @@
     if (!cw || !list.length) return;
     const P = list.map((r) => project(r.lat, r.lng)); const xs = P.map((p) => p[0]), ys = P.map((p) => p[1]);
     const bw = Math.max(120, Math.max(...xs) - Math.min(...xs)), bh = Math.max(120, Math.max(...ys) - Math.min(...ys));
-    const availW = cw - ((inset.left || 0) + (inset.right || 0) + 90) * dpr, availH = ch - ((inset.top || 0) + (inset.bottom || 0) + 90) * dpr;
+    // Pins stand above their point and hide above inset.top + 60, so leave more room at the top.
+    const padT = 85, padB = 45;
+    const availW = cw - ((inset.left || 0) + (inset.right || 0) + 90) * dpr, availH = ch - ((inset.top || 0) + (inset.bottom || 0) + padT + padB) * dpr;
     const s = Math.max(0.12, Math.min(1.2, Math.min(availW / bw, availH / bh)));
-    const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2;
+    const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2 - (((padT - padB) / 2) * dpr) / s;
     flyTo(N - (cy / geo.h) * hDeg, W + ((cx / geo.w) * wDeg) / geo.k, s);
   }
   // Tap a badge: zoom just far enough that its pins separate (one tap, not three).
-  function openGroup(g) {
+  let refocus = null;
+  function openGroup(g, e) {
     const ms = pins.filter((p) => g.ids.includes(p.id)); if (!ms.length) return;
+    if (e?.detail === 0) refocus = g.ids; // keyboard: keep focus on the group once it opens
     const P = ms.map((p) => project(p.lat, p.lng)), xs = P.map((q) => q[0]), ys = P.map((q) => q[1]);
     let gap = Infinity; for (let a = 0; a < P.length; a++) for (let b = a + 1; b < P.length; b++) gap = Math.min(gap, Math.hypot(P[a][0] - P[b][0], P[a][1] - P[b][1]));
     const need = gap > 0 ? (CLUSTER_R * 1.3 * dpr) / gap : MAX_S;
@@ -330,7 +340,7 @@
   {#if labels}<p class="credit">Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></p>{/if}
   <div class="pins" role="group" aria-label="Moves on the map">
     {#each groups as g (g.key)}
-      <button class="cl" bind:this={groupEls[g.key]} onclick={() => openGroup(g)} aria-label="{g.ids.length} places here. Zoom in"><span>{g.ids.length}</span></button>
+      <button class="cl" bind:this={groupEls[g.key]} onclick={(e) => openGroup(g, e)} aria-label="{g.ids.length} here: {g.ids.map((id) => pins.find((p) => p.id === id)?.label).filter(Boolean).join(', ')}. Zoom in"><span>{g.ids.length}</span></button>
     {/each}
     {#each pins as p, i (p.id)}
       <button class="pin" bind:this={pinEls[i]} class:active={p.active} onclick={() => p.onclick?.()} aria-label={p.label} tabindex={p.onclick ? 0 : -1}>
