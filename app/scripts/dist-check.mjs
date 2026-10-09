@@ -1,6 +1,6 @@
 // Checks on the production file itself, for bugs the dev server cannot show.
 import { readFileSync } from 'node:fs';
-const html = readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8');
+const html = readFileSync(process.argv[2] || new URL('../dist/index.html', import.meta.url), 'utf8');
 const fails = [];
 const script = html.match(/<script type="module"[^>]*>[\s\S]*?<\/script>/)?.[0] || '';
 if (!script) fails.push('no inlined module script');
