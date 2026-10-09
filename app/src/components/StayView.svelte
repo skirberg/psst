@@ -109,6 +109,8 @@
   @keyframes open { from { transform: translateY(-8px); opacity: 0; } }
   .ct { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
   h2 { margin: 0; font: 400 26px/1.05 var(--display); }
+  .x { position: relative; }
+  .x::after { content: ''; position: absolute; inset: -9px; }
   .x { border: 0; background: transparent; color: var(--ink); cursor: pointer; padding: 4px; border-radius: 50%; }
   .hood { margin: 0; display: flex; gap: 6px; align-items: center; font: 600 14px var(--body); color: var(--muted); }
   .move { margin: 0; font: 520 17px/1.35 var(--body); font-variation-settings: 'CASL' 1; }

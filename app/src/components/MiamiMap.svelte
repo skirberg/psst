@@ -9,7 +9,7 @@
   import { app } from '../lib/state.svelte.js';
   import Sticker from './Sticker.svelte';
 
-  let { inset = { left: 0, top: 0, bottom: 0, right: 0 }, pins = [], route = [], focus = null, interactive = true, labels = true, quiet = false, paused = false } = $props();
+  let { inset = { left: 0, top: 0, bottom: 0, right: 0 }, pins = [], route = [], focus = null, interactive = true, labels = true, quiet = false, paused = false, cluster = false } = $props();
 
   const [S, W, N, E] = geo.bbox;
   const wDeg = (E - W) * geo.k, hDeg = N - S;
@@ -45,6 +45,9 @@
   let sprites = null;
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   let pinEls = $state([]);
+  // Clustering: pins closer than CLUSTER_R px merge into one numbered badge; tap it to zoom in.
+  const CLUSTER_R = 46, MAX_S = 3;
+  let groups = $state([]), groupEls = $state({}), groupSig = '';
 
   function fit() {
     const narrow = cw / dpr < 760;
@@ -207,10 +210,31 @@
       ctx.lineWidth = 2 * dpr; ctx.strokeStyle = '#052739'; ctx.stroke();
     }
     const boxes = [], topEdge = (inset.top || 0) + 60, order = pins.map((p, i) => i).sort((a, b) => (pins[b].active ? 1 : 0) - (pins[a].active ? 1 : 0));
+    const pos = pins.map((p) => toScreen(project(p.lat, p.lng)).map((v) => v / dpr));
+    const inView = (x, y) => !(x < (inset.left || 0) + 10 || x > cw / dpr - 10 || y < topEdge || y > ch / dpr - 10);
+    const merged = new Set();
+    if (cluster && view.s < MAX_S * 0.95) {
+      // Greedy: the active pin always stands alone; every other pin joins the nearest badge within reach.
+      const cl = [];
+      for (const i of order) {
+        if (!inView(...pos[i])) continue;
+        if (pins[i].active) { cl.push({ c: pos[i], m: [i], solo: true }); continue; }
+        let best = null, bd = CLUSTER_R;
+        for (const g of cl) { if (g.solo) continue; const d = Math.hypot(g.c[0] - pos[i][0], g.c[1] - pos[i][1]); if (d < bd) { bd = d; best = g; } }
+        if (best) { best.m.push(i); best.c = [best.m.reduce((a, k) => a + pos[k][0], 0) / best.m.length, best.m.reduce((a, k) => a + pos[k][1], 0) / best.m.length]; }
+        else cl.push({ c: pos[i], m: [i] });
+      }
+      const multi = cl.filter((g) => g.m.length > 1).map((g) => ({ ...g, key: g.m.map((k) => pins[k].id).sort().join('+') }));
+      const sig = multi.map((g) => g.key).sort().join('|');
+      if (sig !== groupSig) { groupSig = sig; groups = multi.map((g) => ({ key: g.key, ids: g.m.map((k) => pins[k].id) })); kick(); }
+      for (const g of multi) {
+        for (const k of g.m) merged.add(k);
+        const el = groupEls[g.key]; if (el) el.style.transform = `translate(${g.c[0]}px, ${g.c[1]}px)`;
+      }
+    } else if (groupSig) { groupSig = ''; groups = []; }
     for (const i of order) {
-      const el = pinEls[i]; if (!el) continue; let [x, y] = toScreen(project(pins[i].lat, pins[i].lng));
-      x /= dpr; y /= dpr;
-      const off = x < (inset.left || 0) + 10 || x > cw / dpr - 10 || y < topEdge || y > ch / dpr - 10;
+      const el = pinEls[i]; if (!el) continue; let [x, y] = pos[i];
+      const off = !inView(x, y) || merged.has(i);
       el.style.visibility = off ? 'hidden' : 'visible';
       el.style.transform = `translate(${x}px, ${y}px)`;
       const box = [x - 30, y - 70, x + 30, y + 4], hit = boxes.some((b) => !(box[2] < b[0] || box[0] > b[2] || box[3] < b[1] || box[1] > b[3]));
@@ -272,6 +296,18 @@
     const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2;
     flyTo(N - (cy / geo.h) * hDeg, W + ((cx / geo.w) * wDeg) / geo.k, s);
   }
+  // Tap a badge: zoom just far enough that its pins separate (one tap, not three).
+  function openGroup(g) {
+    const ms = pins.filter((p) => g.ids.includes(p.id)); if (!ms.length) return;
+    const P = ms.map((p) => project(p.lat, p.lng)), xs = P.map((q) => q[0]), ys = P.map((q) => q[1]);
+    let gap = Infinity; for (let a = 0; a < P.length; a++) for (let b = a + 1; b < P.length; b++) gap = Math.min(gap, Math.hypot(P[a][0] - P[b][0], P[a][1] - P[b][1]));
+    const need = gap > 0 ? (CLUSTER_R * 1.3 * dpr) / gap : MAX_S;
+    // ...but never so far that part of the group leaves the screen
+    const bw = Math.max(1, Math.max(...xs) - Math.min(...xs)), bh = Math.max(1, Math.max(...ys) - Math.min(...ys));
+    const fit = Math.min((cw - ((inset.left || 0) + (inset.right || 0) + 120) * dpr) / bw, (ch - ((inset.top || 0) + (inset.bottom || 0) + 150) * dpr) / bh);
+    const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2;
+    flyTo(N - (cy / geo.h) * hDeg, W + ((cx / geo.w) * wDeg) / geo.k, Math.min(MAX_S, Math.max(view.s * 1.6, Math.min(need, fit))));
+  }
   export function recenter() { view.user = false; fit(); layerKey = ''; kick(); }
 
   onMount(() => {
@@ -293,6 +329,9 @@
   <canvas bind:this={canvas} role="img" aria-label="Miami map. Lit spots are open at this hour." class:interactive onpointerdown={onDown} onpointermove={onMove} onpointerup={onUp} onpointercancel={onUp}></canvas>
   {#if labels}<p class="credit">Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></p>{/if}
   <div class="pins" role="group" aria-label="Moves on the map">
+    {#each groups as g (g.key)}
+      <button class="cl" bind:this={groupEls[g.key]} onclick={() => openGroup(g)} aria-label="{g.ids.length} places here. Zoom in"><span>{g.ids.length}</span></button>
+    {/each}
     {#each pins as p, i (p.id)}
       <button class="pin" bind:this={pinEls[i]} class:active={p.active} onclick={() => p.onclick?.()} aria-label={p.label} tabindex={p.onclick ? 0 : -1}>
         <span class="lift"><Sticker move={p.move} size={p.active ? 52 : 38} />{#if p.tag}<b>{p.tag}</b>{/if}</span>
@@ -316,5 +355,10 @@
   .pin:global(.crowded) { opacity: 0.85; }
   .lift b { font: 600 11px var(--mono); font-variation-settings: 'MONO' 1; background: var(--ink); color: var(--paper); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
   .pin:focus-visible { outline: none; }
+  .cl { all: unset; position: absolute; left: 0; top: 0; pointer-events: auto; cursor: zoom-in; will-change: transform; }
+  .cl span { position: absolute; transform: translate(-50%, -50%); display: grid; place-items: center; min-width: 40px; height: 40px; padding: 0 6px; box-sizing: border-box; border-radius: 999px;
+    background: var(--ink); color: #FED252; font: 400 19px/1 var(--display); box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink), 0 8px 14px rgba(5, 39, 57, 0.35); transition: transform 0.2s cubic-bezier(.3, 1.4, .5, 1); }
+  .cl:hover span { transform: translate(-50%, -50%) scale(1.08); }
+  .cl:focus-visible span { outline: 3px solid var(--text); outline-offset: 4px; }
   .pin:focus-visible .lift { outline: 3px solid var(--text); outline-offset: 2px; border-radius: 8px; }
 </style>

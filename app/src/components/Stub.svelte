@@ -194,6 +194,8 @@
   .note { margin: 10px 0 0; font: 520 17px/1.35 var(--body); font-variation-settings: 'CASL' 1, 'MONO' 0; text-wrap: pretty; }
   .meta { clear: both; margin: 12px 0 0; display: flex; align-items: center; gap: 4px 14px; font: 500 13.5px var(--body); color: var(--muted); flex-wrap: wrap; }
   .meta span:first-child { color: var(--ink); font-weight: 650; }
+  .more, .b-close { position: relative; }
+  .more::after, .b-close::after { content: ''; position: absolute; inset: -10px -6px; }
   .more { margin-left: auto; font: 650 13px var(--body); padding: 5px 11px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
 
   .b-top { display: flex; justify-content: space-between; align-items: start; gap: 8px; margin-bottom: 10px; }

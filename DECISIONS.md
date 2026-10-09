@@ -82,6 +82,7 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - **Platform:** opens with no signal (service worker), first paint before the app script (0.3 s against 1.5 s on slow 4G), the map stops drawing when nothing moves, zero axe violations on every tab, keyboard focus never lost or hidden.
 - **Pre-ship review:** three reviewers tried to break the diff and found a blocker the dev server hides: moving the inlined script with a string replace turned every '$$' into '$' (Stay tiers and prices). Fixed with function replacers, and app/scripts/dist-check.mjs now checks the production file itself. Also fixed from that review: the late-night ticket, Later around shows without a published time, plan links held to the date inputs' bounds, the offline page never replaced by a non-HTML response, fonts cached only when they loaded.
 - **Sami's calls (2026-10-09):** strangers get a blank trip: the trip card reads "Your trip, Add your dates", Events opens on Tonight, and Stay measures to the first show on your trip, hidden when there is none. Kept opens with "Yours": what you kept, soonest best hour first, with Go and Went; the sticker book stays below it.
+- **Later the same day (Sami asked for clustering plus quick wins):** hotel pins on the desktop Stay map merge into numbered badges when they crowd; one tap zooms just far enough to separate them while keeping the whole group on screen; the picked hotel always stands alone and the map flies to it. The header temperature follows the clock hour. A "Wrong door." 404 page. Security headers (nosniff, referrer policy, permissions policy, frame-ancestors none) and a day of cache for icons and the share image. 44px tap areas on the small pills. www.psst.miami attached with a 308 like the other domains.
 - **Decisions made in this round:** "Miami" in the header; a copied plan's link carries its dates and shows, opening them only for someone with no trip of their own; the share image is the phone view on the golden sky with the wordmark; noindex extends to images and icons (X-Robots-Tag) until the experiment ends; the Michelin star marks only real Michelin Keys, with a legend.
 
 ## Rejected (do not revive)
@@ -102,7 +103,6 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - Grain or riso texture as a global overlay.
 
 ## Open questions / candidates
-- Hotel pin clustering on the Stay map.
 - PNG share of the trip strip via the artifact downloads capability.
 - A Thursday 3:05 weekend drop.
 - Local curators program.

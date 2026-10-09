@@ -20,6 +20,8 @@
 
   let wide = $state(false), map = $state(), scroller = $state();
   const wx = $derived(weatherFor(app.now.date));
+  // The forecast's temperature at the hour on the clock; typical days show the usual high.
+  const temp = $derived(wx?.hourly?.[Math.floor(app.hour) % 24]?.[0] ?? wx?.hi);
   const top = $derived(app.pad[app.padPos]);
   const focus = $derived(app.where || (app.tab === 'today' && top && !top.sealed ? top.m.id : null));
   const evWord = (t = '') => { const w = t.split(':')[0].trim().split(/\s+/); return w.length === 2 ? w[1] : w[0]; };
@@ -53,6 +55,8 @@
   $effect(() => { const id = app.where; if (!map || !id) return; const m = moves.find((x) => x.id === id); if (m) map.flyTo(m.lat, m.lng, wide ? 0.9 : 0.7); });
   $effect(() => { const id = app.whereHotel; if (!map || !id) return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng, wide ? 0.9 : 0.7); });
   $effect(() => { if (!map || app.tab !== 'stay' || !wide || !hotels.length) return; map.fitPoints(hotels); });
+  // Desktop: picking a hotel in the rack brings its pin into view.
+  $effect(() => { const id = app.stayFocus; if (!map || !wide || !id) return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng); });
   $effect(() => { app.tab; scroller?.scrollTo?.({ top: 0 }); });
 
   onMount(() => {
@@ -89,7 +93,7 @@
     <main class="col" class:full id="main" tabindex="-1" bind:this={scroller}>
       <header class="top">
         <Wordmark size={wide ? 40 : 34} />
-        <p class="today"><span>Miami, {fmtDate(app.now.date, { weekday: 'short' })} {fmtDate(app.now.date, { month: 'short', day: 'numeric' })}</span>{#if wx}<span>{wx.hi}° {wx.kind === 'typical' ? 'typical' : 'forecast'}</span>{/if}</p>
+        <p class="today"><span>Miami, {fmtDate(app.now.date, { weekday: 'short' })} {fmtDate(app.now.date, { month: 'short', day: 'numeric' })}</span>{#if wx}<span>{temp}° {wx.kind === 'typical' ? 'typical' : 'forecast'}</span>{/if}</p>
       </header>
       {#if wide}
         <nav class="tabs" aria-label="Sections">{#each TABS as [k, label, ic]}<button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}><Icon name={ic} size={18} />{label}{#if k === 'book' && app.kept.length}<i>{app.kept.length}</i>{/if}</button>{/each}</nav>
@@ -114,7 +118,7 @@
   {/if}
 
   <div class="mapwrap" role="region" aria-label="Map" class:where={anyWhere} class:live={wide || anyWhere} class:dim={app.tab === 'wall' || app.tab === 'book'}>
-    <MiamiMap bind:this={map} {pins} {route} {focus} interactive={wide || anyWhere} labels={wide || anyWhere} quiet={!wide && !anyWhere} paused={!anyWhere && (app.tab === 'wall' || app.tab === 'book')}
+    <MiamiMap bind:this={map} {pins} {route} {focus} interactive={wide || anyWhere} labels={wide || anyWhere} quiet={!wide && !anyWhere} paused={!anyWhere && (app.tab === 'wall' || app.tab === 'book')} cluster={app.tab === 'stay'}
       inset={wide ? { left: full ? 0 : 500, top: 70, bottom: app.tab === 'today' ? 150 : 40, right: 20 } : { left: 0, top: 70, bottom: anyWhere ? 260 : 0 }} />
   </div>
   {#if !anyWhere && (app.tab === 'today' || !wide)}<SkyFx />{/if}
