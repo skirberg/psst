@@ -1,0 +1,33 @@
+# On every push to main: type check, production build, the built-file check, the planner rules,
+# and the end-to-end flows (accessibility on every tab included). A red check means do not trust that deploy.
+name: Checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm run check
+      - run: npx vite build
+      - run: node scripts/dist-check.mjs
+      - run: node scripts/plan-check.mjs
+      - name: Flows in Chrome
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: |
+          npx vite --port 5179 --strictPort > /tmp/vite.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:5179/ > /dev/null && break; sleep 1; done
+          node scripts/flows-check.mjs

@@ -25,7 +25,9 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
   - A first-screen rule: one complete move above the tab bar at a real phone viewport.
 - **Type:** Tilt Warp (display, 20px and up, sentence case), Recursive (body via CASL; data via MONO), League Gothic (flyer titles only), Tilt Neon (the night hour only, if it loads in the artifact). All OFL, loaded from Google Fonts.
 - **Color:** mamey #F37F5F is the only accent and means "now", once per view. Seven sky stops (dawn, morning, noon, afternoon, golden, dusk, night). Text is bay ink #052739 on paper #FEFAF1. Sticker inks are for stickers only.
-- **Stack (prototype):** Svelte 5 + Vite, built to one HTML file, with a canvas map from OSM.
+- **Stack (prototype):** Svelte 5 + Vite in strict TypeScript, built to one HTML file, with a canvas map from OSM.
+- **TypeScript (2026-10-24, Sami: "best for everything or nothing"):** the whole app moved from plain JavaScript to strict TypeScript, not a JSDoc half-step. Why: the risk in psst is data shape (60 places, 44 events, 18 hotels with doors, show times and opening windows), most review findings were shape mistakes types catch, the codebase is small enough (about 2,500 lines) to convert properly, and SvelteKit, the production pick, is TypeScript-first. src/lib/types.ts defines every data shape; svelte-check runs with zero errors and zero warnings and gates every build (npm run build runs npm run check), so a type error cannot deploy. Node tooling in app/scripts stays .mjs: it runs under plain Node on Vercel and GitHub without a compile step.
+- **Checks on every push (2026-10-24):** .github/workflows/checks.yml runs the type check, the production build, dist-check, plan-check and flows-check (26 end-to-end flows in Chrome, axe on every tab) on each push to main.
 - **Stack (production):**
   - SvelteKit.
   - Supabase (Postgres + PostGIS, auth, realtime, storage). It replaces the D1 pick in the playbook, which was wrong: the core query is geo plus time.

@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   // The sky has weather: clouds by day, stars after dark, rain when the forecast says so.
-  import { app } from '../lib/state.svelte.js';
+  import { app } from '../lib/state.svelte';
   let rs = 42; const rnd = () => ((rs = (rs * 16807) % 2147483647) / 2147483647);
   const stars = Array.from({ length: 46 }, () => ({ x: rnd() * 100, y: rnd() * 100, s: 1 + rnd() * 1.8, d: rnd() * 4, t: 2.5 + rnd() * 3 }));
   const drops = Array.from({ length: 70 }, () => ({ x: rnd() * 100, d: rnd() * 1.2, t: 0.55 + rnd() * 0.4, l: 10 + rnd() * 16 }));

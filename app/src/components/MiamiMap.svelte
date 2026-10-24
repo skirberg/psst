@@ -1,53 +1,62 @@
-<script>
+<script lang="ts">
   // Real OSM coastline and roads. Daytime: tone-on-tone under the sky color.
   // After sunset the streetlights come on in a wave from the coast inland, headlights flow,
   // and only the moves that are actually open at the chosen hour glow. One mamey point marks the move.
   import { onMount } from 'svelte';
-  import geo from '../lib/geo.json';
-  import { moves, glow } from '../lib/core.js';
-  import { lightness } from '../lib/sky.js';
-  import { app } from '../lib/state.svelte.js';
+  import geoRaw from '../lib/geo.json';
+  import type { Geo, LatLng, StickerSubject } from '../lib/types';
+
+  type Pt = [number, number];
+  export interface Pin { id: string; lat: number; lng: number; move: StickerSubject; active?: boolean; tag?: string; label: string; onclick?: () => void }
+  interface Inset { left?: number; top?: number; bottom?: number; right?: number }
+  interface Road { l: number[]; cum: number[]; len: number; w: number }
+  interface Car { r: Road; d: number; v: number; k: number }
+  const geo = geoRaw as unknown as Geo;
+  import { moves, glow } from '../lib/core';
+  import { lightness } from '../lib/sky';
+  import { app } from '../lib/state.svelte';
   import Sticker from './Sticker.svelte';
 
-  let { inset = { left: 0, top: 0, bottom: 0, right: 0 }, pins = [], route = [], focus = null, interactive = true, labels = true, quiet = false, paused = false, cluster = false } = $props();
+  let { inset = { left: 0, top: 0, bottom: 0, right: 0 }, pins = [], route = [], focus = null, interactive = true, labels = true, quiet = false, paused = false, cluster = false }:
+    { inset?: Inset; pins?: Pin[]; route?: LatLng[]; focus?: string | null; interactive?: boolean; labels?: boolean; quiet?: boolean; paused?: boolean; cluster?: boolean } = $props();
 
   const [S, W, N, E] = geo.bbox;
   const wDeg = (E - W) * geo.k, hDeg = N - S;
-  const project = (lat, lng) => [((lng - W) * geo.k / wDeg) * geo.w, ((N - lat) / hDeg) * geo.h];
+  const project = (lat: number, lng: number): Pt => [((lng - W) * geo.k / wDeg) * geo.w, ((N - lat) / hDeg) * geo.h];
   const HOODS = [
     ['Little River', 25.849, -80.188], ['Little Haiti', 25.828, -80.197], ['Design District', 25.8125, -80.193], ['Wynwood', 25.8, -80.2],
     ['Allapattah', 25.811, -80.224], ['Edgewater', 25.792, -80.187], ['Downtown', 25.776, -80.194], ['Brickell', 25.759, -80.194],
     ['Little Havana', 25.766, -80.222], ['Coral Gables', 25.722, -80.27], ['Coconut Grove', 25.729, -80.241], ['Virginia Key', 25.738, -80.155],
     ['Key Biscayne', 25.692, -80.163], ['South Beach', 25.78, -80.132], ['Mid-Beach', 25.817, -80.124], ['North Beach', 25.858, -80.121], ['MiMo', 25.838, -80.184],
-  ].map(([n, la, lo]) => ({ n, p: project(la, lo) }));
+  ].map(([n, la, lo]) => ({ n: n as string, p: project(la as number, lo as number) }));
   const pts = moves.map((m) => ({ m, p: project(m.lat, m.lng) }));
 
   // traffic along real highways and causeways (illustrative)
-  const ROADS = [...geo.major.map((l) => ({ l, w: 1 })), ...geo.primary.map((l) => ({ l, w: 0.3 }))]
-    .map(({ l, w }) => { const cum = [0]; for (let i = 2; i < l.length; i += 2) cum.push(cum.at(-1) + Math.hypot(l[i] - l[i - 2], l[i + 1] - l[i - 1])); return { l, cum, len: cum.at(-1), w }; })
+  const ROADS: Road[] = [...geo.major.map((l) => ({ l, w: 1 })), ...geo.primary.map((l) => ({ l, w: 0.3 }))]
+    .map(({ l, w }) => { const cum = [0]; for (let i = 2; i < l.length; i += 2) cum.push(cum[cum.length - 1] + Math.hypot(l[i] - l[i - 2], l[i + 1] - l[i - 1])); return { l, cum, len: cum[cum.length - 1], w }; })
     .filter((r) => r.len > 40);
   const totalW = ROADS.reduce((a, r) => a + r.len * r.w, 0);
   let seed = 1234567; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-  const pickRoad = (x) => { x *= totalW; for (const r of ROADS) { x -= r.len * r.w; if (x <= 0) return r; } return ROADS[0]; };
-  let CARS = [];
+  const pickRoad = (x: number): Road => { x *= totalW; for (const r of ROADS) { x -= r.len * r.w; if (x <= 0) return r; } return ROADS[0]; };
+  let CARS: Car[] = [];
   const TRAFFIC = [0.35, 0.28, 0.22, 0.14, 0.12, 0.2, 0.45, 0.8, 0.95, 0.7, 0.6, 0.62, 0.66, 0.62, 0.62, 0.72, 0.9, 1, 0.92, 0.75, 0.62, 0.58, 0.55, 0.45];
-  const trafficAt = (h) => { const a = Math.floor(h) % 24, f = h - Math.floor(h); return TRAFFIC[a] * (1 - f) + TRAFFIC[(a + 1) % 24] * f; };
-  function carPos(c) {
+  const trafficAt = (h: number): number => { const a = Math.floor(h) % 24, f = h - Math.floor(h); return TRAFFIC[a] * (1 - f) + TRAFFIC[(a + 1) % 24] * f; };
+  function carPos(c: Car): Pt {
     const { l, cum } = c.r; let lo = 0, hi = cum.length - 1;
     while (lo < hi - 1) { const mid = (lo + hi) >> 1; if (cum[mid] <= c.d) lo = mid; else hi = mid; }
     const f = (c.d - cum[lo]) / (cum[hi] - cum[lo] || 1);
     return [l[lo * 2] + (l[hi * 2] - l[lo * 2]) * f, l[lo * 2 + 1] + (l[hi * 2 + 1] - l[lo * 2 + 1]) * f];
   }
 
-  let canvas, wrap, ctx, dpr = 1, cw = 0, ch = 0, raf = 0;
+  let canvas: HTMLCanvasElement, wrap: HTMLElement, ctx: CanvasRenderingContext2D, dpr = 1, cw = 0, ch = 0, raf = 0;
   let view = { cx: 0, cy: 0, s: 1, user: false };
-  const L = {}; let layerKey = '';
-  let sprites = null;
+  const L: Record<string, HTMLCanvasElement> = {}; let layerKey = '';
+  let sprites: { head: HTMLCanvasElement; tail: HTMLCanvasElement; glow: HTMLCanvasElement } | null = null;
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let pinEls = $state([]);
+  let pinEls = $state<HTMLElement[]>([]);
   // Clustering: pins closer than CLUSTER_R px merge into one numbered badge; tap it to zoom in.
   const CLUSTER_R = 46, MAX_S = 3;
-  let groups = $state([]), groupEls = $state({}), groupSig = '';
+  let groups = $state<{ key: string; ids: string[] }[]>([]), groupEls = $state<Record<string, HTMLElement>>({}), groupSig = '';
 
   function fit() {
     const narrow = cw / dpr < 760;
@@ -59,27 +68,27 @@
     view.cx = c[0] - (((inset.left || 0) - (inset.right || 0)) * dpr) / 2 / view.s;
     view.cy = c[1] - (((inset.top || 0) - (inset.bottom || 0)) * dpr) / 2 / view.s;
   }
-  const toScreen = (p) => [(p[0] - view.cx) * view.s + cw / 2, (p[1] - view.cy) * view.s + ch / 2];
+  const toScreen = (p: Pt): Pt => [(p[0] - view.cx) * view.s + cw / 2, (p[1] - view.cy) * view.s + ch / 2];
 
-  function path(c, set, close) {
+  function path(c: CanvasRenderingContext2D, set: number[][], close = false): void {
     c.beginPath();
     for (const line of set) {
       for (let i = 0; i < line.length; i += 2) { const x = (line[i] - view.cx) * view.s + cw / 2, y = (line[i + 1] - view.cy) * view.s + ch / 2; i ? c.lineTo(x, y) : c.moveTo(x, y); }
       if (close) c.closePath();
     }
   }
-  function layer(name, draw) {
+  function layer(name: string, draw: (c: CanvasRenderingContext2D) => void): void {
     const off = L[name] || document.createElement('canvas'); off.width = cw; off.height = ch;
-    const c = off.getContext('2d'); c.clearRect(0, 0, cw, ch); c.lineCap = 'round'; c.lineJoin = 'round'; draw(c); L[name] = off;
+    const c = off.getContext('2d'); if (!c) return; c.clearRect(0, 0, cw, ch); c.lineCap = 'round'; c.lineJoin = 'round'; draw(c); L[name] = off;
   }
-  let built = null, lastInteract = 0;
+  let built: { cx: number; cy: number; s: number; cw: number; ch: number } | null = null, lastInteract = 0;
   // While the view is moving, reuse the cached layers with a transform; rebuild once it settles.
-  function layerTransform() {
+  function layerTransform(): [number, number, number] | null {
     if (!built) return null;
     const k = view.s / built.s;
     return [k, (cw / 2) * (1 - k) + (built.cx - view.cx) * view.s, (ch / 2) * (1 - k) + (built.cy - view.cy) * view.s];
   }
-  function buildLayers(ts) {
+  function buildLayers(): void {
     const key = `${cw}x${ch}:${view.cx.toFixed(1)},${view.cy.toFixed(1)},${view.s.toFixed(5)}`;
     if (key === layerKey) return;
     if (built && built.cw === cw && built.ch === ch && performance.now() - lastInteract < 180) return;
@@ -104,9 +113,10 @@
   }
 
   // neighborhood labels, placed greedily so none overlap
-  let placed = [];
-  function placeLabels() {
-    placed = []; const boxes = [];
+  let placed: { text: string; x: number; y: number }[] = [];
+  function placeLabels(): void {
+    if (!ctx) return;
+    placed = []; const boxes: number[][] = [];
     const fs = 10.5 * dpr; ctx.font = `600 ${fs}px Recursive, ui-monospace, monospace`;
     for (const { n, p } of HOODS) {
       const [x, y] = toScreen(p); const text = n.toUpperCase();
@@ -120,7 +130,7 @@
   }
 
   function makeSprites() {
-    const mk = (inner, outer) => { const c = document.createElement('canvas'); c.width = c.height = 32; const g = c.getContext('2d'); const r = g.createRadialGradient(16, 16, 0, 16, 16, 16); r.addColorStop(0, inner); r.addColorStop(0.25, inner); r.addColorStop(1, outer); g.fillStyle = r; g.fillRect(0, 0, 32, 32); return c; };
+    const mk = (inner: string, outer: string): HTMLCanvasElement => { const c = document.createElement('canvas'); c.width = c.height = 32; const g = c.getContext('2d')!; const r = g.createRadialGradient(16, 16, 0, 16, 16, 16); r.addColorStop(0, inner); r.addColorStop(0.25, inner); r.addColorStop(1, outer); g.fillStyle = r; g.fillRect(0, 0, 32, 32); return c; };
     return { head: mk('rgba(255,244,214,1)', 'rgba(255,200,120,0)'), tail: mk('rgba(255,70,70,1)', 'rgba(255,40,60,0)'), glow: mk('rgba(255,214,140,0.95)', 'rgba(255,90,60,0)') };
   }
 
@@ -131,12 +141,12 @@
   let animating = false;
   let glowKey = '', glowVals = new Map();
   function kick() { if (!raf && ctx && !document.hidden) { lastTs = 0; raf = requestAnimationFrame(loop); } }
-  function frame(ts) {
+  function frame(ts: number): void {
     if (!ctx || !cw) return;
     const dt = Math.min(0.05, lastTs ? (ts - lastTs) / 1000 : 0); lastTs = ts;
-    buildLayers(ts);
+    buildLayers();
     const T = layerTransform();
-    const blit = (img) => { if (T && (T[0] !== 1 || T[1] || T[2])) { ctx.setTransform(T[0], 0, 0, T[0], T[1], T[2]); ctx.drawImage(img, 0, 0); ctx.setTransform(1, 0, 0, 1, 0, 0); } else ctx.drawImage(img, 0, 0); };
+    const blit = (img: HTMLCanvasElement): void => { if (T && (T[0] !== 1 || T[1] || T[2])) { ctx.setTransform(T[0], 0, 0, T[0], T[1], T[2]); ctx.drawImage(img, 0, 0); ctx.setTransform(1, 0, 0, 1, 0, 0); } else ctx.drawImage(img, 0, 0); };
     const d = Math.min(1, Math.max(0, (0.72 - lightness(app.sky)) / 0.42)); // 0 day .. 1 night
     const dark = d > 0.5;
     if (dark && !wasDark && !reduce) waveStart = ts;
@@ -209,17 +219,17 @@
       ctx.fillStyle = '#F37F5F'; ctx.beginPath(); ctx.arc(x, y, 6.5 * dpr, 0, Math.PI * 2); ctx.fill();
       ctx.lineWidth = 2 * dpr; ctx.strokeStyle = '#052739'; ctx.stroke();
     }
-    const boxes = [], topEdge = (inset.top || 0) + 60, order = pins.map((p, i) => i).sort((a, b) => (pins[b].active ? 1 : 0) - (pins[a].active ? 1 : 0));
-    const pos = pins.map((p) => toScreen(project(p.lat, p.lng)).map((v) => v / dpr));
-    const inView = (x, y) => !(x < (inset.left || 0) + 10 || x > cw / dpr - 10 || y < topEdge || y > ch / dpr - 10);
-    const merged = new Set();
+    const boxes: number[][] = [], topEdge = (inset.top || 0) + 60, order = pins.map((p, i) => i).sort((a, b) => (pins[b].active ? 1 : 0) - (pins[a].active ? 1 : 0));
+    const pos = pins.map((p) => toScreen(project(p.lat, p.lng)).map((v) => v / dpr) as Pt);
+    const inView = (x: number, y: number): boolean => !(x < (inset.left || 0) + 10 || x > cw / dpr - 10 || y < topEdge || y > ch / dpr - 10);
+    const merged = new Set<number>();
     if (cluster && view.s < MAX_S * 0.95) {
       // Greedy: the active pin always stands alone; every other pin joins the nearest badge within reach.
-      const cl = [];
+      const cl: { c: Pt; m: number[]; solo?: boolean }[] = [];
       for (const i of order) {
-        if (!inView(...pos[i])) continue;
+        if (!inView(pos[i][0], pos[i][1])) continue;
         if (pins[i].active) { cl.push({ c: pos[i], m: [i], solo: true }); continue; }
-        let best = null, bd = CLUSTER_R;
+        let best: (typeof cl)[number] | null = null, bd = CLUSTER_R;
         for (const g of cl) { if (g.solo) continue; const d = Math.hypot(g.c[0] - pos[i][0], g.c[1] - pos[i][1]); if (d < bd) { bd = d; best = g; } }
         if (best) { best.m.push(i); best.c = [best.m.reduce((a, k) => a + pos[k][0], 0) / best.m.length, best.m.reduce((a, k) => a + pos[k][1], 0) / best.m.length]; }
         else cl.push({ c: pos[i], m: [i] });
@@ -248,10 +258,11 @@
       (k >= 0 ? pinEls[k] : gr && groupEls[gr.key])?.focus({ preventScroll: true });
     }
   }
-  function loop(ts) {
+  let warned = false;
+  function loop(ts: number): void {
     raf = 0;
     const t0 = performance.now();
-    try { frame(ts); } catch (e) { if (!loop.warned) { console.warn('map frame', e); loop.warned = true; } }
+    try { frame(ts); } catch (e) { if (!warned) { console.warn('map frame', e); warned = true; } }
     slow = performance.now() - t0 > 20 ? slow + 1 : 0;
     if (slow >= 3 && CARS.length > 80) { CARS = CARS.filter((_, i) => i % 2 === 0); slow = 0; }
     if (animating || performance.now() - lastInteract < 400) kick();
@@ -263,37 +274,37 @@
     canvas.width = cw; canvas.height = ch; if (!view.user) fit(); layerKey = ''; kick();
   }
 
-  const ptrs = new Map(); let moved = 0, pinch0 = null, downAt = null;
-  function zoomAt(sx, sy, k) {
+  const ptrs = new Map<number, Pt>(); let moved = 0, pinch0: number | null = null, downAt: Pt | null = null;
+  function zoomAt(sx: number, sy: number, k: number): void {
     const ns = Math.min(3, Math.max(0.12, view.s * k)); const gx = (sx - cw / 2) / view.s + view.cx, gy = (sy - ch / 2) / view.s + view.cy;
     view.s = ns; view.cx = gx - (sx - cw / 2) / ns; view.cy = gy - (sy - ch / 2) / ns; view.user = true; lastInteract = performance.now(); kick();
   }
-  function onDown(e) { if (!interactive) return; canvas.setPointerCapture?.(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); moved = 0; downAt = [e.clientX, e.clientY]; if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch0 = Math.hypot(a[0] - b[0], a[1] - b[1]); } }
-  function onMove(e) {
-    if (!ptrs.has(e.pointerId)) return; const prev = ptrs.get(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+  function onDown(e: PointerEvent): void { if (!interactive) return; canvas.setPointerCapture?.(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); moved = 0; downAt = [e.clientX, e.clientY]; if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch0 = Math.hypot(a[0] - b[0], a[1] - b[1]); } }
+  function onMove(e: PointerEvent): void {
+    const prev = ptrs.get(e.pointerId); if (!prev) return; ptrs.set(e.pointerId, [e.clientX, e.clientY]);
     if (ptrs.size === 2 && pinch0) { const [a, b] = [...ptrs.values()], dd = Math.hypot(a[0] - b[0], a[1] - b[1]); const r = canvas.getBoundingClientRect(); zoomAt(((a[0] + b[0]) / 2 - r.left) * dpr, ((a[1] + b[1]) / 2 - r.top) * dpr, dd / pinch0); pinch0 = dd; moved += 10; return; }
     const dx = e.clientX - prev[0], dy = e.clientY - prev[1]; moved += Math.abs(dx) + Math.abs(dy); view.cx -= (dx * dpr) / view.s; view.cy -= (dy * dpr) / view.s; view.user = true; lastInteract = performance.now(); kick();
   }
-  function onUp(e) {
+  function onUp(e: PointerEvent): void {
     ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch0 = null;
     if (moved < 6 && downAt) {
       const r = canvas.getBoundingClientRect(), sx = (e.clientX - r.left) * dpr, sy = (e.clientY - r.top) * dpr;
-      let best = null, bd = 24 * dpr; for (const { m, p } of pts) { const [x, y] = toScreen(p), dd = Math.hypot(x - sx, y - sy); if (dd < bd) { bd = dd; best = m; } }
+      let best: (typeof pts)[number]['m'] | null = null, bd = 24 * dpr; for (const { m, p } of pts) { const [x, y] = toScreen(p), dd = Math.hypot(x - sx, y - sy); if (dd < bd) { bd = dd; best = m; } }
       if (best && !(best.secret === 2 && !app.unlocked.includes(best.id))) app.where = best.id;
     }
     downAt = null;
   }
-  function onWheel(e) { if (!interactive) return; e.preventDefault(); const r = canvas.getBoundingClientRect(); zoomAt((e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr, Math.exp(-e.deltaY * 0.0015)); }
+  function onWheel(e: WheelEvent): void { if (!interactive) return; e.preventDefault(); const r = canvas.getBoundingClientRect(); zoomAt((e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr, Math.exp(-e.deltaY * 0.0015)); }
 
-  export function flyTo(lat, lng, scale) {
+  export function flyTo(lat: number, lng: number, scale?: number): void {
     if (!cw) return;
     const [tx0, ty0] = project(lat, lng), s1 = scale ?? Math.max(view.s, 0.5);
     const off = (((inset.left || 0) - (inset.right || 0)) * dpr) / 2 / s1, offY = (((inset.top || 0) - (inset.bottom || 0)) * dpr) / 2 / s1;
     const from = { ...view }, to = { cx: tx0 - off, cy: ty0 - offY, s: s1 }, t0 = performance.now(), dur = reduce ? 1 : 700;
-    const step = (now) => { const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; view.cx = from.cx + (to.cx - from.cx) * e; view.cy = from.cy + (to.cy - from.cy) * e; view.s = from.s + (to.s - from.s) * e; view.user = true; lastInteract = performance.now(); kick(); if (k < 1) requestAnimationFrame(step); };
+    const step = (now: number): void => { const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; view.cx = from.cx + (to.cx - from.cx) * e; view.cy = from.cy + (to.cy - from.cy) * e; view.s = from.s + (to.s - from.s) * e; view.user = true; lastInteract = performance.now(); kick(); if (k < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   }
-  export function fitPoints(list) {
+  export function fitPoints(list: LatLng[]): void {
     if (!cw || !list.length) return;
     const P = list.map((r) => project(r.lat, r.lng)); const xs = P.map((p) => p[0]), ys = P.map((p) => p[1]);
     const bw = Math.max(120, Math.max(...xs) - Math.min(...xs)), bh = Math.max(120, Math.max(...ys) - Math.min(...ys));
@@ -305,8 +316,8 @@
     flyTo(N - (cy / geo.h) * hDeg, W + ((cx / geo.w) * wDeg) / geo.k, s);
   }
   // Tap a badge: zoom just far enough that its pins separate (one tap, not three).
-  let refocus = null;
-  function openGroup(g, e) {
+  let refocus: string[] | null = null;
+  function openGroup(g: { key: string; ids: string[] }, e?: MouseEvent): void {
     const ms = pins.filter((p) => g.ids.includes(p.id)); if (!ms.length) return;
     if (e?.detail === 0) refocus = g.ids; // keyboard: keep focus on the group once it opens
     const P = ms.map((p) => project(p.lat, p.lng)), xs = P.map((q) => q[0]), ys = P.map((q) => q[1]);
@@ -321,7 +332,7 @@
   export function recenter() { view.user = false; fit(); layerKey = ''; kick(); }
 
   onMount(() => {
-    ctx = canvas.getContext('2d'); sprites = makeSprites();
+    ctx = canvas.getContext('2d')!; sprites = makeSprites();
     const n = matchMedia('(max-width: 760px)').matches ? 280 : 600;
     CARS = Array.from({ length: n }, (_, i) => { const r = pickRoad(rnd()); return { r, d: rnd() * r.len, v: (14 + rnd() * 16) * (rnd() < 0.5 ? 1 : -1), k: i / n }; });
     const ro = new ResizeObserver(resize); ro.observe(wrap); resize();
@@ -336,7 +347,7 @@
 </script>
 
 <div class="map" bind:this={wrap}>
-  <canvas bind:this={canvas} role="img" aria-label="Miami map. Lit spots are open at this hour." class:interactive onpointerdown={onDown} onpointermove={onMove} onpointerup={onUp} onpointercancel={onUp}></canvas>
+  <canvas bind:this={canvas} aria-hidden="true" class:interactive onpointerdown={onDown} onpointermove={onMove} onpointerup={onUp} onpointercancel={onUp}></canvas>
   {#if labels}<p class="credit">Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></p>{/if}
   <div class="pins" role="group" aria-label="Moves on the map">
     {#each groups as g (g.key)}

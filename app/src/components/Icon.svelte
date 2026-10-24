@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // psst. icon set: 24px grid, 2px rounded strokes, drawn for this app.
   let { name, size = 22, stroke = 2 } = $props();
 </script>

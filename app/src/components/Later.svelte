@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
   // Later today: small stubs along the rest of the day. Tapping one moves the sun to that hour.
-  import { app } from '../lib/state.svelte.js';
-  import { fmtHour } from '../lib/core.js';
-  let { row = true } = $props();
-  let strip = $state();
+  import { app } from '../lib/state.svelte';
+  import { fmtHour } from '../lib/core';
+  let { row = true }: { row?: boolean } = $props();
+  let strip = $state<HTMLElement>();
   $effect(() => { app.qHour; strip && (strip.scrollLeft = 0); });
 </script>
 
@@ -31,6 +31,6 @@
   @media (hover: hover) and (pointer: fine) { .mini:hover { transform: translateY(-2px); } }
   .mini:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
   .t { font: 600 12px var(--mono); font-variation-settings: 'MONO' 1; letter-spacing: 0.04em; }
-  .n { font: 600 13.5px/1.25 var(--body); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .n { font: 600 13.5px/1.25 var(--body); display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .h { font: 500 10.5px var(--mono); font-variation-settings: 'MONO' 1; color: var(--muted); letter-spacing: 0.04em; margin-top: auto; }
 </style>

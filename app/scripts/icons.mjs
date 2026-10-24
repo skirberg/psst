@@ -75,7 +75,7 @@ const manifest = {
   ],
 };
 
-const browser = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new' });
+const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new' });
 const page = await browser.newPage();
 const fav = favicon();
 writeFileSync(new URL('favicon.svg', PUB), fav + '\n');

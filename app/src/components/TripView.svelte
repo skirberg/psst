@@ -1,35 +1,37 @@
-<script>
+<script lang="ts">
   import { track } from '@vercel/analytics';
   // The stay as a strip of stubs, one perforated band per day. Built from real opening hours,
   // real sunsets, travel time and the events you pick.
   import Stub from './Stub.svelte';
   import Flyer from './Flyer.svelte';
-  import { app, trip } from '../lib/state.svelte.js';
-  import { fmtDate, fmtHour, hm, addDays, dowOf, daySpan, mapsHref } from '../lib/core.js';
-  import { radioKeys } from '../lib/a11y.js';
+  import { app, trip } from '../lib/state.svelte';
+  import { fmtDate, fmtHour, hm, addDays, dowOf, daySpan, mapsHref } from '../lib/core';
+  import { radioKeys } from '../lib/a11y';
+  import type { PsstEvent } from '../lib/types';
 
   const today = $derived(app.now.date);
   const sat = $derived(addDays(today, (6 - dowOf(today) + 7) % 7));
-  const presets = $derived([
+  interface Preset { k: string; label: string; start: string; end: string; anchor: (e: PsstEvent) => boolean }
+  const presets = $derived<Preset[]>([
     { k: 'summit', label: 'John Summit weekend', start: '2026-11-20', end: '2026-11-24', anchor: (e) => e.id.includes('john-summit') },
     { k: 'weekend', label: 'This weekend', start: today, end: addDays(sat, 1), anchor: () => false },
     { k: 'basel', label: 'Art Basel week', start: '2026-12-03', end: '2026-12-06', anchor: (e) => e.id === 'art-basel-miami-beach-2026' },
   ]);
   const preset = $derived(presets.find((p) => p.start === trip.start && p.end === trip.end)?.k ?? 'custom');
-  const datesSet = (via) => track('Trip dates set', { nights: trip.hasDates ? String(daySpan(trip.start, trip.end)) : '0', via });
+  const datesSet = (via: string): void => track('Trip dates set', { nights: trip.hasDates ? String(daySpan(trip.start, trip.end)) : '0', via });
   // Inputs persist only when someone changes them, so a visitor who only looks saves nothing.
-  function use(p) { trip.start = p.start; trip.end = p.end; trip.swaps = {}; trip.focusDay = 0; trip.anchors = trip.inRange.filter(p.anchor).map((e) => e.id); trip.persist(); datesSet(p.k); }
-  const ENERGY = [['low', 'Low-key', 0.3], ['mid', 'Balanced', 0.6], ['loud', 'Loud', 0.92]];
+  function use(p: Preset): void { trip.start = p.start; trip.end = p.end; trip.swaps = {}; trip.focusDay = 0; trip.anchors = trip.inRange.filter(p.anchor).map((e) => e.id); trip.persist(); datesSet(p.k); }
+  const ENERGY: ['low' | 'mid' | 'loud', string, number][] = [['low', 'Low-key', 0.3], ['mid', 'Balanced', 0.6], ['loud', 'Loud', 0.92]];
   const band = $derived(trip.wild < 0.45 ? 'low' : trip.wild < 0.8 ? 'mid' : 'loud');
-  const step = (k, d) => { trip[k] = Math.min(23.5, Math.max(5, trip[k] + d)); trip.persist(); };
-  let copied = $state(''), fallback = $state(''), ta = $state();
+  const step = (k: 'arrive' | 'depart', d: number): void => { trip[k] = Math.min(23.5, Math.max(5, trip[k] + d)); trip.persist(); };
+  let copied = $state(''), fallback = $state(''), ta = $state<HTMLTextAreaElement>();
   async function copy() {
     const lines = [`psst. Miami, ${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`];
     for (const d of trip.days) {
       lines.push('', fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase() + (d.weather ? `  ${d.weather.hi}°${d.weather.kind === 'typical' ? ' typical' : ''}` : '') + `  sunset ${fmtHour(d.sun.set)}`);
       for (const s of d.slots) {
-        const o = s.event || s.move; const locked = s.move && s.move.secret === 2 && !app.unlocked.includes(s.move.id);
-        lines.push(`${fmtHour(s.at % 24, true).padEnd(7)} ${s.event ? s.event.title + ' @ ' + s.event.venue + (s.label === 'Doors' ? ', doors' : '') : locked ? 'A secret. Open it in psst.' : o.place + ', ' + o.hood}`);
+        const locked = s.move && s.move.secret === 2 && !app.unlocked.includes(s.move.id);
+        lines.push(`${fmtHour(s.at % 24, true).padEnd(7)} ${s.event ? s.event.title + ' @ ' + s.event.venue + (s.label === 'Doors' ? ', doors' : '') : locked ? 'A secret. Open it in psst.' : s.move ? s.move.place + ', ' + s.move.hood : ''}`);
       }
     }
     let link = ''; try { link = location.protocol.startsWith('http') && !/claude\.ai/.test(location.host) ? `${location.origin}${location.pathname}?code=${code}&trip=${trip.start}_${trip.end}${trip.anchors.length ? '&a=' + trip.anchors.join(',') : ''}` : ''; } catch {}
@@ -39,12 +41,10 @@
     catch { copied = 'Select and copy:'; fallback = text; requestAnimationFrame(() => ta?.select()); track('Plan copied', { days: String(trip.days.length), result: 'manual' }); }
   }
   const code = $derived.by(() => {
-    let h = 2166136261; for (const c of JSON.stringify(trip.days.map((d) => d.slots.map((x) => (x.move || x.event).id)))) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+    let h = 2166136261; for (const c of JSON.stringify(trip.days.map((d) => d.slots.map((x) => (x.move || x.event)?.id)))) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
     const A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let out = ''; for (let i = 0; i < 5; i++) { out += A[h % A.length]; h = Math.floor(h / A.length) || (h ^ 0x9e3779b9) >>> 0; }
     return 'PINA-' + out;
   });
-  const nights = $derived(trip.days.length - 1);
-  const stops = $derived(trip.days.reduce((a, d) => a + d.slots.length, 0));
 </script>
 
 <section class="trip">
@@ -65,7 +65,7 @@
       <div class="evs">
         {#each trip.inRange.slice(0, 14) as e (e.id)}
           <button class:on={trip.anchors.includes(e.id)} aria-pressed={trip.anchors.includes(e.id)} onclick={() => trip.toggleAnchor(e.id)}>
-            <span class="d">{e.date < trip.start ? `thru ${fmtDate(e.endDate, { weekday: 'short', day: 'numeric' })}` : fmtDate(e.date, { weekday: 'short', day: 'numeric' })}</span><span class="n">{e.title}</span>
+            <span class="d">{e.date < trip.start ? `thru ${fmtDate(e.endDate || e.date, { weekday: 'short', day: 'numeric' })}` : fmtDate(e.date, { weekday: 'short', day: 'numeric' })}</span><span class="n">{e.title}</span>
           </button>
         {/each}
       </div>
@@ -93,9 +93,9 @@
                     <dl class="tips">{#each [['Get there', s.event.getThere], ['Bring', s.event.bring], ['After', s.event.after]].filter((x) => x[1]) as [k, t]}<dt>{k}</dt><dd>{t}</dd>{/each}</dl>
                   {/if}
                 </div>
-              {:else}
+              {:else if s.move}
                 <Stub item={{ m: s.move, sealed: s.move.secret === 2 }} compact at={s.at % 24} dow={(d.dow + (s.at >= 24 ? 1 : 0)) % 7} />
-                {#if s.options > 1}<button class="swap" onclick={() => trip.swap(d.date, s.key)}>Swap</button>{/if}
+                {#if (s.options ?? 0) > 1}<button class="swap" onclick={() => trip.swap(d.date, s.key)}>Swap</button>{/if}
               {/if}
             </div>
           </div>

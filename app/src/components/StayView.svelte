@@ -1,33 +1,34 @@
-<script>
+<script lang="ts">
   // Where to sleep: hotels as key fobs on a reception rack, one row per price tier.
   import Icon from './Icon.svelte';
-  import hotels from '../lib/hotels.json';
-  import { app, trip } from '../lib/state.svelte.js';
-  import { km } from '../lib/core.js';
+  import { app, trip } from '../lib/state.svelte';
+  import { km, hotels } from '../lib/core';
+  import type { Hotel } from '../lib/types';
+  type Tier = 1 | 2 | 3 | 4;
   import { onMount, tick } from 'svelte';
-  import { radioKeys } from '../lib/a11y.js';
+  import { radioKeys } from '../lib/a11y';
 
-  const TIERS = [
+  const TIERS: [Tier, string, string][] = [
     [1, '$', 'Under $200 a night'], [2, '$$', '$200 to $350'], [3, '$$$', '$350 to $650'], [4, '$$$$', '$650 and up'],
   ];
-  const INK = { 1: ['#4AC9EC', '#052739'], 2: ['#117555', '#FEFAF1'], 3: ['#733EA4', '#FEFAF1'], 4: ['#052739', '#FED252'] };
-  let swing = $state(null), entered = $state(false);
+  const INK: Record<Tier, [string, string]> = { 1: ['#4AC9EC', '#052739'], 2: ['#117555', '#FEFAF1'], 3: ['#733EA4', '#FEFAF1'], 4: ['#052739', '#FED252'] };
+  let swing = $state<string | null>(null), entered = $state(false);
   const only = $derived(app.stayTier);
   const shown = $derived(TIERS.filter(([t]) => !only || only === t));
   const sel = $derived(hotels.find((h) => h.id === app.stayFocus));
   // Distance to the first show on your trip (Kaseya for the John Summit weekend); hidden with no show.
   const show = $derived(trip.inRange.find((e) => trip.anchors.includes(e.id) && Number.isFinite(e.lat)));
-  const short = (v) => v.replace(/\s*\(.*\)$/, '');
-  const toShow = (h) => { const d = km(h, show), v = short(show.venue); return d < 1.6 ? `~${Math.max(5, Math.round((d / 4.8) * 12) * 5)} min walk to ${v}` : `~${Math.max(10, Math.round(((0.2 + d / 26) * 60) / 5) * 5)} min to ${v} by car`; };
-  const priceOf = (h) => h.nightly || (h.price.match(/\$\s?(\d[\d,]*)/) || [])[1];
-  const keyed = (h) => (h.perks || []).some((p) => /michelin keys?/i.test(p)) || /michelin key/i.test(h.why || '');
-  function tap(h) {
+  const short = (v: string): string => v.replace(/\s*\(.*\)$/, '');
+  const toShow = (h: Hotel): string => { if (!show) return ''; const d = km(h, show), v = short(show.venue); return d < 1.6 ? `~${Math.max(5, Math.round((d / 4.8) * 12) * 5)} min walk to ${v}` : `~${Math.max(10, Math.round(((0.2 + d / 26) * 60) / 5) * 5)} min to ${v} by car`; };
+  const priceOf = (h: Hotel): number | string | undefined => h.nightly || (h.price.match(/\$\s?(\d[\d,]*)/) || [])[1];
+  const keyed = (h: Hotel): boolean => (h.perks || []).some((p: string) => /michelin keys?/i.test(p)) || /michelin key/i.test(h.why || '');
+  function tap(h: Hotel): void {
     swing = null; requestAnimationFrame(() => (swing = h.id));
     app.stayFocus = app.stayFocus === h.id ? null : h.id;
   }
   onMount(() => { requestAnimationFrame(() => (entered = true)); });
   $effect(() => { const id = app.stayFocus; if (id) document.getElementById('fob-' + id)?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); });
-  const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
+  const host = (u: string): string => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
 </script>
 
 <section class="stay">

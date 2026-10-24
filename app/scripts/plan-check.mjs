@@ -1,7 +1,7 @@
 // Print the planner's output for a stay so it can be read and sanity-checked.
 import { createServer } from 'vite';
 const server = await createServer({ configFile: false, logLevel: 'silent', server: { middlewareMode: true } });
-const core = await server.ssrLoadModule('/src/lib/core.js');
+const core = await server.ssrLoadModule('/src/lib/core.ts');
 const [start, end] = [process.argv[2] || '2026-11-20', process.argv[3] || '2026-11-24'];
 const anchors = core.events.filter((e) => e.id.includes(process.argv[4] || 'john-summit'));
 const days = core.planStay({ start, end, arrive: 15, depart: 13, wild: 0.65, anchors });

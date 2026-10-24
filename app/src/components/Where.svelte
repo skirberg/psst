@@ -1,24 +1,25 @@
-<script>
+<script lang="ts">
   // The map goes full screen; the move or hotel rides along at the bottom.
   import Sticker from './Sticker.svelte';
   import Icon from './Icon.svelte';
-  import hotels from '../lib/hotels.json';
-  import { app } from '../lib/state.svelte.js';
-  import { moves, openAt, hm, fmtHour, mapsHref } from '../lib/core.js';
-  let { onclose } = $props();
-  let back = $state(), box = $state();
-  const m = $derived(app.where ? moves.find((x) => x.id === app.where) : null);
-  const h = $derived(app.whereHotel ? hotels.find((x) => x.id === app.whereHotel) : null);
+  import { app } from '../lib/state.svelte';
+  import { moves, openAt, hm, fmtHour, mapsHref, hotels } from '../lib/core';
+  import type { Move, Hotel } from '../lib/types';
+  let { onclose }: { onclose: () => void } = $props();
+  let back = $state<HTMLElement>(), box = $state<HTMLElement>();
+  const m = $derived<Move | undefined>(app.where ? moves.find((x) => x.id === app.where) : undefined);
+  const h = $derived<Hotel | undefined>(app.whereHotel ? hotels.find((x) => x.id === app.whereHotel) : undefined);
   const o = $derived(m || h);
+  const name = $derived(m ? m.place : h ? h.name : '');
   const status = $derived(m ? (openAt(m, app.dow, app.hour) ? (app.following ? 'Open now' : `Open at ${fmtHour(app.hour, true)}`) : `Best at ${fmtHour(hm(m.best), true)}`) : h ? '$'.repeat(h.tier) : '');
   const onApple = typeof navigator !== 'undefined' && /iPhone|iPad|Macintosh/.test(navigator.userAgent);
-  const go = $derived(o && mapsHref(o.place || o.name, o.address, o.lat, o.lng));
-  const google = $derived(o && `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((o.place || o.name) + ' ' + o.address)}`);
-  function key(e) {
+  const go = $derived(o && mapsHref(name, o.address, o.lat, o.lng));
+  const google = $derived(o && `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + o.address)}`);
+  function key(e: KeyboardEvent): void {
     if (e.key === 'Escape') { onclose(); return; }
     if (e.key !== 'Tab' || !box) return;
     // aria-modal: Tab wraps between Back and the last link instead of leaving the dialog
-    const f = [...box.querySelectorAll('button, a[href]')], first = f[0], last = f.at(-1);
+    const f = [...box.querySelectorAll<HTMLElement>('button, a[href]')], first = f[0], last = f[f.length - 1];
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     else if (!box.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
@@ -28,13 +29,13 @@
 
 <svelte:window onkeydown={key} />
 {#if o}
-  <div class="where" bind:this={box} role="dialog" aria-modal="true" aria-label="{o.place || o.name} on the map">
+  <div class="where" bind:this={box} role="dialog" aria-modal="true" aria-label="{name} on the map">
     <button class="back" bind:this={back} onclick={onclose}><Icon name="left" size={18} />Back</button>
     <div class="card">
-      <Sticker move={m || { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }} size={64} />
+      <Sticker move={m || (h ? { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name } : { id: '', category: 'stay', place: '' })} size={64} />
       <div class="txt">
         <p class="st">{status}<span>{o.hood}</span></p>
-        <h2>{o.place || o.name}</h2>
+        <h2>{name}</h2>
         <p class="addr">{o.address}</p>
         <div class="acts">
           <a class="pill" href={go} target="_blank" rel="noopener">Go</a>

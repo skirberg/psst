@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // psst + the pineapple period. Leans when someone opens a secret (--lean).
   let { size = 30 } = $props();
 </script>

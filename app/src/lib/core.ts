@@ -1,21 +1,26 @@
 // Core logic: Miami time, sun, opening hours, ranking, weather lookup, stay planning.
 import movesRaw from './moves.json';
 import eventsRaw from './events.json';
-import weather from './weather.json';
+import weatherRaw from './weather.json';
+import hotelsRaw from './hotels.json';
+import type { Hotel, Move, PsstEvent, WeatherData, WeatherView, Sun, LatLng, Ranked, Slot, PlanDay, Dow, ISODate, HourCell } from './types';
+
+const weather = weatherRaw as unknown as WeatherData;
 
 export const TZ = 'America/New_York';
 export const MIAMI = { lat: 25.7617, lng: -80.1918 };
 
-export const moves = movesRaw.filter((m) => Number.isFinite(m.lat) && Number.isFinite(m.lng));
-export const events = eventsRaw
+export const moves: Move[] = (movesRaw as unknown as Move[]).filter((m) => Number.isFinite(m.lat) && Number.isFinite(m.lng));
+export const events: PsstEvent[] = (eventsRaw as unknown as PsstEvent[])
   .filter((e) => Number.isFinite(e.lat) && Number.isFinite(e.lng))
   .sort((a, b) => (a.date + (a.time || a.doors || '')).localeCompare(b.date + (b.time || b.doors || '')));
 export { weather };
+export const hotels: Hotel[] = hotelsRaw as unknown as Hotel[];
 // Opening hours are read every frame by the map; parse them once.
 for (const m of moves) for (const w of m.windows || []) { w.f = hm(w.from); w.t = hm(w.to); }
 
-export function hm(s) { if (!s) return 0; const [h, m] = s.split(':').map(Number); return h + (m || 0) / 60; }
-export const fmtHour = (h, compact = false) => {
+export function hm(s: string | undefined | null): number { if (!s) return 0; const [h, m] = s.split(':').map(Number); return h + (m || 0) / 60; }
+export const fmtHour = (h: number, compact = false): string => {
   h = ((h % 24) + 24) % 24;
   let H = Math.floor(h), M = Math.round((h - H) * 60);
   if (M === 60) { H = (H + 1) % 24; M = 0; }
@@ -25,23 +30,23 @@ export const fmtHour = (h, compact = false) => {
 };
 
 // --- Miami clock -------------------------------------------------------
-export function miamiNow() {
+export function miamiNow(): { date: ISODate; hour: number; dow: Dow } {
   const p = new Intl.DateTimeFormat('en-US', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric', weekday: 'short', hour12: false }).formatToParts(new Date());
-  const g = (t) => p.find((x) => x.type === t)?.value;
-  const dows = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  const g = (t: string) => p.find((x) => x.type === t)?.value ?? '';
+  const dows: Record<string, Dow> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
   return { date: `${g('year')}-${g('month')}-${g('day')}`, hour: (+g('hour') % 24) + +g('minute') / 60, dow: dows[g('weekday')] };
 }
-export const dowOf = (date) => new Date(date + 'T12:00:00Z').getUTCDay();
-export const addDays = (date, n) => { const d = new Date(date + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
-export const daySpan = (a, b) => Math.round((new Date(b + 'T12:00:00Z') - new Date(a + 'T12:00:00Z')) / 864e5);
-export const fmtDate = (date, opts = { weekday: 'short', month: 'short', day: 'numeric' }) => new Date(date + 'T12:00:00Z').toLocaleDateString('en-US', { ...opts, timeZone: 'UTC' });
+export const dowOf = (date: ISODate): Dow => new Date(date + 'T12:00:00Z').getUTCDay();
+export const addDays = (date: ISODate, n: number): ISODate => { const d = new Date(date + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+export const daySpan = (a: ISODate, b: ISODate): number => Math.round((new Date(b + 'T12:00:00Z').getTime() - new Date(a + 'T12:00:00Z').getTime()) / 864e5);
+export const fmtDate = (date: ISODate, opts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' }): string => new Date(date + 'T12:00:00Z').toLocaleDateString('en-US', { ...opts, timeZone: 'UTC' });
 
 // --- Sun ---------------------------------------------------------------
-function miamiHourOf(d) {
+function miamiHourOf(d: Date): number {
   const p = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(d);
-  return (+p.find((x) => x.type === 'hour').value % 24) + +p.find((x) => x.type === 'minute').value / 60;
+  return (+(p.find((x) => x.type === 'hour')?.value ?? 0) % 24) + +(p.find((x) => x.type === 'minute')?.value ?? 0) / 60;
 }
-export function sunFor(date) {
+export function sunFor(date: ISODate): Sun {
   const fc = weather.days.find((d) => d.date === date);
   if (fc) return { rise: hm(fc.sunrise), set: hm(fc.sunset), source: 'forecast' };
   const [y, m, d] = date.split('-').map(Number);
@@ -53,31 +58,31 @@ export function sunFor(date) {
   const Jt = 2451545 + Js + 0.0053 * Math.sin(M * rad) - 0.0069 * Math.sin(2 * L * rad);
   const sd = Math.sin(L * rad) * Math.sin(23.4397 * rad), cd = Math.cos(Math.asin(sd));
   const w = Math.acos((Math.sin(-0.833 * rad) - Math.sin(MIAMI.lat * rad) * sd) / (Math.cos(MIAMI.lat * rad) * cd)) / rad;
-  const toD = (Jd) => new Date((Jd - 2440587.5) * 864e5);
+  const toD = (Jd: number) => new Date((Jd - 2440587.5) * 864e5);
   return { rise: miamiHourOf(toD(Jt - w / 360)), set: miamiHourOf(toD(Jt + w / 360)), source: 'calc' };
 }
 
 // Sky phase 0 (deep night) .. 1 (full day), smooth around sunrise/sunset.
-export function daylight(h, sun) {
-  const ramp = (x) => Math.min(1, Math.max(0, x));
+export function daylight(h: number, sun: Sun): number {
+  const ramp = (x: number) => Math.min(1, Math.max(0, x));
   if (h < 12) return ramp((h - sun.rise + 0.6) / 1.4);
   return ramp((sun.set + 0.7 - h) / 1.4);
 }
 
 // --- Weather -----------------------------------------------------------
-const WMO = (c) => (c >= 95 ? 'storms' : c >= 80 ? 'showers' : c >= 61 ? 'rain' : c >= 51 ? 'drizzle' : c >= 45 ? 'fog' : c >= 3 ? 'cloudy' : c >= 1 ? 'some clouds' : 'clear');
-export function weatherFor(date) {
+const WMO = (c: number): string => (c >= 95 ? 'storms' : c >= 80 ? 'showers' : c >= 61 ? 'rain' : c >= 51 ? 'drizzle' : c >= 45 ? 'fog' : c >= 3 ? 'cloudy' : c >= 1 ? 'some clouds' : 'clear');
+export function weatherFor(date: ISODate): WeatherView | null {
   const fc = weather.days.find((d) => d.date === date && daySpan(weather.fetched, d.date) <= 4);
-  if (fc) return { kind: 'forecast', hi: fc.hi, lo: fc.lo, rain: fc.rain, sky: WMO(fc.code), uv: fc.uv, hourly: weather.hourly[date] };
+  if (fc) return { kind: 'forecast', hi: fc.hi, lo: fc.lo, rain: fc.rain, sky: WMO(fc.code), uv: fc.uv, hourly: weather.hourly[date] as HourCell[] | undefined };
   const t = weather.typical[date.slice(5)];
   if (t) return { kind: 'typical', hi: t.hi, lo: t.lo, rain: t.wet, sky: 'typical' };
   return null;
 }
 // Typical 'wet' is the share of wet days, not an hourly chance, so only a forecast can mean rain.
-export const rainAt = (date, h) => { const w = weatherFor(date); return w?.hourly ? (w.hourly[Math.floor(h) % 24]?.[1] ?? w.rain) : 0; };
+export const rainAt = (date: ISODate, h: number): number => { const w = weatherFor(date); return w?.hourly ? (w.hourly[Math.floor(h) % 24]?.[1] ?? w.rain) : 0; };
 
 // --- Opening hours -----------------------------------------------------
-export function openAt(m, dow, h) {
+export function openAt(m: Pick<Move, 'windows'>, dow: Dow, h: number): boolean {
   h = ((h % 24) + 24) % 24;
   for (const w of m.windows || []) {
     const f = w.f ?? hm(w.from), t = w.t ?? hm(w.to), days = w.days || [];
@@ -91,7 +96,7 @@ export function openAt(m, dow, h) {
   return false;
 }
 // The real closing hour of the window that contains h (handles past-midnight closes).
-export function closesAt(m, dow, h) {
+export function closesAt(m: Pick<Move, 'windows'>, dow: Dow, h: number): number | null {
   h = ((h % 24) + 24) % 24;
   for (const w of m.windows || []) {
     const f = w.f ?? hm(w.from), t = w.t ?? hm(w.to), days = w.days || [];
@@ -101,24 +106,24 @@ export function closesAt(m, dow, h) {
   }
   return null;
 }
-export function nextOpen(m, dow, h) {
+export function nextOpen(m: Pick<Move, 'windows'>, dow: Dow, h: number): number | null {
   for (let s = 0.25; s <= 24; s += 0.25) { const hh = h + s; if (openAt(m, (dow + Math.floor(hh / 24)) % 7, hh % 24)) return hh % 24; }
   return null;
 }
-const circ = (a, b) => { const d = Math.abs(a - b) % 24; return d > 12 ? 24 - d : d; };
-export const bestFit = (m, h) => Math.exp(-Math.pow(circ(h, hm(m.best)), 2) / (2 * 2.2 * 2.2));
+const circ = (a: number, b: number): number => { const d = Math.abs(a - b) % 24; return d > 12 ? 24 - d : d; };
+export const bestFit = (m: Pick<Move, 'best'>, h: number): number => Math.exp(-Math.pow(circ(h, hm(m.best)), 2) / (2 * 2.2 * 2.2));
 
 // Glow for the map: how alive this spot is at hour h.
-export function glow(m, dow, h) {
+export function glow(m: Move, dow: Dow, h: number): number {
   let o = 0;
   for (const d of [-0.5, 0, 0.5]) { const hh = h + d; if (openAt(m, (dow + (hh < 0 ? 6 : hh >= 24 ? 1 : 0)) % 7, (hh + 24) % 24)) o += 1 / 3; }
   if (!o) return 0;
   return o * (0.3 + 0.7 * bestFit(m, h)) * (0.55 + m.energy / 10);
 }
 
-export const BANDS = { all: [1, 5], chill: [1, 2], social: [3, 3], wild: [4, 5] };
+export const BANDS: Record<'all' | 'chill' | 'social' | 'wild', [number, number]> = { all: [1, 5], chill: [1, 2], social: [3, 3], wild: [4, 5] };
 
-export function rankNow({ dow, h, date, band = 'all', rainSafe = false, cheap = false }) {
+export function rankNow({ dow, h, date, band = 'all', rainSafe = false, cheap = false }: { dow: Dow; h: number; date: ISODate; band?: keyof typeof BANDS; rainSafe?: boolean; cheap?: boolean }): Ranked[] {
   const [lo, hi] = BANDS[band];
   const wet = rainAt(date, h) >= 50;
   return moves
@@ -142,14 +147,14 @@ export function rankNow({ dow, h, date, band = 'all', rainSafe = false, cheap = 
 }
 
 // Go: Apple Maps on Apple devices, Google Maps everywhere else.
-export const mapsHref = (name, address, lat, lng) => (typeof navigator !== 'undefined' && /iPhone|iPad|Macintosh/.test(navigator.userAgent))
+export const mapsHref = (name: string, address: string | undefined, lat: number, lng: number): string => (typeof navigator !== 'undefined' && /iPhone|iPad|Macintosh/.test(navigator.userAgent))
   ? `https://maps.apple.com/?q=${encodeURIComponent(name)}&ll=${lat},${lng}`
   : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + (address || ''))}`;
 
-export function eventsBetween(a, b) { return events.filter((e) => (e.endDate || e.date) >= a && e.date <= b); }
+export function eventsBetween(a: ISODate, b: ISODate): PsstEvent[] { return events.filter((e) => (e.endDate || e.date) >= a && e.date <= b); }
 
 // --- Distance ------------------------------------------------------------
-export const km = (a, b) => {
+export const km = (a: LatLng, b: LatLng): number => {
   const r = Math.PI / 180, dLat = (b.lat - a.lat) * r, dLng = (b.lng - a.lng) * r;
   const x = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLng / 2) ** 2;
   return 12742 * Math.asin(Math.sqrt(x));
@@ -158,7 +163,7 @@ export const km = (a, b) => {
 // --- Stay planner ----------------------------------------------------------
 // Builds a day-by-day plan shaped like a DJ set: warm-up, build, peak, cool-down.
 // What kind of move belongs in each part of the day.
-const SLOT_FIT = {
+const SLOT_FIT: Record<string, Partial<Record<string, number>>> = {
   morning: { coffee: 1, outdoors: 0.9, water: 0.9, market: 0.8, food: 0.5, art: 0.5, shop: 0.4 },
   afternoon: { food: 0.9, art: 0.9, shop: 0.8, water: 0.8, outdoors: 0.7, market: 0.7, coffee: 0.6, music: 0.3 },
   sunset: { water: 1, outdoors: 0.9, bar: 0.7, food: 0.3 },
@@ -167,10 +172,10 @@ const SLOT_FIT = {
   late: { nightlife: 1, music: 0.9, speakeasy: 0.7, bar: 0.6, food: 0.3 },
 };
 // Moves whose title names a day ("A Saturday beer", "on a weeknight") only go on those days.
-const DAY_WORDS = [[/\bsundays?\b/i, [0]], [/\bmondays?\b/i, [1]], [/\btuesdays?\b/i, [2]], [/\bwednesdays?\b/i, [3]], [/\bthursdays?\b/i, [4]], [/\bfridays?\b/i, [5]], [/\bsaturdays?\b/i, [6]], [/\bweeknights?\b/i, [1, 2, 3, 4]], [/\bweekends?\b/i, [5, 6, 0]]];
-const DAYN = { sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6 };
+const DAY_WORDS: [RegExp, Dow[]][] = [[/\bsundays?\b/i, [0]], [/\bmondays?\b/i, [1]], [/\btuesdays?\b/i, [2]], [/\bwednesdays?\b/i, [3]], [/\bthursdays?\b/i, [4]], [/\bfridays?\b/i, [5]], [/\bsaturdays?\b/i, [6]], [/\bweeknights?\b/i, [1, 2, 3, 4]], [/\bweekends?\b/i, [5, 6, 0]]];
+const DAYN: Record<string, Dow> = { sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6 };
 // Days a note recommends ("Go Wed or Thu", "weekends", "midweek"); null if it doesn't say.
-export function noteDays(m) {
+export function noteDays(m: Pick<Move, 'theMove'>): Dow[] | null {
   const t = (m.theMove || '').toLowerCase();
   const pair = t.match(/\b(sun|mon|tue|wed|thu|fri|sat)[a-z]*\.?\s+(or|and|to)\s+(sun|mon|tue|wed|thu|fri|sat)/);
   if (pair) {
@@ -183,9 +188,10 @@ export function noteDays(m) {
   if (/\bweekday\b/.test(t)) return [1, 2, 3, 4, 5];
   return null;
 }
-export function titleDays(m) { const hit = DAY_WORDS.filter(([re]) => re.test(m.title)); return hit.length ? hit.flatMap(([, d]) => d) : null; }
+export function titleDays(m: Pick<Move, 'title'>): Dow[] | null { const hit = DAY_WORDS.filter(([re]) => re.test(m.title)); return hit.length ? hit.flatMap(([, d]) => d) : null; }
 const MAX_STOPS = 4;
-const SLOT_DEFS = [
+interface SlotDef { key: string; label: string; at: number | null; base: number }
+const SLOT_DEFS: SlotDef[] = [
   { key: 'morning', label: 'Morning', at: 9.5, base: 1.4 },
   { key: 'afternoon', label: 'Afternoon', at: 13.5, base: 2.1 },
   { key: 'sunset', label: 'Sunset', at: null, base: 2.5 },
@@ -194,8 +200,8 @@ const SLOT_DEFS = [
   { key: 'late', label: 'Late', at: 25, base: 4.4 },
 ];
 
-export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anchors = [], swaps = {}, kept = [] }) {
-  const days = [], used = new Set();
+export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anchors = [], swaps = {}, kept = [] }: { start: ISODate; end: ISODate; arrive?: number; depart?: number; wild?: number; anchors?: PsstEvent[]; swaps?: Record<string, number>; kept?: string[] }): PlanDay[] {
+  const days: PlanDay[] = [], used = new Set<string>();
   const n = daySpan(start, end);
   for (let i = 0; i <= n; i++) {
     const date = addDays(start, i), dow = dowOf(date), sun = sunFor(date), w = weatherFor(date);
@@ -206,7 +212,7 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
       const st = e.doors ? hm(e.doors) : e.time ? hm(e.time) : club ? 23.5 : show ? 19.5 : 14;
       return { e, st, en: st + (club ? 4.5 : show ? 4 : 3) };
     }).filter((sp) => !(i === 0 && sp.en < arrive + 0.75) && !(i === n && sp.st > depart - 2.5));
-    const items = [];
+    const items: { def: { key: string; label: string; at?: number | null; base?: number }; at: number; event?: PsstEvent }[] = [];
     const order = wild >= 0.6 ? ['afternoon', 'sunset', 'dinner', 'night', 'late', 'morning'] : ['morning', 'afternoon', 'sunset', 'dinner', 'night', 'late'];
     const keepKeys = new Set(order.slice(0, MAX_STOPS + 1)); if (i === n || i === 0) keepKeys.add('morning');
     for (const def of SLOT_DEFS) {
@@ -225,11 +231,11 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
     for (const sp of spans) items.push({ def: { key: 'event-' + sp.e.id, label: sp.e.doors ? 'Doors' : ['concert', 'sports'].includes(sp.e.category) ? 'Show' : sp.e.category === 'club' ? 'Late' : 'All day' }, at: sp.st, event: sp.e });
     items.sort((a, b) => a.at - b.at);
 
-    const slots = [];
+    const slots: Slot[] = [];
     const MIA_AIRPORT = { lat: 25.7959, lng: -80.287 };
-    let prev = i === 0 ? MIA_AIRPORT : null;
+    let prev: LatLng | null = i === 0 ? MIA_AIRPORT : null;
     let free = i === 0 ? arrive + 0.75 : 0; // earliest hour we can be somewhere new
-    const travel = (a, b) => (a && b ? 0.25 + km(a, b) / 28 : 0); // hours, Miami traffic
+    const travel = (a: LatLng | null, b: LatLng | null): number => (a && b ? 0.25 + km(a, b) / 28 : 0); // hours, Miami traffic
     const DWELL = 1.1;
     for (const [idx, it] of items.entries()) {
       if (it.event) {
@@ -239,9 +245,9 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
       }
       const def = it.def, at = it.at;
       const afterShow = spans.some((sp) => at >= sp.en - 0.5);
-      const target = Math.min(5, (afterShow && def.key === 'late' ? 4.6 : def.base) + (wild - 0.5) * 1.6);
+      const target = Math.min(5, (afterShow && def.key === 'late' ? 4.6 : def.base ?? 3) + (wild - 0.5) * 1.6);
       const dowAt = at >= 24 ? (dow + 1) % 7 : dow, hAt = at % 24;
-      const fitOf = (m) => SLOT_FIT[def.key]?.[m.category] ?? 0;
+      const fitOf = (m: Move): number => SLOT_FIT[def.key]?.[m.category] ?? 0;
       if (slots.filter((x) => !x.event).length >= MAX_STOPS) continue;
       if (def.key === 'dinner' && slots.some((x) => x.label === 'Early dinner')) continue;
       let pool = moves.filter((m) => {
@@ -252,7 +258,7 @@ export function planStay({ start, end, arrive = 15, depart = 13, wild = 0.6, anc
         const b = hm(m.best), when = def.key !== 'sunset' && Math.abs(b - hAt) <= 1.75 ? b : hAt;
         const whenAbs = (at >= 24 ? 24 : 0) + when;
         if (whenAbs < free + travel(prev, m)) return false;            // can't get there in time
-        const nextEv = items.slice(idx + 1).find((x) => x.event);
+        const nextEv = items.slice(idx + 1).find((x): x is typeof x & { event: PsstEvent } => !!x.event);
         if (nextEv && whenAbs + DWELL + travel(m, nextEv.event) > nextEv.at) return false; // would miss the show
         if (nextEv && nextEv.at - whenAbs < 4 && km(m, nextEv.event) > 9) return false;   // stay near the venue before a show
         if (def.key === 'sunset' && nextEv && items.some((x) => x.def.key === 'dinner' && x.at < nextEv.at) && km(m, nextEv.event) > 3) return false; // dinner near the show beats a far sunset

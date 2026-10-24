@@ -1,42 +1,49 @@
 // App state. Per-viewer bits (kept, went, unlocked, leans) persist in localStorage when available.
 import { track } from '@vercel/analytics';
-import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor, addDays } from './core.js';
-import { skyAt, phaseAt, lightness, sunShade, mixHex, textOn, INK, PAPER } from './sky.js';
+import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor, addDays } from './core';
+import { skyAt, phaseAt, sunShade, mixHex, textOn, PAPER } from './sky';
+import type { Move, Ranked, ISODate } from './types';
+
+interface Saved { kept?: string[]; went?: string[]; unlocked?: string[]; leanWeek?: string; leansUsed?: number; heldEvents?: string[]; bonusLeans?: number; redeemed?: string[] }
+interface TripSaved { start?: ISODate; end?: ISODate; arrive?: number; depart?: number; wild?: number; anchors?: string[] }
+export type Tab = 'today' | 'trip' | 'wall' | 'stay' | 'book';
+export type Mood = 'all' | 'secret' | 'drink' | 'eat' | 'coffee' | 'dance' | 'outside' | 'art';
+export type PadItem = Ranked & { sealed?: boolean };
 
 const KEY = 'psst.v2';
-function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } }
+function load(): Saved { try { return JSON.parse(localStorage.getItem(KEY) || 'null') || {}; } catch { return {}; } }
 const saved = load();
-const TABS = ['today', 'trip', 'wall', 'stay', 'book'];
-const hashTab = () => { try { const h = location.hash.slice(1); return TABS.includes(h) ? h : null; } catch { return null; } };
+const TABS: Tab[] = ['today', 'trip', 'wall', 'stay', 'book'];
+const hashTab = (): Tab | null => { try { const h = location.hash.slice(1) as Tab; return TABS.includes(h) ? h : null; } catch { return null; } };
 export const LEANS_PER_WEEK = 3;
-const weekKey = (date) => { const d = new Date(date + 'T12:00:00Z'); const j = new Date(Date.UTC(d.getUTCFullYear(), 0, 1)); return d.getUTCFullYear() + '-' + Math.ceil(((d - j) / 864e5 + j.getUTCDay() + 1) / 7); };
-export const serialOf = (m) => moves.indexOf(m) + 1;
-export const MOODS = [
+const weekKey = (date: ISODate): string => { const d = new Date(date + 'T12:00:00Z'); const j = new Date(Date.UTC(d.getUTCFullYear(), 0, 1)); return d.getUTCFullYear() + '-' + Math.ceil(((d.getTime() - j.getTime()) / 864e5 + j.getUTCDay() + 1) / 7); };
+export const serialOf = (m: Move): number => moves.indexOf(m) + 1;
+export const MOODS: [Mood, string, string[] | 'secret' | null][] = [
   ['all', 'All', null], ['secret', 'Secret', 'secret'], ['drink', 'Drink', ['bar', 'speakeasy']], ['eat', 'Eat', ['food', 'market']],
   ['coffee', 'Coffee', ['coffee']], ['dance', 'Dance', ['music', 'nightlife']], ['outside', 'Outside', ['outdoors', 'water']], ['art', 'Art', ['art', 'shop']],
 ];
 
 class AppState {
-  tab = $state(hashTab() || 'today');
+  tab = $state<Tab>(hashTab() || 'today');
   now = $state(miamiNow());
   hour = $state(miamiNow().hour);
   following = $state(true);
   padIndex = $state(0);
-  flipped = $state(null);
-  selectedEvent = $state(null);
-  where = $state(null);          // move id shown full-screen on the map
-  whereHotel = $state(null);     // hotel id shown full-screen on the map
-  stayFocus = $state(null);
-  stayTier = $state(0);            // Stay price filter, shared by the rack and the map
-  mood = $state('all');
-  kept = $state(saved.kept || []);
-  went = $state(saved.went || []);
-  unlocked = $state(saved.unlocked || []);
+  flipped = $state<string | null>(null);
+  selectedEvent = $state<string | null>(null);
+  where = $state<string | null>(null);          // move id shown full-screen on the map
+  whereHotel = $state<string | null>(null);     // hotel id shown full-screen on the map
+  stayFocus = $state<string | null>(null);
+  stayTier = $state<0 | 1 | 2 | 3 | 4>(0);            // Stay price filter, shared by the rack and the map
+  mood = $state<Mood>('all');
+  kept = $state<string[]>(saved.kept || []);
+  went = $state<string[]>(saved.went || []);
+  unlocked = $state<string[]>(saved.unlocked || []);
   leanWeek = $state(saved.leanWeek || '');
   leansUsed = $state(saved.leansUsed || 0);
-  heldEvents = $state(saved.heldEvents || []);
+  heldEvents = $state<string[]>(saved.heldEvents || []);
   bonusLeans = $state(saved.bonusLeans || 0);
-  redeemed = $state(saved.redeemed || []);
+  redeemed = $state<string[]>(saved.redeemed || []);
   toast = $state('');
 
   sun = $derived(sunFor(this.now.date));
@@ -50,11 +57,11 @@ class AppState {
 
   qHour = $derived(Math.floor(this.hour * 4) / 4);
   ranked = $derived(rankNow({ dow: this.dow, h: this.qHour, date: this.now.date, band: 'all', rainSafe: this.wet }));
-  padId = $state(null);
+  padId = $state<string | null>(null);
   pad = $derived.by(() => {
     const cats = MOODS.find((x) => x[0] === this.mood)?.[2];
     const list = this.ranked.filter((x) => !cats || (cats === 'secret' ? x.m.secret === 2 || x.m.category === 'speakeasy' : cats.includes(x.m.category)));
-    const open = [], sealed = [];
+    const open: PadItem[] = [], sealed: PadItem[] = [];
     for (const x of list) (x.m.secret === 2 && !this.unlocked.includes(x.m.id) ? sealed : open).push(x);
     const pad = open.slice(0, 8);
     if (sealed.length && (this.mood === 'all' || this.mood === 'secret' || this.mood === 'drink')) pad.splice(Math.min(2, pad.length), 0, { ...sealed[0], sealed: true });
@@ -78,13 +85,13 @@ class AppState {
     try { localStorage.setItem(KEY, JSON.stringify({ kept: this.kept, went: this.went, unlocked: this.unlocked, leanWeek: this.leanWeek, leansUsed: this.leansUsed, heldEvents: this.heldEvents, bonusLeans: this.bonusLeans, redeemed: this.redeemed })); } catch {}
   }
   leansLeft() { return (this.leanWeek !== weekKey(this.now.date) ? LEANS_PER_WEEK : Math.max(0, LEANS_PER_WEEK - this.leansUsed)) + this.bonusLeans; }
-  redeem(code) {
+  redeem(code: string): 'ok' | 'used' | 'bad' {
     code = code.trim().toUpperCase();
     if (!/^PINA-[A-Z2-9]{5}$/.test(code)) { track('Code redeemed', { result: 'bad' }); return 'bad'; }
     if (this.redeemed.includes(code)) { track('Code redeemed', { result: 'used' }); return 'used'; }
     this.redeemed = [...this.redeemed, code]; this.bonusLeans += 1; this.persist(); track('Code redeemed', { result: 'ok' }); return 'ok';
   }
-  unlock(id) {
+  unlock(id: string): boolean {
     if (this.unlocked.includes(id)) return true;
     const wk = weekKey(this.now.date);
     if (this.leanWeek !== wk) { this.leanWeek = wk; this.leansUsed = 0; }
@@ -92,12 +99,13 @@ class AppState {
     else this.leansUsed += 1;
     this.unlocked = [...this.unlocked, id]; this.padId = id; this.persist(); track('Secret unlocked'); return true;
   }
-  toggle(list, id) { this[list] = this[list].includes(id) ? this[list].filter((x) => x !== id) : [...this[list], id]; this.persist(); }
-  keep(id) { if (!this.kept.includes(id)) { this.kept = [...this.kept, id]; this.persist(); track('Move kept'); } }
-  setTab(t, source = 'tabbar') { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t, source }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { history.replaceState(null, '', '#' + t); } catch {} }
-  scrubTo(h, id = null) { this.hour = ((h % 24) + 24) % 24; this.following = false; this.padId = id; this.flipped = null; }
+  toggle(list: 'kept' | 'went' | 'unlocked' | 'heldEvents', id: string): void { this[list] = this[list].includes(id) ? this[list].filter((x) => x !== id) : [...this[list], id]; this.persist(); }
+  keep(id: string): void { if (!this.kept.includes(id)) { this.kept = [...this.kept, id]; this.persist(); track('Move kept'); } }
+  setTab(t: Tab, source = 'tabbar'): void { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t, source }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { history.replaceState(null, '', '#' + t); } catch {} }
+  scrubTo(h: number, id: string | null = null): void { this.hour = ((h % 24) + 24) % 24; this.following = false; this.padId = id; this.flipped = null; }
   backToNow() { this.following = true; this.hour = this.now.hour; this.padId = null; }
-  say(msg) { this.toast = msg; clearTimeout(this._t); this._t = setTimeout(() => (this.toast = ''), 2600); }
+  private _t: ReturnType<typeof setTimeout> | undefined;
+  say(msg: string): void { this.toast = msg; clearTimeout(this._t); this._t = setTimeout(() => (this.toast = ''), 2600); }
 }
 export const app = new AppState();
 // A friend's plan link carries ?code=PINA-XXXXX, and the stay as &trip=START_END&a=EVENT_IDS.
@@ -111,7 +119,7 @@ export function codeFromUrl() {
     // ?trip=summit is the John Summit weekend, both nights.
     const summit = span === 'summit';
     const m = summit ? [span, '2026-11-20', '2026-11-24'] : span?.match(/^(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)$/);
-    const real = (d) => { try { return addDays(d, 0) === d; } catch { return false; } };
+    const real = (d: string): boolean => { try { return addDays(d, 0) === d; } catch { return false; } };
     // Same bounds as the date inputs: real dates, from today, through Dec 31.
     if (m && real(m[1]) && real(m[2]) && m[2] >= m[1] && m[1] >= app.now.date && m[2] <= '2026-12-31' && !trip.saved) {
       const ids = summit ? events.filter((e) => e.id.includes('john-summit')).map((e) => e.id) : (u.searchParams.get('a') || '').split(',').filter((id) => events.some((e) => e.id === id));
@@ -126,22 +134,22 @@ export function codeFromUrl() {
 
 // The visitor's stay. Inputs are state; the plan is derived from them. Inputs persist per viewer.
 // A stranger starts with no dates; a friend's link (?trip=summit, or ?trip=START_END&a=IDS) fills them in.
-const tripSaved = (() => { try { return JSON.parse(localStorage.getItem('psst.trip.v1')) || {}; } catch { return {}; } })();
+const tripSaved: TripSaved = (() => { try { return JSON.parse(localStorage.getItem('psst.trip.v1') || 'null') || {}; } catch { return {}; } })();
 class TripState {
   saved = !!tripSaved.start; // this viewer has set a trip before
-  start = $state(tripSaved.start || '');
-  end = $state(tripSaved.end || '');
+  start = $state<ISODate>(tripSaved.start || '');
+  end = $state<ISODate>(tripSaved.end || '');
   arrive = $state(tripSaved.arrive ?? 15);
   depart = $state(tripSaved.depart ?? 13);
   wild = $state(tripSaved.wild ?? 0.65);
-  anchors = $state(tripSaved.anchors || []);
-  swaps = $state({});
+  anchors = $state<string[]>(tripSaved.anchors || []);
+  swaps = $state<Record<string, number>>({});
   focusDay = $state(0);
   hasDates = $derived(!!this.start && !!this.end && this.end >= this.start);
   inRange = $derived(this.hasDates ? eventsBetween(this.start, this.end) : []);
   days = $derived(this.hasDates ? planStay({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.inRange.filter((e) => this.anchors.includes(e.id)), swaps: this.swaps, kept: app.kept }) : []);
-  swap(date, key) { const k = `${date}:${key}`; this.swaps = { ...this.swaps, [k]: (this.swaps[k] || 0) + 1 }; }
-  toggleAnchor(id) { this.anchors = this.anchors.includes(id) ? this.anchors.filter((x) => x !== id) : [...this.anchors, id]; this.persist(); }
+  swap(date: ISODate, key: string): void { const k = `${date}:${key}`; this.swaps = { ...this.swaps, [k]: (this.swaps[k] || 0) + 1 }; }
+  toggleAnchor(id: string): void { this.anchors = this.anchors.includes(id) ? this.anchors.filter((x) => x !== id) : [...this.anchors, id]; this.persist(); }
   persist() { this.saved = true; try { localStorage.setItem('psst.trip.v1', JSON.stringify({ start: this.start, end: this.end, arrive: this.arrive, depart: this.depart, wild: this.wild, anchors: this.anchors })); } catch {} }
 }
 export const trip = new TripState();

@@ -4,7 +4,7 @@
 import puppeteer from 'puppeteer-core';
 import { readFileSync } from 'node:fs';
 const GOLD = '#FCA864';
-const b = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new' });
+const b = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new' });
 try {
   // 1. The phone: Today at 6:33pm, with nothing in it that dates the picture.
   const p = await b.newPage();

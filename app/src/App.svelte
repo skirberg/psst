@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount, tick, untrack } from 'svelte';
   import MiamiMap from './components/MiamiMap.svelte';
   import SkyFx from './components/SkyFx.svelte';
@@ -13,12 +13,12 @@
   import StayView from './components/StayView.svelte';
   import BookView from './components/BookView.svelte';
   import Icon from './components/Icon.svelte';
-  import hotels from './lib/hotels.json';
-  import { app, trip, codeFromUrl } from './lib/state.svelte.js';
-  import { miamiNow, fmtHour, fmtDate, weatherFor, moves, hm } from './lib/core.js';
-  import { PAPER, INK, MAMEY } from './lib/sky.js';
+  import { app, trip, codeFromUrl } from './lib/state.svelte';
+  import { miamiNow, fmtHour, fmtDate, weatherFor, moves, hm, hotels } from './lib/core';
+  import { PAPER, INK, MAMEY } from './lib/sky';
 
-  let wide = $state(false), map = $state(), scroller = $state();
+  import type { Tab } from './lib/state.svelte';
+  let wide = $state(false), map = $state<ReturnType<typeof MiamiMap>>(), scroller = $state<HTMLElement>();
   const wx = $derived(weatherFor(app.now.date));
   // The forecast's temperature at the hour on the clock; typical days show the usual high.
   const temp = $derived(wx?.hourly?.[Math.floor(app.hour) % 24]?.[0] ?? wx?.hi);
@@ -33,8 +33,9 @@
     if (app.tab === 'trip' && trip.days.length) {
       const d = trip.days[Math.min(trip.focusDay, trip.days.length - 1)];
       return d.slots.filter((s) => s.move || s.event).map((s, n) => {
-        const o = s.move || s.event;
-        return { id: 'trip-' + o.id, lat: o.lat, lng: o.lng, move: s.move || { id: o.id, hood: o.hood, category: 'music', word: evWord(o.title), place: o.venue }, active: !!s.event, tag: `${n + 1}  ${fmtHour(s.at % 24, true)}`, label: o.title || o.place };
+        const o = (s.move || s.event)!;
+        const sticker = s.move || { id: o.id, hood: o.hood, category: 'music', word: evWord(o.title), place: s.event!.venue };
+        return { id: 'trip-' + o.id, lat: o.lat, lng: o.lng, move: sticker, active: !!s.event, tag: `${n + 1}  ${fmtHour(s.at % 24, true)}`, label: o.title };
       });
     }
     if (app.tab === 'stay') return hotels.filter((h) => !app.stayTier || h.tier === app.stayTier).map((h) => ({ id: h.id, lat: h.lat, lng: h.lng, move: { id: h.id, hood: h.hood, category: 'stay', word: h.word, place: h.name }, active: app.stayFocus === h.id, tag: '$'.repeat(h.tier), label: h.name, onclick: () => (app.stayFocus = h.id) }));
@@ -43,7 +44,7 @@
   const route = $derived.by(() => {
     if (app.tab !== 'trip' || !trip.days.length) return [];
     const d = trip.days[Math.min(trip.focusDay, trip.days.length - 1)];
-    return d.slots.map((s) => s.event || s.move).filter(Boolean);
+    return d.slots.map((s) => s.event || s.move).filter((o): o is NonNullable<typeof o> => !!o);
   });
   const vars = $derived(`--sky:${app.sky};--text:${app.text};--paper:${PAPER};--ink:${INK};--mamey:${MAMEY};--mamey-deep:#BF4922;--muted:#485E6C;--line:#D8D0C3`);
   const full = $derived(wide && (app.tab === 'wall' || app.tab === 'book'));
@@ -59,9 +60,9 @@
   $effect(() => { if (!map || app.tab !== 'stay' || !wide || !hotels.length) return; const list = hotels.filter((h) => !app.stayTier || h.tier === app.stayTier); map.fitPoints(list.length ? list : hotels); });
   // Desktop: picking a hotel in the rack brings its pin into view.
   // untrack: flyTo reads the inset prop, which would re-run this (and fly back to the hotel) on every tab change.
-  $effect(() => { const id = app.stayFocus; if (!map || !wide || !id) return; untrack(() => { if (app.tab !== 'stay') return; const h = hotels.find((x) => x.id === id); if (h) map.flyTo(h.lat, h.lng); }); });
+  $effect(() => { const id = app.stayFocus; if (!map || !wide || !id) return; untrack(() => { if (app.tab !== 'stay') return; const h = hotels.find((x) => x.id === id); if (h) map?.flyTo(h.lat, h.lng); }); });
   // Desktop: Today always opens on the whole-city view, whatever Stay or a badge zoomed into.
-  $effect(() => { if (map && wide && app.tab === 'today') untrack(() => map.recenter()); });
+  $effect(() => { if (map && wide && app.tab === 'today') untrack(() => map?.recenter()); });
   $effect(() => { app.tab; scroller?.scrollTo?.({ top: 0 }); });
 
   onMount(() => {
@@ -70,13 +71,13 @@
     const tick = setInterval(() => { app.now = miamiNow(); if (app.following) app.hour = app.now.hour; }, 30000);
     return () => { clearInterval(tick); mq.removeEventListener('change', set); };
   });
-  const TABS = [['today', 'Today', 'today'], ['trip', 'Trip', 'trip'], ['wall', 'Events', 'events'], ['stay', 'Stay', 'stay'], ['book', 'Kept', 'kept']];
+  const TABS: [Tab, string, string][] = [['today', 'Today', 'today'], ['trip', 'Trip', 'trip'], ['wall', 'Events', 'events'], ['stay', 'Stay', 'stay'], ['book', 'Kept', 'kept']];
   // Closing the full-screen map puts focus back where it was: the move's card or the hotel's key fob.
   async function leaveWhere() {
     const id = app.where, hid = app.whereHotel;
     app.where = null; app.whereHotel = null; if (!wide) map?.recenter();
     await tick();
-    (hid ? document.getElementById('fob-' + hid) : document.querySelector(`#back-${id} .pill`) || document.getElementById('sb-' + id) || document.querySelector('.stack .more'))?.focus();
+    (hid ? document.getElementById('fob-' + hid) : document.querySelector<HTMLElement>(`#back-${id} .pill`) || document.getElementById('sb-' + id) || document.querySelector<HTMLElement>('.stack .more'))?.focus();
   }
 </script>
 

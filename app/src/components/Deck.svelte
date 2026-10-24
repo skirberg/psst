@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   // Today's deck: the best move for this hour on top. Fling it to see the next one,
   // pick a mood, or hit psst to shuffle and get dealt one.
   import Stub from './Stub.svelte';
   import Sticker from './Sticker.svelte';
   import Icon from './Icon.svelte';
-  import { app, MOODS } from '../lib/state.svelte.js';
+  import { app, MOODS } from '../lib/state.svelte';
   import { tick } from 'svelte';
-  import { fmtHour } from '../lib/core.js';
-  import { radioKeys } from '../lib/a11y.js';
-  let stack = $state();
+  import { fmtHour } from '../lib/core';
+  import { radioKeys } from '../lib/a11y';
+  let stack = $state<HTMLElement>();
 
   const pad = $derived(app.pad);
   const i = $derived(app.padPos);
@@ -19,22 +19,22 @@
   let dealtSlap = $state(false);
 
   let dx = $state(0), dragging = $state(false), flinging = $state(0), shuffling = $state(false);
-  let sx = null, sy = null, moved = 0;
-  async function go(d) {
+  let sx: number | null = null, sy: number | null = null, moved = 0;
+  async function go(d: number): Promise<void> {
     if (pad.length < 2) return;
     const hadFocus = stack?.contains(document.activeElement);
     app.flipped = null;
     app.padId = pad[(i + d + pad.length) % pad.length].m.id;
-    if (hadFocus) { await tick(); (stack?.querySelector('.more') || stack?.querySelector('.stub.sealed') || stack)?.focus(); }
+    if (hadFocus) { await tick(); (stack?.querySelector<HTMLElement>('.more') || stack?.querySelector<HTMLElement>('.stub.sealed') || stack)?.focus(); }
   }
-  const NOUN = { secret: 'secrets', drink: 'bars', eat: 'kitchens', coffee: 'coffee counters', dance: 'dance floors', outside: 'outdoor spots', art: 'galleries' };
-  function down(e) {
-    if (e.target.closest('.tearoff, button, a, [role=button], .back')) return;
+  const NOUN: Record<string, string> = { secret: 'secrets', drink: 'bars', eat: 'kitchens', coffee: 'coffee counters', dance: 'dance floors', outside: 'outdoor spots', art: 'galleries' };
+  function down(e: PointerEvent & { currentTarget: HTMLElement }): void {
+    if ((e.target as Element).closest('.tearoff, button, a, [role=button], .back')) return;
     sx = e.clientX; sy = e.clientY; moved = 0; dragging = true;
     e.currentTarget.setPointerCapture?.(e.pointerId);
   }
-  function move(e) {
-    if (sx == null) return;
+  function move(e: PointerEvent): void {
+    if (sx == null || sy == null) return;
     const ddx = e.clientX - sx, ddy = e.clientY - sy;
     if (Math.abs(ddy) > Math.abs(ddx) * 1.2 && Math.abs(dx) < 8) { sx = null; dragging = false; dx = 0; return; }
     moved = Math.abs(ddx); dx = ddx;
@@ -49,8 +49,8 @@
       dx = 0; flinging = 0; go(dir);
     } else dx = 0;
   }
-  function clickCapture(e) { if (moved > 6) { e.stopPropagation(); e.preventDefault(); moved = 0; } }
-  function key(e) { if (e.key === 'ArrowRight') { e.preventDefault(); go(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); } }
+  function clickCapture(e: MouseEvent): void { if (moved > 6) { e.stopPropagation(); e.preventDefault(); moved = 0; } }
+  function key(e: KeyboardEvent): void { if (e.key === 'ArrowRight') { e.preventDefault(); go(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); } }
 
   async function psst() {
     const pool = pad.filter((x) => !x.sealed && x.m.id !== item?.m.id);
@@ -77,6 +77,7 @@
 
   {#if item}
     <div class="deckbox">
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions (arrow keys bubble up from the card's own buttons) -->
     <div class="stack" bind:this={stack} class:shuffling role="group" aria-roledescription="deck" aria-label="{i + 1} of {pad.length}" tabindex="-1" onkeydown={key}>
       {#each behind as b, k (b.m.id + 'b')}
         <div class="under u{k}" aria-hidden="true">

@@ -1,18 +1,21 @@
-<script>
+<script lang="ts">
   // Die-cut sticker: the move's own word in sign lettering on a shape by category, one Miami ink.
-  let { move, size = 72, dim = false, outline = false, tilt = true } = $props();
+  import type { StickerSubject } from '../lib/types';
+  let { move, size = 72, dim = false, outline = false, tilt = true }: { move: StickerSubject; size?: number; dim?: boolean; outline?: boolean; tilt?: boolean } = $props();
+  type Shape = 'round' | 'burst' | 'scallop' | 'shield' | 'ticket' | 'oval';
   const INKS = [['#E2406F', '#FEFAF1'], ['#4AC9EC', '#052739'], ['#733EA4', '#FEFAF1'], ['#FED252', '#052739'], ['#117555', '#FEFAF1'], ['#C8F56D', '#052739']];
-  const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const hash = (s: string): number => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
   const h = $derived(hash(move.id));
   const ink = $derived(INKS[h % INKS.length]);
   const rot = $derived(tilt ? (h % 17) - 8 : 0);
-  const BY_CAT0 = { coffee: 'round', food: 'burst', bar: 'scallop', speakeasy: 'shield', music: 'ticket', nightlife: 'ticket', water: 'oval', outdoors: 'round', art: 'oval', shop: 'round', market: 'scallop' };
-  const shape = $derived(BY_CAT0[move.category] || 'round');
+  const BY_CAT0: Record<string, Shape> = { coffee: 'round', food: 'burst', bar: 'scallop', speakeasy: 'shield', music: 'ticket', nightlife: 'ticket', water: 'oval', outdoors: 'round', art: 'oval', shop: 'round', market: 'scallop' };
+  const shape = $derived<Shape>(BY_CAT0[move.category] || 'round');
   const word = $derived((move.word || move.place.split(' ')[0]).toUpperCase());
   const lines = $derived(word.length > 7 && word.includes(' ') ? word.split(' ') : [word]);
-  const shapeW = $derived({ shield: 118, ticket: 120, oval: 150, burst: 132, scallop: 134, round: 136 }[shape] || 136);
-  const fs = $derived(Math.min(shape === 'shield' ? 24 : 28, shapeW / Math.max(...lines.map((l) => l.length + 0.9))));
-  const SHAPES = {
+  const WIDTH: Record<Shape, number> = { shield: 118, ticket: 120, oval: 150, burst: 132, scallop: 134, round: 136 };
+  const shapeW = $derived(WIDTH[shape]);
+  const fs = $derived(Math.min(shape === 'shield' ? 24 : 28, shapeW / Math.max(...lines.map((l: string) => l.length + 0.9))));
+  const SHAPES: Record<Shape, string> = {
     round: 'M50 4 a46 46 0 1 1 -0.01 0 Z',
     burst: Array.from({ length: 28 }, (_, i) => { const a = (Math.PI * 2 * i) / 28 - Math.PI / 2, r = i % 2 ? 43 : 49; return `${i ? 'L' : 'M'}${(50 + Math.cos(a) * r).toFixed(1)} ${(50 + Math.sin(a) * r).toFixed(1)}`; }).join(' ') + ' Z',
     scallop: Array.from({ length: 16 }, (_, i) => { const a0 = (Math.PI * 2 * i) / 16, a1 = (Math.PI * 2 * (i + 1)) / 16, am = (a0 + a1) / 2; return `${i ? '' : `M${50 + Math.cos(a0) * 43} ${50 + Math.sin(a0) * 43} `}Q${(50 + Math.cos(am) * 52).toFixed(1)} ${(50 + Math.sin(am) * 52).toFixed(1)} ${(50 + Math.cos(a1) * 43).toFixed(1)} ${(50 + Math.sin(a1) * 43).toFixed(1)}`; }).join(' ') + ' Z',

@@ -1,13 +1,15 @@
-<script>
+<script lang="ts">
   // A generated two-ink flyer per event. Titles are fitted (width axis, then size) so words never break.
   import { onMount } from 'svelte';
-  import { fmtDate, fmtHour, hm } from '../lib/core.js';
-  let { ev, mini = false } = $props();
+  import { fmtDate, fmtHour, hm } from '../lib/core';
+  import type { PsstEvent } from '../lib/types';
+  let { ev, mini = false }: { ev: PsstEvent; mini?: boolean } = $props();
   // split-fountain inks keyed to the start time: day, evening, after midnight
-  const DAY = [['#FEFAF1', '#F37F5F', '#052739'], ['#FED252', '#E2406F', '#052739'], ['#B0F1DF', '#117555', '#052739']];
+  // Accents are at least 3:1 on their ground (they set the big date numerals): deep mamey on paper, deep pink on yellow.
+  const DAY = [['#FEFAF1', '#BF4922', '#052739'], ['#FED252', '#B5305A', '#052739'], ['#B0F1DF', '#117555', '#052739']];
   const EVE = [['#052739', '#F37F5F', '#FEFAF1'], ['#FEFAF1', '#733EA4', '#052739'], ['#F9C5C8', '#052739', '#052739']];
   const LATE = [['#042234', '#4AC9EC', '#FEFAF1'], ['#733EA4', '#FED252', '#FEFAF1'], ['#052739', '#C8F56D', '#FEFAF1']];
-  const hash = (s) => [...s].reduce((a, c) => (a * 33 + c.charCodeAt(0)) >>> 0, 5381);
+  const hash = (s: string): number => [...s].reduce((a, c) => (a * 33 + c.charCodeAt(0)) >>> 0, 5381);
   const h = $derived(hash(ev.id));
   const start = $derived(ev.time || ev.doors ? hm(ev.time || ev.doors) : ev.category === 'club' ? 23 : ['concert', 'sports'].includes(ev.category) ? 20 : 12);
   const ink = $derived((start >= 21 || start < 5 ? LATE : start >= 17 ? EVE : DAY)[h % 3]);
@@ -17,17 +19,18 @@
   const wk = $derived(fmtDate(ev.date, { weekday: 'short' }));
   const range = $derived(ev.endDate && ev.endDate !== ev.date ? `${day}-${fmtDate(ev.endDate, { day: 'numeric' })}` : '');
 
-  let box, titleEl, fit = $state({ size: 30, wdth: 100 });
+  let box: HTMLElement, titleEl: HTMLElement, fit = $state({ size: 30, wdth: 100 });
   function fitTitle() {
     if (!box || !titleEl) return;
     const W = (box.clientWidth - 28) / 1.05; if (W <= 0) return;
     const words = ev.title.toUpperCase().split(/\s+/);
-    const H = box.clientHeight - (box.querySelector('.num')?.offsetHeight || 0) - 60;
-    const c = document.createElement('canvas').getContext('2d');
+    const H = box.clientHeight - (box.querySelector<HTMLElement>('.num')?.offsetHeight || 0) - 60;
+    const c = document.createElement('canvas').getContext('2d'); if (!c) return;
     const maxLines = 4;
     for (let size = 46; size >= 16; size -= 2) {
       for (const wdth of [100, 90, 80, 75]) {
-        const stretch = { 100: 'normal', 90: 'semi-condensed', 80: 'condensed', 75: 'condensed' }[wdth];
+        const STRETCH: Record<number, CanvasFontStretch> = { 100: 'normal', 90: 'semi-condensed', 80: 'condensed', 75: 'condensed' };
+        const stretch = STRETCH[wdth];
         c.font = `${stretch} 400 ${size}px "League Gothic"`; if ('fontStretch' in c) c.fontStretch = stretch;
         const scale = 'fontStretch' in c ? 1 : wdth / 100;
         if (words.some((w) => c.measureText(w).width * scale > W)) continue;

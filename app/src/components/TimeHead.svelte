@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
   // The hour in sign lettering with a shade cast by the real sun, the day's sky as a track,
   // and the pineapple-sun you drag through it.
-  import { app } from '../lib/state.svelte.js';
-  import { fmtHour, weatherFor } from '../lib/core.js';
-  import { skyRibbon, lightness } from '../lib/sky.js';
+  import { app } from '../lib/state.svelte';
+  import { fmtHour, weatherFor } from '../lib/core';
+  import { skyRibbon, lightness } from '../lib/sky';
 
-  let { big = 76 } = $props();
-  let track;
+  let { big = 76 }: { big?: number } = $props();
+  let track: HTMLElement;
   const ribbon = $derived(skyRibbon(app.now.date, 48));
   const grad = $derived(`linear-gradient(90deg, ${ribbon.map((c, i) => `${c} ${((i / 48) * 100).toFixed(2)}%`).join(',')})`);
   const hourly = $derived(weatherFor(app.now.date)?.hourly);
@@ -17,9 +17,9 @@
   });
   const dist = $derived(12 - Math.abs(((app.hour - app.now.hour + 36) % 24) - 12));
   const away = $derived(!app.following && dist > 0.5);
-  const pos = (h) => `calc(13px + (100% - 26px) * ${h / 24})`;
+  const pos = (h: number): string => `calc(13px + (100% - 26px) * ${h / 24})`;
 
-  function lede(h) {
+  function lede(h: number): string {
     const set = app.sun.set;
     if (h >= 15 && h < 15.5) return 'Cafecito time.';
     if (h >= set - 1 && h < set + 0.3) return 'Golden hour. Face west.';
@@ -28,30 +28,31 @@
   const line = $derived(lede(app.hour));
 
   // Mouse and pen scrub at once. Touch scrubs on a tap or a sideways drag; a vertical swipe scrolls the page.
-  let dragging = false, tx = null, ty = 0, tmoved = 0;
-  function setFrom(e) {
+  let dragging = false, tx: number | null = null, ty = 0, tmoved = 0;
+  function setFrom(e: PointerEvent): void {
     const r = track.getBoundingClientRect();
     const x = Math.min(1, Math.max(0, (e.clientX - r.left - 13) / (r.width - 26)));
     app.scrubTo(Math.round(x * 96) / 4);
   }
-  function down(e) {
+  function down(e: PointerEvent): void {
     if (e.pointerType === 'touch') { tx = e.clientX; ty = e.clientY; tmoved = 0; return; }
     dragging = true; track.setPointerCapture?.(e.pointerId); setFrom(e);
   }
-  function move(e) {
+  function move(e: PointerEvent): void {
     if (dragging) { setFrom(e); return; }
     if (tx == null) return;
     const dx = Math.abs(e.clientX - tx), dy = Math.abs(e.clientY - ty); tmoved = Math.max(tmoved, dx, dy);
     if (dx > dy + 8) { dragging = true; track.setPointerCapture?.(e.pointerId); setFrom(e); }
     else if (dy > dx + 8) tx = null;
   }
-  function up(e) {
+  function up(e: PointerEvent): void {
     if (!dragging && tx != null && tmoved < 8) setFrom(e);
     dragging = false; tx = null;
   }
   function cancel() { dragging = false; tx = null; }
-  function key(e) {
-    const d = { ArrowRight: 0.25, ArrowLeft: -0.25, PageUp: 1, PageDown: -1 }[e.key];
+  function key(e: KeyboardEvent): void {
+    const STEP: Record<string, number> = { ArrowRight: 0.25, ArrowLeft: -0.25, PageUp: 1, PageDown: -1 };
+    const d = STEP[e.key];
     if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); app.scrubTo(e.key === 'Home' ? 0 : 23.75); return; }
     if (d == null) return;
     e.preventDefault(); app.scrubTo(app.hour + d);
@@ -68,7 +69,7 @@
   </div>
 
   <div class="track" bind:this={track} role="slider" tabindex="0" aria-label="Time of day in Miami"
-       aria-valuemin="0" aria-valuemax="24" aria-valuenow={app.hour.toFixed(2)} aria-valuetext={fmtHour(app.hour)}
+       aria-valuemin={0} aria-valuemax={24} aria-valuenow={+app.hour.toFixed(2)} aria-valuetext={fmtHour(app.hour)}
        onpointerdown={down} onpointermove={move} onpointerup={up} onpointercancel={cancel} onkeydown={key}>
     <div class="ribbon" style:background={grad}></div>
     {#if hourly}{#each hourly as hr, i}{#if hr[1] >= 30}<i class="rain" style:left={pos(i + 0.5)} style:height="{4 + hr[1] * 0.08}px" title="{hr[1]}% rain"></i>{/if}{/each}{/if}

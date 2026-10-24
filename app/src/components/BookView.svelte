@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
   // The book: every move has a numbered slot by neighborhood. Keep a stub and its sticker lands here.
   import Sticker from './Sticker.svelte';
-  import { app, serialOf, LEANS_PER_WEEK } from '../lib/state.svelte.js';
-  import { moves, events, fmtDate, fmtHour, hm, openAt, mapsHref } from '../lib/core.js';
+  import { app, serialOf } from '../lib/state.svelte';
+  import { moves, events, fmtDate, fmtHour, hm, openAt, mapsHref } from '../lib/core';
   import { track } from '@vercel/analytics';
+  import type { Move } from '../lib/types';
   const GROUPS = [
     ['Little Havana', ['Little Havana']], ['Downtown and Brickell', ['Downtown', 'Brickell']], ['Wynwood, Edgewater, Allapattah', ['Wynwood', 'Edgewater', 'Allapattah']],
     ['Little Haiti to MiMo', ['Design District', 'Little River', 'Little Haiti', 'MiMo']], ['The Beach', ['South Beach', 'Mid-Beach', 'North Beach']],
@@ -12,18 +13,18 @@
   const pages = GROUPS.map(([name, hoods]) => ({ name, list: moves.filter((m) => hoods.includes(m.hood)) })).filter((p) => p.list.length);
   const held = $derived(events.filter((e) => app.heldEvents.includes(e.id) && (e.endDate || e.date) >= app.now.date));
   let code = $state(''), msg = $state('');
-  function redeem(e) {
+  function redeem(e: SubmitEvent): void {
     e.preventDefault();
     const r = app.redeem(code);
     msg = r === 'ok' ? '+1 secret.' : r === 'used' ? 'Already used.' : 'Try PINA-XXXXX.';
     if (r === 'ok') code = '';
   }
-  const locked = (m) => m.secret === 2 && !app.unlocked.includes(m.id);
+  const locked = (m: Move): boolean => m.secret === 2 && !app.unlocked.includes(m.id);
   // Yours: what you kept, soonest best hour first, with Go and Went.
   const yours = $derived(moves.filter((m) => app.kept.includes(m.id))
     .map((m) => ({ m, open: openAt(m, app.now.dow, app.now.hour), wait: (hm(m.best) - app.now.hour + 24) % 24 }))
     .sort((a, b) => a.wait - b.wait));
-  const went = (m) => { if (!app.went.includes(m.id)) track('Went'); app.toggle('went', m.id); };
+  const went = (m: Move): void => { if (!app.went.includes(m.id)) track('Went'); app.toggle('went', m.id); };
 </script>
 
 <section class="book">

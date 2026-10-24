@@ -1,30 +1,32 @@
-<script>
+<script lang="ts">
   // What's on: flyers on a wall. Tear a tab to add the event to your trip.
   import Flyer from './Flyer.svelte';
   import Icon from './Icon.svelte';
-  import { app, trip } from '../lib/state.svelte.js';
+  import { app, trip } from '../lib/state.svelte';
   import { track } from '@vercel/analytics';
-  import { events, addDays, dowOf, fmtDate, fmtHour, hm, mapsHref } from '../lib/core.js';
-  import { radioKeys } from '../lib/a11y.js';
-  let { wide = false } = $props();
+  import { events, addDays, dowOf, fmtDate, fmtHour, hm, mapsHref } from '../lib/core';
+  import { radioKeys } from '../lib/a11y';
+  import type { PsstEvent, ISODate } from '../lib/types';
+  let { wide = false }: { wide?: boolean } = $props();
+  type Range = [string, string, ISODate | null, ISODate | null];
 
   // Ranges follow the clock: nothing that has already happened, and months that are over drop off.
   const today = $derived(app.now.date);
-  const from = (d) => (d > today ? d : today);
-  const ranges = $derived([
+  const from = (d: ISODate): ISODate => (d > today ? d : today);
+  const ranges = $derived(([
     ['tonight', 'Tonight', today, today],
     ['weekend', 'This weekend', today, addDays(today, (7 - dowOf(today)) % 7)],
     ['stay', 'Your trip', null, null],
     ['oct', 'Oct', from('2026-10-01'), '2026-10-31'], ['nov', 'Nov', from('2026-11-01'), '2026-11-30'], ['dec', 'Dec', from('2026-12-01'), '2026-12-31'],
-  ].filter((x) => (x[0] === 'stay' ? trip.hasDates : x[3] >= today)));
-  let pick = $state(trip.end >= app.now.date ? 'stay' : 'tonight');
-  const r = $derived.by(() => { const x = ranges.find((y) => y[0] === pick) ?? ranges[0]; return x[0] === 'stay' ? [x[0], x[1], from(trip.start), trip.end] : x; });
+  ] as Range[]).filter((x) => (x[0] === 'stay' ? trip.hasDates : (x[3] ?? '') >= today)));
+  let pick = $state<string>(trip.end >= app.now.date ? 'stay' : 'tonight');
+  const r = $derived.by(() => { const x = ranges.find((y) => y[0] === pick) ?? ranges[0]; return (x[0] === 'stay' ? [x[0], x[1], from(trip.start), trip.end] : x) as [string, string, ISODate, ISODate]; });
   const list = $derived(events.filter((e) => (e.endDate || e.date) >= r[2] && e.date <= r[3]));
-  const hash = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 3);
-  let open = $state(null);
-  const inStay = (e) => (e.endDate || e.date) >= trip.start && e.date <= trip.end;
-  const added = (e) => trip.anchors.includes(e.id) || app.heldEvents.includes(e.id);
-  function tearTab(e) {
+  const hash = (s: string): number => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 3);
+  let open = $state<string | null>(null);
+  const inStay = (e: PsstEvent): boolean => (e.endDate || e.date) >= trip.start && e.date <= trip.end;
+  const added = (e: PsstEvent): boolean => trip.anchors.includes(e.id) || app.heldEvents.includes(e.id);
+  function tearTab(e: PsstEvent): void {
     if (added(e)) {
       trip.anchors = trip.anchors.filter((x) => x !== e.id); trip.persist();
       app.heldEvents = app.heldEvents.filter((x) => x !== e.id); app.persist();

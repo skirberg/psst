@@ -6,7 +6,7 @@ const pos = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const out = pos[0] || '../shots/latest';
 const base = pos[1] || 'http://localhost:5179/';
 mkdirSync(out, { recursive: true });
-const browser = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new', args: ['--hide-scrollbars'] });
+const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new', args: ['--hide-scrollbars'] });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const views = [
   ['today-dawn', { hour: 7.25, tab: 'today' }], ['today-noon', { hour: 13, tab: 'today' }], ['today-golden', { hour: 18.6, tab: 'today' }],

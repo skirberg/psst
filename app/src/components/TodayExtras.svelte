@@ -1,16 +1,17 @@
-<script>
+<script lang="ts">
   // Below the deck: your trip at a glance, and what's on tonight.
   import Flyer from './Flyer.svelte';
   import Icon from './Icon.svelte';
-  import { app, trip } from '../lib/state.svelte.js';
-  import { events, fmtDate, fmtHour, daySpan, addDays } from '../lib/core.js';
+  import { app, trip } from '../lib/state.svelte';
+  import { events, fmtDate, fmtHour, daySpan, addDays } from '../lib/core';
+  import type { PsstEvent } from '../lib/types';
   // Shows on your trip lead Tonight.
   const tonight = $derived(events.filter((e) => e.date <= app.now.date && (e.endDate || e.date) >= app.now.date)
-    .sort((a, b) => trip.anchors.includes(b.id) - trip.anchors.includes(a.id)).slice(0, 4));
+    .sort((a, b) => Number(trip.anchors.includes(b.id)) - Number(trip.anchors.includes(a.id))).slice(0, 4));
   const shows = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event)).length);
   const stops = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.move)).length);
   // Count down to the next show (a concert, game or club night beats an all-day fair).
-  const isShow = (e) => ['concert', 'sports', 'club'].includes(e.category);
+  const isShow = (e: PsstEvent): boolean => ['concert', 'sports', 'club'].includes(e.category);
   const showDay = $derived(trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event && isShow(s.event))) ?? trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event)));
   const nextShow = $derived(showDay?.slots.find((s) => s.event && isShow(s.event))?.event ?? showDay?.slots.find((s) => s.event)?.event);
   const daysTo = $derived(daySpan(app.now.date, showDay?.date ?? trip.start));
@@ -28,9 +29,9 @@
     {#if !trip.days.length}
       <span class="tt-main"><b>Your trip</b><span>Add your dates</span></span>
     {:else if next}
-      <span class="tt-main"><b>{next.label === 'Doors' ? 'Doors ' : ''}{fmtHour(next.at % 24, true)}</b><span>{next.event ? next.event.venue : next.move.place}</span></span>
+      <span class="tt-main"><b>{next.label === 'Doors' ? 'Doors ' : ''}{fmtHour(next.at % 24, true)}</b><span>{next.event ? next.event.venue : next.move?.place}</span></span>
     {:else}
-      <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && nextShow ? (nextShow.date === showDay.date ? `to ${nextShow.title.split(':')[0]}` : 'to your trip') : range}</span></span>
+      <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && nextShow ? (nextShow.date === showDay?.date ? `to ${nextShow.title.split(':')[0]}` : 'to your trip') : range}</span></span>
     {/if}
     {#if trip.days.length}
       <span class="tt-n"><b>{shows}</b>{shows === 1 ? 'show' : 'shows'}</span>

@@ -1,12 +1,13 @@
-<script>
+<script lang="ts">
   // One move as a tear-off ticket. Front: when, what. Back: how to get in, where, sources.
   // Tear the bottom off (drag down, or press Keep) and it flies into Kept.
   import { tick } from 'svelte';
   import Sticker from './Sticker.svelte';
-  import { app, serialOf } from '../lib/state.svelte.js';
-  import { moves, openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core.js';
+  import { app, serialOf } from '../lib/state.svelte';
+  import { moves, openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
 
-  let { item, compact = false, at = null, dow = null } = $props();
+  import type { Move, Dow } from '../lib/types';
+  let { item, compact = false, at = null, dow = null }: { item: { m: Move; sealed?: boolean; soon?: number | null }; compact?: boolean; at?: number | null; dow?: Dow | null } = $props();
   const m = $derived(item.m);
   const dayDow = $derived(dow ?? app.dow);
   const planned = $derived(at != null);
@@ -20,7 +21,7 @@
   const isOpen = $derived(openAt(m, dayDow, nowH));
   const closeAt = $derived(closesAt(m, dayDow, nowH));
   const energyWord = $derived(m.energy <= 2 ? 'low-key' : m.energy === 3 ? 'lively' : 'loud');
-  const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
+  const host = (u: string): string => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Go opens the phone's own maps app; Apple devices also get a Google Maps link on the back.
   const go = $derived(mapsHref(m.place, m.address, m.lat, m.lng));
@@ -37,7 +38,7 @@
 
   // sealed secrets: hold to open (or Enter twice)
   let hold = $state(0), raf = 0, t0 = 0, armed = $state(false);
-  function holdStart(e) {
+  function holdStart(e: PointerEvent): void {
     if (!sealed || e.button > 0) return;
     e.preventDefault();
     if (app.leansLeft() <= 0) { app.say('No secrets left this week. A friend’s code adds one.'); return; }
@@ -55,10 +56,10 @@
     document.documentElement.style.setProperty('--lean', '0');
     if (app.unlock(m.id)) {
       try { navigator.vibrate?.([12, 40, 18]); } catch {} app.say('Opened.');
-      await tick(); document.querySelector(`#front-${m.id} .more`)?.focus();
+      await tick(); document.querySelector<HTMLElement>(`#front-${m.id} .more`)?.focus();
     }
   }
-  function sealedKey(e) {
+  function sealedKey(e: KeyboardEvent): void {
     if (!sealed) return;
     if (e.key === 'Escape') { armed = false; return; }
     if (e.key !== 'Enter' && e.key !== ' ') return;
@@ -69,14 +70,14 @@
   $effect(() => () => cancelAnimationFrame(raf));
 
   // tear-off
-  let tearoff = $state(), tearing = $state(false), pull = $state(0), py = null;
+  let tearoff = $state<HTMLElement>(), tearing = $state(false), pull = $state(0), py: number | null = null;
   async function tear() {
     if (kept || tearing) return;
     tearing = true;
     const target = document.querySelector('[data-tab="book"]');
     if (!reduce && tearoff && target) {
       const a = tearoff.getBoundingClientRect(), b = target.getBoundingClientRect();
-      const ghost = tearoff.cloneNode(true);
+      const ghost = tearoff.cloneNode(true) as HTMLElement;
       Object.assign(ghost.style, { position: 'fixed', left: a.left + 'px', top: a.top + 'px', width: a.width + 'px', height: a.height + 'px', margin: 0, zIndex: 50, pointerEvents: 'none', background: '#FEFAF1', borderRadius: '4px', boxShadow: '0 12px 24px rgba(5,39,57,.3)', opacity: 1, transform: 'none' });
       document.body.appendChild(ghost);
       const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
@@ -93,22 +94,23 @@
     app.say(`Kept. No. ${serial}.`);
     if (hadFocus) { await tick(); ripped?.focus(); }
   }
-  let ripped = $state();
+  let ripped = $state<HTMLElement>();
   // On touch, tearing starts from the 'No.' tab so a vertical swipe on the strip still scrolls the page.
-  function pullStart(e) {
-    if (kept || e.target.closest('button, a')) return;
-    if (e.pointerType === 'touch' && !e.target.closest('.no')) return;
+  function pullStart(e: PointerEvent & { currentTarget: HTMLElement }): void {
+    const el = e.target as Element;
+    if (kept || el.closest('button, a')) return;
+    if (e.pointerType === 'touch' && !el.closest('.no')) return;
     py = e.clientY; e.currentTarget.setPointerCapture?.(e.pointerId);
   }
-  function pullMove(e) { if (py == null) return; pull = Math.max(0, Math.min(80, e.clientY - py)); }
+  function pullMove(e: PointerEvent): void { if (py == null) return; pull = Math.max(0, Math.min(80, e.clientY - py)); }
   function pullEnd() { if (py == null) return; py = null; if (pull > 56) tear(); else pull = 0; }
 
-  async function flip(to) {
+  async function flip(to: boolean): Promise<void> {
     app.flipped = to ? m.id : null;
     await tick();
-    document.querySelector(to ? `#back-${m.id} .b-close` : `#front-${m.id} .more`)?.focus();
+    document.querySelector<HTMLElement>(to ? `#back-${m.id} .b-close` : `#front-${m.id} .more`)?.focus();
   }
-  function faceClick(e) { if (e.target.closest('button, a')) return; flip(!flipped); }
+  function faceClick(e: MouseEvent): void { if ((e.target as Element).closest('button, a')) return; flip(!flipped); }
 </script>
 
 <div class="wrap">
@@ -137,7 +139,7 @@
           <b class="best" style:left="{(hm(m.best) / 24) * 100}%"></b>
           <b class="now" style:left="{(nowH / 24) * 100}%"></b>
         </div>
-        <h3 class="title">{m.title}</h3>
+        <h2 class="title">{m.title}</h2>
         <p class="note">{m.theMove}</p>
         <div class="meta"><span>{m.hood}</span><span>{'$'.repeat(m.cost)}</span><span>{energyWord}</span><button class="more" onclick={() => flip(true)}>More</button></div>
       </div>
@@ -190,7 +192,7 @@
   .bar .best { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); }
   .bar .now { position: absolute; top: -1px; bottom: -1px; width: 3px; margin-left: -1.5px; background: var(--mamey); border-radius: 2px; }
   .emblem { float: right; margin: 2px -4px 4px 10px; shape-outside: circle(50%); }
-  .title { margin: 0; font: 400 30px/1.02 var(--display); letter-spacing: -0.005em; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-variation-settings: 'XROT' 0, 'YROT' calc(var(--lean, 0) * -20); transition: font-variation-settings .5s cubic-bezier(.3, 1.4, .5, 1); }
+  .title { margin: 0; font: 400 30px/1.02 var(--display); letter-spacing: -0.005em; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-variation-settings: 'XROT' 0, 'YROT' calc(var(--lean, 0) * -20); transition: font-variation-settings .5s cubic-bezier(.3, 1.4, .5, 1); }
   .note { margin: 10px 0 0; font: 520 17px/1.35 var(--body); font-variation-settings: 'CASL' 1, 'MONO' 0; text-wrap: pretty; }
   .meta { clear: both; margin: 12px 0 0; display: flex; align-items: center; gap: 4px 14px; font: 500 13.5px var(--body); color: var(--muted); flex-wrap: wrap; }
   .meta span:first-child { color: var(--ink); font-weight: 650; }

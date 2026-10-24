@@ -11,7 +11,13 @@ A city guide built around the right move at the right moment.
 ```
 cd app && npm install && node scripts/sync-data.mjs && npm run dev
 ```
-To build the single-file version: `npx vite build && node scripts/fragment.mjs`. The output is `dist/psst.html`.
+To build: `npm run build` (fetches the forecast, type-checks, builds one HTML file into `dist/`). `node scripts/fragment.mjs` turns it into a Claude artifact fragment (`dist/psst.html`).
+
+## Check it
+- `npm run check`: strict TypeScript and Svelte checks (zero errors, zero warnings).
+- `node scripts/flows-check.mjs`: 26 end-to-end flows in Chrome against the dev server, accessibility on every tab included.
+- `node scripts/plan-check.mjs`, `contrast-check.mjs`, `dist-check.mjs`, `shots.mjs`: planner rules, text contrast across the day, the built file, screenshots.
+- All of these run on every push in GitHub Actions (`.github/workflows/checks.yml`).
 
 ## Data rules
 - Every move and event lists the sources that confirm it, and the date it was checked.
@@ -22,7 +28,7 @@ To build the single-file version: `npx vite build && node scripts/fragment.mjs`.
 ## Stack decisions (prototype vs production)
 | Layer | Prototype | Production pick | Why |
 |---|---|---|---|
-| UI | Svelte 5 + Vite, single file | SvelteKit | Small runtime for visitors on phones, built-in motion, and every move prerenders as its own page for search. Next.js would also work; the tie-breaker is bundle weight on 4G. |
+| UI | Svelte 5 + Vite in strict TypeScript, single file | SvelteKit (TypeScript) | Small runtime for visitors on phones, built-in motion, and every move prerenders as its own page for search. Next.js would also work; the tie-breaker is bundle weight on 4G. |
 | Data | JSON in the bundle | Supabase (Postgres + PostGIS) | The core query is "open now, near me, matching filters," which is a geo plus time query that Postgres does natively. Supabase also gives magic-link login, realtime for group plan voting, storage for flyers, and row-level security. D1 was the wrong call in the playbook. |
 | Hosting | Claude artifact link | Vercel (personal account) | Static page with a preview URL per push. Never a company team. See DECISIONS.md Hosting. |
 | Map | Canvas over OSM data | Same approach, or MapLibre + Protomaps for street-level zoom | A custom-drawn map keeps the look ours. |
