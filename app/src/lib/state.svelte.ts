@@ -1,5 +1,6 @@
 // App state. Per-viewer bits (kept, went, unlocked, leans) persist in localStorage when available.
 import { track } from '@vercel/analytics';
+import { replaceState } from '$app/navigation';
 import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor, addDays } from './core';
 import { skyAt, phaseAt, sunShade, mixHex, textOn, PAPER } from './sky';
 import type { Move, Ranked, ISODate } from './types';
@@ -101,7 +102,7 @@ class AppState {
   }
   toggle(list: 'kept' | 'went' | 'unlocked' | 'heldEvents', id: string): void { this[list] = this[list].includes(id) ? this[list].filter((x) => x !== id) : [...this[list], id]; this.persist(); }
   keep(id: string): void { if (!this.kept.includes(id)) { this.kept = [...this.kept, id]; this.persist(); track('Move kept'); } }
-  setTab(t: Tab, source = 'tabbar'): void { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t, source }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { history.replaceState(null, '', '#' + t); } catch {} }
+  setTab(t: Tab, source = 'tabbar'): void { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t, source }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { replaceState('#' + t, {}); } catch { try { history.replaceState(null, '', '#' + t); } catch {} } } // native only before SvelteKit's router starts (a shared link at load)
   scrubTo(h: number, id: string | null = null): void { this.hour = ((h % 24) + 24) % 24; this.following = false; this.padId = id; this.flipped = null; }
   backToNow() { this.following = true; this.hour = this.now.hour; this.padId = null; }
   private _t: ReturnType<typeof setTimeout> | undefined;

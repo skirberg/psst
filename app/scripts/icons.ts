@@ -1,10 +1,11 @@
 // Every icon from one pineapple: favicon.svg, favicon.ico, apple-touch-icon, PWA icons, manifest.
-// Usage: node scripts/icons.mjs            writes app/public/*
-//        node scripts/icons.mjs --sheet    also writes a contact sheet to shots/icons/
-import puppeteer from 'puppeteer-core';
+// Usage: node scripts/icons.ts            writes app/static/*
+//        node scripts/icons.ts --sheet    also writes a contact sheet to shots/icons/
+import type { Page } from 'puppeteer-core';
+import { chrome } from './chrome.ts';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
-const PUB = new URL('../public/', import.meta.url);
+const PUB = new URL('../static/', import.meta.url);
 const SHEET = new URL('../../shots/icons/', import.meta.url);
 const PAPER = '#FEFAF1', MAMEY = '#F37F5F', LEAF = '#117555', RIND = '#BF4922';
 export const BG = '#AEE6F4'; // morning sky, same as theme-color
@@ -12,12 +13,12 @@ export const BG = '#AEE6F4'; // morning sky, same as theme-color
 // The wordmark pineapple, 30 x 46 units.
 const CROWN = '<path d="M15 17C14 10 15 5 15 0c1 5 2 10 0 17z"/><path d="M15 17c-3-5-7-8-12-9 3 4 7 7 12 9z"/><path d="M15 17c3-5 7-8 12-9-3 4-7 7-12 9z"/><path d="M15 17c-2-6-5-10-9-12 1 5 5 9 9 12z"/><path d="M15 17c2-6 5-10 9-12-1 5-5 9-9 12z"/>';
 const BODY = '<ellipse cx="15" cy="31" rx="11" ry="14"/>';
-const HATCH = {
+const HATCH: Record<'full' | 'small', [string, number]> = {
   full: ['M6 24l16 16M5 31l12 12M9 19l17 17M15 18l11 11M24 24L8 40M25 31L13 43M21 19L4 36M15 18L4 29', 1.3],
   small: ['M3 25l18 18M10 18l18 18M27 25L9 43M20 18L2 36', 2.4], // fewer, heavier lines that survive 16px
 };
 
-function pineapple({ hatch = 'full', outline = 0, id = 'p' } = {}) {
+function pineapple({ hatch = 'full', outline = 0, id = 'p' }: { hatch?: 'full' | 'small'; outline?: number; id?: string } = {}): string {
   const [d, w] = HATCH[hatch];
   return `<defs><clipPath id="${id}"><ellipse cx="15" cy="31" rx="11" ry="14"/></clipPath></defs>`
     + (outline ? `<g fill="${PAPER}" stroke="${PAPER}" stroke-width="${outline}" stroke-linejoin="round">${CROWN}${BODY}</g>` : '')
@@ -26,24 +27,24 @@ function pineapple({ hatch = 'full', outline = 0, id = 'p' } = {}) {
 }
 
 // Browser tab: the sticker pineapple, tall, on nothing.
-export const favicon = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -2.5 50 50">${pineapple({ hatch: 'small', outline: 4, id: 'f' })}</svg>`;
+export const favicon = (): string => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -2.5 50 50">${pineapple({ hatch: 'small', outline: 4, id: 'f' })}</svg>`;
 
 // Home screen: the die-cut sticker slapped on the morning sky, tilted like every sticker in the app.
 // The maskable version uses scale 1.2 so the art stays inside the safe circle (radius 40).
-export const appIcon = (bg = BG, scale = 1.62) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+export const appIcon = (bg = BG, scale = 1.62): string => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs><filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.4" flood-color="#052739" flood-opacity=".28"/></filter></defs>
   <rect width="100" height="100" fill="${bg}"/>
   <g filter="url(#s)" transform="translate(50 51) rotate(-8) scale(${scale}) translate(-15 -24)">${pineapple({ outline: 3.4, id: 'a' })}</g>
 </svg>`;
 
-async function render(page, svg, size, transparent) {
+async function render(page: Page, svg: string, size: number, transparent: boolean): Promise<Buffer> {
   await page.setViewport({ width: size, height: size, deviceScaleFactor: 1 });
   await page.setContent(`<html><body style="margin:0;background:transparent">${svg.replace('<svg ', `<svg width="${size}" height="${size}" style="display:block" `)}</body></html>`);
   return Buffer.from(await page.screenshot({ type: 'png', omitBackground: transparent, clip: { x: 0, y: 0, width: size, height: size } }));
 }
 
 // PNG-in-ICO container (supported by every current browser).
-function ico(pngs) {
+function ico(pngs: [number, Buffer][]): Buffer {
   const head = Buffer.alloc(6 + 16 * pngs.length);
   head.writeUInt16LE(0, 0); head.writeUInt16LE(1, 2); head.writeUInt16LE(pngs.length, 4);
   let off = head.length;
@@ -75,11 +76,11 @@ const manifest = {
   ],
 };
 
-const browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new' });
+const browser = await chrome();
 const page = await browser.newPage();
 const fav = favicon();
 writeFileSync(new URL('favicon.svg', PUB), fav + '\n');
-const icoParts = [];
+const icoParts: [number, Buffer][] = [];
 for (const s of [16, 32, 48]) icoParts.push([s, await render(page, fav, s, true)]);
 writeFileSync(new URL('favicon.ico', PUB), ico(icoParts));
 writeFileSync(new URL('apple-touch-icon.png', PUB), await render(page, appIcon(), 180, false));
@@ -87,15 +88,15 @@ writeFileSync(new URL('icon-192.png', PUB), await render(page, appIcon(), 192, f
 writeFileSync(new URL('icon-512.png', PUB), await render(page, appIcon(), 512, false));
 writeFileSync(new URL('icon-maskable-512.png', PUB), await render(page, appIcon(BG, 1.2), 512, false));
 writeFileSync(new URL('site.webmanifest', PUB), JSON.stringify(manifest, null, 2) + '\n');
-console.log('icons written to app/public');
+console.log('icons written to app/static');
 
 if (process.argv.includes('--sheet')) {
   mkdirSync(SHEET, { recursive: true });
-  const tab = (bg, fg) => `<div style="display:flex;align-items:center;gap:8px;background:${bg};color:${fg};padding:10px 14px;border-radius:10px 10px 0 0;font:13px system-ui;width:220px">
+  const tab = (bg: string, fg: string): string => `<div style="display:flex;align-items:center;gap:8px;background:${bg};color:${fg};padding:10px 14px;border-radius:10px 10px 0 0;font:13px system-ui;width:220px">
     <img src="data:image/svg+xml;base64,${Buffer.from(fav).toString('base64')}" width="16" height="16"> psst. Miami</div>`;
-  const home = (src, label) => `<figure style="margin:0;display:grid;justify-items:center;gap:6px;font:12px system-ui;color:#fff">
+  const home = (src: string, label: string): string => `<figure style="margin:0;display:grid;justify-items:center;gap:6px;font:12px system-ui;color:#fff">
     <img src="data:image/png;base64,${src}" width="60" height="60" style="border-radius:13.5px"> ${label}</figure>`;
-  const mask = (src) => `<img src="data:image/png;base64,${src}" width="96" height="96" style="border-radius:50%">`;
+  const mask = (src: string): string => `<img src="data:image/png;base64,${src}" width="96" height="96" style="border-radius:50%">`;
   const p180 = (await render(page, appIcon(), 180, false)).toString('base64');
   const pm = (await render(page, appIcon(BG, 1.2), 512, false)).toString('base64');
   const big = (await render(page, fav, 128, true)).toString('base64');
@@ -113,7 +114,7 @@ if (process.argv.includes('--sheet')) {
   </body></html>`;
   await page.setViewport({ width: 1100, height: 560, deviceScaleFactor: 2 });
   await page.setContent(html);
-  await page.screenshot({ path: new URL('sheet.png', SHEET).pathname, fullPage: true });
+  await page.screenshot({ path: new URL('sheet.png', SHEET).pathname as `${string}.png`, fullPage: true });
   console.log('sheet written to shots/icons/sheet.png');
 }
 await browser.close();

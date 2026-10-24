@@ -1,4 +1,4 @@
-// The shapes of psst's data and plans. The JSON files in src/lib are checked against these at build time.
+// The shapes of psst's data and plans. scripts/data-check.ts checks the JSON files in src/lib against these on every build.
 
 export type Dow = number; // 0 Sunday .. 6 Saturday
 export type HHMM = string; // '18:30'
@@ -12,7 +12,8 @@ export interface OpenWindow {
   t?: number;
 }
 
-export type MoveCategory = 'speakeasy' | 'water' | 'bar' | 'nightlife' | 'coffee' | 'outdoors' | 'music' | 'food' | 'shop' | 'market' | 'art';
+export const MOVE_CATEGORIES = ['speakeasy', 'water', 'bar', 'nightlife', 'coffee', 'outdoors', 'music', 'food', 'shop', 'market', 'art'] as const;
+export type MoveCategory = (typeof MOVE_CATEGORIES)[number];
 
 /** A move: a place, the hour it's best at, and exactly what to do there. */
 export interface Move {
@@ -39,7 +40,8 @@ export interface Move {
   clue?: string;
 }
 
-export type EventCategory = 'club' | 'concert' | 'culture' | 'festival' | 'food' | 'film' | 'art' | 'sports' | 'market';
+export const EVENT_CATEGORIES = ['club', 'concert', 'culture', 'festival', 'food', 'film', 'art', 'sports', 'market'] as const;
+export type EventCategory = (typeof EVENT_CATEGORIES)[number];
 
 export interface PsstEvent {
   id: string;
@@ -59,7 +61,7 @@ export interface PsstEvent {
   sources: string[];
   time?: HHMM; // show or start time
   doors?: HHMM;
-  verifiedOn?: ISODate;
+  verifiedOn: ISODate;
   getThere?: string;
   bring?: string;
   after?: string;

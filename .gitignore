@@ -11,3 +11,7 @@ design/archive-r2/
 # local tooling
 .claude/
 .DS_Store
+
+# SvelteKit
+app/.svelte-kit/
+app/build/

@@ -23,20 +23,27 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
   - Sprite traffic with a performance budget.
   - One clock ("at 9:30pm, now 4:42pm").
   - A first-screen rule: one complete move above the tab bar at a real phone viewport.
-- **Type:** Tilt Warp (display, 20px and up, sentence case), Recursive (body via CASL; data via MONO), League Gothic (flyer titles only), Tilt Neon (the night hour only, if it loads in the artifact). All OFL, loaded from Google Fonts.
+- **Type:** Tilt Warp (display, 20px and up, sentence case), Recursive (body via CASL; data via MONO), League Gothic (flyer titles only), Tilt Neon (the night hour only, if it loads in the artifact). All OFL, self-hosted from app/static/fonts since 2026-10-24 (scripts/fonts.ts downloads them from Google Fonts; licence in static/fonts/OFL.txt).
 - **Color:** mamey #F37F5F is the only accent and means "now", once per view. Seven sky stops (dawn, morning, noon, afternoon, golden, dusk, night). Text is bay ink #052739 on paper #FEFAF1. Sticker inks are for stickers only.
-- **Stack (prototype):** Svelte 5 + Vite in strict TypeScript, built to one HTML file, with a canvas map from OSM.
-- **TypeScript (2026-10-24, Sami: "best for everything or nothing"):** the whole app moved from plain JavaScript to strict TypeScript, not a JSDoc half-step. Why: the risk in psst is data shape (60 places, 44 events, 18 hotels with doors, show times and opening windows), most review findings were shape mistakes types catch, the codebase is small enough (about 2,500 lines) to convert properly, and SvelteKit, the production pick, is TypeScript-first. src/lib/types.ts defines every data shape; svelte-check runs with zero errors and zero warnings and gates every build (npm run build runs npm run check), so a type error cannot deploy. Node tooling in app/scripts stays .mjs: it runs under plain Node on Vercel and GitHub without a compile step.
-- **Checks on every push (2026-10-24):** .github/workflows/checks.yml runs the type check, the production build, dist-check, plan-check and flows-check (26 end-to-end flows in Chrome, axe on every tab) on each push to main.
+- **Stack (2026-10-24):** SvelteKit 2 (adapter-static) on Svelte 5 and Vite 8, strict TypeScript everywhere, with a canvas map from OSM. One page, prerendered as a shell; the guide runs in the browser (ssr off) because everything on it depends on the visitor's clock.
+- **TypeScript (2026-10-24, Sami: "best for everything or nothing"):** the whole app moved from plain JavaScript to strict TypeScript, not a JSDoc half-step. Why: the risk in psst is data shape (60 places, 44 events, 18 hotels with doors, show times and opening windows), most review findings were shape mistakes types catch, the codebase is small enough (about 2,500 lines) to convert properly, and SvelteKit, the production pick, is TypeScript-first. src/lib/types.ts defines every data shape; svelte-check runs with zero errors and zero warnings and gates every build (npm run build runs npm run check), so a type error cannot deploy. The scripts in app/scripts are TypeScript too (2026-10-24): Node 24 runs .ts directly, so there is still no compile step, and tsc checks them with the app's own types (plan-check reads the real planner's types, the flows read the real app state's).
+- **SvelteKit (2026-10-24, Sami: "move to sveltekit"):** same single page, now built by SvelteKit 2 with adapter-static. Measured against the old single-file build, both served the same way locally, five Lighthouse runs each (medians):
+  - Real 4G throttling: largest paint 1.59 s vs 1.82 s, first paint equal (0.66 s), 107 KB vs 157 KB gzipped up front. Blocking time is slightly higher (267 vs 181 ms) and "interactive" lands later only because the map's coastline now loads after the screen is usable.
+  - Lighthouse's simulated estimate (what PageSpeed shows): 99 vs 99, first paint equal.
+  - So: equal or a little faster on a cold load, not a big jump. The honest wins are structural: data and fonts off the first screen, typed scripts, a build-time data check, offline that renews itself, and the path to a page per move, server routes and Supabase.
+  - How it stays fast (each measured; the first attempts were slower and were changed): code and styles inlined into the page (bundleStrategy 'inline': split files cost an extra round trip on 4G); the map's 166 KB coastline is static/geo.json, fetched after the first paint (pins place from a 4-line frame, src/lib/geo-frame.ts); the four fonts are self-hosted and switched on after the first paint (src/lib/paint.ts), because preloading or inlining them delayed it; the boot screen uses a system face so it fetches nothing.
+  - Kit 3 was not used: @vercel/analytics does not support it yet. Revisit when it does.
+- **Checks on every push (2026-10-24):** .github/workflows/checks.yml runs the type check (app and scripts), the production build, dist-check, plan-check, contrast-check and flows-check (26 end-to-end flows in Chrome, axe on every tab) on each push to main.
 - **Stack (production):**
-  - SvelteKit.
+  - SvelteKit (in place since 2026-10-24).
   - Supabase (Postgres + PostGIS, auth, realtime, storage). It replaces the D1 pick in the playbook, which was wrong: the core query is geo plus time.
   - Personal Vercel account for now (see Hosting, 2026-10-02), never a company team.
 - **Data rules:**
   - Every move and event carries sources and a checked date.
   - Weather is labeled forecast or typical.
   - The forecast is fetched at build time and again every morning, and used for at most 4 days past its fetch; after that, typical. Typical (share of wet days) never turns on rain mode.
-  - Events carry doors and show times separately when the venue publishes both. As of Oct 9 every concert and club night through Dec 7 has its published doors or start time from the venue or its ticketing page; Fillmore shows publish a start time only, Club Space doors only. Dante's HiFi publishes no weekly hours, so its listed windows stay unconfirmed.
+  - Events carry doors and show times separately when the venue publishes both. As of Oct 9 every concert and club night through Dec 7 has its published doors or start time from the venue or its ticketing page; Fillmore shows publish a start time only, Club Space doors only. Dante's HiFi publishes no weekly hours. Its Tock page (checked Oct 24) confirms Saturday 7pm to 3am and the seatings, now on its card ($25 prepaid for 90 minutes, $50 deposit late night); the other days' windows stay unconfirmed.
+  - Every event carries the date it was checked (required since 2026-10-24, enforced by scripts/data-check.ts): 19 were rechecked against venue pages on Oct 9; the other 25 carry Oct 2, the day they were researched with the sources listed on each.
   - Sources are bare URLs, no verifier notes inside them.
   - Traffic is labeled illustrative.
   - No invented prices, dishes or door details.
@@ -61,7 +68,7 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
 - **Planner rules:**
   - Strangers start with no trip (decided by Sami, 2026-10-09). The John Summit weekend, with both nights anchored, comes from the preset or the friend's link https://psst.miami/?trip=summit. A copied plan's link carries its own dates and shows.
   - A move whose note names days ("Weekday afternoon", "Friday or Saturday") only goes on those days.
-  - What you keep wins any slot it fits (+1 in the planner's score, decided by Sami 2026-10-09). The hard rules still decide fit: open, near its best hour, reachable in time, near the venue before a show. For the John Summit weekend, 11 of the 43 places outside the default plan can fit, and all 11 get in once kept (checked by plan-check.mjs).
+  - What you keep wins any slot it fits (+1 in the planner's score, decided by Sami 2026-10-09). The hard rules still decide fit: open, near its best hour, reachable in time, near the venue before a show. For the John Summit weekend, 11 of the 43 places outside the default plan can fit, and all 11 get in once kept (checked by plan-check.ts).
   - At most 4 stops a day.
   - Every stop is within 1.5h of its best time.
   - No secret spots in plans.
@@ -82,7 +89,7 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - **Truth:** no more week-old forecast shown as today's weather; Events and Kept drop what has already happened.
 - **Phone feel:** a vertical swipe on the tear strip or the time track scrolls the page (tear on touch starts from the No. tab); deck buttons stay put card to card; Go opens the phone's own maps app.
 - **Platform:** opens with no signal (service worker), first paint before the app script (0.3 s against 1.5 s on slow 4G), the map stops drawing when nothing moves, zero axe violations on every tab, keyboard focus never lost or hidden.
-- **Pre-ship review:** three reviewers tried to break the diff and found a blocker the dev server hides: moving the inlined script with a string replace turned every '$$' into '$' (Stay tiers and prices). Fixed with function replacers, and app/scripts/dist-check.mjs now checks the production file itself. Also fixed from that review: the late-night ticket, Later around shows without a published time, plan links held to the date inputs' bounds, the offline page never replaced by a non-HTML response, fonts cached only when they loaded.
+- **Pre-ship review:** three reviewers tried to break the diff and found a blocker the dev server hides: moving the inlined script with a string replace turned every '$$' into '$' (Stay tiers and prices). Fixed with function replacers, and app/scripts/dist-check now checks the production build itself. Also fixed from that review: the late-night ticket, Later around shows without a published time, plan links held to the date inputs' bounds, the offline page never replaced by a non-HTML response, fonts cached only when they loaded.
 - **Sami's calls (2026-10-09):** strangers get a blank trip: the trip card reads "Your trip, Add your dates", Events opens on Tonight, and Stay measures to the first show on your trip, hidden when there is none. Kept opens with "Yours": what you kept, soonest best hour first, with Go and Went; the sticker book stays below it.
 - **Later the same day (Sami asked for clustering plus quick wins):** hotel pins on the desktop Stay map merge into numbered badges when they crowd; one tap zooms just far enough to separate them while keeping the whole group on screen; the picked hotel always stands alone and the map flies to it; the price filter narrows the map as well as the rack. The header temperature follows the clock hour. A "Wrong door." 404 page. Security headers (nosniff, referrer policy, permissions policy, frame-ancestors none) and a day of cache for icons and the share image. 44px tap areas on the small pills. www.psst.miami attached with a 308 like the other domains.
 - **Decisions made in this round:** "Miami" in the header; a copied plan's link carries its dates and shows, opening them only for someone with no trip of their own; the share image is the phone view on the golden sky with the wordmark; noindex extends to images and icons (X-Robots-Tag) until the experiment ends; the Michelin star marks only real Michelin Keys, with a legend.
@@ -115,8 +122,8 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - 18 hotels verified (data/verify-hotels.json). Prices are Google Hotels totals for Nov 20 to 24, checked Oct 2, with resort fees folded into the nightly figure. Fees moved several hotels up a tier. Esmé lost its Michelin Key listing. Casa Faena was dropped on taste and the Ritz as a chain.
 - Final gate (design/round3-gate.json) scored 6.5. Fixed since: share link and ?code= redeem, peek card, sticker overlap, Events default range, Secret mood position, Stay pin to card, trip pins and clamping, Where mask, Later scroll reset, multi-day labels, note day checks, og image and noindex, leftover filler copy, event pins showing the artist surname. Not done: hotel pin clustering.
 - Independent review round 2 (design/round2-reviews.json): jury 6.0, product 6.0, engineering 6.5. r0 scored 3 to 3.5.
-- The planner is checked with app/scripts/plan-check.mjs (travel time, opening hours, day words in titles, slot fit, pre-show proximity).
-- Screens are checked with app/scripts/shots.mjs (fresh page per view; --motion for unreduced captures).
+- The planner is checked with app/scripts/plan-check.ts (travel time, opening hours, day words in titles, slot fit, pre-show proximity).
+- Screens are checked with app/scripts/shots.ts (fresh page per view; --motion for unreduced captures).
 
 ## Distribution and economics (current hypothesis)
 - **First audience:** people visiting Miami Nov 20 to Dec 7, 2026, from Sami's network. The test case is the John Summit weekend. Art Basel week (Dec 1 to 6) brings the largest influx of visitors and is the second test.
@@ -133,7 +140,7 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 - **What would change this:** visitors don't share → focus on locals and a weekly Thursday drop. Locals don't return → content freshness is the bottleneck, so recruit curators.
 
 ## Icons (2026-10-02)
-- **Every icon is the wordmark pineapple**, generated by app/scripts/icons.mjs so there is one source.
+- **Every icon is the wordmark pineapple**, generated by app/scripts/icons.ts so there is one source.
 - **Browser tab:** the die-cut sticker version (cream outline, heavier hatching that survives 16px). The outline keeps it readable on dark tab bars.
 - **Home screen:** the same sticker, tilted like the in-app stickers, on the morning sky (#AEE6F4), which matches theme-color and the splash.
 - **Android maskable icon:** smaller art so launcher masks never crop it.
@@ -141,11 +148,11 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 ## Hosting (2026-10-02)
 - **Code:** a private GitHub repo named psst on Sami's personal account, published from GitHub Desktop. Never on a company account.
 - **Hosting:** Sami's personal Vercel account, imported from that repo. Never a company team. vercel.json sets install, build and output, so the import needs no settings.
-- **Why Vercel for now:** the prototype is one static page, and every push redeploys with a preview URL per branch. Cloudflare Pages would serve it just as well; the choice only matters once there is a backend, and Supabase stays the backend pick then.
+- **Why Vercel for now:** the site is static files, and every push redeploys with a preview URL per branch. Cloudflare Pages would serve it just as well; the choice only matters once there is a backend, and Supabase stays the backend pick then.
 - **After the first deploy:** check that og:image in the page source starts with https://. If not, turn on System Environment Variables in the project settings and redeploy.
 - **Live (2026-10-02):** https://psst-miami.vercel.app (also psst-omega.vercel.app). Repo: github.com/skirberg/psst, private. Vercel project psst on the personal Hobby team "Sami" (slug skirberg), Root Directory ./, preset Other, auto-deploy on push to main. The same Vercel login also belongs to a company team, so always check the scope says Sami (Hobby) before creating anything.
 - **Domain (2026-10-08):** https://psst.miami is the production domain. psst.ooo, www.psst.ooo, psst-miami.vercel.app and psst-omega.vercel.app 308-redirect to it. og:image comes from VERCEL_PROJECT_PRODUCTION_URL at build time, so any domain change needs a redeploy before share cards point at the new host.
 - **Analytics (2026-10-08):** Vercel Web Analytics (Pro, no cookies) via `inject()` in app/src/main.js. Custom events: Plan copied (days, copied/manual), Code redeemed (ok/used/bad), Secret unlocked, Move kept, Tab opened (tab, source: tabbar, ticket, flyer, link), and since Oct 9 Trip dates set (nights, via), Event added (trip), Went. These measure the group-chat loop: plans copied, then codes redeemed by friends.
-- **Forecast (2026-10-09):** app/scripts/weather-fetch.mjs runs before every build, and .github/workflows/forecast.yml commits a fresh forecast every morning (6:17am Miami), which redeploys the site. Pull in GitHub Desktop before committing, since the repo moves on its own.
-- **Offline (2026-10-09):** app/public/sw.js caches the page, fonts and icons so psst opens with no signal. Bump its cache name when the cached file list changes.
+- **Forecast (2026-10-09):** app/scripts/weather-fetch.ts runs before every build, and .github/workflows/forecast.yml commits a fresh forecast every morning (6:17am Miami), which redeploys the site. Pull in GitHub Desktop before committing, since the repo moves on its own.
+- **Offline (2026-10-09, rebuilt 2026-10-24):** app/src/service-worker.ts precaches the page (code inlined), the map data and the icons on install, and caches fonts as they load, so psst opens with no signal. The cache is named after the build, so every deploy replaces it; nothing to bump by hand. Analytics are never cached.
 - **Visibility:** the URL is public but the page is marked noindex, and vercel.json sends X-Robots-Tag: noindex for every file. Data is public venue information. Fonts are Google Fonts (OFL), so nothing trial-licensed ships.

@@ -4,24 +4,28 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node scripts/weather-fetch.mjs && npm run check && vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings && tsc -p tsconfig.node.json"
+    "dev": "vite dev --port 5179",
+    "build": "node scripts/weather-fetch.ts && node scripts/data-check.ts && npm run check && vite build && node scripts/dist-check.ts",
+    "preview": "vite preview --port 4179",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings && tsc -p tsconfig.node.json",
+    "test": "node scripts/plan-check.ts && node scripts/contrast-check.ts && node scripts/flows-check.ts"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^5.1.1",
-    "@tsconfig/svelte": "^5.0.8",
-    "@types/node": "^22.20.5",
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/kit": "^2.70.3",
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "@types/node": "^24.0.0",
     "axe-core": "^4.14.0",
-    "puppeteer-core": "^24.43.1",
+    "puppeteer-core": "^25.16.0",
     "svelte": "^5.57.1",
     "svelte-check": "^4.7.7",
-    "typescript": "^5.9.3",
-    "vite": "^6.4.3",
-    "vite-plugin-singlefile": "^2.3.3"
+    "typescript": "^6.0.0",
+    "vite": "^8.3.5"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

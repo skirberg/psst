@@ -1,16 +1,15 @@
 // Print the planner's output for a stay so it can be read and sanity-checked.
-import { createServer } from 'vite';
-const server = await createServer({ configFile: false, logLevel: 'silent', server: { middlewareMode: true } });
-const core = await server.ssrLoadModule('/src/lib/core.ts');
+import { modules } from './chrome.ts';
+const { core, server } = await modules();
 const [start, end] = [process.argv[2] || '2026-11-20', process.argv[3] || '2026-11-24'];
 const anchors = core.events.filter((e) => e.id.includes(process.argv[4] || 'john-summit'));
 const days = core.planStay({ start, end, arrive: 15, depart: 13, wild: 0.65, anchors });
 for (const d of days) {
   console.log(`\n${d.date} (${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.dow]}) sunset ${core.fmtHour(d.sun.set)} ${d.weather?.kind} ${d.weather?.hi}° rain ${d.weather?.rain}%`);
-  for (const s of d.slots) console.log(`  ${core.fmtHour(s.at % 24).padEnd(8)} ${s.label.padEnd(9)} ${s.event ? '★ ' + s.event.title + ' @ ' + s.event.venue : s.move.title + ' [' + s.move.category + ', ' + s.move.hood + ', best ' + s.move.best + ']'}`);
+  for (const s of d.slots) console.log(`  ${core.fmtHour(s.at % 24).padEnd(8)} ${s.label.padEnd(9)} ${s.event ? '★ ' + s.event.title + ' @ ' + s.event.venue : s.move ? s.move.title + ' [' + s.move.category + ', ' + s.move.hood + ', best ' + s.move.best + ']' : s.label}`);
 }
 // Rules that must hold for every plan.
-const fails = [];
+const fails: string[] = [];
 for (const d of days) for (const s of d.slots) {
   if (!s.move) continue;
   const dow = (d.dow + (s.at >= 24 ? 1 : 0)) % 7, nd = core.noteDays(s.move), td = core.titleDays(s.move);
@@ -25,7 +24,7 @@ if (!process.argv[2]) {
 }
 // Kept places: a kept move that fits a slot should usually take it.
 if (!process.argv[2]) {
-  const base = new Set(days.flatMap((d) => d.slots.filter((s) => s.move).map((s) => s.move.id)));
+  const base = new Set(days.flatMap((d) => d.slots.flatMap((s) => (s.move ? [s.move.id] : []))));
   let tried = 0, won = 0;
   for (const m of core.moves.filter((x) => !base.has(x.id) && x.secret !== 2)) {
     const withKept = core.planStay({ start, end, arrive: 15, depart: 13, wild: 0.65, anchors, kept: [m.id] });

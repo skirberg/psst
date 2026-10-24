@@ -5,4 +5,5 @@
 - A GitHub Action commits a fresh forecast every morning, so pull (Fetch origin) in GitHub Desktop before committing or pushing.
 - No em dashes or en dashes in copy or docs.
 - The app is strict TypeScript: new code is .ts or <script lang="ts">, data shapes live in app/src/lib/types.ts, and `npm run check` must stay at zero errors and zero warnings.
-- Check rendered output before calling work done: `npm run check`, `node app/scripts/flows-check.mjs` (dev server running), `shots.mjs`, `plan-check.mjs`, `contrast-check.mjs`, and after `npm run build`, `dist-check.mjs` plus a look at the built page (`npx vite preview`), since the dev server cannot show build-only bugs.
+- Check rendered output before calling work done: `npm run check`, `node app/scripts/flows-check.ts` (dev server running), `shots.ts`, `plan-check.ts`, `contrast-check.ts`, and `npm run build` (runs `dist-check.ts`) plus a look at the built page (`npm run preview`), since the dev server cannot show build-only bugs.
+- The app is SvelteKit with static output in `app/build`; everything, scripts included, is strict TypeScript on Node 24.

@@ -3,7 +3,8 @@
   // After sunset the streetlights come on in a wave from the coast inland, headlights flow,
   // and only the moves that are actually open at the chosen hour glow. One mamey point marks the move.
   import { onMount } from 'svelte';
-  import geoRaw from '../lib/geo.json';
+  import { FRAME } from '../lib/geo-frame';
+  import { afterFirstPaint } from '../lib/paint';
   import type { Geo, LatLng, StickerSubject } from '../lib/types';
 
   type Pt = [number, number];
@@ -11,7 +12,8 @@
   interface Inset { left?: number; top?: number; bottom?: number; right?: number }
   interface Road { l: number[]; cum: number[]; len: number; w: number }
   interface Car { r: Road; d: number; v: number; k: number }
-  const geo = geoRaw as unknown as Geo;
+  // The coastline and roads (static/geo.json, 166 KB) load after first paint; the frame is enough to place pins until then.
+  let geo: Geo | null = null;
   import { moves, glow } from '../lib/core';
   import { lightness } from '../lib/sky';
   import { app } from '../lib/state.svelte';
@@ -20,9 +22,9 @@
   let { inset = { left: 0, top: 0, bottom: 0, right: 0 }, pins = [], route = [], focus = null, interactive = true, labels = true, quiet = false, paused = false, cluster = false }:
     { inset?: Inset; pins?: Pin[]; route?: LatLng[]; focus?: string | null; interactive?: boolean; labels?: boolean; quiet?: boolean; paused?: boolean; cluster?: boolean } = $props();
 
-  const [S, W, N, E] = geo.bbox;
-  const wDeg = (E - W) * geo.k, hDeg = N - S;
-  const project = (lat: number, lng: number): Pt => [((lng - W) * geo.k / wDeg) * geo.w, ((N - lat) / hDeg) * geo.h];
+  const [S, W, N, E] = FRAME.bbox;
+  const wDeg = (E - W) * FRAME.k, hDeg = N - S;
+  const project = (lat: number, lng: number): Pt => [((lng - W) * FRAME.k / wDeg) * FRAME.w, ((N - lat) / hDeg) * FRAME.h];
   const HOODS = [
     ['Little River', 25.849, -80.188], ['Little Haiti', 25.828, -80.197], ['Design District', 25.8125, -80.193], ['Wynwood', 25.8, -80.2],
     ['Allapattah', 25.811, -80.224], ['Edgewater', 25.792, -80.187], ['Downtown', 25.776, -80.194], ['Brickell', 25.759, -80.194],
@@ -32,10 +34,10 @@
   const pts = moves.map((m) => ({ m, p: project(m.lat, m.lng) }));
 
   // traffic along real highways and causeways (illustrative)
-  const ROADS: Road[] = [...geo.major.map((l) => ({ l, w: 1 })), ...geo.primary.map((l) => ({ l, w: 0.3 }))]
+  let ROADS: Road[] = [], totalW = 0;
+  const roadsOf = (g: Geo): Road[] => [...g.major.map((l) => ({ l, w: 1 })), ...g.primary.map((l) => ({ l, w: 0.3 }))]
     .map(({ l, w }) => { const cum = [0]; for (let i = 2; i < l.length; i += 2) cum.push(cum[cum.length - 1] + Math.hypot(l[i] - l[i - 2], l[i + 1] - l[i - 1])); return { l, cum, len: cum[cum.length - 1], w }; })
     .filter((r) => r.len > 40);
-  const totalW = ROADS.reduce((a, r) => a + r.len * r.w, 0);
   let seed = 1234567; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
   const pickRoad = (x: number): Road => { x *= totalW; for (const r of ROADS) { x -= r.len * r.w; if (x <= 0) return r; } return ROADS[0]; };
   let CARS: Car[] = [];
@@ -92,23 +94,25 @@
     const key = `${cw}x${ch}:${view.cx.toFixed(1)},${view.cy.toFixed(1)},${view.s.toFixed(5)}`;
     if (key === layerKey) return;
     if (built && built.cw === cw && built.ch === ch && performance.now() - lastInteract < 180) return;
+    if (!geo) return;
+    const g = geo;
     layerKey = key; built = { cx: view.cx, cy: view.cy, s: view.s, cw, ch };
     const z = Math.min(2.2, Math.max(0.6, Math.sqrt(view.s / 0.25)));
-    layer('land', (c) => { c.fillStyle = '#fff'; path(c, geo.land, true); c.fill(); });
+    layer('land', (c) => { c.fillStyle = '#fff'; path(c, g.land, true); c.fill(); });
     layer('roadsInk', (c) => {
-      c.strokeStyle = 'rgba(5,39,57,0.55)'; c.lineWidth = 0.6 * dpr * z; path(c, geo.secondary); c.stroke();
-      c.strokeStyle = 'rgba(5,39,57,0.8)'; c.lineWidth = 0.9 * dpr * z; path(c, geo.primary); c.stroke();
-      c.strokeStyle = 'rgba(5,39,57,1)'; c.lineWidth = 1.5 * dpr * z; path(c, geo.major); c.stroke();
+      c.strokeStyle = 'rgba(5,39,57,0.55)'; c.lineWidth = 0.6 * dpr * z; path(c, g.secondary); c.stroke();
+      c.strokeStyle = 'rgba(5,39,57,0.8)'; c.lineWidth = 0.9 * dpr * z; path(c, g.primary); c.stroke();
+      c.strokeStyle = 'rgba(5,39,57,1)'; c.lineWidth = 1.5 * dpr * z; path(c, g.major); c.stroke();
     });
-    layer('coastInk', (c) => { c.strokeStyle = '#052739'; c.lineWidth = 1.3 * dpr * z; path(c, geo.coast); c.stroke(); });
+    layer('coastInk', (c) => { c.strokeStyle = '#052739'; c.lineWidth = 1.3 * dpr * z; path(c, g.coast); c.stroke(); });
     layer('sodium', (c) => {
-      c.strokeStyle = 'rgba(255,176,98,0.22)'; c.lineWidth = 0.6 * dpr * z; path(c, geo.secondary); c.stroke();
-      c.strokeStyle = 'rgba(255,170,90,0.42)'; c.lineWidth = 0.9 * dpr * z; path(c, geo.primary); c.stroke();
+      c.strokeStyle = 'rgba(255,176,98,0.22)'; c.lineWidth = 0.6 * dpr * z; path(c, g.secondary); c.stroke();
+      c.strokeStyle = 'rgba(255,170,90,0.42)'; c.lineWidth = 0.9 * dpr * z; path(c, g.primary); c.stroke();
       c.shadowColor = 'rgba(255,150,70,0.85)'; c.shadowBlur = 6 * dpr;
-      c.strokeStyle = 'rgba(255,200,130,0.75)'; c.lineWidth = 1.4 * dpr * z; path(c, geo.major); c.stroke();
+      c.strokeStyle = 'rgba(255,200,130,0.75)'; c.lineWidth = 1.4 * dpr * z; path(c, g.major); c.stroke();
       c.shadowBlur = 0;
     });
-    layer('coastLight', (c) => { c.strokeStyle = 'rgba(254,250,241,0.55)'; c.lineWidth = 1.1 * dpr * z; path(c, geo.coast); c.stroke(); });
+    layer('coastLight', (c) => { c.strokeStyle = 'rgba(254,250,241,0.55)'; c.lineWidth = 1.1 * dpr * z; path(c, g.coast); c.stroke(); });
     placeLabels();
   }
 
@@ -146,7 +150,7 @@
     const dt = Math.min(0.05, lastTs ? (ts - lastTs) / 1000 : 0); lastTs = ts;
     buildLayers();
     const T = layerTransform();
-    const blit = (img: HTMLCanvasElement): void => { if (T && (T[0] !== 1 || T[1] || T[2])) { ctx.setTransform(T[0], 0, 0, T[0], T[1], T[2]); ctx.drawImage(img, 0, 0); ctx.setTransform(1, 0, 0, 1, 0, 0); } else ctx.drawImage(img, 0, 0); };
+    const blit = (img: HTMLCanvasElement | undefined): void => { if (!img) return; if (T && (T[0] !== 1 || T[1] || T[2])) { ctx.setTransform(T[0], 0, 0, T[0], T[1], T[2]); ctx.drawImage(img, 0, 0); ctx.setTransform(1, 0, 0, 1, 0, 0); } else ctx.drawImage(img, 0, 0); };
     const d = Math.min(1, Math.max(0, (0.72 - lightness(app.sky)) / 0.42)); // 0 day .. 1 night
     const dark = d > 0.5;
     if (dark && !wasDark && !reduce) waveStart = ts;
@@ -313,7 +317,7 @@
     const availW = cw - ((inset.left || 0) + (inset.right || 0) + 90) * dpr, availH = ch - ((inset.top || 0) + (inset.bottom || 0) + padT + padB) * dpr;
     const s = Math.max(0.12, Math.min(1.2, Math.min(availW / bw, availH / bh)));
     const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2 - (((padT - padB) / 2) * dpr) / s;
-    flyTo(N - (cy / geo.h) * hDeg, W + ((cx / geo.w) * wDeg) / geo.k, s);
+    flyTo(N - (cy / FRAME.h) * hDeg, W + ((cx / FRAME.w) * wDeg) / FRAME.k, s);
   }
   // Tap a badge: zoom just far enough that its pins separate (one tap, not three).
   let refocus: string[] | null = null;
@@ -327,14 +331,22 @@
     const bw = Math.max(1, Math.max(...xs) - Math.min(...xs)), bh = Math.max(1, Math.max(...ys) - Math.min(...ys));
     const fit = Math.min((cw - ((inset.left || 0) + (inset.right || 0) + 120) * dpr) / bw, (ch - ((inset.top || 0) + (inset.bottom || 0) + 150) * dpr) / bh);
     const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2;
-    flyTo(N - (cy / geo.h) * hDeg, W + ((cx / geo.w) * wDeg) / geo.k, Math.min(MAX_S, Math.max(view.s * 1.6, Math.min(need, fit))));
+    flyTo(N - (cy / FRAME.h) * hDeg, W + ((cx / FRAME.w) * wDeg) / FRAME.k, Math.min(MAX_S, Math.max(view.s * 1.6, Math.min(need, fit))));
   }
   export function recenter() { view.user = false; fit(); layerKey = ''; kick(); }
 
   onMount(() => {
     ctx = canvas.getContext('2d')!; sprites = makeSprites();
-    const n = matchMedia('(max-width: 760px)').matches ? 280 : 600;
-    CARS = Array.from({ length: n }, (_, i) => { const r = pickRoad(rnd()); return { r, d: rnd() * r.len, v: (14 + rnd() * 16) * (rnd() < 0.5 ? 1 : -1), k: i / n }; });
+    // after the first paint and the fonts, when the main thread is free, so the map never slows the first screen
+    let gone = false;
+    const idle = (fn: () => void): void => { if ('requestIdleCallback' in window) requestIdleCallback(fn, { timeout: 1500 }); else setTimeout(fn, 200); };
+    void afterFirstPaint().then(() => new Promise<void>((ok) => idle(ok))).then(() => fetch('/geo.json')).then((r) => r.json() as Promise<Geo>).then((g) => {
+      if (gone) return;
+      geo = g; ROADS = roadsOf(geo); totalW = ROADS.reduce((a, r) => a + r.len * r.w, 0);
+      const n = matchMedia('(max-width: 760px)').matches ? 280 : 600;
+      CARS = Array.from({ length: n }, (_, i) => { const r = pickRoad(rnd()); return { r, d: rnd() * r.len, v: (14 + rnd() * 16) * (rnd() < 0.5 ? 1 : -1), k: i / n }; });
+      layerKey = ''; kick();
+    }).catch(() => { /* offline before the map was ever cached: sky and pins still draw */ });
     const ro = new ResizeObserver(resize); ro.observe(wrap); resize();
     kick();
     canvas.addEventListener('wheel', onWheel, { passive: false });
@@ -342,7 +354,7 @@
     document.addEventListener('visibilitychange', vis);
     const fontsIn = () => { layerKey = ''; kick(); };
     document.fonts?.ready.then(fontsIn); document.fonts?.addEventListener('loadingdone', fontsIn);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); document.removeEventListener('visibilitychange', vis); document.fonts?.removeEventListener('loadingdone', fontsIn); };
+    return () => { gone = true; cancelAnimationFrame(raf); ro.disconnect(); document.removeEventListener('visibilitychange', vis); document.fonts?.removeEventListener('loadingdone', fontsIn); };
   });
 </script>
 
