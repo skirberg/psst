@@ -123,7 +123,7 @@
     <p class="s-hint" aria-live="polite">{armed ? 'Press Enter again to open' : app.leansLeft() > 0 ? `Hold to open. ${app.leansLeft()} left this week.` : 'None left this week.'}</p>
   </div>
 {:else}
-  <article class="stub" class:compact class:flipped class:kept aria-label={m.title} style:--pull="{pull}px">
+  <article class="stub" class:compact class:flipped class:kept aria-label={m.title}>
     <div class="faces">
       <div class="face front" id="front-{m.id}" inert={flipped} onclick={faceClick} role="presentation">
         <p class="top">
@@ -157,7 +157,7 @@
     {#if kept}
       <div class="ripped" bind:this={ripped} tabindex="-1" aria-label="Kept. No. {serial}" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span><span class="no">No. {serial}</span></div>
     {:else}
-      <div class="tearoff" class:tearing bind:this={tearoff} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
+      <div class="tearoff" class:tearing bind:this={tearoff} style:transform={pull ? `translateY(${pull}px) rotate(${pull * 0.06}deg)` : undefined} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
         <span class="no">No. {serial}{#if !compact}<small>/{total}</small>{/if}</span>
         <div class="acts">
           <button class="keep" onclick={tear}>Keep</button>
@@ -213,7 +213,7 @@
   .perf { position: relative; height: 20px; }
   .perf::before { content: ''; position: absolute; left: 14px; right: 14px; top: 9px; border-top: 2px dashed var(--line); }
   .perf::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 9px at 0 50%, var(--sky) 96%, transparent) left / 18px 20px no-repeat, radial-gradient(circle 9px at 100% 50%, var(--sky) 96%, transparent) right / 18px 20px no-repeat; }
-  .tearoff { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 16px 14px; touch-action: pan-y; transform: translateY(var(--pull)) rotate(calc(var(--pull) * 0.06deg)); transition: transform 0.2s; cursor: grab; }
+  .tearoff { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 16px 14px; touch-action: pan-y; transition: transform 0.2s; cursor: grab; }
   .tearoff.tearing { opacity: 0; transition: opacity 0.12s; }
   .no { font: 600 13px var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); }
   .tearoff .no { touch-action: none; cursor: grab; padding: 12px 10px 12px 0; }

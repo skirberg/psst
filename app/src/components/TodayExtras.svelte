@@ -67,6 +67,6 @@
   .mini { all: unset; cursor: pointer; flex: none; width: 128px; filter: drop-shadow(0 8px 10px rgba(5, 39, 57, 0.28)); transition: transform 0.25s cubic-bezier(.3, 1.4, .5, 1); }
   .mini:nth-child(odd) { transform: rotate(-2deg); }
   .mini:nth-child(even) { transform: rotate(2deg); }
-  .mini:hover { transform: rotate(0) translateY(-3px); }
+  @media (hover: hover) and (pointer: fine) { .mini:hover { transform: rotate(0) translateY(-3px); } }
   .mini:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
 </style>

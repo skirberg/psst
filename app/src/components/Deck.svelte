@@ -88,7 +88,7 @@
       {/each}
       {#key item.m.id + (item.sealed ? 's' : '')}
         <div class="topcard" class:dragging class:fling={flinging !== 0}
-          style:--dx="{flinging ? flinging * 520 : dx}px" style:--rot="{(flinging ? flinging * 520 : dx) * 0.045}deg"
+          style:transform="translateX({flinging ? flinging * 520 : dx}px) rotate({(flinging ? flinging * 520 : dx) * 0.045}deg)"
           onpointerdown={down} onpointermove={move} onpointerup={up} onpointercancel={up} onclickcapture={clickCapture} role="presentation">
           <div class="dealt" class:slap={dealtSlap}><Stub {item} /></div>
         </div>
@@ -140,7 +140,8 @@
   @keyframes fanL { 40% { transform: translate(-46%, -160px) rotate(-18deg); } }
   @keyframes fanR { 40% { transform: translate(46%, -120px) rotate(16deg); } }
   @keyframes lift { 35% { transform: translateY(40px) scale(0.92) rotate(3deg); } 70% { transform: translateY(-14px) rotate(-2deg); } }
-  .topcard { position: relative; z-index: 2; transform: translateX(var(--dx)) rotate(var(--rot)); transition: transform 0.35s cubic-bezier(.3, 1.4, .5, 1); touch-action: pan-y; }
+  /* transform is set inline (not through a CSS variable) so a drag never restyles the card's children */
+  .topcard { position: relative; z-index: 2; transition: transform 0.35s cubic-bezier(.3, 1.4, .5, 1); touch-action: pan-y; }
   .topcard.dragging { transition: none; }
   .topcard.fling { transition: transform 0.2s ease-in; }
   .dealt { animation: deal 0.42s cubic-bezier(.2, .9, .3, 1.15); }

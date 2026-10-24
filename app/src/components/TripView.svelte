@@ -124,7 +124,7 @@
   .slip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
   .slip label, .stepper { display: grid; gap: 4px; min-width: 0; }
   .slip span { font: 600 12.5px var(--body); color: var(--muted); }
-  .slip input { font: 600 15px var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 6px 0; width: 100%; min-width: 0; color-scheme: light; }
+  .slip input { font: 600 16px var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 6px 0; width: 100%; min-width: 0; color-scheme: light; }
   .stepper div { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed var(--line); }
   .stepper b { font: 600 15px var(--mono); font-variation-settings: 'MONO' 1; }
   .stepper button { width: 36px; height: 36px; border: 0; background: transparent; font: 600 20px var(--body); color: var(--ink); cursor: pointer; }

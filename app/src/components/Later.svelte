@@ -28,7 +28,7 @@
   .strip { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 10px; scroll-snap-type: x proximity; scroll-padding-left: 2px; scrollbar-width: none; }
   .strip::-webkit-scrollbar { display: none; }
   .mini { all: unset; cursor: pointer; flex: none; width: 150px; min-height: 92px; scroll-snap-align: start; display: grid; align-content: start; gap: 4px; padding: 10px 12px; background: var(--paper); color: var(--ink); border-radius: 3px; box-shadow: 0 8px 14px -8px rgba(5, 39, 57, 0.45); border-left: 2px dashed var(--line); }
-  .mini:hover { transform: translateY(-2px); }
+  @media (hover: hover) and (pointer: fine) { .mini:hover { transform: translateY(-2px); } }
   .mini:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
   .t { font: 600 12px var(--mono); font-variation-settings: 'MONO' 1; letter-spacing: 0.04em; }
   .n { font: 600 13.5px/1.25 var(--body); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }

@@ -116,7 +116,7 @@
   .code { display: grid; gap: 6px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; }
   label { font: 600 13px var(--body); color: var(--muted); }
   .f { display: flex; gap: 8px; }
-  input { flex: 1; min-width: 0; font: 600 15px var(--mono); font-variation-settings: 'MONO' 1; padding: 9px 10px; border: 0; border-bottom: 2px dashed var(--line); background: transparent; color: var(--ink); text-transform: uppercase; }
+  input { flex: 1; min-width: 0; font: 600 16px var(--mono); font-variation-settings: 'MONO' 1; padding: 9px 10px; border: 0; border-bottom: 2px dashed var(--line); background: transparent; color: var(--ink); text-transform: uppercase; }
   .f button { font: 650 14px var(--body); padding: 9px 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   .msg { margin: 0; font-size: 13.5px; }
   .credits { margin: 0; font: 500 12.5px/1.45 var(--body); opacity: 0.8; }

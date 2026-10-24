@@ -356,11 +356,12 @@
   canvas.interactive { touch-action: none; cursor: grab; }
   canvas.interactive:active { cursor: grabbing; }
   .pins { position: absolute; inset: 0; pointer-events: none; }
-  .credit { position: absolute; right: 10px; bottom: 6px; margin: 0; font: 500 10.5px var(--body); color: var(--text); opacity: 0.7; z-index: 2; }
+  .credit { position: absolute; right: 16px; bottom: 6px; margin: 0; font: 500 10.5px var(--body); color: var(--text); opacity: 0.7; z-index: 2; }
   .credit a { color: inherit; }
   .pin { all: unset; position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer; will-change: transform; }
   .lift { position: absolute; transform: translate(-50%, -100%); display: grid; justify-items: center; gap: 2px; transition: transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
-  .pin:hover .lift, .pin.active .lift { transform: translate(-50%, -100%) translateY(-6px); }
+  .pin.active .lift { transform: translate(-50%, -100%) translateY(-6px); }
+  @media (hover: hover) and (pointer: fine) { .pin:hover .lift { transform: translate(-50%, -100%) translateY(-6px); } .cl:hover span { transform: translate(-50%, -50%) scale(1.08); } }
   .pin:global(.crowded) .lift b { display: none; }
   .pin:global(.crowded) { opacity: 0.85; }
   .lift b { font: 600 11px var(--mono); font-variation-settings: 'MONO' 1; background: var(--ink); color: var(--paper); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
@@ -368,7 +369,6 @@
   .cl { all: unset; position: absolute; left: 0; top: 0; pointer-events: auto; cursor: zoom-in; will-change: transform; }
   .cl span { position: absolute; transform: translate(-50%, -50%); display: grid; place-items: center; min-width: 40px; height: 40px; padding: 0 6px; box-sizing: border-box; border-radius: 999px;
     background: var(--ink); color: #FED252; font: 400 19px/1 var(--display); box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink), 0 8px 14px rgba(5, 39, 57, 0.35); transition: transform 0.2s cubic-bezier(.3, 1.4, .5, 1); }
-  .cl:hover span { transform: translate(-50%, -50%) scale(1.08); }
   .cl:focus-visible span { outline: 3px solid var(--text); outline-offset: 4px; }
   .pin:focus-visible .lift { outline: 3px solid var(--text); outline-offset: 2px; border-radius: 8px; }
 </style>

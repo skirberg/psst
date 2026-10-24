@@ -105,6 +105,7 @@
       {/if}
 
       {#if app.tab === 'today'}
+        <h1 class="vh">Today in Miami</h1>
         <TimeHead big={wide ? 120 : 80} />
         <Deck />
         <TodayExtras />
@@ -138,10 +139,12 @@
     --t-ui: 240ms cubic-bezier(.2, .8, .2, 1); --t-paper: 520ms cubic-bezier(.3, 1.35, .5, 1);
     position: fixed; inset: 0; background: var(--sky); color: var(--text); font: 450 16px/1.45 var(--body); overflow: hidden; transition: background-color 0.25s; }
   .app :global(button), .app :global(a), .app :global([role='button']) { touch-action: manipulation; }
+  .app :global(button), .app :global([role='button']) { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
   .app :global(:focus-visible) { outline: 3px solid var(--text); outline-offset: 2px; }
   .skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; border-radius: 999px; background: var(--ink); color: var(--paper); font: 650 14px var(--body); }
   .skip:focus { top: 12px; }
   main:focus { outline: none; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .mapwrap { position: absolute; inset: 0; z-index: 0; pointer-events: none; transition: opacity 0.4s; }
   .mapwrap.live { pointer-events: auto; }
   .mapwrap.dim { opacity: 0.22; }

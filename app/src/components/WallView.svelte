@@ -74,7 +74,7 @@
   .wide .grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 30px 22px; max-width: 1180px; }
   .post { transform: rotate(var(--r)); display: grid; filter: drop-shadow(0 12px 12px rgba(5, 39, 57, 0.28)); transition: transform 0.3s cubic-bezier(.3, 1.4, .5, 1); animation: paste 0.5s cubic-bezier(.2, .9, .3, 1.2) both; animation-delay: calc(min(var(--i), 10) * 40ms); }
   @keyframes paste { from { transform: rotate(calc(var(--r) * 4)) translateY(-16px) scale(1.05); opacity: 0; } }
-  .post:hover { transform: rotate(0deg) translateY(-3px); }
+  @media (hover: hover) and (pointer: fine) { .post:hover { transform: rotate(0deg) translateY(-3px); } }
   .face { all: unset; cursor: pointer; display: block; }
   .face:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .tabs { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr 2fr 1fr; background: var(--paper); color: var(--ink); border-top: 2px dashed var(--line); }
