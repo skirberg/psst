@@ -123,6 +123,21 @@ export function glow(m: Move, dow: Dow, h: number): number {
 
 export const BANDS: Record<'all' | 'chill' | 'social' | 'wild', [number, number]> = { all: [1, 5], chill: [1, 2], social: [3, 3], wild: [4, 5] };
 
+// A move whose title names its hour ("Rubell's 3pm tour", "Sunny's at 5:15", "Tacos María at 1am") is that hour.
+// Without am or pm, the reading nearest the move's best hour wins. Null when the title names no time.
+export function titleHour(m: Pick<Move, 'title' | 'best'>): number | null {
+  const x = /\b(\d{1,2})(?::(\d\d))?\s?(am|pm)\b/i.exec(m.title) ?? /(?:^|\bat )(\d{1,2}):(\d\d)\b|\bat (\d{1,2})\b/i.exec(m.title);
+  if (!x) return null;
+  const hh = Number(x[1] ?? x[3]), mm = Number(x[2] ?? 0) / 60, ap = x[3] && /am|pm/i.test(x[3]) ? x[3].toLowerCase() : null;
+  if (!Number.isFinite(hh) || hh > 12) return null;
+  if (ap) return (hh % 12) + (ap === 'pm' ? 12 : 0) + mm;
+  const b = hm(m.best), am = (hh % 12) + mm, pm = am + 12;
+  const d = (t: number): number => Math.min(Math.abs(t - b), 24 - Math.abs(t - b));
+  return d(am) <= d(pm) ? am : pm;
+}
+// Past its named hour (by more than 15 minutes, up to half a day): not a move for right now.
+export const pastTitleHour = (m: Pick<Move, 'title' | 'best'>, h: number): boolean => { const t = titleHour(m); if (t == null) return false; const since = (h - t + 24) % 24; return since > 0.25 && since < 12; };
+
 export function rankNow({ dow, h, date, band = 'all', rainSafe = false, cheap = false }: { dow: Dow; h: number; date: ISODate; band?: keyof typeof BANDS; rainSafe?: boolean; cheap?: boolean }): Ranked[] {
   const [lo, hi] = BANDS[band];
   const wet = rainAt(date, h) >= 50;
@@ -140,6 +155,7 @@ export function rankNow({ dow, h, date, band = 'all', rainSafe = false, cheap = 
       if (m.energy < lo || m.energy > hi) s = 0;
       if (rainSafe && !m.rainOk) s = 0;
       if (cheap && m.cost > 1) s = 0;
+      if (pastTitleHour(m, h)) s = 0; // "Rubell's 3pm tour" is gone by 3:15
       return { m, s, open, soon: soonIn <= 1.5 ? soon : null };
     })
     .filter((x) => x.s > 0.08)
