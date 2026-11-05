@@ -13,6 +13,14 @@ interface OpenMeteo {
   hourly: { time: string[]; temperature_2m: number[]; precipitation_probability: number[]; weather_code: number[] };
 }
 
+// Only Vercel and GitHub Actions rewrite the tracked file. A local build keeps the committed forecast,
+// so local commits never carry weather.json and never collide with the morning forecast commit.
+// WEATHER=1 forces a local refresh.
+if (!process.env.VERCEL && !process.env.CI && process.env.WEATHER !== '1') {
+  console.log('weather: local build, kept the committed forecast (WEATHER=1 to refresh)');
+  process.exit(0);
+}
+
 try {
   const res = await fetch(URL_, { signal: AbortSignal.timeout(8000), headers: { 'User-Agent': 'psst-miami/1.0' } });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
