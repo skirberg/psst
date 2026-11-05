@@ -14,7 +14,7 @@
   import BookView from './components/BookView.svelte';
   import Icon from './components/Icon.svelte';
   import { app, trip, codeFromUrl } from './lib/state.svelte';
-  import { miamiNow, fmtHour, fmtDate, weatherFor, moves, hm, hotels } from './lib/core';
+  import { miamiNow, fmtHour, weatherFor, moves, hm, hotels } from './lib/core';
   import { PAPER, INK, MAMEY } from './lib/sky';
 
   import type { Tab } from './lib/state.svelte';
@@ -103,7 +103,7 @@
         <Wordmark size={wide ? 40 : 34} />
         <p class="today">
           <button class="here" class:on={app.inMiami} disabled={app.locating} onclick={() => app.locate()} aria-label={app.locating ? 'Finding you' : app.inMiami ? 'Near you, closest first' : 'Miami, tap to see what’s closest to you'}><Icon name="pin" size={15} />{app.locating ? 'Finding you' : app.inMiami ? 'Near you' : 'Miami'}</button>
-          <span>{fmtDate(app.now.date, { weekday: 'short' })} {fmtDate(app.now.date, { month: 'short', day: 'numeric' })}</span>{#if wx}<span title={wx.kind === 'typical' ? 'Typical for the date' : 'Forecast'}>{wx.kind === 'typical' ? '~' : ''}{temp}°</span>{/if}
+          {#if wx}<span title={wx.kind === 'typical' ? 'Typical for the date' : 'Forecast'}>{wx.kind === 'typical' ? '~' : ''}{temp}°</span>{/if}
         </p>
       </header>
       {#if wide}

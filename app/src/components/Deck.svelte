@@ -69,9 +69,9 @@
 
 <section class="deck" aria-label="Moves for this hour">
   <div class="moods" role="radiogroup" aria-label="Mood" tabindex="-1" onkeydown={radioKeys}>
-    {#each MOODS as [k, label]}
-      <button role="radio" aria-checked={app.mood === k} tabindex={app.mood === k ? 0 : -1} class:on={app.mood === k} onclick={() => { app.mood = k; app.padId = null; app.flipped = null; }}>
-        <span class="ic"><Icon name={ICON[k]} size={22} /></span><span class="lb">{label}</span>
+    {#each MOODS.filter((x) => x[0] !== 'all') as [k, label]}
+      <button role="radio" aria-checked={app.mood === k} aria-label={label} title={label} tabindex={app.mood === k || (app.mood === 'all' && k === 'secret') ? 0 : -1} class:on={app.mood === k} onclick={() => { app.mood = app.mood === k ? 'all' : k; app.padId = null; app.flipped = null; }}>
+        <Icon name={ICON[k]} size={22} />
       </button>
     {/each}
   </div>
@@ -112,14 +112,11 @@
 
 <style>
   .deck { display: grid; gap: 14px; }
-  .moods { display: flex; gap: 4px; overflow-x: auto; margin: 0 -16px; padding: 2px 16px 4px; scrollbar-width: none; -webkit-mask: linear-gradient(90deg, #000 85%, transparent); mask: linear-gradient(90deg, #000 85%, transparent); }
-  .moods::-webkit-scrollbar { display: none; }
-  .moods button { flex: none; display: grid; justify-items: center; gap: 4px; width: 50px; border: 0; background: transparent; color: var(--text); cursor: pointer; padding: 0; font: 600 var(--fs-s) var(--body); }
-  .ic { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); transition: transform 0.18s cubic-bezier(.3, 1.6, .5, 1), background 0.2s; }
-  .moods button:active .ic { transform: scale(0.9); }
-  .moods button.on .ic { background: var(--text); color: var(--sky); box-shadow: none; transform: scale(1.06); }
-  .lb { opacity: 0.92; }
-  .moods button.on .lb { opacity: 1; }
+  /* Seven quiet glyphs, no rings, no words (names are on hover and for screen readers). The one that's on is ink on the sky. */
+  .moods { display: flex; justify-content: space-between; margin: 0 -6px; }
+  .moods button { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 0; background: transparent; color: var(--text); opacity: 0.72; cursor: pointer; padding: 0; transition: transform 0.16s cubic-bezier(.23, 1, .32, 1), background 0.2s, opacity 0.2s; }
+  .moods button:active { transform: scale(0.9); }
+  .moods button.on { background: var(--text); color: var(--sky); opacity: 1; }
 
   .stack { position: relative; padding-bottom: 30px; outline: none; }
   /* Room for a typical card (nine in ten are this tall), so Next and psst stay under the thumb from card to card.
@@ -153,6 +150,8 @@
   .controls { display: flex; align-items: center; justify-content: center; gap: 22px; color: var(--text); margin-top: 14px; }
   .nav { width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: var(--text); display: grid; place-items: center; cursor: pointer; }
   .nav:disabled { opacity: 0.3; }
+  /* On a phone you fling the card; the arrows are for a mouse (the keyboard's arrow keys work everywhere). */
+  @media (hover: none) { .nav { display: none; } }
   .hint { opacity: 0.7; }
   .psst { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 22px; border-radius: 999px; border: 0; cursor: pointer; background: var(--mamey); color: var(--ink); font: 400 var(--fs-xl) var(--display); box-shadow: 0 6px 0 var(--mamey-deep), 0 12px 20px rgba(5, 39, 57, 0.25); transition: transform 0.12s, box-shadow 0.12s; }
   .psst:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--mamey-deep), 0 4px 10px rgba(5, 39, 57, 0.25); }

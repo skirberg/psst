@@ -18,7 +18,6 @@
   const kept = $derived(app.kept.includes(m.id));
   const away = $derived(compact ? null : app.awayFrom(m));
   const tint = $derived(inkOf(m.id)[0]);
-  const bars = $derived(Array.from({ length: 48 }, (_, i) => openAt(m, dayDow, i / 2)));
   const nowH = $derived(at ?? app.hour);
   const isOpen = $derived(openAt(m, dayDow, nowH));
   const closeAt = $derived(closesAt(m, dayDow, nowH));
@@ -150,11 +149,6 @@
           {:else}<span>{item.soon != null ? `Opens ${fmtHour(item.soon, true)}` : `Best at ${fmtHour(hm(m.best), true)}`}</span>{/if}{#if away}<span class="away">{away}</span>{/if}
         </p>
         <div class="emblem"><Sticker move={m} size={compact ? 66 : 88} /></div>
-        <div class="bar" aria-hidden="true">
-          {#each bars as o, i}{#if o}<i style:left="{(i / 48) * 100}%"></i>{/if}{/each}
-          <b class="best" style:left="{(hm(m.best) / 24) * 100}%"></b>
-          <b class="now" style:left="{(nowH / 24) * 100}%"></b>
-        </div>
         <h2 class="title">{m.title}</h2>
         <p class="note">{m.theMove}</p>
         <div class="meta"><span>{m.hood}</span><span>{'$'.repeat(m.cost)}</span><button class="more" onclick={() => flip(true)}>More</button></div>
@@ -201,14 +195,10 @@
   .flipped .front { opacity: 0; transform: rotateY(8deg) translateX(-8px); visibility: hidden; transition: opacity var(--t-ui), transform var(--t-ui), visibility 0s 240ms; }
   .flipped .back { opacity: 1; transform: none; visibility: visible; transition: opacity var(--t-ui), transform var(--t-ui), visibility 0s; }
 
-  .top { margin: 0; font: 550 var(--fs-s)/1.2 var(--body); color: var(--muted); }
+  .top { margin: 0 0 10px; font: 550 var(--fs-s)/1.2 var(--body); color: var(--muted); }
   .live { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); }
   .away { margin-left: 12px; color: var(--muted); }
   .live i { width: 9px; height: 9px; border-radius: 50%; background: var(--mamey); box-shadow: 0 0 0 2px var(--ink); }
-  .bar { position: relative; height: 10px; margin: 9px 0 14px 0; border-radius: 5px; background: oklch(0.93 0.012 80); overflow: hidden; }
-  .bar i { position: absolute; top: 0; bottom: 0; width: calc(100% / 48 + 0.5px); background: color-mix(in oklch, var(--ink) 18%, var(--paper)); }
-  .bar .best { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); }
-  .bar .now { position: absolute; top: -1px; bottom: -1px; width: 3px; margin-left: -1.5px; background: var(--mamey); border-radius: 2px; }
   .emblem { float: right; margin: 2px -4px 4px 10px; shape-outside: circle(50%); }
   .title { margin: 0; font: 400 var(--fs-xxl)/1.02 var(--display); letter-spacing: -0.005em; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-variation-settings: 'XROT' 0, 'YROT' calc(var(--lean, 0) * -20); transition: font-variation-settings .5s cubic-bezier(.3, 1.4, .5, 1); }
   .note { margin: 10px 0 0; font: 520 var(--fs-l)/1.35 var(--body); font-variation-settings: 'CASL' 1, 'MONO' 0; text-wrap: pretty; }

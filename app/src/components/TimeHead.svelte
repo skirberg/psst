@@ -84,7 +84,6 @@
       {/if}
     </span>
   </div>
-  <div class="scale" aria-hidden="true"><span>6am</span><span>noon</span><span>6pm</span></div>
   {#if app.wet}<p class="sunline">Rain likely. Covered spots first.</p>{/if}
   {#if line}<p class="lede">{line}</p>{/if}
 </div>
@@ -108,11 +107,6 @@
   .sun { position: absolute; top: 50%; width: 30px; height: 36px; margin: -20px 0 0 -15px; display: grid; place-items: center; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(5, 39, 57, 0.35)); transition: left 0.06s linear; }
   .sun svg { width: 26px; height: 32px; }
   .sun.moon svg { width: 24px; height: 24px; }
-  .scale { position: relative; height: 12px; margin-top: -6px; font: 500 var(--fs-s) var(--body); }
-  .scale span { position: absolute; transform: translateX(-50%); }
-  .scale span:nth-child(1) { left: calc(13px + (100% - 26px) * 0.25); }
-  .scale span:nth-child(2) { left: calc(13px + (100% - 26px) * 0.5); }
-  .scale span:nth-child(3) { left: calc(13px + (100% - 26px) * 0.75); }
   .hrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .sunline { margin: 0; font: 600 var(--fs-m) var(--body); }
   .lede { margin: 0; font: 650 var(--fs-l)/1.3 var(--body); font-variation-settings: 'CASL' 1; }
