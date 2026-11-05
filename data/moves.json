@@ -42,7 +42,7 @@
    "https://www.miamiandbeaches.com/l/eat-and-drink/biltmore-bar/2341",
    "https://coralgablesmagazine.com/drinking-in-the-gables/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "AZ.85",
   "clue": "Coral Gables. Red doors, poker chip."
  },
@@ -58,36 +58,30 @@
   "windows": [
    {
     "days": [
+     0,
      2,
      3,
      4,
-     5
-    ],
-    "from": "11:00",
-    "to": "17:30"
-   },
-   {
-    "days": [
-     0,
+     5,
      6
     ],
     "from": "10:00",
     "to": "16:30"
    }
   ],
-  "best": "11:00",
+  "best": "10:00",
   "energy": 2,
   "cost": 2,
   "rainOk": false,
   "secret": 0,
-  "theMove": "Book online. Be at the gate at 11 on a weekday.",
+  "theMove": "Book online. Be at the gate at 10 on a weekday.",
   "why": "Spring-fed grottos, refilled daily.",
   "sources": [
    "https://www.coralgables.com/venetian-pool",
    "https://www.aol.com/articles/coral-gables-historic-venetian-pool-100000655.html",
    "https://www.yahoo.com/news/articles/venetian-pool-reopen-look-ongoing-090000998.html"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "SWIM"
  },
  {
@@ -131,7 +125,7 @@
    "https://www.miamidade.gov/parks/matheson-hammock.asp",
    "https://www.miamidade.gov/parks/matheson-marina.asp"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "ATOLL"
  },
  {
@@ -184,7 +178,7 @@
    "https://www.mangrove.miami/menu",
    "https://www.mangrove.miami/reservations"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "MANGROVE",
   "clue": "Downtown. Walk through the counter."
  },
@@ -230,7 +224,7 @@
    "https://www.theinfatuation.com/miami/guides/best-bars-in-miami",
    "https://www.thecornermiami.com/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "4AM"
  },
  {
@@ -264,7 +258,7 @@
    "https://themiamiguide.com/venue/club-space-miami/",
    "https://app.discotech.me/events/38234212-tba-at-space-terrace"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "SPACE"
  },
  {
@@ -305,7 +299,7 @@
    "https://www.kaonaroom.com/",
    "https://www.theinfatuation.com/miami/guides/best-cocktail-bars-miami"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "TIKI"
  },
  {
@@ -344,7 +338,7 @@
    "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami",
    "https://www.theinfatuation.com/miami/reviews/macs-club-deuce"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "DEUCE"
  },
  {
@@ -386,7 +380,7 @@
    "https://monterreybar.com/",
    "https://monterreybar.com/menu"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "VINYL"
  },
  {
@@ -427,7 +421,7 @@
    "https://www.timeout.com/miami/bars/swizzle-rum-bar-drinkery",
    "https://www.the50.com/discovery/Establishments/US/Miami/Swizzle-Rum-Bar-and-Drinkery.html"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "RUM"
  },
  {
@@ -472,7 +466,7 @@
    "https://www.theinfatuation.com/miami/guides/best-cuban-sandwiches-miami",
    "https://www.theinfatuation.com/miami/reviews/las-olas-cafe"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "CAFECITO"
  },
  {
@@ -557,7 +551,7 @@
    "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/",
    "https://www.theinfatuation.com/miami/reviews/panamericano-bar"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "RING"
  },
  {
@@ -595,7 +589,7 @@
    "https://www.miami.gov/Parks-Public-Places/Parks-Directory/Simpson-Rockland-Hammock-Preserve-Park",
    "https://www.miami.gov/Parks-Public-Places/Parks-Directory/Simpson-Park"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "HAMMOCK"
  },
  {
@@ -681,7 +675,7 @@
    "https://www.timeout.com/miami/restaurants/cafe-la-trova",
    "https://timeout.com/miami/bars/best-little-havana-bars-miami"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "TROVA"
  },
  {
@@ -723,7 +717,7 @@
    "https://www.theinfatuation.com/miami/reviews/sanguich-de-miami",
    "https://www.foodrepublic.com/2148383/miami-cuban-sandwich-restaurant-sanguich/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "CUBANO"
  },
  {
@@ -776,7 +770,7 @@
    "https://tigresounds.com/zeyzey-opens-in-little-haiti/",
    "https://www.songkick.com/venues/4621574-zeyzey-miami"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "ZEYZEY"
  },
  {
@@ -819,7 +813,7 @@
   "sources": [
    "https://www.sweatrecordsmiami.com/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "SWEAT"
  },
  {
@@ -882,7 +876,7 @@
    "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
    "https://www.theinfatuation.com/miami/reviews/magic-13-brewing-co"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "BEER"
  },
  {
@@ -924,7 +918,7 @@
    "https://sunnysmia.com/data/pages/about.json",
    "https://sunnysmia.com/data/menus/cocktails.json"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "SUNNY'S"
  },
  {
@@ -970,7 +964,7 @@
    "https://www.theinfatuation.com/miami/reviews/kaiju",
    "https://timeout.com/miami/news/this-miami-bar-was-just-ranked-one-of-the-best-in-north-america-040226"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "KAIJU"
  },
  {
@@ -1015,7 +1009,7 @@
    "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
    "https://www.theinfatuation.com/miami/reviews/conventillo"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "PATIO",
   "clue": "MiMo. Walk past the restaurant."
  },
@@ -1054,7 +1048,7 @@
    "https://www.theinfatuation.com/miami/guides/breakfast-miami",
    "https://starchefs.com/recipes/king-guava"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "BAGEL"
  },
  {
@@ -1086,7 +1080,7 @@
    "https://www.urbanoasisproject.org/farmers-markets.html",
    "https://www.miamiandbeaches.com/restaurants/best-miami-farmers-markets"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "MARKET"
  },
  {
@@ -1134,7 +1128,7 @@
    "https://www.lagniappehouse.com/music-schedule.html",
    "https://www.lagniappehouse.com/wine.html"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "LAGNIAPPE"
  },
  {
@@ -1174,7 +1168,7 @@
    "https://zakthebaker.com/faq/",
    "https://zakthebaker.com/kosher/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "BAKER"
  },
  {
@@ -1270,7 +1264,7 @@
    "https://www.theinfatuation.com/miami/reviews/coyo-taco",
    "https://hoodline.com/2026/02/coyo-taco-brings-wynwood-heat-to-bayside-marketplace-waterfront/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "COYO"
  },
  {
@@ -1306,7 +1300,7 @@
    "https://icamiami.org/visit/",
    "https://icamiami.org/tickets/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "ICA"
  },
  {
@@ -1362,7 +1356,7 @@
    "https://www.theinfatuation.com/miami/guides/where-to-go-when-lagniappe-is-too-crowded",
    "https://www.jasskitchenmiami.com/music-calendar-ultimate-guide-jass-kitchen/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "JASS"
  },
  {
@@ -1411,7 +1405,7 @@
    "https://rubellmuseum.org/miami",
    "https://www.thefader.com/2026/08/27/where-to-see-yayoi-kusama-art-in-us"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "RUBELL"
  },
  {
@@ -1433,7 +1427,18 @@
      6
     ],
     "from": "10:00",
-    "to": "12:00"
+    "to": "11:00"
+   },
+   {
+    "days": [
+     0,
+     1,
+     4,
+     5,
+     6
+    ],
+    "from": "13:00",
+    "to": "14:00"
    }
   ],
   "best": "10:00",
@@ -1441,7 +1446,7 @@
   "cost": 1,
   "rainOk": false,
   "secret": 0,
-  "theMove": "Tower tours 10 to noon. Look south for Stiltsville.",
+  "theMove": "Tower tours at 10 and 1. Look south for Stiltsville.",
   "why": "Stiltsville without a boat.",
   "sources": [
    "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park",
@@ -1449,9 +1454,10 @@
    "https://www.miamiandbeaches.com/l/attractions/bill-baggs-cape-florida-state-park/2976?category=4",
    "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/experiences-amenities-0",
    "https://www.floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/hours-and-fees-bill-baggs",
-   "https://www.miamiandbeaches.com/event/miamis-icon-200-years-of-cape-florida-lighthouse/37086"
+   "https://www.miamiandbeaches.com/event/miamis-icon-200-years-of-cape-florida-lighthouse/37086",
+   "https://floridastateparks.org/parks-and-trails/bill-baggs-cape-florida-state-park/cape-florida-light"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "1825"
  },
  {
@@ -1510,7 +1516,7 @@
    "https://www.theinfatuation.com/miami/reviews/the-cleat",
    "https://www.theinfatuation.com/miami/guides/miami-bars-outdoor-seating"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "CLEAT"
  },
  {
@@ -1550,7 +1556,7 @@
    "https://www.theinfatuation.com/miami/reviews/donut-gallery-diner",
    "https://www.timeout.com/miami/restaurants/donut-gallery-diner"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "TED'S"
  },
  {
@@ -1592,7 +1598,7 @@
    "https://www.miamiandbeaches.com/event/stink-and-dutty-miami-carnival/42234",
    "https://wsvn.com/news/local/miami-dade/no-swim-advisory-issued-for-key-biscayne-venetian-islands-parts-of-south-beach-following-rainfall/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "1945"
  },
  {
@@ -1631,7 +1637,7 @@
    "https://en.wikipedia.org/wiki/Charles_Deering_Estate",
    "https://wildsouthflorida.com/deering.estate.html"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "DEERING"
  },
  {
@@ -1661,7 +1667,7 @@
   "cost": 1,
   "rainOk": false,
   "secret": 1,
-  "theMove": "Bring $2 cash. Take the 10am house tour.",
+  "theMove": "$2 to get in, $3 for the house. Take the 10am tour.",
   "why": "Coconut Grove before the condos.",
   "sources": [
    "https://www.floridastateparks.org/parks-and-trails/barnacle-historic-state-park",
@@ -1671,7 +1677,7 @@
    "https://www.thebarnacle.org/history",
    "https://www.tclf.org/landscapes/barnacle-historic-state-park"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "getIn": "Walk or bike in from Main Highway; no cars inside the park, so use the metered street parking nearby.",
   "word": "1891"
  },
@@ -1719,7 +1725,7 @@
    "https://www.instagram.com/maesinthegrove/p/Dd4yEH3HxBX/",
    "https://coconutgrove.com/business/maes-room/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "MAE'S"
  },
  {
@@ -1760,7 +1766,7 @@
    "https://www.theinfatuation.com/miami/reviews/katana",
    "https://www.theinfatuation.com/miami/guides/spots-of-summer-miami"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "KATANA"
  },
  {
@@ -1798,7 +1804,7 @@
    "https://www.manologrill.com/",
    "https://www.theinfatuation.com/miami/reviews/manolo-and-rene-cafeteria"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "24/7"
  },
  {
@@ -1843,7 +1849,7 @@
    "https://www.theinfatuation.com/miami/reviews/cafe-fenicia",
    "https://www.theinfatuation.com/miami/guides/downtown-miami-restaurants"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "FENICIA"
  },
  {
@@ -1882,7 +1888,7 @@
    "https://www.phonammia.com/reservations",
    "https://www.axios.com/local/miami/2026/10/02/pho-nam-miami-downtown-tam-tam-restaurant"
   ],
-  "verifiedOn": "2026-10-09",
+  "verifiedOn": "2026-11-05",
   "word": "PHỞ"
  },
  {
@@ -1935,7 +1941,7 @@
    "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-brickell",
    "https://www.therivermiami.com/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "OYSTERS"
  },
  {
@@ -1964,12 +1970,18 @@
      0,
      2,
      3,
-     4,
+     4
+    ],
+    "from": "17:00",
+    "to": "22:00"
+   },
+   {
+    "days": [
      5,
      6
     ],
     "from": "17:00",
-    "to": "22:00"
+    "to": "23:00"
    }
   ],
   "best": "17:00",
@@ -1987,7 +1999,7 @@
    "https://guide.michelin.com/us/en/florida/miami/restaurant/lung-yai-thai-tapas",
    "https://joinpearl.co/lists/michelin-guide-florida-2026"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "LUNG YAI"
  },
  {
@@ -2024,7 +2036,7 @@
    "https://www.theinfatuation.com/miami/guides/little-havana-restaurants",
    "https://guide.michelin.com/us/en/florida/miami/restaurant/palma"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "PALMA"
  },
  {
@@ -2075,7 +2087,7 @@
    "https://www.theinfatuation.com/miami/reviews/la-casita-restaurant",
    "https://www.theinfatuation.com/miami/guides/the-best-restaurants-in-coral-gables"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "VACA"
  },
  {
@@ -2129,7 +2141,7 @@
    "https://www.kruskitchen.com/",
    "https://guide.michelin.com/us/en/florida/miami/restaurant/krus-kitchen"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "KRÜS"
  },
  {
@@ -2177,7 +2189,7 @@
    "https://images.squarespace-cdn.com/content/v1/5d4edbd5e7d1490001eb0a4d/1b4eda75-1800-4870-8032-c7b514e89a1c/HTRH-MIAMI-memu-2025p1.png",
    "https://hoodline.com/2026/06/rubells-cash-out-on-allapattah-lot-in-15m-neology-deal/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "BBQ"
  },
  {
@@ -2263,7 +2275,7 @@
    "https://www.theinfatuation.com/miami/reviews/almacen-by-fiorito",
    "https://www.theinfatuation.com/miami/neighborhoods/little-haiti"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "FIORITO"
  },
  {
@@ -2308,7 +2320,7 @@
    "https://barbucce.com/menu",
    "https://www.timeout.com/miami/restaurants/bar-bucce"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "BUCCE"
  },
  {
@@ -2358,7 +2370,7 @@
    "https://www.theinfatuation.com/miami/reviews/tacos-maria",
    "https://www.tacosmariamiami.com/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "TACOS"
  },
  {
@@ -2398,7 +2410,7 @@
    "https://doubleluckmiami.squarespace.com/s/Double-Luck-Food-Menu-April-2026.pdf",
    "https://www.miamiandbeaches.com/restaurants/michelin-bib-gourmand-restaurants-in-miami"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "LUCK"
  },
  {
@@ -2460,7 +2472,7 @@
    "https://www.locuramarinarestaurant.com/",
    "https://www.theinfatuation.com/miami/reviews/locura-marina-miami-beach"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "CEVICHE"
  },
  {
@@ -2498,7 +2510,7 @@
    "https://marcsartisanalpizzeria.com/menu",
    "https://www.miaminewtimes.com/best-of-miami/2026/eat-and-drink/best-pizza-40556981"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "MARC'S"
  },
  {
@@ -2544,7 +2556,7 @@
    "https://www.theinfatuation.com/miami/guides/best-restaurants-key-biscayne",
    "https://cdn.shopify.com/s/files/1/0878/2879/1607/files/KB_FOOD_MENU_FALL_2026.pdf?v=1790176679"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "VINYA"
  },
  {
@@ -2586,7 +2598,7 @@
    "https://www.miaminewtimes.com/?p=40476302",
    "https://www.axios.com/local/miami/2026/09/04/south-beach-bar-macs-club-deuce-turns-100"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "3AM"
  },
  {
@@ -2635,7 +2647,7 @@
    "https://www.brokenshaker.com/miami-menus/",
    "https://lhmagazine.co.uk/broken-shaker-a-backyard-oasis-rooted-in-tropical-nostalgia-reinvents-itself-on-miami-beach/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "SHAKER"
  },
  {
@@ -2671,7 +2683,7 @@
    "https://www.timeout.com/miami/bars/saxony-bar",
    "https://hauteliving.com/2026/08/best-speakeasies-in-miami-2026/794237/"
   ],
-  "verifiedOn": "2026-10-02",
+  "verifiedOn": "2026-11-05",
   "word": "SAXONY"
  }
 ]

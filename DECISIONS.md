@@ -124,6 +124,13 @@ Sami: "why 011 out of 060 on the move number? ... Maybe no number, and that's th
 - **A move that names its hour leaves at that hour.** Nine titles name a time ("Rubell's 3pm tour", "Sunny's at 5:15", "Tacos María at 1am"). From 15 minutes past that time it is no longer dealt as a move for right now; it comes back in the rest of the day and the next day (`titleHour` and `pastTitleHour` in core.ts). Before this, "Rubell's 3pm tour. Be there by 2:45." was the top card at 3:49pm.
 - The header temperature drops the word: "81°" for a forecast, "~81°" for a typical day.
 
+## Places re-checked (2026-11-05)
+
+All 60 places were read against their own pages (and the state park pages), plus search listings where a site cannot be read.
+- 56 confirmed and dated 2026-11-05. Changed: Venetian Pool now opens at 10, Tuesday to Sunday, until 4:30 (coralgables.com); Lung Yai dinner runs to 11pm Friday and Saturday (lungyai.com); Cape Florida Lighthouse tours are at 10am and 1pm, Thursday to Monday (floridastateparks.org); The Barnacle is $2 to enter and $3 for the house tour (floridastateparks.org).
+- Not confirmed, left as they were with their old dates so the data watch flags them: Casa Rassi (its site lists Monday to Saturday 9am to 5pm, possibly a site default; psst says Tuesday to Saturday 8am to 2pm), Naomi's Garden (only Friday and Saturday hours found), Dante's HiFi (sources disagree), Domino Park (no official hours).
+- Notices that need no change: Rubell closes early at 4:30pm on Saturday Nov 7 only; ICA Miami's upper floors are closed for installation; Marc's Bianca has reopened with the same hours; Simpson Park's October closure is over.
+
 ## Rejected (do not revive)
 - Hotel Piña (metaphor tax).
 - Ventanita as the whole product.

@@ -101,8 +101,13 @@ try {
     check('the $$$$ filter leaves 4 hotel pins', (await p.$$eval('.pin', (e) => e.length)) === 4);
     await p.evaluate(() => [...document.querySelectorAll<HTMLElement>('.tiers button')].find((x) => x.innerText === 'Any')?.click()); await sleep(600);
     await p.click('.fob'); await sleep(700); await tab(p, 'today', true); await sleep(700);
-    const vis = await p.evaluate(() => { const ps = [...document.querySelectorAll<HTMLElement>('.pin')]; return ps.filter((x) => x.style.visibility === 'visible').length / Math.max(1, ps.length); });
-    check('Today shows its pins after a hotel was picked', vis > 0.5, `${Math.round(vis * 100)}% visible`);
+    const seen = (): Promise<number> => p.evaluate(() => { const ps = [...document.querySelectorAll<HTMLElement>('.pin')]; return ps.filter((x) => x.style.visibility === 'visible').length / Math.max(1, ps.length); });
+    const vis = await seen();
+    // Baseline: the same Today view with no hotel picked. Some of the hour's moves can sit outside the whole-city frame
+    // (No Name Harbor, North Beach), so the check is that picking a hotel leaves Today no worse, not a fixed share.
+    await p.goto(p.url().replace(/#.*$/, '') + '#today'); await sleep(1500);
+    const base = await seen();
+    check('Today shows its pins after a hotel was picked', vis > 0 && vis >= base - 0.01, `${Math.round(vis * 100)}% visible, ${Math.round(base * 100)}% without the hotel`);
     await ctx.close();
   }
 } catch (e) { check('flows ran to the end', false, (e as Error).message); }
