@@ -50,7 +50,6 @@
         {#each p.list as m (m.id)}
           <div class="slot k">
             <button class="sb" id="sb-{m.id}" onclick={() => (app.where = m.id)} aria-label="{m.place} on the map"><Sticker move={m} size={58} /></button>
-            <span class="clue">{m.place}</span>
           </div>
         {/each}
       </div>
@@ -77,8 +76,6 @@
   .slot { display: grid; justify-items: center; gap: 3px; text-align: center; padding: 6px 2px; }
   .sb { all: unset; cursor: pointer; border-radius: 12px; }
   .sb:focus-visible { outline: 3px solid var(--ink); }
-  .clue { font: 500 var(--fs-s)/1.25 var(--body); font-variation-settings: 'CASL' 1; color: var(--muted); }
-  .k .clue { color: var(--ink); }
   .went { font: 600 var(--fs-s) var(--body); padding: 4px 10px; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); cursor: pointer; }
   .went.on { background: var(--ink); color: var(--paper); }
   .held { margin: 0; font-size: var(--fs-m); }

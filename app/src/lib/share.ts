@@ -65,7 +65,7 @@ export async function drawStubCard(o: StubCardInput): Promise<Blob> {
   const c = cv.getContext('2d');
   if (!c) throw new Error('no canvas');
   const text = (sel: string): string => o.front.querySelector(sel)?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
-  const top = [...o.front.querySelectorAll('.top span')].map((x) => x.textContent?.trim()).filter(Boolean).join(' · ');
+  const top = [...o.front.querySelectorAll('.top span:not(.away)')].map((x) => x.textContent?.trim()).filter(Boolean).join(' · ');
   const meta = [...o.front.querySelectorAll('.meta span')].map((x) => x.textContent?.trim()).filter(Boolean).join(' · ');
 
   // Lay out first, so the stub is as tall as what it says (no empty band under a short note).
@@ -125,8 +125,10 @@ export async function drawStubCard(o: StubCardInput): Promise<Blob> {
   c.fillText(meta.toUpperCase(), x + 48, perfY - 44); spaced(c, 0);
 
   // The tear-off: a grip to pull, and where it came from. No number.
-  c.fillStyle = mix(INK, PAPER, 0.4);
-  for (let k = 0; k < 3; k++) { c.beginPath(); c.roundRect(x + 48, perfY + 92 + k * 16, 64, 5, 3); c.fill(); }
+  c.save(); c.translate(x + 48, perfY + 72); c.scale(3, 3); c.translate(12, 12); c.rotate(-Math.PI / 2); c.translate(-12, -12);
+  c.strokeStyle = mix(INK, PAPER, 0.55); c.lineWidth = 1.8; c.lineCap = 'round';
+  c.stroke(new Path2D('M8.1 8.1 20 20M8.1 15.9 20 4')); for (const cy of [6, 18]) { c.beginPath(); c.arc(6, cy, 3, 0, Math.PI * 2); c.stroke(); }
+  c.restore();
   c.fillStyle = INK; c.font = '400 64px "Tilt Warp"'; c.textAlign = 'right'; c.fillText('psst.miami', x + w - 48, perfY + 140); c.textAlign = 'left';
 
   return await new Promise<Blob>((res, rej) => cv.toBlob((b) => (b ? res(b) : rej(new Error('no image'))), 'image/png'));

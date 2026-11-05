@@ -29,7 +29,7 @@
     // Phone: only the full-screen map from a hotel card shows a pin (the hotel itself).
     const wh = app.whereHotel && hotels.find((h) => h.id === app.whereHotel);
     if (!wide) return wh ? [{ id: wh.id, lat: wh.lat, lng: wh.lng, move: { id: wh.id, hood: wh.hood, category: 'stay', word: wh.word, place: wh.name }, active: true, tag: '$'.repeat(wh.tier), label: wh.name }] : [];
-    if (app.tab === 'today') return app.pad.slice(app.padPos, app.padPos + 9).filter((x) => !x.sealed).map((x) => ({ id: x.m.id, lat: x.m.lat, lng: x.m.lng, move: x.m, active: top?.m.id === x.m.id, tag: fmtHour(hm(x.m.best), true), label: `${x.m.title}, show this move`, onclick: () => { app.padId = x.m.id; app.flipped = null; } }));
+    if (app.tab === 'today') return [...app.pad, ...app.pad].slice(app.padPos, app.padPos + Math.min(9, app.pad.length)).filter((x) => !x.sealed).map((x) => ({ id: x.m.id, lat: x.m.lat, lng: x.m.lng, move: x.m, active: top?.m.id === x.m.id, tag: fmtHour(hm(x.m.best), true), label: `${x.m.title}, show this move`, onclick: () => { app.padId = x.m.id; app.flipped = null; } }));
     if (app.tab === 'trip' && trip.days.length) {
       const d = trip.days[Math.min(trip.focusDay, trip.days.length - 1)];
       return d.slots.filter((s) => s.move || s.event).map((s, n) => {
@@ -89,7 +89,7 @@
     <nav class="tabbar" aria-label="Sections">
       {#each TABS as [k, label, ic]}
         <button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}>
-          <span class="ti"><Icon name={ic} size={22} />{#if k === 'book' && app.kept.length}<i>{app.kept.length}</i>{/if}</span><span class="tl">{label}</span>
+          <span class="ti"><Icon name={ic} size={22} /></span><span class="tl">{label}</span>
         </button>
       {/each}
     </nav>
@@ -102,12 +102,12 @@
       <header class="top">
         <Wordmark size={wide ? 40 : 34} />
         <p class="today">
-          <button class="here" class:on={app.inMiami} aria-pressed={app.inMiami} disabled={app.locating} onclick={() => app.locate()} aria-label={app.locating ? 'Finding you' : app.inMiami ? 'Near you, closest first' : 'Miami, tap to see what’s closest to you'}><Icon name="pin" size={15} />{app.locating ? 'Finding you' : app.inMiami ? 'Near you' : 'Miami'}</button>
+          <button class="here" class:on={app.inMiami} disabled={app.locating} onclick={() => app.locate()} aria-label={app.locating ? 'Finding you' : app.inMiami ? 'Near you, closest first' : 'Miami, tap to see what’s closest to you'}><Icon name="pin" size={15} />{app.locating ? 'Finding you' : app.inMiami ? 'Near you' : 'Miami'}</button>
           <span>{fmtDate(app.now.date, { weekday: 'short' })} {fmtDate(app.now.date, { month: 'short', day: 'numeric' })}</span>{#if wx}<span title={wx.kind === 'typical' ? 'Typical for the date' : 'Forecast'}>{wx.kind === 'typical' ? '~' : ''}{temp}°</span>{/if}
         </p>
       </header>
       {#if wide}
-        <nav class="tabs" aria-label="Sections">{#each TABS as [k, label, ic]}<button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}><Icon name={ic} size={18} />{label}{#if k === 'book' && app.kept.length}<i>{app.kept.length}</i>{/if}</button>{/each}</nav>
+        <nav class="tabs" aria-label="Sections">{#each TABS as [k, label, ic]}<button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}><Icon name={ic} size={18} />{label}</button>{/each}</nav>
       {/if}
 
       {#if app.tab === 'today'}
@@ -170,7 +170,6 @@
   .tabs { display: flex; gap: 4px; margin-top: -6px; flex-wrap: wrap; }
   .tabs button { display: inline-flex; align-items: center; gap: 6px; font: 650 var(--fs-m) var(--body); padding: 8px 11px 8px 9px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
   .tabs button.on { background: var(--text); color: var(--sky); }
-  .tabs i { font-style: normal; font: 700 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 1px 6px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
   .laterdock { z-index: 2; position: absolute; left: 520px; right: 24px; bottom: 18px; }
   .tabbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: space-around; padding: 8px 6px calc(env(safe-area-inset-bottom, 0px) + 8px); background: var(--paper); box-shadow: 0 -1px 0 rgba(5, 39, 57, 0.08), 0 -10px 24px rgba(5, 39, 57, 0.12); }
   .tabbar button { flex: 1; display: grid; justify-items: center; gap: 3px; padding: 4px 0; min-height: 50px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 650 var(--fs-s) var(--body); }
@@ -179,7 +178,6 @@
   .tabbar button.on { color: var(--ink); }
   .tabbar button.on .ti { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
   .tabbar button:active .ti { transform: scale(0.92); }
-  .ti i { position: absolute; top: -6px; right: 2px; font-style: normal; font: 700 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 1px 5px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
   .toast { position: absolute; z-index: 20; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 90px); transform: translate(-50%, 16px); max-width: calc(100% - 32px); font: 650 var(--fs-m) var(--body); background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 999px; box-shadow: 0 10px 24px rgba(5, 39, 57, 0.3); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .wide .toast { bottom: 28px; left: 250px; }

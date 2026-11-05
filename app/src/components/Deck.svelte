@@ -53,7 +53,8 @@
   function key(e: KeyboardEvent): void { if (e.key === 'ArrowRight') { e.preventDefault(); go(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); } }
 
   async function psst() {
-    const pool = pad.filter((x) => !x.sealed && x.m.id !== item?.m.id);
+    const live = pad.filter((x) => !x.sealed && x.m.id !== item?.m.id && (x.open || x.soon != null));
+    const pool = live.length ? live : pad.filter((x) => !x.sealed && x.m.id !== item?.m.id);
     if (!pool.length) return;
     shuffling = true;
     try { navigator.vibrate?.(10); } catch {}

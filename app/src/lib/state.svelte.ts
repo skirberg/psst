@@ -75,23 +75,24 @@ class AppState {
     const rest = moves
       .filter((m) => !seen.has(m.id) && fits(m) && !(m.secret === 2 && !this.unlocked.includes(m.id)))
       .map((m) => ({ m, s: 0, open: false, soon: null, t: (hm(m.best) - h + 24) % 24 }))
-      .filter((x) => openAt(x.m, this.dow, hm(x.m.best)))
+      // A best hour already past today means tonight after midnight or tomorrow: check that day's hours, and the rain then.
+      .filter((x) => { const b = hm(x.m.best), day = h + x.t >= 24 ? (this.dow + 1) % 7 : this.dow; return openAt(x.m, day, b) && (x.m.rainOk || h + x.t >= 24 || rainAt(this.now.date, b) < 50); })
       .sort((a, b) => a.t - b.t)
       .map(({ t: _t, ...x }): PadItem => x);
     return [...pad, ...rest];
   });
-  // Minutes from where you are: walking when it's close (4.8 km/h), otherwise city driving (about 25 km/h, plus a few minutes to park).
+  // Minutes from where you are: walking when it's close (4.8 km/h), otherwise city driving (about 25 km/h, plus 8 minutes to get going and park; the two meet at 0.8 km, so a farther place never reads faster).
   awayFrom(p: LatLng): string | null {
     if (!this.inMiami || !this.here) return null;
     const d = km(this.here, p);
-    return d < 1.3 ? `${Math.max(1, Math.round((d / 4.8) * 60))} min walk` : `${Math.round(4 + (d / 25) * 60)} min away`;
+    return d < 0.8 ? `${Math.max(1, Math.round((d / 4.8) * 60))} min walk` : `${Math.round(8 + (d / 25) * 60)} min away`;
   }
   locate(ask = true): void {
     if (typeof navigator === 'undefined' || !navigator.geolocation || this.locating) return;
     this.locating = true;
     navigator.geolocation.getCurrentPosition(
       (p) => {
-        this.locating = false; this.here = { lat: p.coords.latitude, lng: p.coords.longitude }; this.padId = null; this.flipped = null;
+        this.locating = false; this.here = { lat: p.coords.latitude, lng: p.coords.longitude }; if (ask) { this.padId = null; this.flipped = null; }
         if (ask) { this.say(this.inMiami ? 'Closest first.' : 'You’re not in Miami yet. Here’s the whole city.'); track('Located', { inMiami: String(this.inMiami) }); }
       },
       () => { this.locating = false; if (ask) this.say('Location is off. Here’s the whole city.'); },
