@@ -66,6 +66,8 @@ export interface PsstEvent {
   // A cancelled or postponed event is hidden everywhere in the app.
   status?: 'cancelled' | 'postponed';
   statusSource?: string;
+  // Set on events that app/scripts/events-refresh.ts added from a venue feed: the feed name and the feed's own id.
+  feed?: string;
   getThere?: string;
   bring?: string;
   after?: string;

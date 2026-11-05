@@ -11,6 +11,7 @@
     "test": "node scripts/plan-check.ts && node scripts/contrast-check.ts && node scripts/flows-check.ts"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^1.5.0",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.70.3",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",

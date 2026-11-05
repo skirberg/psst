@@ -52,6 +52,7 @@ for (const e of load('events')) {
   need('sources are web links', urls(e.sources)); need('verifiedOn is a date', isDate(e.verifiedOn));
   need('url is https', e.url == null || /^https:\/\//.test(String(e.url)));
   need('status is empty, cancelled or postponed', e.status == null || e.status === 'cancelled' || e.status === 'postponed');
+  need('feed is empty or name:id', e.feed == null || /^[a-z-]+:\S+$/.test(String(e.feed)));
   need('a status names its source', e.status == null || (typeof e.statusSource === 'string' && /^https?:\/\//.test(e.statusSource)));
 }
 

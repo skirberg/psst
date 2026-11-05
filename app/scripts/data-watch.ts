@@ -7,7 +7,7 @@
 //  3. Reports anything not re-checked in STALE_DAYS, and (with the Ticketmaster key) upcoming Miami shows that
 //     psst does not have yet, as candidates for a human to judge. Nothing is added automatically.
 // Network trouble never fails the run: a page that cannot be read is reported, never treated as a cancellation.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import type { Hotel, Move, PsstEvent } from '../src/lib/types.ts';
 
@@ -165,5 +165,5 @@ say(); say(`### Not re-checked in ${STALE_DAYS} days (${stale.length})`); say(st
 if (tmKey) { say(); say(`### Miami shows psst does not list, next 60 days (${candidates.length})`); say(candidates.slice(0, 40).join('\n') || 'None.'); }
 
 const report = lines.join('\n');
-if (reportPath) writeFileSync(reportPath, report + '\n');
+if (reportPath) appendFileSync(reportPath, report + '\n');
 console.log(report);

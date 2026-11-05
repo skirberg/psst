@@ -1,7 +1,10 @@
-# Twice a week: re-check every event, place and hotel against its sources (app/scripts/data-watch.ts).
-# A cancelled or postponed event is hidden automatically and the push redeploys psst.miami.
-# Everything else lands in one GitHub issue, "psst data watch", which gets a comment when something needs a look.
-# Optional secret: TICKETMASTER_KEY (free key from developer.ticketmaster.com) turns on status checks and new-show candidates.
+# Twice a week, with no one involved: keep psst's events running and honest.
+#  1. app/scripts/events-refresh.ts adds upcoming shows from the venues' own calendars (Club Space, the Bandshell,
+#     Ball & Chain, The Bass), hides ones that leave their feed, and drops ones long past.
+#  2. app/scripts/data-watch.ts re-checks every event, place and hotel against its sources and hides cancelled events.
+# Any change is committed and the push redeploys psst.miami. The report lands in one GitHub issue, "psst data watch",
+# which gets a comment only when something needs a look.
+# Optional secrets: ANTHROPIC_API_KEY (Claude picks the shows and writes the lines), TICKETMASTER_KEY (status checks and candidates).
 name: Data watch
 on:
   schedule:
@@ -22,18 +25,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci --prefix app
+      - name: Refresh events from the venue feeds
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node app/scripts/events-refresh.ts --report "$RUNNER_TEMP/watch.md"
       - name: Check the data
         env:
           TICKETMASTER_KEY: ${{ secrets.TICKETMASTER_KEY }}
         run: node app/scripts/data-watch.ts --report "$RUNNER_TEMP/watch.md"
-      - name: Commit hidden events
+      - name: Commit event changes
         run: |
           if git diff --quiet data/events.json; then echo "No event changes"; exit 0; fi
           cd app && node scripts/sync-data.ts && node scripts/data-check.ts && cd ..
           git config user.name "Sami Kirberg"
           git config user.email "samikirberg@gmail.com"
           git add data/events.json app/src/lib/events.json
-          git commit -m "Data watch: hide cancelled or postponed events"
+          git commit -m "Data watch: refresh events"
           git pull --rebase origin main
           git push
       - name: Update the data watch issue
