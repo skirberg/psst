@@ -6,7 +6,8 @@ export default {
   preprocess: vitePreprocess(),
   kit: {
     adapter: adapter({ pages: 'build', assets: 'build', strict: true }),
-    serviceWorker: { register: true },
+    // Registered by hand in +page.svelte, production only: in dev it served stale modules after edits (2026-11-05).
+    serviceWorker: { register: false },
     // One request for the first screen: code and styles are inlined into the page (measured faster on 4G than split files,
     // 2026-10-24). The map's coastline (static/geo.json) loads after first paint.
     output: { bundleStrategy: 'inline' },

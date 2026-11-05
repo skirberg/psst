@@ -25,6 +25,10 @@
   const band = $derived(trip.wild < 0.45 ? 'low' : trip.wild < 0.8 ? 'mid' : 'loud');
   const step = (k: 'arrive' | 'depart', d: number): void => { trip[k] = Math.min(23.5, Math.max(5, trip[k] + d)); trip.persist(); };
   let copied = $state(''), fallback = $state(''), ta = $state<HTMLTextAreaElement>();
+  // A trip that already has dates opens folded to one line; Change opens it, Done folds it.
+  // While someone is filling it in, it stays open even once both dates exist.
+  let editing = $state(!trip.hasDates);
+  const slipOpen = $derived(editing || !trip.hasDates);
   async function copy() {
     const lines = [`psst. Miami, ${fmtDate(trip.start, { month: 'short', day: 'numeric' })} to ${fmtDate(trip.end, { month: 'short', day: 'numeric' })}`];
     for (const d of trip.days) {
@@ -46,13 +50,22 @@
   <h1>Your trip</h1>
   <div class="presets">{#each presets as p}<button class:on={preset === p.k} onclick={() => use(p)}>{p.label}</button>{/each}</div>
 
+  {#if !slipOpen}
+    <button class="slipline" onclick={() => (editing = true)}>
+      <b>{fmtDate(trip.start, { month: 'short', day: 'numeric' })} to {fmtDate(trip.end, { month: 'short', day: 'numeric' })}</b>
+      <span>Lands {fmtHour(trip.arrive, true)}, out {fmtHour(trip.depart, true)}</span>
+      <span class="chg">Change</span>
+    </button>
+  {:else}
   <div class="slip">
     <label><span>Arrive</span><input type="date" id="trip-start" name="arrive" autocomplete="off" bind:value={trip.start} min={today} max="2026-12-31" onchange={() => { if (trip.start && (!trip.end || trip.end < trip.start)) trip.end = addDays(trip.start, 3); trip.persist(); datesSet('custom'); }} /></label>
     <label><span>Leave</span><input type="date" id="trip-end" name="leave" autocomplete="off" bind:value={trip.end} min={trip.start || today} max="2026-12-31" onchange={() => { trip.persist(); datesSet('custom'); }} /></label>
     <div class="stepper"><span>Landing</span><div><button onclick={() => step('arrive', -0.5)} aria-label="Land earlier">−</button><b>{fmtHour(trip.arrive)}</b><button onclick={() => step('arrive', 0.5)} aria-label="Land later">+</button></div></div>
     <div class="stepper"><span>Flight out</span><div><button onclick={() => step('depart', -0.5)} aria-label="Leave earlier">−</button><b>{fmtHour(trip.depart)}</b><button onclick={() => step('depart', 0.5)} aria-label="Leave later">+</button></div></div>
     <div class="seg" role="radiogroup" aria-label="Energy" tabindex="-1" onkeydown={radioKeys}>{#each ENERGY as [k, label, v]}<button role="radio" aria-checked={band === k} tabindex={band === k ? 0 : -1} class:on={band === k} onclick={() => { trip.wild = v; trip.persist(); }}>{label}</button>{/each}</div>
+    {#if trip.hasDates}<button class="done" onclick={() => (editing = false)}>Done</button>{/if}
   </div>
+  {/if}
 
   {#if trip.inRange.length}
     <div class="events">
@@ -72,7 +85,7 @@
       <div class="day" class:focus={trip.focusDay === di}>
         <button class="dh" onclick={() => (trip.focusDay = di)}>
           <span class="dn">{fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' })}</span>
-          <span class="dm">{#if d.weather}<span>{d.weather.hi}° {d.weather.kind === 'typical' ? 'typical' : 'forecast'}</span>{/if}<span>Sunset {fmtHour(d.sun.set, true)}</span></span><span class="vh">. Show on the map</span>
+          <span class="dm">{#if d.weather}<span title={d.weather.kind === 'typical' ? 'Typical for the date' : 'Forecast'}>{d.weather.kind === 'typical' ? '~' : ''}{d.weather.hi}°</span>{/if}<span>Sunset {fmtHour(d.sun.set, true)}</span></span><span class="vh">. Show on the map</span>
         </button>
         {#if d.wet}<p class="note">Rain likely. Covered spots only.</p>{/if}
         {#each d.slots as s (s.key)}
@@ -85,7 +98,7 @@
                   <div class="ev-t"><b>{s.event.title}</b><span class="venue">{s.event.venue}{s.event.doors && s.event.time ? `, show ${fmtHour(hm(s.event.time), true)}` : ''}</span>
                     <span class="links">{#if s.event.url}<a href={s.event.url} target="_blank" rel="noopener">Tickets</a>{/if}<a href={mapsHref(s.event.venue, s.event.address, s.event.lat, s.event.lng)} target="_blank" rel="noopener">Go</a></span></div>
                   {#if s.event.getThere || s.event.bring || s.event.after}
-                    <dl class="tips">{#each [['Get there', s.event.getThere], ['Bring', s.event.bring], ['After', s.event.after]].filter((x) => x[1]) as [k, t]}<dt>{k}</dt><dd>{t}</dd>{/each}</dl>
+                    <details class="how"><summary>How to get there</summary><dl class="tips">{#each [['Get there', s.event.getThere], ['Bring', s.event.bring], ['After', s.event.after]].filter((x) => x[1]) as [k, t]}<dt>{k}</dt><dd>{t}</dd>{/each}</dl></details>
                   {/if}
                 </div>
               {:else if s.move}
@@ -149,7 +162,18 @@
   .ev-t b { font: 400 var(--fs-xl)/1.05 var(--display); }
   .ev-t .venue { font-size: var(--fs-s); color: var(--muted); }
   .ev-t .links { display: flex; gap: 16px; margin-top: 4px; }
-  .tips { grid-column: 1 / -1; margin: 2px 0 0; padding-top: 10px; border-top: 2px dashed var(--line); display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+  .how { grid-column: 1 / -1; border-top: 2px dashed var(--line); padding-top: 8px; }
+  .how summary { cursor: pointer; font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 6px 0; list-style: none; }
+  .how summary::-webkit-details-marker { display: none; }
+  .how summary::after { content: ' +'; color: var(--muted); }
+  .how[open] summary::after { content: ' −'; }
+  .tips { margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+  .slipline { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; padding: 14px 16px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
+  .slipline:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+  .slipline b { font: 400 var(--fs-xl)/1.1 var(--display); }
+  .slipline span { grid-column: 1; font: 550 var(--fs-s) var(--body); color: var(--muted); }
+  .slipline .chg { grid-column: 2; grid-row: 1 / span 2; font: 650 var(--fs-s) var(--body); color: var(--ink); padding: 6px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--line); }
+  .done { grid-column: 1 / -1; font: 650 var(--fs-m) var(--body); padding: 10px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   .tips dt { font: 650 var(--fs-s)/1.45 var(--body); color: var(--muted); }
   .tips dd { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; }
   .ev-t a { font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 6px 0; }
