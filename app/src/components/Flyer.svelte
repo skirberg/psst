@@ -24,7 +24,9 @@
     if (!box || !titleEl) return;
     const W = (box.clientWidth - 28) / 1.05; if (W <= 0) return;
     const words = ev.title.toUpperCase().split(/\s+/);
-    const H = box.clientHeight - (box.querySelector<HTMLElement>('.num')?.offsetHeight || 0) - 60;
+    // Room left for the title: the box minus the date, the real footer (it can run to three lines) and the padding and gaps.
+    // Measured against the 4:5 poster, not the box: a box that grew must not invite a bigger title.
+    const H = box.clientWidth * 1.25 - (box.querySelector<HTMLElement>('.num')?.offsetHeight || 0) - (box.querySelector<HTMLElement>('.foot')?.offsetHeight || 36) - 32;
     const c = document.createElement('canvas').getContext('2d'); if (!c) return;
     const maxLines = 4;
     for (let size = 46; size >= 16; size -= 2) {
@@ -53,7 +55,8 @@
 </div>
 
 <style>
-  .flyer { position: relative; aspect-ratio: 4 / 5; width: 100%; background: var(--paper); color: var(--b); overflow: hidden; padding: 12px; display: flex; flex-direction: column; gap: 4px; isolation: isolate; container-type: inline-size; }
+  /* 4:5 poster, but a crowded one grows taller rather than clipping its footer (clip-path trims the sun; overflow: hidden would stop the box growing). */
+  .flyer { position: relative; aspect-ratio: 4 / 5; width: 100%; background: var(--paper); color: var(--b); clip-path: inset(0); padding: 12px; display: flex; flex-direction: column; gap: 4px; isolation: isolate; container-type: inline-size; }
   .num { font: 400 clamp(40px, 42cqi, 120px)/0.8 'League Gothic', var(--display); color: var(--a); letter-spacing: -0.01em; }
   .l2 .num { color: var(--b); }
   .title { margin-top: auto; font-family: 'League Gothic', var(--display); line-height: 0.9; text-transform: uppercase; letter-spacing: 0.01em; overflow-wrap: normal; word-break: keep-all; hyphens: none; }
@@ -61,6 +64,8 @@
   .l1 .num { color: var(--b); }
   .mini .title, .mini .foot { display: none; }
   .mini .num { font-size: clamp(48px, 60cqi, 96px); margin-top: auto; }
-  .mwk { font: 400 22px/1 'League Gothic', var(--display); text-transform: uppercase; color: var(--b); }
-  .foot { display: grid; gap: 1px; font: 500 9.5px/1.25 var(--mono); font-variation-settings: 'MONO' 1; letter-spacing: 0.04em; text-transform: uppercase; border-top: 1.5px solid currentColor; padding-top: 5px; }
+  .mwk { font: 400 var(--fs-xl)/1 'League Gothic', var(--display); text-transform: uppercase; color: var(--b); }
+  .foot { display: grid; gap: 1px; font: 500 var(--fs-s)/1.15 var(--mono); font-variant-numeric: tabular-nums; border-top: 1.5px solid currentColor; padding-top: 5px; }
+  /* A long venue keeps two lines on the poster; the full name is in the panel the flyer opens. */
+  .foot span:last-child { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 </style>

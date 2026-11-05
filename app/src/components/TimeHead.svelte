@@ -97,7 +97,7 @@
   .hour .ap { width: auto; font-size: 0.36em; margin-left: 0.12em; letter-spacing: 0.02em; }
   .hour.neon { font-family: 'Tilt Neon', var(--display); color: #FFBD99; text-shadow: 0 0 14px color-mix(in oklch, var(--mamey) 70%, transparent), 0 0 2px #FFBD99; }
   .hour:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 6px; }
-  .nowchip { font: 650 13px var(--body); padding: 7px 12px; border-radius: 999px; border: 0; background: var(--text); color: var(--sky); cursor: pointer; }
+  .nowchip { font: 650 var(--fs-s) var(--body); padding: 7px 12px; border-radius: 999px; border: 0; background: var(--text); color: var(--sky); cursor: pointer; }
 
   .track { position: relative; height: 34px; margin-top: 4px; cursor: ew-resize; touch-action: pan-y; }
   .track:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; border-radius: 10px; }
@@ -108,13 +108,13 @@
   .sun { position: absolute; top: 50%; width: 30px; height: 36px; margin: -20px 0 0 -15px; display: grid; place-items: center; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(5, 39, 57, 0.35)); transition: left 0.06s linear; }
   .sun svg { width: 26px; height: 32px; }
   .sun.moon svg { width: 24px; height: 24px; }
-  .scale { position: relative; height: 12px; margin-top: -6px; font: 500 11px var(--body); }
+  .scale { position: relative; height: 12px; margin-top: -6px; font: 500 var(--fs-s) var(--body); }
   .scale span { position: absolute; transform: translateX(-50%); }
   .scale span:nth-child(1) { left: calc(13px + (100% - 26px) * 0.25); }
   .scale span:nth-child(2) { left: calc(13px + (100% - 26px) * 0.5); }
   .scale span:nth-child(3) { left: calc(13px + (100% - 26px) * 0.75); }
   .hrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .sunline { margin: 0; font: 600 14px var(--body); }
-  .lede { margin: 0; font: 650 18px/1.3 var(--body); font-variation-settings: 'CASL' 1; }
+  .sunline { margin: 0; font: 600 var(--fs-m) var(--body); }
+  .lede { margin: 0; font: 650 var(--fs-l)/1.3 var(--body); font-variation-settings: 'CASL' 1; }
   @media (prefers-reduced-motion: reduce) { .hour, .sun { transition: none; } }
 </style>

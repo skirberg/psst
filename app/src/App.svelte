@@ -136,13 +136,13 @@
   :global(*) { box-sizing: border-box; }
   :global(html), :global(body) { height: 100%; margin: 0; }
   :global(body) { -webkit-font-smoothing: antialiased; transition: background-color 0.9s; -webkit-tap-highlight-color: transparent; }
-  .app { --display: 'Tilt Warp', 'Arial Rounded MT Bold', system-ui, sans-serif; --body: 'Recursive', ui-sans-serif, system-ui, sans-serif; --mono: 'Recursive', ui-monospace, Menlo, monospace;
+  .app { --fs-xs: 12px; --fs-s: 13px; --fs-m: 15px; --fs-l: 17px; --fs-xl: 22px; --fs-xxl: 28px; --fs-title: 44px; --display: 'Tilt Warp', 'Arial Rounded MT Bold', system-ui, sans-serif; --body: 'Recursive', ui-sans-serif, system-ui, sans-serif; --mono: 'Recursive', ui-monospace, Menlo, monospace;
     --t-ui: 240ms cubic-bezier(.2, .8, .2, 1); --t-paper: 520ms cubic-bezier(.3, 1.35, .5, 1);
-    position: fixed; inset: 0; background: var(--sky); color: var(--text); font: 450 16px/1.45 var(--body); overflow: hidden; transition: background-color 0.25s; }
+    position: fixed; inset: 0; background: var(--sky); color: var(--text); font: 450 var(--fs-l)/1.45 var(--body); overflow: hidden; transition: background-color 0.25s; }
   .app :global(button), .app :global(a), .app :global([role='button']) { touch-action: manipulation; }
   .app :global(button), .app :global([role='button']) { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
   .app :global(:focus-visible) { outline: 3px solid var(--text); outline-offset: 2px; }
-  .skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; border-radius: 999px; background: var(--ink); color: var(--paper); font: 650 14px var(--body); }
+  .skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; border-radius: 999px; background: var(--ink); color: var(--paper); font: 650 var(--fs-m) var(--body); }
   .skip:focus { top: 12px; }
   main:focus { outline: none; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -157,21 +157,21 @@
   .wide .col { scroll-padding-bottom: 40px; right: auto; width: 500px; padding: 26px 30px 40px; gap: 20px; }
   .wide .col.full { right: 0; width: auto; padding-inline: 40px; }
   .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 42px; }
-  .today { margin: 0; display: flex; gap: 12px; font: 600 13px var(--body); flex-wrap: wrap; justify-content: flex-end; }
+  .today { margin: 0; display: flex; gap: 12px; font: 600 var(--fs-s) var(--body); flex-wrap: wrap; justify-content: flex-end; }
   .tabs { display: flex; gap: 4px; margin-top: -6px; flex-wrap: wrap; }
-  .tabs button { display: inline-flex; align-items: center; gap: 6px; font: 650 14.5px var(--body); padding: 8px 13px 8px 10px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
+  .tabs button { display: inline-flex; align-items: center; gap: 6px; font: 650 var(--fs-m) var(--body); padding: 8px 11px 8px 9px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
   .tabs button.on { background: var(--text); color: var(--sky); }
-  .tabs i { font-style: normal; font: 700 11px var(--mono); font-variation-settings: 'MONO' 1; padding: 1px 6px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
+  .tabs i { font-style: normal; font: 700 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; padding: 1px 6px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
   .laterdock { z-index: 2; position: absolute; left: 520px; right: 24px; bottom: 18px; }
   .tabbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: space-around; padding: 8px 6px calc(env(safe-area-inset-bottom, 0px) + 8px); background: var(--paper); box-shadow: 0 -1px 0 rgba(5, 39, 57, 0.08), 0 -10px 24px rgba(5, 39, 57, 0.12); }
-  .tabbar button { flex: 1; display: grid; justify-items: center; gap: 3px; padding: 4px 0; min-height: 50px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 650 11.5px var(--body); }
+  .tabbar button { flex: 1; display: grid; justify-items: center; gap: 3px; padding: 4px 0; min-height: 50px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 650 var(--fs-s) var(--body); }
   .tabbar button:focus-visible { outline-color: var(--ink); }
   .ti { position: relative; width: 52px; height: 30px; border-radius: 999px; display: grid; place-items: center; transition: background 0.2s, transform 0.2s cubic-bezier(.3, 1.6, .5, 1); }
   .tabbar button.on { color: var(--ink); }
   .tabbar button.on .ti { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
   .tabbar button:active .ti { transform: scale(0.92); }
-  .ti i { position: absolute; top: -6px; right: 2px; font-style: normal; font: 700 10.5px var(--mono); font-variation-settings: 'MONO' 1; padding: 1px 5px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
-  .toast { position: absolute; z-index: 20; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 90px); transform: translate(-50%, 16px); max-width: calc(100% - 32px); font: 650 15px var(--body); background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 999px; box-shadow: 0 10px 24px rgba(5, 39, 57, 0.3); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
+  .ti i { position: absolute; top: -6px; right: 2px; font-style: normal; font: 700 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; padding: 1px 5px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
+  .toast { position: absolute; z-index: 20; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 90px); transform: translate(-50%, 16px); max-width: calc(100% - 32px); font: 650 var(--fs-m) var(--body); background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 999px; box-shadow: 0 10px 24px rgba(5, 39, 57, 0.3); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .wide .toast { bottom: 28px; left: 250px; }
   @media (prefers-reduced-motion: reduce) { :global(body), .app, .toast { transition: none; } }

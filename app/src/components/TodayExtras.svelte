@@ -57,12 +57,12 @@
   .tripticket:active { transform: scale(0.99); }
   .tt-ic { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--mamey); color: var(--ink); flex: none; }
   .tt-main { display: grid; flex: 1; min-width: 0; }
-  .tt-main b { font: 400 20px/1.05 var(--display); }
-  .tt-main span { font: 550 13px var(--body); color: var(--muted); }
-  .tt-n { display: grid; justify-items: center; font: 550 11.5px var(--body); color: var(--muted); }
-  .tt-n b { font: 400 22px/1 var(--display); color: var(--ink); }
+  .tt-main b { font: 400 var(--fs-xl)/1.05 var(--display); }
+  .tt-main span { font: 550 var(--fs-s) var(--body); color: var(--muted); }
+  .tt-n { display: grid; justify-items: center; font: 550 var(--fs-s) var(--body); color: var(--muted); }
+  .tt-n b { font: 400 var(--fs-xl)/1 var(--display); color: var(--ink); }
   .tonight { display: grid; gap: 8px; color: var(--text); }
-  h2 { margin: 0; font: 400 22px/1 var(--display); }
+  h2 { margin: 0; font: 400 var(--fs-xl)/1 var(--display); }
   .row { display: flex; gap: 12px; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 10px; scrollbar-width: none; }
   .row::-webkit-scrollbar { display: none; }
   .mini { all: unset; cursor: pointer; flex: none; width: 128px; filter: drop-shadow(0 8px 10px rgba(5, 39, 57, 0.28)); transition: transform 0.25s cubic-bezier(.3, 1.4, .5, 1); }

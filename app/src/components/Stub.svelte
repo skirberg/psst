@@ -4,7 +4,7 @@
   import { tick } from 'svelte';
   import Sticker from './Sticker.svelte';
   import { app, serialOf } from '../lib/state.svelte';
-  import { moves, openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
+  import { openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
 
   import type { Move, Dow } from '../lib/types';
   let { item, compact = false, at = null, dow = null }: { item: { m: Move; sealed?: boolean; soon?: number | null }; compact?: boolean; at?: number | null; dow?: Dow | null } = $props();
@@ -15,7 +15,6 @@
   const flipped = $derived(app.flipped === m.id);
   const kept = $derived(app.kept.includes(m.id));
   const serial = $derived(String(serialOf(m)).padStart(3, '0'));
-  const total = String(moves.length).padStart(3, '0');
   const bars = $derived(Array.from({ length: 48 }, (_, i) => openAt(m, dayDow, i / 2)));
   const nowH = $derived(at ?? app.hour);
   const isOpen = $derived(openAt(m, dayDow, nowH));
@@ -160,7 +159,7 @@
       <div class="ripped" bind:this={ripped} tabindex="-1" aria-label="Kept. No. {serial}" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span><span class="no">No. {serial}</span></div>
     {:else}
       <div class="tearoff" class:tearing bind:this={tearoff} style:transform={pull ? `translateY(${pull}px) rotate(${pull * 0.06}deg)` : undefined} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
-        <span class="no">No. {serial}{#if !compact}<small>/{total}</small>{/if}</span>
+        <span class="spacer"></span>
         <div class="acts">
           <button class="keep" onclick={tear}>Keep</button>
           <a class="go" href={go} target="_blank" rel="noopener">Go</a>
@@ -179,11 +178,12 @@
     mask: radial-gradient(circle var(--notch) at 0 0, transparent 98%, #000) top left / 51% 51% no-repeat, radial-gradient(circle var(--notch) at 100% 0, transparent 98%, #000) top right / 51% 51% no-repeat, radial-gradient(circle var(--notch) at 0 100%, transparent 98%, #000) bottom left / 51% 51% no-repeat, radial-gradient(circle var(--notch) at 100% 100%, transparent 98%, #000) bottom right / 51% 51% no-repeat; }
   .faces { position: relative; display: grid; }
   .face { padding: 14px 16px 12px; min-width: 0; cursor: pointer; transition: opacity var(--t-ui), transform var(--t-ui); }
-  .back { position: absolute; inset: 0; overflow-y: auto; opacity: 0; transform: rotateY(-8deg) translateX(8px); }
-  .flipped .front { opacity: 0; transform: rotateY(8deg) translateX(-8px); }
-  .flipped .back { opacity: 1; transform: none; }
+  /* The face not showing is hidden outright once its fade ends, so readers and checkers skip it (it is also inert). */
+  .back { position: absolute; inset: 0; overflow-y: auto; opacity: 0; transform: rotateY(-8deg) translateX(8px); visibility: hidden; transition: opacity var(--t-ui), transform var(--t-ui), visibility 0s 240ms; }
+  .flipped .front { opacity: 0; transform: rotateY(8deg) translateX(-8px); visibility: hidden; transition: opacity var(--t-ui), transform var(--t-ui), visibility 0s 240ms; }
+  .flipped .back { opacity: 1; transform: none; visibility: visible; transition: opacity var(--t-ui), transform var(--t-ui), visibility 0s; }
 
-  .top { margin: 0; font: 550 13.5px/1.2 var(--body); color: var(--muted); }
+  .top { margin: 0; font: 550 var(--fs-s)/1.2 var(--body); color: var(--muted); }
   .live { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); }
   .best-at { margin-left: 10px; color: var(--muted); }
   .live i { width: 9px; height: 9px; border-radius: 50%; background: var(--mamey); box-shadow: 0 0 0 2px var(--ink); }
@@ -192,24 +192,24 @@
   .bar .best { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); }
   .bar .now { position: absolute; top: -1px; bottom: -1px; width: 3px; margin-left: -1.5px; background: var(--mamey); border-radius: 2px; }
   .emblem { float: right; margin: 2px -4px 4px 10px; shape-outside: circle(50%); }
-  .title { margin: 0; font: 400 30px/1.02 var(--display); letter-spacing: -0.005em; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-variation-settings: 'XROT' 0, 'YROT' calc(var(--lean, 0) * -20); transition: font-variation-settings .5s cubic-bezier(.3, 1.4, .5, 1); }
-  .note { margin: 10px 0 0; font: 520 17px/1.35 var(--body); font-variation-settings: 'CASL' 1, 'MONO' 0; text-wrap: pretty; }
-  .meta { clear: both; margin: 12px 0 0; display: flex; align-items: center; gap: 4px 14px; font: 500 13.5px var(--body); color: var(--muted); flex-wrap: wrap; }
+  .title { margin: 0; font: 400 var(--fs-xxl)/1.02 var(--display); letter-spacing: -0.005em; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-variation-settings: 'XROT' 0, 'YROT' calc(var(--lean, 0) * -20); transition: font-variation-settings .5s cubic-bezier(.3, 1.4, .5, 1); }
+  .note { margin: 10px 0 0; font: 520 var(--fs-l)/1.35 var(--body); font-variation-settings: 'CASL' 1, 'MONO' 0; text-wrap: pretty; }
+  .meta { clear: both; margin: 12px 0 0; display: flex; align-items: center; gap: 4px 14px; font: 500 var(--fs-s) var(--body); color: var(--muted); flex-wrap: wrap; }
   .meta span:first-child { color: var(--ink); font-weight: 650; }
   .more, .b-close { position: relative; }
   .more::after, .b-close::after { content: ''; position: absolute; inset: -10px -6px; }
-  .more { margin-left: auto; font: 650 13px var(--body); padding: 5px 11px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
+  .more { margin-left: auto; font: 650 var(--fs-s) var(--body); padding: 5px 11px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
 
   .b-top { display: flex; justify-content: space-between; align-items: start; gap: 8px; margin-bottom: 10px; }
-  .b-title { margin: 0; font: 400 24px/1.05 var(--display); }
-  .b-close { flex: none; font: 650 13px var(--body); padding: 5px 11px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
-  .b-line { margin: 0 0 8px; font: 480 15px/1.4 var(--body); }
+  .b-title { margin: 0; font: 400 var(--fs-xxl)/1.05 var(--display); }
+  .b-close { flex: none; font: 650 var(--fs-s) var(--body); padding: 5px 11px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
+  .b-line { margin: 0 0 8px; font: 480 var(--fs-m)/1.4 var(--body); }
   .b-line b { font-weight: 700; }
-  .b-line.muted { color: var(--muted); font-size: 14px; }
+  .b-line.muted { color: var(--muted); font-size: var(--fs-m); }
   .b-actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; }
-  .pill { font: 650 13.5px var(--body); padding: 9px 13px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
+  .pill { font: 650 var(--fs-s) var(--body); padding: 9px 13px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
   .pill.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
-  .b-src { margin: 0; font: 450 12.5px/1.4 var(--body); color: var(--muted); }
+  .b-src { margin: 0; font: 450 var(--fs-s)/1.4 var(--body); color: var(--muted); }
   .b-src a { color: var(--ink); }
 
   .perf { position: relative; height: 20px; }
@@ -217,32 +217,31 @@
   .perf::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 9px at 0 50%, var(--sky) 96%, transparent) left / 18px 20px no-repeat, radial-gradient(circle 9px at 100% 50%, var(--sky) 96%, transparent) right / 18px 20px no-repeat; }
   .tearoff { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 16px 14px; touch-action: pan-y; transition: transform 0.2s; cursor: grab; }
   .tearoff.tearing { opacity: 0; transition: opacity 0.12s; }
-  .no { font: 600 13px var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); }
-  .tearoff .no { touch-action: none; cursor: grab; padding: 12px 10px 12px 0; }
+  .no { font: 600 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+  .tearoff .spacer { flex: 1; align-self: stretch; min-height: 44px; touch-action: none; cursor: grab; }
   .ripped:focus { outline: none; }
-  .no small { color: var(--muted); font-weight: 500; }
   .acts { display: flex; gap: 8px; }
-  .keep, .go { min-height: 44px; display: inline-grid; place-items: center; font: 650 15px var(--body); padding: 0 18px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+  .keep, .go { min-height: 44px; display: inline-grid; place-items: center; font: 650 var(--fs-m) var(--body); padding: 0 18px; border-radius: 999px; cursor: pointer; text-decoration: none; }
   .keep { background: transparent; color: var(--ink); border: 0; box-shadow: inset 0 0 0 1.5px var(--ink); }
   .go { background: var(--ink); color: var(--paper); }
   .keep:active, .go:active { transform: scale(0.97); }
   .ripped { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 14px; background: repeating-linear-gradient(-45deg, transparent 0 6px, color-mix(in oklch, var(--line) 45%, transparent) 6px 7px); }
-  .stamp { font: 400 16px var(--display); letter-spacing: 0.06em; color: var(--mamey-deep); border: 2px solid currentColor; border-radius: 6px; padding: 2px 10px; transform: rotate(-6deg); animation: slap var(--t-paper) both; }
+  .stamp { font: 400 var(--fs-l) var(--display); letter-spacing: 0.06em; color: var(--mamey-deep); border: 2px solid currentColor; border-radius: 6px; padding: 2px 10px; transform: rotate(-6deg); animation: slap var(--t-paper) both; }
   @keyframes slap { from { transform: rotate(-6deg) scale(1.7); opacity: 0; } }
 
   .compact .face { padding: 12px 14px 10px; }
-  .compact .title { font-size: 22px; }
-  .compact .note { font-size: 15.5px; }
+  .compact .title { font-size: var(--fs-xl); }
+  .compact .note { font-size: var(--fs-m); }
       .compact .tearoff { padding: 2px 14px 10px; }
-  .compact .keep, .compact .go { min-height: 38px; font-size: 14px; padding: 0 14px; }
+  .compact .keep, .compact .go { min-height: 38px; font-size: var(--fs-m); padding: 0 14px; }
 
   .sealed { --focus: var(--paper); min-height: 260px; padding: 22px 20px; background: var(--ink); color: var(--paper); display: grid; align-content: end; gap: 6px; cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: manipulation; overflow: hidden; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--paper) 30%, transparent); }
   .flap { position: absolute; inset: 0 0 auto; height: 56%; background: linear-gradient(to bottom right, transparent 49.6%, rgba(254, 250, 241, 0.3) 50%, transparent 50.4%), linear-gradient(to bottom left, transparent 49.6%, rgba(254, 250, 241, 0.3) 50%, transparent 50.4%); }
   .seal { position: absolute; top: 40%; left: 50%; width: 74px; height: 74px; margin: -37px 0 0 -37px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--paper) calc(var(--p) * 1turn), var(--mamey) 0); box-shadow: 0 0 0 4px var(--ink), 0 0 0 6px var(--mamey); transform: scale(calc(1 + var(--p) * 0.15)) rotate(calc(var(--p) * -20deg)); }
-  .seal span { font: 400 18px var(--display); color: var(--ink); }
-  .s-hood { margin: 0; font: 400 30px/1 var(--display); }
-  .s-clue { margin: 0; font: 520 17px/1.35 var(--body); font-variation-settings: 'CASL' 1; }
-  .s-hint { margin: 6px 0 0; font: 600 13px var(--body); color: var(--mamey); }
-  @media (max-height: 760px) { .note { font-size: 16px; } .title { font-size: 27px; } }
+  .seal span { font: 400 var(--fs-l) var(--display); color: var(--ink); }
+  .s-hood { margin: 0; font: 400 var(--fs-xxl)/1 var(--display); }
+  .s-clue { margin: 0; font: 520 var(--fs-l)/1.35 var(--body); font-variation-settings: 'CASL' 1; }
+  .s-hint { margin: 6px 0 0; font: 600 var(--fs-s) var(--body); color: var(--mamey); }
+  @media (max-height: 760px) { .note { font-size: var(--fs-l); } .title { font-size: var(--fs-xxl); } }
   @media (prefers-reduced-motion: reduce) { .face, .tearoff, .stamp { transition: none; animation: none; } .back, .flipped .front { transform: none; } }
 </style>

@@ -114,56 +114,56 @@
 
 <style>
   .trip { display: grid; gap: 16px; color: var(--text); }
-  h1 { margin: 0; font: 400 44px/0.95 var(--display); text-shadow: var(--shade, none); }
-  h2 { margin: 0; font: 400 20px/1 var(--display); }
+  h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); text-shadow: var(--shade, none); }
+  h2 { margin: 0; font: 400 var(--fs-xl)/1 var(--display); }
   .presets, .evs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; margin: 0 -16px; padding-inline: 16px; }
   .presets::-webkit-scrollbar, .evs::-webkit-scrollbar { display: none; }
   .presets button, .evs button { flex: none; white-space: nowrap; }
-  .presets button { font: 650 14px var(--body); padding: 9px 14px; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); }
+  .presets button { font: 650 var(--fs-m) var(--body); padding: 9px 14px; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); }
   .presets button.on { background: var(--text); color: var(--sky); box-shadow: none; }
   .slip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
   .slip label, .stepper { display: grid; gap: 4px; min-width: 0; }
-  .slip span { font: 600 12.5px var(--body); color: var(--muted); }
-  .slip input { font: 600 16px var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 6px 0; width: 100%; min-width: 0; color-scheme: light; }
+  .slip span { font: 600 var(--fs-s) var(--body); color: var(--muted); }
+  .slip input { font: 600 var(--fs-l) var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 6px 0; width: 100%; min-width: 0; color-scheme: light; }
   .stepper div { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed var(--line); }
-  .stepper b { font: 600 15px var(--mono); font-variation-settings: 'MONO' 1; }
-  .stepper button { width: 36px; height: 36px; border: 0; background: transparent; font: 600 20px var(--body); color: var(--ink); cursor: pointer; }
+  .stepper b { font: 600 var(--fs-m) var(--mono); font-variant-numeric: tabular-nums; }
+  .stepper button { width: 36px; height: 36px; border: 0; background: transparent; font: 600 var(--fs-xl) var(--body); color: var(--ink); cursor: pointer; }
   .seg { grid-column: 1 / -1; display: flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--ink); }
-  .seg button { flex: 1; font: 650 14px var(--body); padding: 8px 6px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+  .seg button { flex: 1; font: 650 var(--fs-m) var(--body); padding: 8px 6px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
   .seg button.on { background: var(--ink); color: var(--paper); }
   .events { display: grid; gap: 10px; }
-  .evs button { display: inline-flex; gap: 8px; align-items: baseline; font: 600 13.5px var(--body); padding: 8px 12px; border-radius: 4px; border: 0; cursor: pointer; background: color-mix(in oklch, var(--paper) 92%, transparent); color: var(--ink); text-align: left; }
+  .evs button { display: inline-flex; gap: 8px; align-items: baseline; font: 600 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 4px; border: 0; cursor: pointer; background: color-mix(in oklch, var(--paper) 92%, transparent); color: var(--ink); text-align: left; }
   .evs button.on { background: var(--ink); color: var(--paper); }
-  .evs .d { font: 500 11px var(--mono); font-variation-settings: 'MONO' 1; opacity: 0.75; white-space: nowrap; }
+  .evs .d { font: 500 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; opacity: 0.75; white-space: nowrap; }
   .day { display: grid; gap: 12px; padding-top: 14px; border-top: 2px dashed color-mix(in oklch, var(--text) 35%, transparent); }
   .dh { all: unset; cursor: pointer; display: grid; gap: 4px; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .dh:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
-  .dn { font: 400 26px/1 var(--display); }
+  .dn { font: 400 var(--fs-xxl)/1 var(--display); }
   .focus .dn { text-decoration: underline; text-decoration-color: var(--mamey); text-decoration-thickness: 4px; text-underline-offset: 6px; }
-  .dm { display: flex; flex-wrap: wrap; gap: 4px 14px; font: 600 13px var(--body); opacity: 0.9; }
+  .dm { display: flex; flex-wrap: wrap; gap: 4px 14px; font: 600 var(--fs-s) var(--body); opacity: 0.9; }
   .slot { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: start; }
   .when { display: grid; gap: 2px; padding-top: 8px; }
-  .when b { font: 600 14px var(--mono); font-variation-settings: 'MONO' 1; }
-  .when span { font: 600 12px var(--body); opacity: 0.92; }
+  .when b { font: 600 var(--fs-m) var(--mono); font-variant-numeric: tabular-nums; }
+  .when span { font: 600 var(--fs-s) var(--body); opacity: 0.92; }
   .obj { display: grid; gap: 6px; min-width: 0; }
   .swap { position: relative; }
   .swap::after { content: ''; position: absolute; inset: -6px -4px -11px; }
-  .swap { justify-self: start; font: 600 13px var(--body); padding: 6px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
+  .swap { justify-self: start; font: 600 var(--fs-s) var(--body); padding: 6px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
   .evstub { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 10px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 14px 16px -12px rgba(5, 39, 57, 0.45); }
   .ev-t { display: grid; gap: 3px; align-content: start; min-width: 0; }
-  .ev-t b { font: 400 22px/1.05 var(--display); }
-  .ev-t .venue { font-size: 13.5px; color: var(--muted); }
+  .ev-t b { font: 400 var(--fs-xl)/1.05 var(--display); }
+  .ev-t .venue { font-size: var(--fs-s); color: var(--muted); }
   .ev-t .links { display: flex; gap: 16px; margin-top: 4px; }
   .tips { grid-column: 1 / -1; margin: 2px 0 0; padding-top: 10px; border-top: 2px dashed var(--line); display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
-  .tips dt { font: 650 13px/1.45 var(--body); color: var(--muted); }
-  .tips dd { margin: 0; font: 500 14px/1.4 var(--body); font-variation-settings: 'CASL' 1; }
-  .ev-t a { font: 650 14px var(--body); color: var(--ink); padding: 6px 0; }
-  .note { margin: 0; font: 500 14px/1.4 var(--body); font-variation-settings: 'CASL' 1; opacity: 0.9; }
+  .tips dt { font: 650 var(--fs-s)/1.45 var(--body); color: var(--muted); }
+  .tips dd { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; }
+  .ev-t a { font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 6px 0; }
+  .note { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; opacity: 0.9; }
   .codebox { display: grid; gap: 4px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; border: 2px dashed var(--line); }
-  .codebox b { font: 400 30px/1 var(--display); letter-spacing: 0.04em; }
-  .codebox .small { font: 500 13.5px/1.35 var(--body); font-variation-settings: 'CASL' 1; color: var(--muted); }
-  .fallback { width: 100%; font: 500 13px var(--mono); font-variation-settings: 'MONO' 1; padding: 10px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
-  .copy { font: 700 16px var(--body); padding: 14px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
+  .codebox b { font: 400 var(--fs-xxl)/1 var(--display); letter-spacing: 0.04em; }
+  .codebox .small { font: 500 var(--fs-s)/1.35 var(--body); font-variation-settings: 'CASL' 1; color: var(--muted); }
+  .fallback { width: 100%; font: 500 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; padding: 10px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
+  .copy { font: 700 var(--fs-l) var(--body); padding: 14px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   :global(.dark) .copy { background: var(--paper); color: var(--ink); }
 </style>

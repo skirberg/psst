@@ -22,6 +22,9 @@
   let pick = $state<string>(trip.end >= app.now.date ? 'stay' : 'tonight');
   const r = $derived.by(() => { const x = ranges.find((y) => y[0] === pick) ?? ranges[0]; return (x[0] === 'stay' ? [x[0], x[1], from(trip.start), trip.end] : x) as [string, string, ISODate, ISODate]; });
   const list = $derived(events.filter((e) => (e.endDate || e.date) >= r[2] && e.date <= r[3]));
+  // An empty range never leaves a blank wall: say so in one line, then show the next shows after it.
+  const next = $derived(list.length ? [] : events.filter((e) => e.date > r[3]).sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? '').localeCompare(b.time ?? '')).slice(0, 8));
+  const emptyLine = $derived(`${r[0] === 'tonight' ? 'Nothing on tonight.' : 'Nothing on those dates yet.'}${next.length ? ' Next up:' : ''}`);
   const hash = (s: string): number => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 3);
   let open = $state<string | null>(null);
   const inStay = (e: PsstEvent): boolean => (e.endDate || e.date) >= trip.start && e.date <= trip.end;
@@ -38,13 +41,7 @@
   }
 </script>
 
-<section class="wall" class:wide>
-  <h1>Events</h1>
-  <div class="chips" role="radiogroup" aria-label="When" tabindex="-1" onkeydown={radioKeys}>
-    {#each ranges as [k, label]}<button role="radio" aria-checked={r[0] === k} tabindex={r[0] === k ? 0 : -1} class:on={r[0] === k} onclick={() => (pick = k)}>{label}</button>{/each}
-  </div>
-  <div class="grid">
-    {#each list as e, i (e.id)}
+{#snippet post(e: PsstEvent, i: number)}
       <article class="post" style:--r="{(hash(e.id) % 7) - 3}deg" style:--i={i}>
         <button class="face" onclick={() => (open = open === e.id ? null : e.id)} aria-expanded={open === e.id}><Flyer ev={e} /></button>
         <button class="tabs" class:torn={added(e)} onclick={() => tearTab(e)}>
@@ -59,18 +56,27 @@
           </div>
         {/if}
       </article>
-    {:else}
-      <p class="none">{pick === 'tonight' ? 'Quiet tonight.' : 'Nothing on those dates yet.'}</p>
-    {/each}
+{/snippet}
+
+<section class="wall" class:wide>
+  <h1>Events</h1>
+  <div class="chips" role="radiogroup" aria-label="When" tabindex="-1" onkeydown={radioKeys}>
+    {#each ranges as [k, label]}<button role="radio" aria-checked={r[0] === k} tabindex={r[0] === k ? 0 : -1} class:on={r[0] === k} onclick={() => (pick = k)}>{label}</button>{/each}
   </div>
+  {#if list.length}
+    <div class="grid">{#each list as e, i (e.id)}{@render post(e, i)}{/each}</div>
+  {:else}
+    <p class="none">{emptyLine}</p>
+    {#if next.length}<div class="grid">{#each next as e, i (e.id)}{@render post(e, i)}{/each}</div>{/if}
+  {/if}
 </section>
 
 <style>
   .wall { display: grid; gap: 14px; color: var(--text); }
-  h1 { margin: 0; font: 400 44px/0.95 var(--display); }
+  h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); }
   .chips { display: flex; gap: 6px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 2px; scrollbar-width: none; }
   .chips::-webkit-scrollbar { display: none; }
-  .chips button { flex: none; font: 650 14px var(--body); padding: 8px 13px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); cursor: pointer; }
+  .chips button { flex: none; font: 650 var(--fs-m) var(--body); padding: 8px 13px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); cursor: pointer; }
   .chips button.on { background: var(--text); color: var(--sky); box-shadow: none; }
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; align-items: start; }
   .wide .grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 30px 22px; max-width: 1180px; }
@@ -80,21 +86,21 @@
   .face { all: unset; cursor: pointer; display: block; }
   .face:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .tabs { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr 2fr 1fr; background: var(--paper); color: var(--ink); border-top: 2px dashed var(--line); }
-  .tabs span { font: 650 11.5px var(--body); text-align: center; padding: 9px 2px 10px; border-left: 1px dashed var(--line); white-space: nowrap; overflow: hidden; text-overflow: clip; }
+  .tabs span { font: 650 var(--fs-s) var(--body); text-align: center; padding: 9px 2px 10px; border-left: 1px dashed var(--line); white-space: nowrap; overflow: hidden; text-overflow: clip; }
   .tabs span:first-child { border-left: 0; }
   .tabs .lab { font-weight: 750; }
   .tabs:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
   .torn { background: color-mix(in oklch, var(--paper) 82%, var(--mamey)); }
-  .info { background: var(--paper); color: var(--ink); padding: 10px 12px 12px; display: grid; gap: 6px; font-size: 14px; }
+  .info { background: var(--paper); color: var(--ink); padding: 10px 12px 12px; display: grid; gap: 6px; font-size: var(--fs-m); }
   .info p { margin: 0; }
-  .info .m { display: flex; gap: 5px; align-items: flex-start; font: 550 13px var(--body); color: var(--muted); }
+  .info .m { display: flex; gap: 5px; align-items: flex-start; font: 550 var(--fs-s) var(--body); color: var(--muted); }
   .info a { display: inline-flex; gap: 5px; align-items: center; font-weight: 650; color: var(--ink); }
   .info .tips { margin: 0; display: grid; gap: 2px; }
   .info dd + dt { margin-top: 6px; }
-  .info dt { font: 650 12.5px/1.45 var(--body); color: var(--muted); }
-  .info dd { margin: 0; font: 500 13.5px/1.4 var(--body); font-variation-settings: 'CASL' 1; }
+  .info dt { font: 650 var(--fs-s)/1.45 var(--body); color: var(--muted); }
+  .info dd { margin: 0; font: 500 var(--fs-s)/1.4 var(--body); font-variation-settings: 'CASL' 1; }
   .info .links { display: flex; gap: 18px; }
   .info .links a { padding: 4px 0; }
-  .none { margin: 0; font: 520 16px var(--body); }
+  .none { margin: 0; font: 520 var(--fs-l) var(--body); }
   @media (prefers-reduced-motion: reduce) { .post { transition: none; animation: none; } }
 </style>
