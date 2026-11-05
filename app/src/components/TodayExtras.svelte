@@ -8,8 +8,6 @@
   // Shows on your trip lead Tonight.
   const tonight = $derived(events.filter((e) => e.date <= app.now.date && (e.endDate || e.date) >= app.now.date)
     .sort((a, b) => Number(trip.anchors.includes(b.id)) - Number(trip.anchors.includes(a.id))).slice(0, 4));
-  const shows = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.event)).length);
-  const stops = $derived(trip.days.flatMap((d) => d.slots.filter((s) => s.move)).length);
   // Count down to the next show (a concert, game or club night beats an all-day fair).
   const isShow = (e: PsstEvent): boolean => ['concert', 'sports', 'club'].includes(e.category);
   const showDay = $derived(trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event && isShow(s.event))) ?? trip.days.find((d) => d.date >= app.now.date && d.slots.some((s) => s.event)));
@@ -33,10 +31,6 @@
     {:else}
       <span class="tt-main"><b>{daysTo > 0 ? `${daysTo} ${daysTo === 1 ? 'day' : 'days'}` : daysTo === 0 ? 'Today' : 'Your trip'}</b><span>{daysTo > 0 && nextShow ? (nextShow.date === showDay?.date ? `to ${nextShow.title.split(':')[0]}` : 'to your trip') : range}</span></span>
     {/if}
-    {#if trip.days.length}
-      <span class="tt-n"><b>{shows}</b>{shows === 1 ? 'show' : 'shows'}</span>
-      <span class="tt-n"><b>{stops}</b>stops</span>
-    {/if}
     <Icon name="right" size={18} />
   </button>
 
@@ -59,8 +53,6 @@
   .tt-main { display: grid; flex: 1; min-width: 0; }
   .tt-main b { font: 400 var(--fs-xl)/1.05 var(--display); }
   .tt-main span { font: 550 var(--fs-s) var(--body); color: var(--muted); }
-  .tt-n { display: grid; justify-items: center; font: 550 var(--fs-s) var(--body); color: var(--muted); }
-  .tt-n b { font: 400 var(--fs-xl)/1 var(--display); color: var(--ink); }
   .tonight { display: grid; gap: 8px; color: var(--text); }
   h2 { margin: 0; font: 400 var(--fs-xl)/1 var(--display); }
   .row { display: flex; gap: 12px; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 10px; scrollbar-width: none; }

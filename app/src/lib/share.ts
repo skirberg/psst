@@ -1,14 +1,13 @@
 // "Send the stub": one move drawn as a 1080x1350 card on the current sky, for the group chat.
-// Everything on it comes from the stub on screen (its top line, title, note, meta, sticker and serial),
+// Everything on it comes from the stub on screen (its top line, title, note, meta and sticker),
 // so the card never claims anything the app does not show. Canvas cannot set Recursive's MONO axis,
 // so the printer lines use Recursive's default cut in caps with tracking.
 
 export interface StubCardInput {
   front: HTMLElement; // the stub's front face, read for its text and sticker
-  serial: string; total: string;
   tint: string; // the move's sticker ink
   sky: string; skyText: string; // the page's sky and the text color on it
-  file: string; // file name, e.g. psst-011.png
+  file: string; // file name, e.g. psst-venetian-pool.png
 }
 
 const W = 1080, H = 1350;
@@ -125,12 +124,10 @@ export async function drawStubCard(o: StubCardInput): Promise<Blob> {
   c.fillStyle = MUTED; c.font = '650 30px Recursive'; spaced(c, 2.5);
   c.fillText(meta.toUpperCase(), x + 48, perfY - 44); spaced(c, 0);
 
-  // The tear-off: the serial, and where it came from.
-  c.fillStyle = MUTED; c.font = '650 26px Recursive'; spaced(c, 3); c.fillText('MOVE NO.', x + 48, perfY + 72); spaced(c, 0);
-  c.fillStyle = INK; c.font = '400 104px "Tilt Warp"'; c.fillText(o.serial, x + 44, perfY + 170);
-  const sw = c.measureText(o.serial).width;
-  c.fillStyle = MUTED; c.font = '400 52px "Tilt Warp"'; c.fillText(`/${o.total}`, x + 48 + sw, perfY + 170);
-  c.fillStyle = INK; c.font = '650 36px Recursive'; c.textAlign = 'right'; c.fillText('psst.miami', x + w - 48, perfY + 160); c.textAlign = 'left';
+  // The tear-off: a grip to pull, and where it came from. No number.
+  c.fillStyle = mix(INK, PAPER, 0.4);
+  for (let k = 0; k < 3; k++) { c.beginPath(); c.roundRect(x + 48, perfY + 92 + k * 16, 64, 5, 3); c.fill(); }
+  c.fillStyle = INK; c.font = '400 64px "Tilt Warp"'; c.textAlign = 'right'; c.fillText('psst.miami', x + w - 48, perfY + 140); c.textAlign = 'left';
 
   return await new Promise<Blob>((res, rej) => cv.toBlob((b) => (b ? res(b) : rej(new Error('no image'))), 'image/png'));
 }

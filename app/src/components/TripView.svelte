@@ -34,17 +34,12 @@
         lines.push(`${fmtHour(s.at % 24, true).padEnd(7)} ${s.event ? s.event.title + ' @ ' + s.event.venue + (s.label === 'Doors' ? ', doors' : '') : locked ? 'A secret. Open it in psst.' : s.move ? s.move.place + ', ' + s.move.hood : ''}`);
       }
     }
-    let link = ''; try { link = location.protocol.startsWith('http') && !/claude\.ai/.test(location.host) ? `${location.origin}${location.pathname}?code=${code}&trip=${trip.start}_${trip.end}${trip.anchors.length ? '&a=' + trip.anchors.join(',') : ''}` : ''; } catch {}
-    lines.push('', link ? `Open it: ${link}` : `Code ${code} unlocks a secret in psst.`, 'No refunds on sunsets.');
+    let link = ''; try { link = location.protocol.startsWith('http') && !/claude\.ai/.test(location.host) ? `${location.origin}${location.pathname}?trip=${trip.start}_${trip.end}${trip.anchors.length ? '&a=' + trip.anchors.join(',') : ''}` : ''; } catch {}
+    lines.push('', link ? `Open it: ${link}` : 'psst.miami', 'No refunds on sunsets.');
     const text = lines.join('\n');
     try { await navigator.clipboard.writeText(text); copied = 'Copied.'; fallback = ''; track('Plan copied', { days: String(trip.days.length), result: 'copied' }); }
     catch { copied = 'Select and copy:'; fallback = text; requestAnimationFrame(() => ta?.select()); track('Plan copied', { days: String(trip.days.length), result: 'manual' }); }
   }
-  const code = $derived.by(() => {
-    let h = 2166136261; for (const c of JSON.stringify(trip.days.map((d) => d.slots.map((x) => (x.move || x.event)?.id)))) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
-    const A = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let out = ''; for (let i = 0; i < 5; i++) { out += A[h % A.length]; h = Math.floor(h / A.length) || (h ^ 0x9e3779b9) >>> 0; }
-    return 'PINA-' + out;
-  });
 </script>
 
 <section class="trip">
@@ -103,7 +98,6 @@
         {#if !d.slots.length}<p class="note">Travel day.</p>{/if}
       </div>
     {/each}
-    <div class="codebox"><b>{code}</b><span class="small">Paste it with the plan. Unlocks a secret.</span></div>
     <button class="copy" onclick={copy}>Copy plan</button>
     {#if copied}<p class="note" role="status">{copied}</p>{/if}
     {#if fallback}<textarea class="fallback" readonly rows="10" bind:this={ta}>{fallback}</textarea>{/if}
@@ -160,9 +154,6 @@
   .tips dd { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; }
   .ev-t a { font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 6px 0; }
   .note { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; opacity: 0.9; }
-  .codebox { display: grid; gap: 4px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; border: 2px dashed var(--line); }
-  .codebox b { font: 400 var(--fs-xxl)/1 var(--display); letter-spacing: 0.04em; }
-  .codebox .small { font: 500 var(--fs-s)/1.35 var(--body); font-variation-settings: 'CASL' 1; color: var(--muted); }
   .fallback { width: 100%; font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 10px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
   .copy { font: 700 var(--fs-l) var(--body); padding: 14px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   :global(.dark) .copy { background: var(--paper); color: var(--ink); }

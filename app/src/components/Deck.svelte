@@ -78,7 +78,7 @@
   {#if item}
     <div class="deckbox">
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions (arrow keys bubble up from the card's own buttons) -->
-    <div class="stack" bind:this={stack} class:shuffling role="group" aria-roledescription="deck" aria-label="{i + 1} of {pad.length}" tabindex="-1" onkeydown={key}>
+    <div class="stack" bind:this={stack} class:shuffling role="group" aria-roledescription="deck" aria-label="Moves for this hour" tabindex="-1" onkeydown={key}>
       {#each behind as b, k (b.m.id + 'b')}
         <div class="under u{k}" aria-hidden="true">
           {#if k === 0}
@@ -98,7 +98,6 @@
     </div>
     <div class="controls">
       <button class="nav" onclick={() => go(-1)} aria-label="Previous move" disabled={pad.length < 2}><Icon name="left" size={20} /></button>
-      <span class="count">{i + 1}/{pad.length}</span>
       <button class="psst" onclick={psst} aria-label="psst: shuffle and deal me one move"><Icon name="shuffle" size={18} /><span>psst</span></button>
       <button class="nav" onclick={() => go(1)} aria-label="Next move" disabled={pad.length < 2}><Icon name="right" size={20} /></button>
     </div>
@@ -150,10 +149,9 @@
   @keyframes stick { from { transform: scale(1.8) rotate(-20deg); opacity: 0; } }
   @keyframes deal { from { transform: translateY(26px) rotate(-3deg) scale(0.96); opacity: 0.4; } }
 
-  .controls { display: flex; align-items: center; justify-content: center; gap: 14px; color: var(--text); margin-top: 14px; }
+  .controls { display: flex; align-items: center; justify-content: center; gap: 22px; color: var(--text); margin-top: 14px; }
   .nav { width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: var(--text); display: grid; place-items: center; cursor: pointer; }
   .nav:disabled { opacity: 0.3; }
-  .count { font: 600 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; min-width: 38px; text-align: center; }
   .hint { opacity: 0.7; }
   .psst { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 22px; border-radius: 999px; border: 0; cursor: pointer; background: var(--mamey); color: var(--ink); font: 400 var(--fs-xl) var(--display); box-shadow: 0 6px 0 var(--mamey-deep), 0 12px 20px rgba(5, 39, 57, 0.25); transition: transform 0.12s, box-shadow 0.12s; }
   .psst:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--mamey-deep), 0 4px 10px rgba(5, 39, 57, 0.25); }

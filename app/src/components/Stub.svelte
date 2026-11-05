@@ -4,9 +4,9 @@
   import { tick } from 'svelte';
   import { track } from '@vercel/analytics';
   import Sticker from './Sticker.svelte';
-  import { app, serialOf } from '../lib/state.svelte';
+  import { app } from '../lib/state.svelte';
   import { inkOf } from '../lib/ink';
-  import { moves, openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
+  import { openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
 
   import type { Move, Dow } from '../lib/types';
   let { item, compact = false, at = null, dow = null }: { item: { m: Move; sealed?: boolean; soon?: number | null }; compact?: boolean; at?: number | null; dow?: Dow | null } = $props();
@@ -16,14 +16,12 @@
   const sealed = $derived(item.sealed && !app.unlocked.includes(m.id));
   const flipped = $derived(app.flipped === m.id);
   const kept = $derived(app.kept.includes(m.id));
-  const serial = $derived(String(serialOf(m)).padStart(3, '0'));
-  const total = String(moves.length).padStart(3, '0');
+  const away = $derived(compact ? null : app.awayFrom(m));
   const tint = $derived(inkOf(m.id)[0]);
   const bars = $derived(Array.from({ length: 48 }, (_, i) => openAt(m, dayDow, i / 2)));
   const nowH = $derived(at ?? app.hour);
   const isOpen = $derived(openAt(m, dayDow, nowH));
   const closeAt = $derived(closesAt(m, dayDow, nowH));
-  const energyWord = $derived(m.energy <= 2 ? 'low-key' : m.energy === 3 ? 'lively' : 'loud');
   const host = (u: string): string => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Go opens the phone's own maps app; Apple devices also get a Google Maps link on the back.
@@ -44,7 +42,6 @@
   function holdStart(e: PointerEvent): void {
     if (!sealed || e.button > 0) return;
     e.preventDefault();
-    if (app.leansLeft() <= 0) { app.say('No secrets left this week. A friend’s code adds one.'); return; }
     t0 = performance.now(); cancelAnimationFrame(raf);
     document.documentElement.style.setProperty('--lean', '1');
     const step = () => {
@@ -94,15 +91,15 @@
     }
     const hadFocus = tearoff?.contains(document.activeElement);
     app.keep(m.id); tearing = false; pull = 0;
-    app.say(`Kept. No. ${serial}.`);
+    app.say('Kept.');
     if (hadFocus) { await tick(); ripped?.focus(); }
   }
   let ripped = $state<HTMLElement>();
-  // On touch, tearing starts from the 'No.' tab so a vertical swipe on the strip still scrolls the page.
+  // On touch, tearing starts from the grip so a vertical swipe on the strip still scrolls the page.
   function pullStart(e: PointerEvent & { currentTarget: HTMLElement }): void {
     const el = e.target as Element;
     if (kept || el.closest('button, a')) return;
-    if (e.pointerType === 'touch' && !el.closest('.no')) return;
+    if (e.pointerType === 'touch' && !el.closest('.grip')) return;
     py = e.clientY; e.currentTarget.setPointerCapture?.(e.pointerId);
   }
   function pullMove(e: PointerEvent): void { if (py == null) return; pull = Math.max(0, Math.min(80, e.clientY - py)); }
@@ -118,8 +115,8 @@
     try {
       const { sendStub } = await import('../lib/share'); // loaded on the first Send, not on the first paint
       const cs = getComputedStyle(shell);
-      const r = await sendStub({ front, serial, total, tint, sky: cs.getPropertyValue('--sky').trim() || '#FBF2D0', skyText: cs.getPropertyValue('--text').trim() || '#052739', file: `psst-${serial}.png` }, `psst. ${m.title}. psst.miami`);
-      if (r === 'saved') app.say(`Saved No. ${serial}. Send it on.`);
+      const r = await sendStub({ front, tint, sky: cs.getPropertyValue('--sky').trim() || '#FBF2D0', skyText: cs.getPropertyValue('--text').trim() || '#052739', file: `psst-${m.id}.png` }, `psst. ${m.title}. psst.miami`);
+      if (r === 'saved') app.say('Saved. Send it on.');
       track('Stub sent', { result: r });
     } catch { app.say('Could not draw the card. Try again.'); }
     finally { sending = false; }
@@ -141,7 +138,7 @@
     <div class="seal" style:--p={hold} aria-hidden="true"><span>psst</span></div>
     <p class="s-hood">{m.hood}</p>
     {#if m.clue}<p class="s-clue">{m.clue.replace(/^[^.]+\.\s*/, '')}</p>{/if}
-    <p class="s-hint" aria-live="polite">{armed ? 'Press Enter again to open' : app.leansLeft() > 0 ? `Hold to open. ${app.leansLeft()} left this week.` : 'None left this week.'}</p>
+    <p class="s-hint" aria-live="polite">{armed ? 'Press Enter again to open' : 'Hold to open.'}</p>
   </div>
 {:else}
   <article class="stub" class:compact class:flipped class:kept aria-label={m.title}>
@@ -149,8 +146,8 @@
       <div class="face front" id="front-{m.id}" inert={flipped} onclick={faceClick} role="presentation">
         <p class="top">
           {#if planned}<span>{closeAt != null ? `Open till ${fmtHour(closeAt, true)}` : 'Open late'}</span>
-          {:else if isOpen}<span class="live"><i></i>{closeAt != null ? `Open till ${fmtHour(closeAt, true)}` : 'Open now'}</span>{#if Math.min(Math.abs(nowH - hm(m.best)), 24 - Math.abs(nowH - hm(m.best))) > 1.5}<span class="best-at">best {fmtHour(hm(m.best), true)}</span>{/if}
-          {:else}<span>{item.soon != null ? `Opens ${fmtHour(item.soon, true)}` : `Best at ${fmtHour(hm(m.best), true)}`}</span>{/if}
+          {:else if isOpen}<span class="live"><i></i>{closeAt != null ? `Open till ${fmtHour(closeAt, true)}` : 'Open now'}</span>
+          {:else}<span>{item.soon != null ? `Opens ${fmtHour(item.soon, true)}` : `Best at ${fmtHour(hm(m.best), true)}`}</span>{/if}{#if away}<span class="away">{away}</span>{/if}
         </p>
         <div class="emblem"><Sticker move={m} size={compact ? 66 : 88} /></div>
         <div class="bar" aria-hidden="true">
@@ -160,7 +157,7 @@
         </div>
         <h2 class="title">{m.title}</h2>
         <p class="note">{m.theMove}</p>
-        <div class="meta"><span>{m.hood}</span><span>{'$'.repeat(m.cost)}</span><span>{energyWord}</span><button class="more" onclick={() => flip(true)}>More</button></div>
+        <div class="meta"><span>{m.hood}</span><span>{'$'.repeat(m.cost)}</span><button class="more" onclick={() => flip(true)}>More</button></div>
       </div>
       <div class="face back" id="back-{m.id}" inert={!flipped} onclick={faceClick} role="presentation">
         <div class="b-top"><p class="b-title">{m.place}</p><button class="b-close" onclick={() => flip(false)}>Back</button></div>
@@ -177,10 +174,10 @@
     </div>
     <div class="perf" aria-hidden="true"></div>
     {#if kept}
-      <div class="ripped" bind:this={ripped} tabindex="-1" aria-label="Kept. No. {serial}" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span><span class="no">No. {serial}</span></div>
+      <div class="ripped" bind:this={ripped} tabindex="-1" aria-label="Kept" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span></div>
     {:else}
       <div class="tearoff" style:--tint={tint} class:tearing bind:this={tearoff} style:transform={pull ? `translateY(${pull}px) rotate(${pull * 0.06}deg)` : undefined} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
-        <span class="no" aria-label="Move number {serial} of {total}"><small>Move No.</small><b>{serial}{#if !compact}<i>/{total}</i>{/if}</b></span>
+        <span class="grip" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 20M8.1 15.9 20 4"/></svg></span>
         <div class="acts">
           <button class="keep" onclick={tear}>Keep</button>
           <a class="go" href={go} target="_blank" rel="noopener">Go</a>
@@ -206,7 +203,7 @@
 
   .top { margin: 0; font: 550 var(--fs-s)/1.2 var(--body); color: var(--muted); }
   .live { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); }
-  .best-at { margin-left: 10px; color: var(--muted); }
+  .away { margin-left: 12px; color: var(--muted); }
   .live i { width: 9px; height: 9px; border-radius: 50%; background: var(--mamey); box-shadow: 0 0 0 2px var(--ink); }
   .bar { position: relative; height: 10px; margin: 9px 0 14px 0; border-radius: 5px; background: oklch(0.93 0.012 80); overflow: hidden; }
   .bar i { position: absolute; top: 0; bottom: 0; width: calc(100% / 48 + 0.5px); background: color-mix(in oklch, var(--ink) 18%, var(--paper)); }
@@ -238,13 +235,10 @@
   .perf::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 9px at 0 50%, var(--sky) 96%, transparent) left / 18px 20px no-repeat, radial-gradient(circle 9px at 100% 50%, var(--sky) 96%, transparent) right / 18px 20px no-repeat; }
   .tearoff { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 16px 14px; touch-action: pan-y; transition: transform 0.2s; cursor: grab; }
   .tearoff.tearing { opacity: 0; transition: opacity 0.12s; }
-  .no { font: 600 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); }
-  /* The serial is the move's stable index in the curated list, so it is real: No. 011 of 060, collectible. It is also the grab strip for tearing on touch. */
+  /* No numbers on the tear-off: the move's ink, a grip to pull, and the two things you do. */
   .tearoff { background: color-mix(in oklch, var(--tint) 16%, var(--paper)); }
-  .tearoff .no { display: grid; gap: 1px; padding: 8px 10px 6px 0; touch-action: none; cursor: grab; }
-  .tearoff .no small { font: 600 var(--fs-s)/1 var(--mono); font-variation-settings: 'MONO' 1; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
-  .tearoff .no b { font: 400 var(--fs-xxl)/1 var(--display); color: var(--ink); letter-spacing: -0.01em; }
-  .tearoff .no i { font-style: normal; font-size: 0.5em; color: var(--muted); }
+  .grip { display: grid; align-self: stretch; align-content: center; padding: 6px 22px 6px 0; touch-action: none; cursor: grab; color: color-mix(in oklch, var(--ink) 55%, transparent); }
+  .grip svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; transform: rotate(-90deg); }
   .ripped:focus { outline: none; }
   .acts { display: flex; gap: 8px; }
   .keep, .go { min-height: 44px; display: inline-grid; place-items: center; font: 650 var(--fs-m) var(--body); padding: 0 18px; border-radius: 999px; cursor: pointer; text-decoration: none; }

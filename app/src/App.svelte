@@ -29,7 +29,7 @@
     // Phone: only the full-screen map from a hotel card shows a pin (the hotel itself).
     const wh = app.whereHotel && hotels.find((h) => h.id === app.whereHotel);
     if (!wide) return wh ? [{ id: wh.id, lat: wh.lat, lng: wh.lng, move: { id: wh.id, hood: wh.hood, category: 'stay', word: wh.word, place: wh.name }, active: true, tag: '$'.repeat(wh.tier), label: wh.name }] : [];
-    if (app.tab === 'today') return app.pad.filter((x) => !x.sealed).map((x) => ({ id: x.m.id, lat: x.m.lat, lng: x.m.lng, move: x.m, active: top?.m.id === x.m.id, tag: fmtHour(hm(x.m.best), true), label: `${x.m.title}, show this move`, onclick: () => { app.padId = x.m.id; app.flipped = null; } }));
+    if (app.tab === 'today') return app.pad.slice(app.padPos, app.padPos + 9).filter((x) => !x.sealed).map((x) => ({ id: x.m.id, lat: x.m.lat, lng: x.m.lng, move: x.m, active: top?.m.id === x.m.id, tag: fmtHour(hm(x.m.best), true), label: `${x.m.title}, show this move`, onclick: () => { app.padId = x.m.id; app.flipped = null; } }));
     if (app.tab === 'trip' && trip.days.length) {
       const d = trip.days[Math.min(trip.focusDay, trip.days.length - 1)];
       return d.slots.filter((s) => s.move || s.event).map((s, n) => {
@@ -68,6 +68,8 @@
   onMount(() => {
     const mq = matchMedia('(min-width: 900px)'); const set = () => (wide = mq.matches); set(); mq.addEventListener('change', set);
     codeFromUrl();
+    // Already allowed location before? Use it quietly. Otherwise wait for a tap on Near me.
+    navigator.permissions?.query({ name: 'geolocation' }).then((p) => { if (p.state === 'granted') app.locate(false); }).catch(() => {});
     const tick = setInterval(() => { app.now = miamiNow(); if (app.following) app.hour = app.now.hour; }, 30000);
     return () => { clearInterval(tick); mq.removeEventListener('change', set); };
   });
@@ -99,7 +101,10 @@
     <main class="col" class:full id="main" tabindex="-1" bind:this={scroller}>
       <header class="top">
         <Wordmark size={wide ? 40 : 34} />
-        <p class="today"><span>Miami, {fmtDate(app.now.date, { weekday: 'short' })} {fmtDate(app.now.date, { month: 'short', day: 'numeric' })}</span>{#if wx}<span>{temp}° {wx.kind === 'typical' ? 'typical' : 'forecast'}</span>{/if}</p>
+        <p class="today">
+          <button class="here" class:on={app.inMiami} aria-pressed={app.inMiami} disabled={app.locating} onclick={() => app.locate()} aria-label={app.locating ? 'Finding you' : app.inMiami ? 'Near you, closest first' : 'Miami, tap to see what’s closest to you'}><Icon name="pin" size={15} />{app.locating ? 'Finding you' : app.inMiami ? 'Near you' : 'Miami'}</button>
+          <span>{fmtDate(app.now.date, { weekday: 'short' })} {fmtDate(app.now.date, { month: 'short', day: 'numeric' })}</span>{#if wx}<span title={wx.kind === 'typical' ? 'Typical for the date' : 'Forecast'}>{wx.kind === 'typical' ? '~' : ''}{temp}°</span>{/if}
+        </p>
       </header>
       {#if wide}
         <nav class="tabs" aria-label="Sections">{#each TABS as [k, label, ic]}<button data-tab={k} class:on={app.tab === k} aria-current={app.tab === k ? 'page' : undefined} onclick={() => app.setTab(k)}><Icon name={ic} size={18} />{label}{#if k === 'book' && app.kept.length}<i>{app.kept.length}</i>{/if}</button>{/each}</nav>
@@ -157,7 +162,11 @@
   .wide .col { scroll-padding-bottom: 40px; right: auto; width: 500px; padding: 26px 30px 40px; gap: 20px; }
   .wide .col.full { right: 0; width: auto; padding-inline: 40px; }
   .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 42px; }
-  .today { margin: 0; display: flex; gap: 12px; font: 600 var(--fs-s) var(--body); flex-wrap: wrap; justify-content: flex-end; }
+  .today { margin: 0; display: flex; align-items: center; gap: 12px; font: 600 var(--fs-s) var(--body); flex-wrap: wrap; justify-content: flex-end; }
+  .here { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 11px 0 8px; border: 0; border-radius: 999px; background: transparent; color: var(--text); font: 650 var(--fs-s) var(--body); cursor: pointer; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); transition: transform 0.16s cubic-bezier(.23, 1, .32, 1); }
+  .here:active { transform: scale(0.96); }
+  .here.on { background: var(--text); color: var(--sky); box-shadow: none; }
+  .here:disabled { opacity: 0.7; }
   .tabs { display: flex; gap: 4px; margin-top: -6px; flex-wrap: wrap; }
   .tabs button { display: inline-flex; align-items: center; gap: 6px; font: 650 var(--fs-m) var(--body); padding: 8px 11px 8px 9px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
   .tabs button.on { background: var(--text); color: var(--sky); }

@@ -54,7 +54,7 @@ A working, award-level prototype of psst. Miami that a visitor (test case: a fri
   - Notes are one line of what to do.
   - No narrated counts.
   - No explanatory footers.
-  - No all-caps mono labels except times and serials.
+  - No all-caps mono labels except times. (Serials removed 2026-11-05.)
   - All 60 moves were rewritten by hand from fact-checked text (data/copy-r3.json).
 - **Today is a deck, not a list:**
   - Mood buttons with custom icons.
@@ -105,12 +105,23 @@ Three lenses (visitor experience, is everything still true, platform) audited ps
 Judged against this file and design/round1-directions-and-judges.json (Tear Here), with outside references: Billboard's Club Space oral history (arrive around 5am, sunrise is the moment), Club Space and The Ground's own visitor pages (late-night kitchen; The Ground bans filming and its ticket does not open the Terrace), House Atlas on DICE's time-tiered prices, Apple's Wallet poster tickets (a ticket that is also the guide), NN/g and Material on empty states, Apple and Material type minimums. A first pass applied a generic design skill's house rules and removed the serial and the MONO printer as costume; both are the concept, so both are back. What stands:
 - **Events never opens blank.** "Quiet tonight. Next up:" and the next eight shows (Events still opens on Tonight, Sami's call of 2026-10-09).
 - **One type scale.** Tokens on .app: 12 (map attribution only), 13, 15, 17, 22, 28, 44, plus display sizes. Nothing read is under 13px; new CSS uses the tokens.
-- **The serial is a collectible again, as specified:** "Move No." in the printer over 011/060 in Tilt Warp, on a tear-off tinted with the move's sticker ink (src/lib/ink.ts is the one place inks are picked, so the stub and its sticker match). It is the touch grab strip for the tear.
+- ~~The serial is a collectible again~~ Superseded the same day by "No ending", below.
 - **Send the stub** (round 1's share moment, never built till now): the back of every stub has Send, which draws the stub on the current sky as a 1080x1350 card (src/lib/share.ts) from what the stub shows, including its hour bar, and opens the share sheet, or saves the PNG.
 - **Flyers never clip.** A crowded flyer stands taller than 4:5 rather than hide its date or venue (10 were clipped on the live site).
 - **The hidden stub face is hidden** (visibility plus inert).
 - **Feed events speak psst.** The 30 auto-added events were rewritten by hand in the voice, from feed facts (end times, rooms, ages) and the sources above. Without an API key the refresh writes a plain fact line ("Saturday night till noon Sunday", "separate ticket from the Terrace"), never the venue's own pitch. Space shows held elsewhere (the Adam Port open air on West Flagler, now placed there) are never auto-added; a whole-building night listed twice is added once; races are filler.
 - Deliberately not followed from the generic inspector: removing the cream (it is the noon sky), shadows under paper (stubs sit on the sky), monospace and serials (the printer and the collectible), "no photographs" (stickers and flyers are the pictures).
+
+## No ending (2026-11-05, branch `endless`, not pushed)
+
+Sami: "why 011 out of 060 on the move number? ... Maybe no number, and that's the point. Like, there's no ending. That makes you want to use it." And: "There's so much fucking text ... Random numbers, random characters", and that it "doesn't know where someone is at."
+
+- **No numbers on a move.** The serial is gone from the stub, the tear-off, the Kept stamp, the toast ("Kept.") and the Send card. The tear-off keeps the move's ink, a scissors mark (the coupon sign for tear here, and the touch grip), Keep and Go.
+- **The pad never runs out.** Everything good right now, then the rest of the day in the order it gets good, then round again. No "1/9". At 9am, Drink deals the next bar with the hour it opens instead of an empty card.
+- **No counters anywhere.** Kept shows only what you collected, by neighborhood: no empty slots, no "3/12", no "secrets this week". The trip ticket drops its show and stop counts.
+- **Secrets open with a hold, always.** No weekly limit, so no friend codes: the code box, the redeem form and ?code= are gone (old links still open the friend's plan). The plan link carries the dates and shows.
+- **Near me.** A pin chip in the header reads "Miami"; tap it and psst asks for your location once, then reads "Near you", deals closest first (distance weighs in, the hour still leads) and puts minutes on every stub ("8 min away", or "6 min walk" under 1.3 km; city driving at about 25 km/h plus 4 minutes). Outside about 45 km of Miami it says so and keeps the whole city. Location stays in the page: never stored, never sent. If location was already allowed, it is used without asking.
+- The header temperature drops the word: "81°" for a forecast, "~81°" for a typical day.
 
 ## Rejected (do not revive)
 - Hotel Piña (metaphor tax).
@@ -145,7 +156,7 @@ Judged against this file and design/round1-directions-and-judges.json (Tear Here
 
 ## Distribution and economics (current hypothesis)
 - **First audience:** people visiting Miami Nov 20 to Dec 7, 2026, from Sami's network. The test case is the John Summit weekend. Art Basel week (Dec 1 to 6) brings the largest influx of visitors and is the second test.
-- **Channel:** group chats. The planner exports a plain-text stay ("Copy the plan for the group chat"), and every plan carries a PINA code that unlocks a secret for whoever receives it. That gives the person receiving it a reason to open psst. The shareable visual is the golden-hour screen.
+- **Channel:** group chats. The planner exports a plain-text stay ("Copy the plan for the group chat"), and every plan carries a link that opens the same dates and shows in psst. (Until 2026-11-05 it also carried a PINA code that unlocked a secret; secrets are no longer limited, so the code is gone.) The shareable visual is the golden-hour screen.
 - **Message:** "Send me your dates. I'll send you the moves." The founder hands it out by hand, not through ads.
 - **First experiment (Nov 15 to Dec 7):**
   - Send the link to 20 to 30 visitors.
@@ -170,7 +181,7 @@ Judged against this file and design/round1-directions-and-judges.json (Tear Here
 - **After the first deploy:** check that og:image in the page source starts with https://. If not, turn on System Environment Variables in the project settings and redeploy.
 - **Live (2026-10-02):** https://psst-miami.vercel.app (also psst-omega.vercel.app). Repo: github.com/skirberg/psst, private. Vercel project psst on the personal Hobby team "Sami" (slug skirberg), Root Directory ./, preset Other, auto-deploy on push to main. The same Vercel login also belongs to a company team, so always check the scope says Sami (Hobby) before creating anything.
 - **Domain (2026-10-08):** https://psst.miami is the production domain. psst.ooo, www.psst.ooo, psst-miami.vercel.app and psst-omega.vercel.app 308-redirect to it. og:image comes from VERCEL_PROJECT_PRODUCTION_URL at build time, so any domain change needs a redeploy before share cards point at the new host.
-- **Analytics (2026-10-08):** Vercel Web Analytics (Pro, no cookies) via `inject()` in app/src/main.js. Custom events: Plan copied (days, copied/manual), Code redeemed (ok/used/bad), Secret unlocked, Move kept, Tab opened (tab, source: tabbar, ticket, flyer, link), and since Oct 9 Trip dates set (nights, via), Event added (trip), Went. These measure the group-chat loop: plans copied, then codes redeemed by friends.
+- **Analytics (2026-10-08):** Vercel Web Analytics (Pro, no cookies) via `inject()` in app/src/main.js. Custom events: Plan copied (days, copied/manual), Code redeemed (ok/used/bad, retired 2026-11-05), Located (inMiami, from 2026-11-05), Stub sent, Secret unlocked, Move kept, Tab opened (tab, source: tabbar, ticket, flyer, link), and since Oct 9 Trip dates set (nights, via), Event added (trip), Went. These measure the group-chat loop: plans copied, then codes redeemed by friends.
 - **Forecast (2026-10-09):** app/scripts/weather-fetch.ts runs before every build, and .github/workflows/forecast.yml commits a fresh forecast every morning (6:17am Miami), which redeploys the site. Pull in GitHub Desktop before committing, since the repo moves on its own. Since 2026-11-04 a local build keeps the committed forecast (only Vercel and GitHub Actions refresh it; WEATHER=1 forces it), because local rewrites of weather.json collided with the morning commit and left the SvelteKit 2 rebuild unpushed for 11 days.
 - **Offline (2026-10-09, rebuilt 2026-10-24):** app/src/service-worker.ts precaches the page (code inlined), the map data and the icons on install, and caches fonts as they load, so psst opens with no signal. The cache is named after the build, so every deploy replaces it; nothing to bump by hand. Analytics are never cached.
 - **Visibility:** the URL is public but the page is marked noindex, and vercel.json sends X-Robots-Tag: noindex for every file. Data is public venue information. Fonts are Google Fonts (OFL), so nothing trial-licensed ships.

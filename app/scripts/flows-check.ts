@@ -75,7 +75,9 @@ try {
     const secrets = await p.evaluate(async () => { const a = window.__psst; a.mood = 'secret'; await new Promise((r) => setTimeout(r, 30)); const ok = a.pad.every((x) => x.m.secret === 2 || x.m.category === 'speakeasy'); a.mood = 'all'; return ok; });
     check('Secret mood shows only secrets and speakeasies', secrets);
     await p.evaluate(() => { const a = window.__psst; a.mood = 'drink'; a.scrubTo(9); }); await sleep(100);
-    check('empty state reads "No bars open at 9am."', (await text(p, '.empty .e1')) === 'No bars open at 9am.');
+    // The pad never runs out: with no bar open at 9am, Drink deals the next one with the hour it gets good.
+    const nextBar = await text(p, '.stack .stub .top');
+    check('no bars open at 9am: Drink deals the next one, with its hour', /^(Opens|Best at) \d/.test(nextBar), nextBar);
     await p.evaluate(() => { const a = window.__psst; a.mood = 'all'; a.scrubTo(20); }); await sleep(150);
     const strip = await p.$eval('.stack .tearoff', (e): [number, number] => { const r = e.getBoundingClientRect(); return [r.left + r.width * 0.45, r.top + r.height / 2]; });
     const kept0 = await p.evaluate(() => window.__psst.kept.length);

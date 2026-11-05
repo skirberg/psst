@@ -1,11 +1,11 @@
-// App state. Per-viewer bits (kept, went, unlocked, leans) persist in localStorage when available.
+// App state. Per-viewer bits (kept, went, unlocked) persist in localStorage when available.
 import { track } from '@vercel/analytics';
 import { replaceState } from '$app/navigation';
-import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor, addDays } from './core';
+import { miamiNow, moves, events, rankNow, planStay, eventsBetween, openAt, hm, dowOf, rainAt, sunFor, addDays, km } from './core';
 import { skyAt, phaseAt, sunShade, mixHex, textOn, PAPER } from './sky';
-import type { Move, Ranked, ISODate } from './types';
+import type { Move, Ranked, ISODate, LatLng } from './types';
 
-interface Saved { kept?: string[]; went?: string[]; unlocked?: string[]; leanWeek?: string; leansUsed?: number; heldEvents?: string[]; bonusLeans?: number; redeemed?: string[] }
+interface Saved { kept?: string[]; went?: string[]; unlocked?: string[]; heldEvents?: string[] }
 interface TripSaved { start?: ISODate; end?: ISODate; arrive?: number; depart?: number; wild?: number; anchors?: string[] }
 export type Tab = 'today' | 'trip' | 'wall' | 'stay' | 'book';
 export type Mood = 'all' | 'secret' | 'drink' | 'eat' | 'coffee' | 'dance' | 'outside' | 'art';
@@ -16,9 +16,9 @@ function load(): Saved { try { return JSON.parse(localStorage.getItem(KEY) || 'n
 const saved = load();
 const TABS: Tab[] = ['today', 'trip', 'wall', 'stay', 'book'];
 const hashTab = (): Tab | null => { try { const h = location.hash.slice(1) as Tab; return TABS.includes(h) ? h : null; } catch { return null; } };
-export const LEANS_PER_WEEK = 3;
-const weekKey = (date: ISODate): string => { const d = new Date(date + 'T12:00:00Z'); const j = new Date(Date.UTC(d.getUTCFullYear(), 0, 1)); return d.getUTCFullYear() + '-' + Math.ceil(((d.getTime() - j.getTime()) / 864e5 + j.getUTCDay() + 1) / 7); };
-export const serialOf = (m: Move): number => moves.indexOf(m) + 1;
+// Miami's middle, and how far out still counts as being here (Homestead to Aventura, the beaches, the Keys bridge).
+const MIAMI: LatLng = { lat: 25.77, lng: -80.2 };
+const NEAR_KM = 45;
 export const MOODS: [Mood, string, string[] | 'secret' | null][] = [
   ['all', 'All', null], ['secret', 'Secret', 'secret'], ['drink', 'Drink', ['bar', 'speakeasy']], ['eat', 'Eat', ['food', 'market']],
   ['coffee', 'Coffee', ['coffee']], ['dance', 'Dance', ['music', 'nightlife']], ['outside', 'Outside', ['outdoors', 'water']], ['art', 'Art', ['art', 'shop']],
@@ -40,12 +40,12 @@ class AppState {
   kept = $state<string[]>(saved.kept || []);
   went = $state<string[]>(saved.went || []);
   unlocked = $state<string[]>(saved.unlocked || []);
-  leanWeek = $state(saved.leanWeek || '');
-  leansUsed = $state(saved.leansUsed || 0);
   heldEvents = $state<string[]>(saved.heldEvents || []);
-  bonusLeans = $state(saved.bonusLeans || 0);
-  redeemed = $state<string[]>(saved.redeemed || []);
   toast = $state('');
+  // Where the viewer is, only after they tap Near me (or already allowed it). Never stored, never sent anywhere.
+  here = $state<LatLng | null>(null);
+  locating = $state(false);
+  inMiami = $derived(!!this.here && km(this.here, MIAMI) <= NEAR_KM);
 
   sun = $derived(sunFor(this.now.date));
   sky = $derived(skyAt(this.hour, this.now.date));
@@ -59,18 +59,48 @@ class AppState {
   qHour = $derived(Math.floor(this.hour * 4) / 4);
   ranked = $derived(rankNow({ dow: this.dow, h: this.qHour, date: this.now.date, band: 'all', rainSafe: this.wet }));
   padId = $state<string | null>(null);
-  pad = $derived.by(() => {
+  // The pad never runs out: everything good right now (closest first when you're in Miami),
+  // then the rest of the day in the order it gets good, then round again.
+  pad = $derived.by((): PadItem[] => {
     const cats = MOODS.find((x) => x[0] === this.mood)?.[2];
-    const list = this.ranked.filter((x) => !cats || (cats === 'secret' ? x.m.secret === 2 || x.m.category === 'speakeasy' : cats.includes(x.m.category)));
+    const fits = (m: Move): boolean => !cats || (cats === 'secret' ? m.secret === 2 || m.category === 'speakeasy' : cats.includes(m.category));
+    const here = this.inMiami ? this.here : null;
+    const near = (x: Ranked): number => (here ? x.s * (0.3 + 0.7 * Math.exp(-km(here, x.m) / 5)) : x.s);
+    const list = this.ranked.filter((x) => fits(x.m)).map((x) => ({ ...x, s: near(x) })).sort((a, b) => b.s - a.s);
     const open: PadItem[] = [], sealed: PadItem[] = [];
     for (const x of list) (x.m.secret === 2 && !this.unlocked.includes(x.m.id) ? sealed : open).push(x);
-    const pad = open.slice(0, 8);
+    const pad: PadItem[] = [...open];
     if (sealed.length && (this.mood === 'all' || this.mood === 'secret' || this.mood === 'drink')) pad.splice(Math.min(2, pad.length), 0, { ...sealed[0], sealed: true });
-    return pad.slice(0, 9);
+    const h = this.qHour, seen = new Set(pad.map((x) => x.m.id));
+    const rest = moves
+      .filter((m) => !seen.has(m.id) && fits(m) && !(m.secret === 2 && !this.unlocked.includes(m.id)))
+      .map((m) => ({ m, s: 0, open: false, soon: null, t: (hm(m.best) - h + 24) % 24 }))
+      .filter((x) => openAt(x.m, this.dow, hm(x.m.best)))
+      .sort((a, b) => a.t - b.t)
+      .map(({ t: _t, ...x }): PadItem => x);
+    return [...pad, ...rest];
   });
+  // Minutes from where you are: walking when it's close (4.8 km/h), otherwise city driving (about 25 km/h, plus a few minutes to park).
+  awayFrom(p: LatLng): string | null {
+    if (!this.inMiami || !this.here) return null;
+    const d = km(this.here, p);
+    return d < 1.3 ? `${Math.max(1, Math.round((d / 4.8) * 60))} min walk` : `${Math.round(4 + (d / 25) * 60)} min away`;
+  }
+  locate(ask = true): void {
+    if (typeof navigator === 'undefined' || !navigator.geolocation || this.locating) return;
+    this.locating = true;
+    navigator.geolocation.getCurrentPosition(
+      (p) => {
+        this.locating = false; this.here = { lat: p.coords.latitude, lng: p.coords.longitude }; this.padId = null; this.flipped = null;
+        if (ask) { this.say(this.inMiami ? 'Closest first.' : 'You’re not in Miami yet. Here’s the whole city.'); track('Located', { inMiami: String(this.inMiami) }); }
+      },
+      () => { this.locating = false; if (ask) this.say('Location is off. Here’s the whole city.'); },
+      { enableHighAccuracy: false, maximumAge: 300000, timeout: 10000 },
+    );
+  }
   padPos = $derived.by(() => { const i = this.pad.findIndex((x) => x.m.id === this.padId); return i >= 0 ? i : 0; });
   later = $derived.by(() => {
-    const h = this.hour, ids = new Set(this.pad.map((x) => x.m.id));
+    const h = this.hour, ids = new Set(this.ranked.filter((x) => x.open).map((x) => x.m.id));
     // On a show day, nothing that clashes with the show (an hour before doors to four after).
     const shows = trip.days.find((d) => d.date === this.now.date)?.slots.filter((s) => s.event && ['concert', 'sports', 'club'].includes(s.event.category)).map((s) => s.at) ?? [];
     return moves
@@ -83,21 +113,10 @@ class AppState {
   });
 
   persist() {
-    try { localStorage.setItem(KEY, JSON.stringify({ kept: this.kept, went: this.went, unlocked: this.unlocked, leanWeek: this.leanWeek, leansUsed: this.leansUsed, heldEvents: this.heldEvents, bonusLeans: this.bonusLeans, redeemed: this.redeemed })); } catch {}
-  }
-  leansLeft() { return (this.leanWeek !== weekKey(this.now.date) ? LEANS_PER_WEEK : Math.max(0, LEANS_PER_WEEK - this.leansUsed)) + this.bonusLeans; }
-  redeem(code: string): 'ok' | 'used' | 'bad' {
-    code = code.trim().toUpperCase();
-    if (!/^PINA-[A-Z2-9]{5}$/.test(code)) { track('Code redeemed', { result: 'bad' }); return 'bad'; }
-    if (this.redeemed.includes(code)) { track('Code redeemed', { result: 'used' }); return 'used'; }
-    this.redeemed = [...this.redeemed, code]; this.bonusLeans += 1; this.persist(); track('Code redeemed', { result: 'ok' }); return 'ok';
+    try { localStorage.setItem(KEY, JSON.stringify({ kept: this.kept, went: this.went, unlocked: this.unlocked, heldEvents: this.heldEvents })); } catch {}
   }
   unlock(id: string): boolean {
     if (this.unlocked.includes(id)) return true;
-    const wk = weekKey(this.now.date);
-    if (this.leanWeek !== wk) { this.leanWeek = wk; this.leansUsed = 0; }
-    if (this.leansUsed >= LEANS_PER_WEEK) { if (this.bonusLeans <= 0) return false; this.bonusLeans -= 1; }
-    else this.leansUsed += 1;
     this.unlocked = [...this.unlocked, id]; this.padId = id; this.persist(); track('Secret unlocked'); return true;
   }
   toggle(list: 'kept' | 'went' | 'unlocked' | 'heldEvents', id: string): void { this[list] = this[list].includes(id) ? this[list].filter((x) => x !== id) : [...this[list], id]; this.persist(); }
@@ -109,14 +128,13 @@ class AppState {
   say(msg: string): void { this.toast = msg; clearTimeout(this._t); this._t = setTimeout(() => (this.toast = ''), 2600); }
 }
 export const app = new AppState();
-// A friend's plan link carries ?code=PINA-XXXXX, and the stay as &trip=START_END&a=EVENT_IDS.
-// Redeem the code once; open the friend's dates only if this viewer has no trip of their own.
+// A friend's plan link carries the stay as &trip=START_END&a=EVENT_IDS (older links also carry ?code=, now ignored).
+// Open the friend's dates only if this viewer has no trip of their own.
 export function codeFromUrl() {
   try {
     const u = new URL(location.href), code = u.searchParams.get('code'), span = u.searchParams.get('trip');
     if (!code && !span) return;
     let msg = '';
-    if (code) { const r = app.redeem(code); if (r === 'ok') msg = '+1 secret from a friend.'; }
     // ?trip=summit is the John Summit weekend, both nights.
     const summit = span === 'summit';
     const m = summit ? [span, '2026-11-20', '2026-11-24'] : span?.match(/^(\d{4}-\d\d-\d\d)_(\d{4}-\d\d-\d\d)$/);
@@ -125,7 +143,7 @@ export function codeFromUrl() {
     if (m && real(m[1]) && real(m[2]) && m[2] >= m[1] && m[1] >= app.now.date && m[2] <= '2026-12-31' && !trip.saved) {
       const ids = summit ? events.filter((e) => e.id.includes('john-summit')).map((e) => e.id) : (u.searchParams.get('a') || '').split(',').filter((id) => events.some((e) => e.id === id));
       trip.start = m[1]; trip.end = m[2]; trip.anchors = ids; trip.persist();
-      app.setTab('trip', 'link'); msg = msg ? 'Your friend\'s plan. +1 secret.' : 'Your friend\'s plan.';
+      app.setTab('trip', 'link'); msg = 'Your friend\'s plan.';
     }
     if (msg) app.say(msg);
     for (const k of ['code', 'trip', 'a']) u.searchParams.delete(k);
