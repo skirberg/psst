@@ -387,7 +387,7 @@
   @media (hover: hover) and (pointer: fine) { .pin:hover .lift { transform: translate(-50%, -100%) translateY(-6px); } .cl:hover span { transform: translate(-50%, -50%) scale(1.08); } }
   .pin:global(.crowded) .lift b { display: none; }
   .pin:global(.crowded) { opacity: 0.85; }
-  .lift b { font: 600 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; background: var(--ink); color: var(--paper); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+  .lift b { font: 600 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; background: var(--ink); color: var(--paper); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
   .pin:focus-visible { outline: none; }
   .cl { all: unset; position: absolute; left: 0; top: 0; pointer-events: auto; cursor: zoom-in; will-change: transform; }
   .cl span { position: absolute; transform: translate(-50%, -50%); display: grid; place-items: center; min-width: 40px; height: 40px; padding: 0 6px; box-sizing: border-box; border-radius: 999px;

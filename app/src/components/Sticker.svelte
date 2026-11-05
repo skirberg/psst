@@ -1,12 +1,11 @@
 <script lang="ts">
   // Die-cut sticker: the move's own word in sign lettering on a shape by category, one Miami ink.
   import type { StickerSubject } from '../lib/types';
+  import { inkHash, inkOf } from '../lib/ink';
   let { move, size = 72, dim = false, outline = false, tilt = true }: { move: StickerSubject; size?: number; dim?: boolean; outline?: boolean; tilt?: boolean } = $props();
   type Shape = 'round' | 'burst' | 'scallop' | 'shield' | 'ticket' | 'oval';
-  const INKS = [['#E2406F', '#FEFAF1'], ['#4AC9EC', '#052739'], ['#733EA4', '#FEFAF1'], ['#FED252', '#052739'], ['#117555', '#FEFAF1'], ['#C8F56D', '#052739']];
-  const hash = (s: string): number => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
-  const h = $derived(hash(move.id));
-  const ink = $derived(INKS[h % INKS.length]);
+  const h = $derived(inkHash(move.id));
+  const ink = $derived(inkOf(move.id));
   const rot = $derived(tilt ? (h % 17) - 8 : 0);
   const BY_CAT0: Record<string, Shape> = { coffee: 'round', food: 'burst', bar: 'scallop', speakeasy: 'shield', music: 'ticket', nightlife: 'ticket', water: 'oval', outdoors: 'round', art: 'oval', shop: 'round', market: 'scallop' };
   const shape = $derived<Shape>(BY_CAT0[move.category] || 'round');

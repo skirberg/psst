@@ -24,7 +24,7 @@
   const list = $derived(events.filter((e) => (e.endDate || e.date) >= r[2] && e.date <= r[3]));
   // An empty range never leaves a blank wall: say so in one line, then show the next shows after it.
   const next = $derived(list.length ? [] : events.filter((e) => e.date > r[3]).sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? '').localeCompare(b.time ?? '')).slice(0, 8));
-  const emptyLine = $derived(`${r[0] === 'tonight' ? 'Nothing on tonight.' : 'Nothing on those dates yet.'}${next.length ? ' Next up:' : ''}`);
+  const emptyLine = $derived(`${r[0] === 'tonight' ? 'Quiet tonight.' : 'Nothing on those dates yet.'}${next.length ? ' Next up:' : ''}`);
   const hash = (s: string): number => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 3);
   let open = $state<string | null>(null);
   const inStay = (e: PsstEvent): boolean => (e.endDate || e.date) >= trip.start && e.date <= trip.end;

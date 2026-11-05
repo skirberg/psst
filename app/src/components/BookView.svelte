@@ -91,13 +91,13 @@
   .stats { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font: 600 var(--fs-m) var(--body); }
   .page { background: var(--paper); color: var(--ink); border-radius: 4px; padding: 16px; display: grid; gap: 12px; box-shadow: 0 14px 18px -14px rgba(5, 39, 57, 0.45); }
   h2 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; font: 400 var(--fs-xxl)/1 var(--display); }
-  h2 span { font: 500 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; color: var(--muted); }
+  h2 span { font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; color: var(--muted); }
   .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px 8px; }
   .slot { display: grid; justify-items: center; gap: 3px; text-align: center; padding: 6px 2px; }
   .ghost { color: var(--muted); }
   .sb { all: unset; cursor: pointer; border-radius: 12px; }
   .sb:focus-visible { outline: 3px solid var(--ink); }
-  .no { font: 600 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; }
+  .no { font: 600 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; }
   .clue { font: 500 var(--fs-s)/1.25 var(--body); font-variation-settings: 'CASL' 1; color: var(--muted); }
   .k .clue { color: var(--ink); }
   .went { font: 600 var(--fs-s) var(--body); padding: 4px 10px; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); cursor: pointer; }
@@ -117,7 +117,7 @@
   .code { display: grid; gap: 6px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; }
   label { font: 600 var(--fs-s) var(--body); color: var(--muted); }
   .f { display: flex; gap: 8px; }
-  input { flex: 1; min-width: 0; font: 600 var(--fs-l) var(--mono); font-variant-numeric: tabular-nums; padding: 9px 10px; border: 0; border-bottom: 2px dashed var(--line); background: transparent; color: var(--ink); text-transform: uppercase; }
+  input { flex: 1; min-width: 0; font: 600 var(--fs-l) var(--mono); font-variation-settings: 'MONO' 1; padding: 9px 10px; border: 0; border-bottom: 2px dashed var(--line); background: transparent; color: var(--ink); text-transform: uppercase; }
   .f button { font: 650 var(--fs-m) var(--body); padding: 9px 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   .msg { margin: 0; font-size: var(--fs-s); }
   .credits { margin: 0; font: 500 var(--fs-s)/1.45 var(--body); opacity: 0.8; }

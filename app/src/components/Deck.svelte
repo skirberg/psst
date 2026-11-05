@@ -153,7 +153,7 @@
   .controls { display: flex; align-items: center; justify-content: center; gap: 14px; color: var(--text); margin-top: 14px; }
   .nav { width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: var(--text); display: grid; place-items: center; cursor: pointer; }
   .nav:disabled { opacity: 0.3; }
-  .count { font: 600 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; min-width: 38px; text-align: center; }
+  .count { font: 600 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; min-width: 38px; text-align: center; }
   .hint { opacity: 0.7; }
   .psst { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 22px; border-radius: 999px; border: 0; cursor: pointer; background: var(--mamey); color: var(--ink); font: 400 var(--fs-xl) var(--display); box-shadow: 0 6px 0 var(--mamey-deep), 0 12px 20px rgba(5, 39, 57, 0.25); transition: transform 0.12s, box-shadow 0.12s; }
   .psst:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--mamey-deep), 0 4px 10px rgba(5, 39, 57, 0.25); }

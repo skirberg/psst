@@ -46,6 +46,7 @@ interface Candidate {
   price?: string; url: string; sources: string[];
   about: string; // feed text the picker reads; never shown as-is
   ruleFit: boolean; // kept without an API key
+  offsite?: boolean; // listed by a venue's feed but held somewhere else; seen (so never marked cancelled), never auto-added
   plainWhy: string;
 }
 
@@ -60,6 +61,7 @@ const local = (iso: string): { date: ISODate; time: HHMM } => {
   const g = (t: string): string => p.find((x) => x.type === t)?.value ?? '';
   return { date: `${g('year')}-${g('month')}-${g('day')}` as ISODate, time: `${g('hour')}:${g('minute')}` as HHMM };
 };
+const dayName = (d: ISODate): string => new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${d}T12:00:00Z`));
 const slug = (s: string): string => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
 const words = (s: string): Set<string> => new Set(s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((w) => w.length > 2));
 const overlap = (a: string, b: string): number => { const A = words(a), B = words(b); let n = 0; for (const w of A) if (B.has(w)) n++; return A.size ? n / A.size : 0; };
@@ -71,7 +73,7 @@ const firstSentence = (s: string, max = 150): string => {
 };
 // Titles that say the show is off, and listings that are not a night out.
 const OFF = /\b(cancel+ed|postponed)\b/i;
-const FILLER = /\b(kids?|family|families|camp|cleanup|clean-up|workshop|class|classes|tour|members?|private|babies|toddlers?|open studio|yoga)\b/i;
+const FILLER = /\b(5k|10k|race series|fun run|kids?|family|families|camp|cleanup|clean-up|workshop|class|classes|tour|members?|private|babies|toddlers?|open studio|yoga)\b/i;
 
 async function getJson<T>(url: string): Promise<T | null> {
   try {
@@ -84,7 +86,7 @@ async function getJson<T>(url: string): Promise<T | null> {
 // ---- Feeds -------------------------------------------------------------------------------------------------
 interface FeedResult { name: string; ok: boolean; covers: ISODate | null; items: Candidate[] }
 
-interface SpaceShow { id: string; type: string; title: string; artists: { name: string }[]; room: string; age?: string; start: string; doors?: string; price?: string; status: string; url: string; description?: string }
+interface SpaceShow { id: string; type: string; title: string; artists: { name: string }[]; room: string; age?: string; start: string; doors?: string; end?: string; price?: string; status: string; url: string; description?: string }
 async function clubSpace(): Promise<FeedResult> {
   const src = 'https://www.clubspace.com/events.json';
   const j = await getJson<{ events: SpaceShow[] }>(src);
@@ -94,11 +96,16 @@ async function clubSpace(): Promise<FeedResult> {
   for (const s of j.events) {
     const where = VENUES[s.room];
     if (!where || s.type === 'pass') continue;
+    // Space also sells shows held elsewhere (an open air on West Flagler, a zine party). Their ids name the place; only the three rooms are placeable.
+    const offsite = !/-(club-space-miami|the-ground-miami|floyd-miami)-/.test(s.id);
     const d = local(s.doors || s.start);
     if (!covers || d.date > covers) covers = d.date;
     const artists = s.artists.map((a) => a.name).filter(Boolean);
     if (OFF.test(s.title)) continue;
-    const room = s.room === 'Full building' ? 'across every room at Space' : s.room === 'Terrace' ? "on Space's Terrace" : s.room === 'Floyd' ? 'at Floyd, upstairs at Space' : "in The Ground, Space's downstairs room";
+    const room = s.room === 'Full building' ? 'across every room at Space' : s.room === 'Terrace' ? "on Space's Terrace" : s.room === 'Floyd' ? 'at Floyd, upstairs at Space' : 'downstairs in The Ground';
+    // The feed publishes when each night ends; that is the fact a friend leads with ("till 2pm Saturday").
+    const end = s.end ? local(s.end) : null;
+    const till = end ? (end.date === d.date ? ` till ${fmt(end.time)}` : ` till ${end.time === '12:00' ? 'noon' : fmt(end.time)} ${dayName(end.date)}`) : '';
     const who = artists.length ? artists.map((a) => a.trim()).slice(0, 3).join(', ') + (artists.length > 3 ? ' and more' : '') : clean(s.title);
     items.push({
       feed: `clubspace:${s.id}`, title: clean(s.title, ':'), date: d.date, doors: d.time, where, category: 'club',
@@ -106,8 +113,11 @@ async function clubSpace(): Promise<FeedResult> {
       price: s.status === 'sold-out' ? 'Sold out' : s.price ? `from ${s.price}` : undefined,
       url: s.url, sources: ['https://www.clubspace.com/shows', src],
       about: `${s.room}. Artists: ${artists.join(', ') || 'TBA'}. ${s.age ?? ''} ${clean(s.description ?? '').slice(0, 300)}`,
-      ruleFit: (s.room === 'Terrace' || s.room === 'The Ground' || s.room === 'Full building') && !/^tba$/i.test(s.title.trim()),
-      plainWhy: `${who} ${room}. Doors ${fmt(d.time)}${s.age ? `, ${s.age}` : ''}.`,
+      offsite,
+      ruleFit: !offsite && (s.room === 'Terrace' || s.room === 'The Ground' || s.room === 'Full building') && !/^tba$/i.test(s.title.trim()),
+      plainWhy: s.room === 'The Ground'
+        ? `${who} ${room}${till}. Separate ticket from the Terrace${s.age ? `, ${s.age}` : ''}.`
+        : `${who} ${room}, ${dayName(d.date)} night${till}. Doors ${fmt(d.time)}${s.age ? `, ${s.age}` : ''}.`,
     });
   }
   return { name: 'clubspace', ok: true, covers, items };
@@ -133,7 +143,8 @@ async function tribe(name: string, base: string, venueKey: string, category: Eve
         feed: `${name}:${e.id}-${date}`, title: clean(e.title, ':'), date, time, where: VENUES[venueKey], category, energy,
         price: e.cost ? clean(e.cost) : undefined, url: e.url, sources: [e.url, `${base}/events/`],
         about: `${cats ? `Categories: ${cats}. ` : ''}${clean(e.excerpt || e.description || '').slice(0, 400)}`,
-        ruleFit: rule(e) && !FILLER.test(`${e.title} ${cats} ${firstSentence(e.excerpt || e.description || '')}`), plainWhy: firstSentence(e.excerpt || e.description || '') || `${clean(e.title)} at ${VENUES[venueKey].venue}.`,
+        ruleFit: rule(e) && !FILLER.test(`${e.title} ${cats} ${firstSentence(e.excerpt || e.description || '')}`), // A plain fact line, never the venue's own pitch ("brings the fun!"): the voice belongs to psst, so without Claude it stays factual.
+        plainWhy: `${dayName(date)}${time ? ` at ${fmt(time)}` : ''}, ${VENUES[venueKey].venue}${/^free$/i.test(clean(e.cost ?? '')) ? '. Free' : ''}.`,
       });
     }
     url = j.next_rest_url ?? null;
@@ -223,8 +234,10 @@ const have = (c: Candidate): boolean => events.some((e) => e.feed === c.feed
   || (near(e.date, c.date) && Math.abs(e.lat - c.where.lat) < 0.001 && Math.abs(e.lng - c.where.lng) < 0.001 && (overlap(c.title, e.title) >= 0.5 || overlap(e.title, c.title) >= 0.5)));
 const fresh: Candidate[] = [];
 for (const c of feeds.flatMap((f) => f.items)) {
-  if (c.date < today || c.date > horizon || have(c)) continue;
+  if (c.offsite || c.date < today || c.date > horizon || have(c)) continue;
   if (fresh.some((x) => x.where.venue === c.where.venue && near(x.date, c.date) && Math.max(overlap(x.title, c.title), overlap(c.title, x.title)) >= 0.8)) continue;
+  // A whole-building night at Space is one night, even when the feed lists it twice under two names.
+  if (c.about.startsWith('Full building') && fresh.some((x) => x.about.startsWith('Full building') && x.date === c.date)) continue;
   fresh.push(c);
 }
 const examples = events.filter((e) => e.why && !e.feed).slice(0, 14);

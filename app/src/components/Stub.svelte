@@ -2,9 +2,11 @@
   // One move as a tear-off ticket. Front: when, what. Back: how to get in, where, sources.
   // Tear the bottom off (drag down, or press Keep) and it flies into Kept.
   import { tick } from 'svelte';
+  import { track } from '@vercel/analytics';
   import Sticker from './Sticker.svelte';
   import { app, serialOf } from '../lib/state.svelte';
-  import { openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
+  import { inkOf } from '../lib/ink';
+  import { moves, openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
 
   import type { Move, Dow } from '../lib/types';
   let { item, compact = false, at = null, dow = null }: { item: { m: Move; sealed?: boolean; soon?: number | null }; compact?: boolean; at?: number | null; dow?: Dow | null } = $props();
@@ -15,6 +17,8 @@
   const flipped = $derived(app.flipped === m.id);
   const kept = $derived(app.kept.includes(m.id));
   const serial = $derived(String(serialOf(m)).padStart(3, '0'));
+  const total = String(moves.length).padStart(3, '0');
+  const tint = $derived(inkOf(m.id)[0]);
   const bars = $derived(Array.from({ length: 48 }, (_, i) => openAt(m, dayDow, i / 2)));
   const nowH = $derived(at ?? app.hour);
   const isOpen = $derived(openAt(m, dayDow, nowH));
@@ -104,6 +108,22 @@
   function pullMove(e: PointerEvent): void { if (py == null) return; pull = Math.max(0, Math.min(80, e.clientY - py)); }
   function pullEnd() { if (py == null) return; py = null; if (pull > 56) tear(); else pull = 0; }
 
+  // Send the stub: this move as a card on today's sky, for the group chat.
+  let sending = $state(false);
+  async function send(): Promise<void> {
+    const front = document.getElementById(`front-${m.id}`);
+    const shell = document.querySelector<HTMLElement>('.app');
+    if (!front || !shell || sending) return;
+    sending = true;
+    try {
+      const { sendStub } = await import('../lib/share'); // loaded on the first Send, not on the first paint
+      const cs = getComputedStyle(shell);
+      const r = await sendStub({ front, serial, total, tint, sky: cs.getPropertyValue('--sky').trim() || '#FBF2D0', skyText: cs.getPropertyValue('--text').trim() || '#052739', file: `psst-${serial}.png` }, `psst. ${m.title}. psst.miami`);
+      if (r === 'saved') app.say(`Saved No. ${serial}. Send it on.`);
+      track('Stub sent', { result: r });
+    } catch { app.say('Could not draw the card. Try again.'); }
+    finally { sending = false; }
+  }
   async function flip(to: boolean): Promise<void> {
     app.flipped = to ? m.id : null;
     await tick();
@@ -149,6 +169,7 @@
         <p class="b-line muted">{m.address}</p>
         <div class="b-actions">
           <button class="pill" onclick={() => (app.where = m.id)}>On the map</button>
+          <button class="pill ghost" onclick={send} disabled={sending}>{sending ? 'Drawing...' : 'Send'}</button>
           {#if onApple}<a class="pill ghost" href={google} target="_blank" rel="noopener">Google Maps</a>{/if}
         </div>
         <p class="b-src">Checked {fmtDate(m.verifiedOn, { month: 'short', day: 'numeric' })}{#if m.sources?.length}: {#each m.sources.slice(0, 2) as s, i}{i ? ', ' : ''}<a href={s} target="_blank" rel="noopener">{host(s)}</a>{/each}{/if}</p>
@@ -158,8 +179,8 @@
     {#if kept}
       <div class="ripped" bind:this={ripped} tabindex="-1" aria-label="Kept. No. {serial}" style:clip-path="polygon({jag.join(',')}, 100% 100%, 0 100%)"><span class="stamp">Kept</span><span class="no">No. {serial}</span></div>
     {:else}
-      <div class="tearoff" class:tearing bind:this={tearoff} style:transform={pull ? `translateY(${pull}px) rotate(${pull * 0.06}deg)` : undefined} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
-        <span class="spacer"></span>
+      <div class="tearoff" style:--tint={tint} class:tearing bind:this={tearoff} style:transform={pull ? `translateY(${pull}px) rotate(${pull * 0.06}deg)` : undefined} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
+        <span class="no" aria-label="Move number {serial} of {total}"><small>Move No.</small><b>{serial}{#if !compact}<i>/{total}</i>{/if}</b></span>
         <div class="acts">
           <button class="keep" onclick={tear}>Keep</button>
           <a class="go" href={go} target="_blank" rel="noopener">Go</a>
@@ -217,8 +238,13 @@
   .perf::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 9px at 0 50%, var(--sky) 96%, transparent) left / 18px 20px no-repeat, radial-gradient(circle 9px at 100% 50%, var(--sky) 96%, transparent) right / 18px 20px no-repeat; }
   .tearoff { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 16px 14px; touch-action: pan-y; transition: transform 0.2s; cursor: grab; }
   .tearoff.tearing { opacity: 0; transition: opacity 0.12s; }
-  .no { font: 600 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); }
-  .tearoff .spacer { flex: 1; align-self: stretch; min-height: 44px; touch-action: none; cursor: grab; }
+  .no { font: 600 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); }
+  /* The serial is the move's stable index in the curated list, so it is real: No. 011 of 060, collectible. It is also the grab strip for tearing on touch. */
+  .tearoff { background: color-mix(in oklch, var(--tint) 16%, var(--paper)); }
+  .tearoff .no { display: grid; gap: 1px; padding: 8px 10px 6px 0; touch-action: none; cursor: grab; }
+  .tearoff .no small { font: 600 var(--fs-s)/1 var(--mono); font-variation-settings: 'MONO' 1; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+  .tearoff .no b { font: 400 var(--fs-xxl)/1 var(--display); color: var(--ink); letter-spacing: -0.01em; }
+  .tearoff .no i { font-style: normal; font-size: 0.5em; color: var(--muted); }
   .ripped:focus { outline: none; }
   .acts { display: flex; gap: 8px; }
   .keep, .go { min-height: 44px; display: inline-grid; place-items: center; font: 650 var(--fs-m) var(--body); padding: 0 18px; border-radius: 999px; cursor: pointer; text-decoration: none; }

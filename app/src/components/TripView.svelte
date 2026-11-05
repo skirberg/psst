@@ -124,9 +124,9 @@
   .slip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
   .slip label, .stepper { display: grid; gap: 4px; min-width: 0; }
   .slip span { font: 600 var(--fs-s) var(--body); color: var(--muted); }
-  .slip input { font: 600 var(--fs-l) var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 6px 0; width: 100%; min-width: 0; color-scheme: light; }
+  .slip input { font: 600 var(--fs-l) var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 6px 0; width: 100%; min-width: 0; color-scheme: light; }
   .stepper div { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed var(--line); }
-  .stepper b { font: 600 var(--fs-m) var(--mono); font-variant-numeric: tabular-nums; }
+  .stepper b { font: 600 var(--fs-m) var(--mono); font-variation-settings: 'MONO' 1; }
   .stepper button { width: 36px; height: 36px; border: 0; background: transparent; font: 600 var(--fs-xl) var(--body); color: var(--ink); cursor: pointer; }
   .seg { grid-column: 1 / -1; display: flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--ink); }
   .seg button { flex: 1; font: 650 var(--fs-m) var(--body); padding: 8px 6px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
@@ -134,7 +134,7 @@
   .events { display: grid; gap: 10px; }
   .evs button { display: inline-flex; gap: 8px; align-items: baseline; font: 600 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 4px; border: 0; cursor: pointer; background: color-mix(in oklch, var(--paper) 92%, transparent); color: var(--ink); text-align: left; }
   .evs button.on { background: var(--ink); color: var(--paper); }
-  .evs .d { font: 500 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; opacity: 0.75; white-space: nowrap; }
+  .evs .d { font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; opacity: 0.75; white-space: nowrap; }
   .day { display: grid; gap: 12px; padding-top: 14px; border-top: 2px dashed color-mix(in oklch, var(--text) 35%, transparent); }
   .dh { all: unset; cursor: pointer; display: grid; gap: 4px; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -144,7 +144,7 @@
   .dm { display: flex; flex-wrap: wrap; gap: 4px 14px; font: 600 var(--fs-s) var(--body); opacity: 0.9; }
   .slot { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: start; }
   .when { display: grid; gap: 2px; padding-top: 8px; }
-  .when b { font: 600 var(--fs-m) var(--mono); font-variant-numeric: tabular-nums; }
+  .when b { font: 600 var(--fs-m) var(--mono); font-variation-settings: 'MONO' 1; }
   .when span { font: 600 var(--fs-s) var(--body); opacity: 0.92; }
   .obj { display: grid; gap: 6px; min-width: 0; }
   .swap { position: relative; }
@@ -163,7 +163,7 @@
   .codebox { display: grid; gap: 4px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; border: 2px dashed var(--line); }
   .codebox b { font: 400 var(--fs-xxl)/1 var(--display); letter-spacing: 0.04em; }
   .codebox .small { font: 500 var(--fs-s)/1.35 var(--body); font-variation-settings: 'CASL' 1; color: var(--muted); }
-  .fallback { width: 100%; font: 500 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; padding: 10px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
+  .fallback { width: 100%; font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 10px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
   .copy { font: 700 var(--fs-l) var(--body); padding: 14px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   :global(.dark) .copy { background: var(--paper); color: var(--ink); }
 </style>

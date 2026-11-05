@@ -86,13 +86,13 @@
   .stay { display: grid; gap: 16px; color: var(--text); }
   h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); }
   .tiers { display: flex; gap: 6px; }
-  .tiers button { min-width: 52px; height: 40px; font: 700 var(--fs-m) var(--mono); font-variant-numeric: tabular-nums; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); }
+  .tiers button { min-width: 52px; height: 40px; font: 700 var(--fs-m) var(--mono); font-variation-settings: 'MONO' 1; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); }
   .tiers button.on { background: var(--text); color: var(--sky); box-shadow: none; }
   .note { margin: 0; font: 520 var(--fs-l) var(--body); }
   .rack { background: var(--ink); color: var(--paper); border-radius: 6px; padding: 12px 12px 14px; box-shadow: 0 16px 24px -14px rgba(5, 39, 57, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.08); display: grid; gap: 6px; }
   .rl { margin: 0; font: 500 var(--fs-s) var(--body); opacity: 0.85; }
   .rl .mk { margin-left: 10px; color: #FED252; font-weight: 600; }
-  .rl b { font: 700 var(--fs-m) var(--mono); font-variant-numeric: tabular-nums; color: #FED252; margin-right: 6px; }
+  .rl b { font: 700 var(--fs-m) var(--mono); font-variation-settings: 'MONO' 1; color: #FED252; margin-right: 6px; }
   .hooks { display: flex; gap: 10px; overflow-x: auto; padding: 10px 2px 4px; scrollbar-width: none; }
   .hooks::-webkit-scrollbar { display: none; }
   .fob { all: unset; cursor: pointer; flex: none; width: 84px; display: grid; justify-items: center; gap: 6px; position: relative; transform-origin: 50% 16px; }

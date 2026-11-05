@@ -161,7 +161,7 @@
   .tabs { display: flex; gap: 4px; margin-top: -6px; flex-wrap: wrap; }
   .tabs button { display: inline-flex; align-items: center; gap: 6px; font: 650 var(--fs-m) var(--body); padding: 8px 11px 8px 9px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
   .tabs button.on { background: var(--text); color: var(--sky); }
-  .tabs i { font-style: normal; font: 700 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; padding: 1px 6px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
+  .tabs i { font-style: normal; font: 700 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 1px 6px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
   .laterdock { z-index: 2; position: absolute; left: 520px; right: 24px; bottom: 18px; }
   .tabbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: space-around; padding: 8px 6px calc(env(safe-area-inset-bottom, 0px) + 8px); background: var(--paper); box-shadow: 0 -1px 0 rgba(5, 39, 57, 0.08), 0 -10px 24px rgba(5, 39, 57, 0.12); }
   .tabbar button { flex: 1; display: grid; justify-items: center; gap: 3px; padding: 4px 0; min-height: 50px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 650 var(--fs-s) var(--body); }
@@ -170,7 +170,7 @@
   .tabbar button.on { color: var(--ink); }
   .tabbar button.on .ti { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
   .tabbar button:active .ti { transform: scale(0.92); }
-  .ti i { position: absolute; top: -6px; right: 2px; font-style: normal; font: 700 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; padding: 1px 5px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
+  .ti i { position: absolute; top: -6px; right: 2px; font-style: normal; font: 700 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 1px 5px; border-radius: 999px; background: var(--mamey); color: var(--ink); }
   .toast { position: absolute; z-index: 20; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 90px); transform: translate(-50%, 16px); max-width: calc(100% - 32px); font: 650 var(--fs-m) var(--body); background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 999px; box-shadow: 0 10px 24px rgba(5, 39, 57, 0.3); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .wide .toast { bottom: 28px; left: 250px; }

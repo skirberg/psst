@@ -30,7 +30,7 @@
   .mini { all: unset; cursor: pointer; flex: none; width: 150px; min-height: 92px; scroll-snap-align: start; display: grid; align-content: start; gap: 4px; padding: 10px 12px; background: var(--paper); color: var(--ink); border-radius: 3px; box-shadow: 0 8px 14px -8px rgba(5, 39, 57, 0.45); border-left: 2px dashed var(--line); }
   @media (hover: hover) and (pointer: fine) { .mini:hover { transform: translateY(-2px); } }
   .mini:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
-  .t { font: 600 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; }
+  .t { font: 600 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; letter-spacing: 0.04em; }
   .n { font: 600 var(--fs-s)/1.25 var(--body); display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .h { font: 500 var(--fs-s) var(--mono); font-variant-numeric: tabular-nums; color: var(--muted); margin-top: auto; }
+  .h { font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; color: var(--muted); letter-spacing: 0.04em; margin-top: auto; }
 </style>
