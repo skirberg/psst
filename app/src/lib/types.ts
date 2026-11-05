@@ -62,6 +62,10 @@ export interface PsstEvent {
   time?: HHMM; // show or start time
   doors?: HHMM;
   verifiedOn: ISODate;
+  // Set by app/scripts/data-watch.ts when a structured source (schema.org eventStatus or Ticketmaster) reports it.
+  // A cancelled or postponed event is hidden everywhere in the app.
+  status?: 'cancelled' | 'postponed';
+  statusSource?: string;
   getThere?: string;
   bring?: string;
   after?: string;

@@ -20,6 +20,7 @@ To build: `npm run build` (fetches the forecast, type-checks the app and scripts
 - `node scripts/plan-check.ts`, `contrast-check.ts`, `dist-check.ts`, `shots.ts`: planner rules, text contrast across the day, the production build, screenshots.
 - `npm test` runs plan-check, contrast-check and the flows (dev server on :5179).
 - All of these run on every push in GitHub Actions (`.github/workflows/checks.yml`).
+- `node scripts/data-watch.ts --report out.md`: re-checks every event, place and hotel against its sources (runs twice a week in `.github/workflows/data-watch.yml`; see DECISIONS.md Data upkeep).
 
 ## Data rules
 - Every move and event lists the sources that confirm it, and the date it was checked.

@@ -1,0 +1,56 @@
+# Twice a week: re-check every event, place and hotel against its sources (app/scripts/data-watch.ts).
+# A cancelled or postponed event is hidden automatically and the push redeploys psst.miami.
+# Everything else lands in one GitHub issue, "psst data watch", which gets a comment when something needs a look.
+# Optional secret: TICKETMASTER_KEY (free key from developer.ticketmaster.com) turns on status checks and new-show candidates.
+name: Data watch
+on:
+  schedule:
+    - cron: '23 11 * * 1,4' # Monday and Thursday, 7:23am Miami in summer time, 6:23am in winter
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: data-watch
+  cancel-in-progress: false
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check the data
+        env:
+          TICKETMASTER_KEY: ${{ secrets.TICKETMASTER_KEY }}
+        run: node app/scripts/data-watch.ts --report "$RUNNER_TEMP/watch.md"
+      - name: Commit hidden events
+        run: |
+          if git diff --quiet data/events.json; then echo "No event changes"; exit 0; fi
+          cd app && node scripts/sync-data.ts && node scripts/data-check.ts && cd ..
+          git config user.name "Sami Kirberg"
+          git config user.email "samikirberg@gmail.com"
+          git add data/events.json app/src/lib/events.json
+          git commit -m "Data watch: hide cancelled or postponed events"
+          git pull --rebase origin main
+          git push
+      - name: Update the data watch issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="psst data watch"
+          body="$RUNNER_TEMP/watch.md"
+          echo "" >> "$body"
+          echo "_Updated by the Data watch workflow, run ${{ github.run_id }}._" >> "$body"
+          num=$(gh issue list --state open --search "\"$title\" in:title" --json number,title --jq ".[] | select(.title==\"$title\") | .number" | head -1)
+          if [ -z "$num" ]; then
+            gh issue create --title "$title" --body-file "$body"
+            exit 0
+          fi
+          gh issue edit "$num" --body-file "$body"
+          # Comment only when something changed or needs a look, so the notification means something.
+          if ! grep -q "^Nothing. Every upcoming event still reads as on." "$body" || awk '/^### Needs a look/{getline; exit ($0=="Nothing.")?1:0}' "$body"; then
+            gh issue comment "$num" --body "This run found something. See the issue description for the full report."
+          fi

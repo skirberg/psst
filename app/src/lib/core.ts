@@ -12,7 +12,7 @@ export const MIAMI = { lat: 25.7617, lng: -80.1918 };
 
 export const moves: Move[] = (movesRaw as unknown as Move[]).filter((m) => Number.isFinite(m.lat) && Number.isFinite(m.lng));
 export const events: PsstEvent[] = (eventsRaw as unknown as PsstEvent[])
-  .filter((e) => Number.isFinite(e.lat) && Number.isFinite(e.lng))
+  .filter((e) => Number.isFinite(e.lat) && Number.isFinite(e.lng) && !e.status)
   .sort((a, b) => (a.date + (a.time || a.doors || '')).localeCompare(b.date + (b.time || b.doors || '')));
 export { weather };
 export const hotels: Hotel[] = hotelsRaw as unknown as Hotel[];

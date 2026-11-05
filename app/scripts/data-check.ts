@@ -51,6 +51,8 @@ for (const e of load('events')) {
   for (const f of ['time', 'doors']) need(`${f} is HH:MM`, e[f] == null || HHMM.test(String(e[f])));
   need('sources are web links', urls(e.sources)); need('verifiedOn is a date', isDate(e.verifiedOn));
   need('url is https', e.url == null || /^https:\/\//.test(String(e.url)));
+  need('status is empty, cancelled or postponed', e.status == null || e.status === 'cancelled' || e.status === 'postponed');
+  need('a status names its source', e.status == null || (typeof e.statusSource === 'string' && /^https?:\/\//.test(e.statusSource)));
 }
 
 const hotelIds = new Set<string>();
