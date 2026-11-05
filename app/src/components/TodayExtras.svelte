@@ -55,7 +55,7 @@
   .tt-main span { font: 550 var(--fs-s) var(--body); color: var(--muted); }
   .tonight { display: grid; gap: 8px; color: var(--text); }
   h2 { margin: 0; font: 400 var(--fs-xl)/1 var(--display); }
-  .row { display: flex; gap: 12px; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 10px; scrollbar-width: none; }
+  .row { display: flex; gap: 12px; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 12px; scrollbar-width: none; }
   .row::-webkit-scrollbar { display: none; }
   .mini { all: unset; cursor: pointer; flex: none; width: 128px; filter: drop-shadow(0 8px 10px rgba(5, 39, 57, 0.28)); transition: transform 0.25s cubic-bezier(.3, 1.4, .5, 1); }
   .mini:nth-child(odd) { transform: rotate(-2deg); }

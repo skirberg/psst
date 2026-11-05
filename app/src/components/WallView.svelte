@@ -72,34 +72,34 @@
 </section>
 
 <style>
-  .wall { display: grid; gap: 14px; color: var(--text); }
+  .wall { display: grid; gap: 16px; color: var(--text); }
   h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); }
-  .chips { display: flex; gap: 6px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 2px; scrollbar-width: none; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 4px; scrollbar-width: none; }
   .chips::-webkit-scrollbar { display: none; }
-  .chips button { flex: none; font: 650 var(--fs-m) var(--body); padding: 8px 13px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); cursor: pointer; }
+  .chips button { flex: none; font: 650 var(--fs-m) var(--body); padding: 8px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); cursor: pointer; }
   .chips button.on { background: var(--text); color: var(--sky); box-shadow: none; }
-  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; align-items: start; }
-  .wide .grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 30px 22px; max-width: 1180px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; align-items: start; }
+  .wide .grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 32px 24px; max-width: 1180px; }
   .post { transform: rotate(var(--r)); display: grid; filter: drop-shadow(0 12px 12px rgba(5, 39, 57, 0.28)); transition: transform 0.3s cubic-bezier(.3, 1.4, .5, 1); animation: paste 0.5s cubic-bezier(.2, .9, .3, 1.2) both; animation-delay: calc(min(var(--i), 10) * 40ms); }
   @keyframes paste { from { transform: rotate(calc(var(--r) * 4)) translateY(-16px) scale(1.05); opacity: 0; } }
   @media (hover: hover) and (pointer: fine) { .post:hover { transform: rotate(0deg) translateY(-3px); } }
   .face { all: unset; cursor: pointer; display: block; }
   .face:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .tabs { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr 2fr 1fr; background: var(--paper); color: var(--ink); border-top: 2px dashed var(--line); }
-  .tabs span { font: 650 var(--fs-s) var(--body); text-align: center; padding: 9px 2px 10px; border-left: 1px dashed var(--line); white-space: nowrap; overflow: hidden; text-overflow: clip; }
+  .tabs span { font: 650 var(--fs-s) var(--body); text-align: center; padding: 8px 4px 12px; border-left: 1px dashed var(--line); white-space: nowrap; overflow: hidden; text-overflow: clip; }
   .tabs span:first-child { border-left: 0; }
   .tabs .lab { font-weight: 750; }
   .tabs:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
   .torn { background: color-mix(in oklch, var(--paper) 82%, var(--mamey)); }
-  .info { background: var(--paper); color: var(--ink); padding: 10px 12px 12px; display: grid; gap: 6px; font-size: var(--fs-m); }
+  .info { background: var(--paper); color: var(--ink); padding: 12px 12px 12px; display: grid; gap: 8px; font-size: var(--fs-m); }
   .info p { margin: 0; }
-  .info .m { display: flex; gap: 5px; align-items: flex-start; font: 550 var(--fs-s) var(--body); color: var(--muted); }
-  .info a { display: inline-flex; gap: 5px; align-items: center; font-weight: 650; color: var(--ink); }
-  .info .tips { margin: 0; display: grid; gap: 2px; }
-  .info dd + dt { margin-top: 6px; }
+  .info .m { display: flex; gap: 4px; align-items: flex-start; font: 550 var(--fs-s) var(--body); color: var(--muted); }
+  .info a { display: inline-flex; gap: 4px; align-items: center; font-weight: 650; color: var(--ink); }
+  .info .tips { margin: 0; display: grid; gap: 4px; }
+  .info dd + dt { margin-top: 8px; }
   .info dt { font: 650 var(--fs-s)/1.45 var(--body); color: var(--muted); }
   .info dd { margin: 0; font: 500 var(--fs-s)/1.4 var(--body); font-variation-settings: 'CASL' 1; }
-  .info .links { display: flex; gap: 18px; }
+  .info .links { display: flex; gap: 16px; }
   .info .links a { padding: 4px 0; }
   .none { margin: 0; font: 520 var(--fs-l) var(--body); }
   @media (prefers-reduced-motion: reduce) { .post { transition: none; animation: none; } }

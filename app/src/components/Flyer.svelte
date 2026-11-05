@@ -65,7 +65,7 @@
   .mini .title, .mini .foot { display: none; }
   .mini .num { font-size: clamp(48px, 60cqi, 96px); margin-top: auto; }
   .mwk { font: 400 var(--fs-xl)/1 'League Gothic', var(--display); text-transform: uppercase; color: var(--b); }
-  .foot { display: grid; gap: 1px; font: 500 var(--fs-s)/1.15 var(--mono); font-variation-settings: 'MONO' 1; border-top: 1.5px solid currentColor; padding-top: 5px; }
+  .foot { display: grid; gap: 1px; font: 500 var(--fs-s)/1.15 var(--mono); font-variation-settings: 'MONO' 1; border-top: 1.5px solid currentColor; padding-top: 4px; }
   /* A long venue keeps two lines on the poster; the full name is in the panel the flyer opens. */
   .foot span:last-child { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 </style>

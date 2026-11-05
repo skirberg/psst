@@ -111,14 +111,14 @@
 </section>
 
 <style>
-  .deck { display: grid; gap: 14px; }
+  .deck { display: grid; gap: 16px; }
   /* Seven quiet glyphs, no rings, no words (names are on hover and for screen readers). The one that's on is ink on the sky. */
-  .moods { display: flex; justify-content: space-between; margin: 0 -6px; }
+  .moods { display: flex; justify-content: space-between; margin: 0 -8px; }
   .moods button { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 0; background: transparent; color: var(--text); opacity: 0.72; cursor: pointer; padding: 0; transition: transform 0.16s cubic-bezier(.23, 1, .32, 1), background 0.2s, opacity 0.2s; }
   .moods button:active { transform: scale(0.9); }
   .moods button.on { background: var(--text); color: var(--sky); opacity: 1; }
 
-  .stack { position: relative; padding-bottom: 30px; outline: none; }
+  .stack { position: relative; padding-bottom: 32px; outline: none; }
   /* Room for a typical card (nine in ten are this tall), so Next and psst stay under the thumb from card to card.
      Only a three-line title pushes them down. */
   .deckbox { min-height: calc(var(--card-h, 312px) + 30px); }
@@ -127,7 +127,7 @@
   .under { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; border-radius: 4px; background: color-mix(in oklch, var(--paper) 94%, var(--ink)); box-shadow: 0 10px 16px rgba(5, 39, 57, 0.2); transition: transform 0.3s cubic-bezier(.3, 1.3, .5, 1); }
   .u0 { transform: translateY(16px) rotate(-1.4deg) scale(0.97); z-index: 1; }
   .u1 { transform: translateY(26px) rotate(1.8deg) scale(0.93); z-index: 0; background: color-mix(in oklch, var(--paper) 86%, var(--ink)); }
-  .ub { position: absolute; left: 14px; right: 14px; bottom: 4px; display: flex; align-items: center; gap: 10px; color: var(--ink); font: 400 var(--fs-m)/1.1 var(--display); white-space: nowrap; overflow: hidden; }
+  .ub { position: absolute; left: 14px; right: 14px; bottom: 4px; display: flex; align-items: center; gap: 12px; color: var(--ink); font: 400 var(--fs-m)/1.1 var(--display); white-space: nowrap; overflow: hidden; }
   .ub span { overflow: hidden; text-overflow: ellipsis; }
   .sealedb { justify-content: center; }
   .u0 .sealedb, .u1 .sealedb { color: var(--paper); }
@@ -147,18 +147,18 @@
   @keyframes stick { from { transform: scale(1.8) rotate(-20deg); opacity: 0; } }
   @keyframes deal { from { transform: translateY(26px) rotate(-3deg) scale(0.96); opacity: 0.4; } }
 
-  .controls { display: flex; align-items: center; justify-content: center; gap: 22px; color: var(--text); margin-top: 14px; }
+  .controls { display: flex; align-items: center; justify-content: center; gap: 24px; color: var(--text); margin-top: 16px; }
   .nav { width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: var(--text); display: grid; place-items: center; cursor: pointer; }
   .nav:disabled { opacity: 0.3; }
   /* On a phone you fling the card; the arrows are for a mouse (the keyboard's arrow keys work everywhere). */
   @media (hover: none) { .nav { display: none; } }
   .hint { opacity: 0.7; }
-  .psst { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 22px; border-radius: 999px; border: 0; cursor: pointer; background: var(--mamey); color: var(--ink); font: 400 var(--fs-xl) var(--display); box-shadow: 0 6px 0 var(--mamey-deep), 0 12px 20px rgba(5, 39, 57, 0.25); transition: transform 0.12s, box-shadow 0.12s; }
+  .psst { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 24px; border-radius: 999px; border: 0; cursor: pointer; background: var(--mamey); color: var(--ink); font: 400 var(--fs-xl) var(--display); box-shadow: 0 6px 0 var(--mamey-deep), 0 12px 20px rgba(5, 39, 57, 0.25); transition: transform 0.12s, box-shadow 0.12s; }
   .psst:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--mamey-deep), 0 4px 10px rgba(5, 39, 57, 0.25); }
 
-  .empty { padding: 26px 20px; border-radius: 4px; background: var(--paper); color: var(--ink); display: grid; gap: 10px; justify-items: start; }
+  .empty { padding: 24px 24px; border-radius: 4px; background: var(--paper); color: var(--ink); display: grid; gap: 12px; justify-items: start; }
   .e1 { margin: 0; font: 400 var(--fs-xxl)/1.05 var(--display); }
   .e2 { margin: 0; font: 520 var(--fs-l) var(--body); font-variation-settings: 'CASL' 1; }
-  .reset { font: 650 var(--fs-m) var(--body); padding: 9px 14px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
+  .reset { font: 650 var(--fs-m) var(--body); padding: 8px 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   @media (prefers-reduced-motion: reduce) { .dealt, .shuffling .u0, .shuffling .u1, .shuffling .topcard { animation: none; } .topcard { transition: none; } }
 </style>

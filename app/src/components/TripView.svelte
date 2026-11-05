@@ -126,59 +126,60 @@
   .presets, .evs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; margin: 0 -16px; padding-inline: 16px; }
   .presets::-webkit-scrollbar, .evs::-webkit-scrollbar { display: none; }
   .presets button, .evs button { flex: none; white-space: nowrap; }
-  .presets button { font: 650 var(--fs-m) var(--body); padding: 9px 14px; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); }
+  .presets button { font: 650 var(--fs-m) var(--body); padding: 8px 16px; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); }
   .presets button.on { background: var(--text); color: var(--sky); box-shadow: none; }
-  .slip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; padding: 14px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
+  .slip { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 12px; padding: 16px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
   .slip label, .stepper { display: grid; gap: 4px; min-width: 0; }
   .slip span { font: 600 var(--fs-s) var(--body); color: var(--muted); }
-  .slip input { font: 600 var(--fs-l) var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 6px 0; width: 100%; min-width: 0; color-scheme: light; }
+  .slip input { font: 600 var(--fs-l) var(--mono); font-variation-settings: 'MONO' 1; color: var(--ink); background: transparent; border: 0; border-bottom: 2px dashed var(--line); padding: 8px 0; width: 100%; min-width: 0; color-scheme: light; }
   .stepper div { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed var(--line); }
   .stepper b { font: 600 var(--fs-m) var(--mono); font-variation-settings: 'MONO' 1; }
   .stepper button { width: 36px; height: 36px; border: 0; background: transparent; font: 600 var(--fs-xl) var(--body); color: var(--ink); cursor: pointer; }
-  .seg { grid-column: 1 / -1; display: flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--ink); }
-  .seg button { flex: 1; font: 650 var(--fs-m) var(--body); padding: 8px 6px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+  .seg { grid-column: 1 / -1; display: flex; padding: 4px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .seg button { flex: 1; font: 650 var(--fs-m) var(--body); padding: 8px 8px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
   .seg button.on { background: var(--ink); color: var(--paper); }
-  .events { display: grid; gap: 10px; }
+  .events { display: grid; gap: 12px; }
   .evs button { display: inline-flex; gap: 8px; align-items: baseline; font: 600 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 4px; border: 0; cursor: pointer; background: color-mix(in oklch, var(--paper) 92%, transparent); color: var(--ink); text-align: left; }
   .evs button.on { background: var(--ink); color: var(--paper); }
   .evs .d { font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; opacity: 0.75; white-space: nowrap; }
-  .day { display: grid; gap: 12px; padding-top: 14px; border-top: 2px dashed color-mix(in oklch, var(--text) 35%, transparent); }
+  .day { display: grid; gap: 12px; padding-top: 16px; border-top: 2px dashed color-mix(in oklch, var(--text) 35%, transparent); }
   .dh { all: unset; cursor: pointer; display: grid; gap: 4px; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .dh:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .dn { font: 400 var(--fs-xxl)/1 var(--display); }
   .focus .dn { text-decoration: underline; text-decoration-color: var(--mamey); text-decoration-thickness: 4px; text-underline-offset: 6px; }
-  .dm { display: flex; flex-wrap: wrap; gap: 4px 14px; font: 600 var(--fs-s) var(--body); opacity: 0.9; }
-  .slot { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: start; }
-  .when { display: grid; gap: 2px; padding-top: 8px; }
+  .dm { display: flex; flex-wrap: wrap; gap: 4px 16px; font: 600 var(--fs-s) var(--body); opacity: 0.9; }
+  /* The phone grid (4 columns, 16px gutters): the time takes column 1, the stop spans columns 2 to 4. */
+  .slot { display: grid; grid-template-columns: calc((100% - 48px) / 4) 1fr; gap: 16px; align-items: start; }
+  .when { display: grid; gap: 4px; padding-top: 8px; }
   .when b { font: 600 var(--fs-m) var(--mono); font-variation-settings: 'MONO' 1; }
   .when span { font: 600 var(--fs-s) var(--body); opacity: 0.92; }
-  .obj { display: grid; gap: 6px; min-width: 0; }
+  .obj { display: grid; gap: 8px; min-width: 0; }
   .swap { position: relative; }
   .swap::after { content: ''; position: absolute; inset: -6px -4px -11px; }
-  .swap { justify-self: start; font: 600 var(--fs-s) var(--body); padding: 6px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
-  .evstub { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 10px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 14px 16px -12px rgba(5, 39, 57, 0.45); }
-  .ev-t { display: grid; gap: 3px; align-content: start; min-width: 0; }
+  .swap { justify-self: start; font: 600 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
+  .evstub { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 12px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 14px 16px -12px rgba(5, 39, 57, 0.45); }
+  .ev-t { display: grid; gap: 4px; align-content: start; min-width: 0; }
   .ev-t b { font: 400 var(--fs-xl)/1.05 var(--display); }
   .ev-t .venue { font-size: var(--fs-s); color: var(--muted); }
   .ev-t .links { display: flex; gap: 16px; margin-top: 4px; }
   .how { grid-column: 1 / -1; border-top: 2px dashed var(--line); padding-top: 8px; }
-  .how summary { cursor: pointer; font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 6px 0; list-style: none; }
+  .how summary { cursor: pointer; font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 8px 0; list-style: none; }
   .how summary::-webkit-details-marker { display: none; }
   .how summary::after { content: ' +'; color: var(--muted); }
   .how[open] summary::after { content: ' −'; }
-  .tips { margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
-  .slipline { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; padding: 14px 16px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
+  .tips { margin: 8px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; }
+  .slipline { all: unset; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 16px 16px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 12px 20px -12px rgba(5, 39, 57, 0.4); }
   .slipline:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .slipline b { font: 400 var(--fs-xl)/1.1 var(--display); }
   .slipline span { grid-column: 1; font: 550 var(--fs-s) var(--body); color: var(--muted); }
-  .slipline .chg { grid-column: 2; grid-row: 1 / span 2; font: 650 var(--fs-s) var(--body); color: var(--ink); padding: 6px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--line); }
-  .done { grid-column: 1 / -1; font: 650 var(--fs-m) var(--body); padding: 10px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
+  .slipline .chg { grid-column: 2; grid-row: 1 / span 2; font: 650 var(--fs-s) var(--body); color: var(--ink); padding: 8px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--line); }
+  .done { grid-column: 1 / -1; font: 650 var(--fs-m) var(--body); padding: 12px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   .tips dt { font: 650 var(--fs-s)/1.45 var(--body); color: var(--muted); }
   .tips dd { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; }
-  .ev-t a { font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 6px 0; }
+  .ev-t a { font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 8px 0; }
   .note { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; opacity: 0.9; }
-  .fallback { width: 100%; font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 10px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
-  .copy { font: 700 var(--fs-l) var(--body); padding: 14px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
+  .fallback { width: 100%; font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 12px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
+  .copy { font: 700 var(--fs-l) var(--body); padding: 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   :global(.dark) .copy { background: var(--paper); color: var(--ink); }
 </style>

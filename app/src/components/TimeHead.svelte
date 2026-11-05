@@ -96,7 +96,7 @@
   .hour .ap { width: auto; font-size: 0.36em; margin-left: 0.12em; letter-spacing: 0.02em; }
   .hour.neon { font-family: 'Tilt Neon', var(--display); color: #FFBD99; text-shadow: 0 0 14px color-mix(in oklch, var(--mamey) 70%, transparent), 0 0 2px #FFBD99; }
   .hour:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 6px; }
-  .nowchip { font: 650 var(--fs-s) var(--body); padding: 7px 12px; border-radius: 999px; border: 0; background: var(--text); color: var(--sky); cursor: pointer; }
+  .nowchip { font: 650 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 999px; border: 0; background: var(--text); color: var(--sky); cursor: pointer; }
 
   .track { position: relative; height: 34px; margin-top: 4px; cursor: ew-resize; touch-action: pan-y; }
   .track:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; border-radius: 10px; }
@@ -104,7 +104,7 @@
   .rain { position: absolute; bottom: 24px; width: 2px; margin-left: -1px; border-radius: 1px; background: color-mix(in oklch, var(--text) 45%, #4AC9EC); }
   .tick { position: absolute; top: 8px; height: 18px; width: 2px; margin-left: -1px; background: var(--text); opacity: 0.55; border-radius: 1px; }
   .nowmark { position: absolute; top: 6px; height: 22px; width: 2px; margin-left: -1px; background: var(--text); border-radius: 2px; }
-  .sun { position: absolute; top: 50%; width: 30px; height: 36px; margin: -20px 0 0 -15px; display: grid; place-items: center; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(5, 39, 57, 0.35)); transition: left 0.06s linear; }
+  .sun { position: absolute; top: 50%; width: 30px; height: 36px; margin: -24px 0 0 -16px; display: grid; place-items: center; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(5, 39, 57, 0.35)); transition: left 0.06s linear; }
   .sun svg { width: 26px; height: 32px; }
   .sun.moon svg { width: 24px; height: 24px; }
   .hrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }

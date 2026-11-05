@@ -1,0 +1,81 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>psst wireframes</title>
+<!-- psst phone wireframes, 2026-11-05. 375 wide, 4 columns, 16px margins, 16px gutters, 8-point spacing (4 8 12 16 24 32 40 48).
+     Gray boxes are structure only: what is on each screen, in what order, and how much room it gets. Style comes after. -->
+<style>
+  body { margin: 0; padding: 32px; background: #e9e7e2; font: 500 12px/1.3 ui-sans-serif, system-ui, sans-serif; color: #2c2c2c; }
+  .row { display: flex; gap: 48px; flex-wrap: wrap; }
+  .screen { width: 375px; }
+  .screen h2 { font: 700 14px system-ui; margin: 0 0 8px; }
+  .phone { position: relative; width: 375px; height: 812px; background: #fafaf8; border-radius: 32px; overflow: hidden; box-shadow: 0 0 0 1px #bbb; }
+  /* the grid: 4 columns between 16px margins with 16px gutters = (375 - 32 - 48) / 4 = 73.75px columns */
+  .grid { position: absolute; inset: 0 16px; display: flex; gap: 16px; pointer-events: none; }
+  .grid i { flex: 1; background: rgba(243,127,95,0.10); border-left: 1px solid rgba(243,127,95,0.25); border-right: 1px solid rgba(243,127,95,0.25); }
+  .base { position: absolute; inset: 0; background-image: repeating-linear-gradient(to bottom, transparent 0 7px, rgba(0,0,0,0.04) 7px 8px); pointer-events: none; }
+  .col { position: absolute; inset: 48px 16px 88px; display: flex; flex-direction: column; gap: 24px; }
+  .col > * { flex-shrink: 0; }
+  .b { background: #cfcfcb; border-radius: 4px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; color: #4a4a4a; }
+  .d { background: #8f8f8a; color: #fafaf8; }
+  .h { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .tabbar { position: absolute; left: 0; right: 0; bottom: 0; height: 72px; background: #d9d9d5; display: flex; justify-content: space-around; align-items: center; }
+  .tabbar span { width: 48px; height: 32px; border-radius: 16px; background: #bdbdb8; }
+  .note { width: 375px; margin-top: 12px; font-size: 12px; color: #555; }
+  .icons { display: flex; justify-content: space-between; }
+  .icons span { width: 40px; height: 40px; border-radius: 20px; background: #cfcfcb; }
+  .flyers { display: flex; gap: 16px; }
+  .flyers .b { flex: 1; height: 240px; }
+</style>
+<div class="row">
+
+<div class="screen"><h2>Today</h2><div class="phone"><div class="base"></div><div class="grid"><i></i><i></i><i></i><i></i></div>
+  <div class="col">
+    <div class="h"><div class="b" style="width:88px;height:32px">psst. mark</div><div class="b" style="width:120px;height:32px">Near me · temp</div></div>
+    <div class="b d" style="height:96px;font-size:14px">The hour (the hero type)</div>
+    <div class="b" style="height:24px">Sky day bar + sun handle</div>
+    <div class="icons"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="b d" style="height:288px">THE TICKET<br>when · title · one line · where<br>— perforation —<br>Keep · Go</div>
+    <div class="b" style="height:48px;width:50%;align-self:center">psst (deal)</div>
+  </div><div class="tabbar"><span></span><span></span><span></span><span></span><span></span></div></div>
+  <p class="note">One hero (the hour), one object (the ticket), one action (psst). Everything else is quiet. The ticket starts in the top third.</p></div>
+
+<div class="screen"><h2>Trip</h2><div class="phone"><div class="base"></div><div class="grid"><i></i><i></i><i></i><i></i></div>
+  <div class="col">
+    <div class="h"><div class="b" style="width:88px;height:32px">psst.</div><div class="b" style="width:120px;height:32px">Near me · temp</div></div>
+    <div class="b d" style="height:48px">Your trip (title)</div>
+    <div class="b" style="height:64px">Dates in one line · Change</div>
+    <div class="b" style="height:40px">Day header · ~temp · sunset</div>
+    <div style="display:flex;gap:16px"><div class="b" style="width:73.75px;height:200px">time</div><div class="b d" style="flex:1;height:200px">Stop (ticket, compact)</div></div>
+    <div style="display:flex;gap:16px"><div class="b" style="width:73.75px;height:120px">time</div><div class="b d" style="flex:1;height:120px">Show · How to get there +</div></div>
+  </div><div class="tabbar"><span></span><span></span><span></span><span></span><span></span></div></div>
+  <p class="note">Time sits in column 1, every stop spans columns 2 to 4. The form only opens when you change something.</p></div>
+
+<div class="screen"><h2>Events</h2><div class="phone"><div class="base"></div><div class="grid"><i></i><i></i><i></i><i></i></div>
+  <div class="col">
+    <div class="h"><div class="b" style="width:88px;height:32px">psst.</div><div class="b" style="width:120px;height:32px">Near me · temp</div></div>
+    <div class="b d" style="height:48px">Events (title)</div>
+    <div class="b" style="height:40px">Tonight · Weekend · Your trip · month</div>
+    <div class="flyers"><div class="b d">Flyer<br>cols 1 to 2</div><div class="b d">Flyer<br>cols 3 to 4</div></div>
+    <div class="flyers"><div class="b d">Flyer</div><div class="b d">Flyer</div></div>
+  </div><div class="tabbar"><span></span><span></span><span></span><span></span><span></span></div></div>
+  <p class="note">Two flyers a row, each exactly two columns wide.</p></div>
+
+<div class="screen"><h2>Stay</h2><div class="phone"><div class="base"></div><div class="grid"><i></i><i></i><i></i><i></i></div>
+  <div class="col">
+    <div class="h"><div class="b" style="width:88px;height:32px">psst.</div><div class="b" style="width:120px;height:32px">Near me · temp</div></div>
+    <div class="b d" style="height:48px">Stay (title)</div>
+    <div class="b" style="height:248px">Rack: price tier label, then key fobs, one per column, scroll sideways</div>
+    <div class="b" style="height:248px">Next tier</div>
+  </div><div class="tabbar"><span></span><span></span><span></span><span></span><span></span></div></div>
+  <p class="note">One fob per column, so four fit across before the rack scrolls.</p></div>
+
+<div class="screen"><h2>Kept</h2><div class="phone"><div class="base"></div><div class="grid"><i></i><i></i><i></i><i></i></div>
+  <div class="col">
+    <div class="h"><div class="b" style="width:88px;height:32px">psst.</div><div class="b" style="width:120px;height:32px">Near me · temp</div></div>
+    <div class="b d" style="height:48px">Kept (title)</div>
+    <div class="b" style="height:200px">Yours: sticker · title · open now · Go</div>
+    <div class="b" style="height:200px">Stickers by neighborhood, one per column</div>
+  </div><div class="tabbar"><span></span><span></span><span></span><span></span><span></span></div></div>
+  <p class="note">Only what you kept. Stickers sit on the columns.</p></div>
+
+</div>

@@ -72,23 +72,24 @@
   h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); }
   .page { background: var(--paper); color: var(--ink); border-radius: 4px; padding: 16px; display: grid; gap: 12px; box-shadow: 0 14px 18px -14px rgba(5, 39, 57, 0.45); }
   h2 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; font: 400 var(--fs-xxl)/1 var(--display); }
-  .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px 8px; }
-  .slot { display: grid; justify-items: center; gap: 3px; text-align: center; padding: 6px 2px; }
+  /* Four stickers across, one per grid column. */
+  .slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .slot { display: grid; justify-items: center; gap: 4px; text-align: center; padding: 8px 4px; }
   .sb { all: unset; cursor: pointer; border-radius: 12px; }
   .sb:focus-visible { outline: 3px solid var(--ink); }
-  .went { font: 600 var(--fs-s) var(--body); padding: 4px 10px; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); cursor: pointer; }
+  .went { font: 600 var(--fs-s) var(--body); padding: 4px 12px; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); cursor: pointer; }
   .went.on { background: var(--ink); color: var(--paper); }
   .held { margin: 0; font-size: var(--fs-m); }
-  .yours { background: var(--paper); color: var(--ink); border-radius: 4px; padding: 16px 16px 6px; display: grid; box-shadow: 0 14px 18px -14px rgba(5, 39, 57, 0.45); }
-  .yours h2 { margin-bottom: 6px; }
-  .row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-top: 2px dashed var(--line); }
-  .rt { display: grid; gap: 3px; min-width: 0; }
+  .yours { background: var(--paper); color: var(--ink); border-radius: 4px; padding: 16px 16px 8px; display: grid; box-shadow: 0 14px 18px -14px rgba(5, 39, 57, 0.45); }
+  .yours h2 { margin-bottom: 8px; }
+  .row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-top: 2px dashed var(--line); }
+  .rt { display: grid; gap: 4px; min-width: 0; }
   .rt b { font: 400 var(--fs-l)/1.1 var(--display); }
-  .rm { display: flex; flex-wrap: wrap; gap: 2px 12px; font: 500 var(--fs-s) var(--body); color: var(--muted); }
+  .rm { display: flex; flex-wrap: wrap; gap: 4px 12px; font: 500 var(--fs-s) var(--body); color: var(--muted); }
   .rm .live { color: var(--ink); font-weight: 650; }
-  .rm .live::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: var(--mamey); box-shadow: 0 0 0 2px var(--ink); vertical-align: 1px; }
-  .ra { display: grid; gap: 6px; justify-items: stretch; }
-  .go { font: 650 var(--fs-s) var(--body); padding: 7px 14px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; text-align: center; }
+  .rm .live::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--mamey); box-shadow: 0 0 0 2px var(--ink); vertical-align: 1px; }
+  .ra { display: grid; gap: 8px; justify-items: stretch; }
+  .go { font: 650 var(--fs-s) var(--body); padding: 8px 16px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; text-align: center; }
   .hint { margin: 0; font: 520 var(--fs-l) var(--body); font-variation-settings: 'CASL' 1; }
   .credits { margin: 0; font: 500 var(--fs-s)/1.45 var(--body); opacity: 0.8; }
   .credits a { color: inherit; }

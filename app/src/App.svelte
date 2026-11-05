@@ -147,7 +147,7 @@
   .app :global(button), .app :global(a), .app :global([role='button']) { touch-action: manipulation; }
   .app :global(button), .app :global([role='button']) { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
   .app :global(:focus-visible) { outline: 3px solid var(--text); outline-offset: 2px; }
-  .skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; border-radius: 999px; background: var(--ink); color: var(--paper); font: 650 var(--fs-m) var(--body); }
+  .skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 12px 16px; border-radius: 999px; background: var(--ink); color: var(--paper); font: 650 var(--fs-m) var(--body); }
   .skip:focus { top: 12px; }
   main:focus { outline: none; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -157,28 +157,28 @@
   .mapwrap:not(.live) { -webkit-mask: linear-gradient(#000 0, #000 150px, transparent 330px); mask: linear-gradient(#000 0, #000 150px, transparent 330px); }
   .wide .mapwrap { -webkit-mask: linear-gradient(90deg, transparent 0 470px, #000 560px); mask: linear-gradient(90deg, transparent 0 470px, #000 560px); }
   .mapwrap.where, .wide .mapwrap.where { -webkit-mask: none; mask: none; }
-  .col { position: absolute; inset: 0; z-index: 2; scroll-padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); overflow-y: auto; overscroll-behavior: contain; padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px calc(env(safe-area-inset-bottom, 0px) + 104px); display: grid; align-content: start; gap: 18px; scrollbar-width: none; }
+  .col { position: absolute; inset: 0; z-index: 2; scroll-padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); overflow-y: auto; overscroll-behavior: contain; padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px calc(env(safe-area-inset-bottom, 0px) + 104px); display: grid; align-content: start; gap: 16px; scrollbar-width: none; }
   .col::-webkit-scrollbar { display: none; }
-  .wide .col { scroll-padding-bottom: 40px; right: auto; width: 500px; padding: 26px 30px 40px; gap: 20px; }
+  .wide .col { scroll-padding-bottom: 40px; right: auto; width: 500px; padding: 24px 32px 40px; gap: 24px; }
   .wide .col.full { right: 0; width: auto; padding-inline: 40px; }
   .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 42px; }
   .today { margin: 0; display: flex; align-items: center; gap: 12px; font: 600 var(--fs-s) var(--body); flex-wrap: wrap; justify-content: flex-end; }
-  .here { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 11px 0 8px; border: 0; border-radius: 999px; background: transparent; color: var(--text); font: 650 var(--fs-s) var(--body); cursor: pointer; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); transition: transform 0.16s cubic-bezier(.23, 1, .32, 1); }
+  .here { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 12px 0 8px; border: 0; border-radius: 999px; background: transparent; color: var(--text); font: 650 var(--fs-s) var(--body); cursor: pointer; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); transition: transform 0.16s cubic-bezier(.23, 1, .32, 1); }
   .here:active { transform: scale(0.96); }
   .here.on { background: var(--text); color: var(--sky); box-shadow: none; }
   .here:disabled { opacity: 0.7; }
-  .tabs { display: flex; gap: 4px; margin-top: -6px; flex-wrap: wrap; }
-  .tabs button { display: inline-flex; align-items: center; gap: 6px; font: 650 var(--fs-m) var(--body); padding: 8px 11px 8px 9px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
+  .tabs { display: flex; gap: 4px; margin-top: -8px; flex-wrap: wrap; }
+  .tabs button { display: inline-flex; align-items: center; gap: 8px; font: 650 var(--fs-m) var(--body); padding: 8px 12px 8px 8px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
   .tabs button.on { background: var(--text); color: var(--sky); }
   .laterdock { z-index: 2; position: absolute; left: 520px; right: 24px; bottom: 18px; }
-  .tabbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: space-around; padding: 8px 6px calc(env(safe-area-inset-bottom, 0px) + 8px); background: var(--paper); box-shadow: 0 -1px 0 rgba(5, 39, 57, 0.08), 0 -10px 24px rgba(5, 39, 57, 0.12); }
-  .tabbar button { flex: 1; display: grid; justify-items: center; gap: 3px; padding: 4px 0; min-height: 50px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 650 var(--fs-s) var(--body); }
+  .tabbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: space-around; padding: 8px 8px calc(env(safe-area-inset-bottom, 0px) + 8px); background: var(--paper); box-shadow: 0 -1px 0 rgba(5, 39, 57, 0.08), 0 -10px 24px rgba(5, 39, 57, 0.12); }
+  .tabbar button { flex: 1; display: grid; justify-items: center; gap: 4px; padding: 4px 0; min-height: 50px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 650 var(--fs-s) var(--body); }
   .tabbar button:focus-visible { outline-color: var(--ink); }
   .ti { position: relative; width: 52px; height: 30px; border-radius: 999px; display: grid; place-items: center; transition: background 0.2s, transform 0.2s cubic-bezier(.3, 1.6, .5, 1); }
   .tabbar button.on { color: var(--ink); }
   .tabbar button.on .ti { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
   .tabbar button:active .ti { transform: scale(0.92); }
-  .toast { position: absolute; z-index: 20; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 90px); transform: translate(-50%, 16px); max-width: calc(100% - 32px); font: 650 var(--fs-m) var(--body); background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 999px; box-shadow: 0 10px 24px rgba(5, 39, 57, 0.3); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
+  .toast { position: absolute; z-index: 20; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 90px); transform: translate(-50%, 16px); max-width: calc(100% - 32px); font: 650 var(--fs-m) var(--body); background: var(--ink); color: var(--paper); padding: 12px 16px; border-radius: 999px; box-shadow: 0 10px 24px rgba(5, 39, 57, 0.3); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.24s cubic-bezier(.3, 1.4, .5, 1); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .wide .toast { bottom: 28px; left: 250px; }
   @media (prefers-reduced-motion: reduce) { :global(body), .app, .toast { transition: none; } }

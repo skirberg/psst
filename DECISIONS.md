@@ -131,6 +131,13 @@ All 60 places were read against their own pages (and the state park pages), plus
 - Not confirmed, left as they were with their old dates so the data watch flags them: Casa Rassi (its site lists Monday to Saturday 9am to 5pm, possibly a site default; psst says Tuesday to Saturday 8am to 2pm), Naomi's Garden (only Friday and Saturday hours found), Dante's HiFi (sources disagree), Domino Park (no official hours).
 - Notices that need no change: Rubell closes early at 4:30pm on Saturday Nov 7 only; ICA Miami's upper floors are closed for installation; Marc's Bianca has reopened with the same hours; Simpson Park's October closure is over.
 
+## Wireframes, grid and spacing (2026-11-05)
+
+Sami asked whether psst was designed on a wireframe or grid. It was not: 23 different spacing values had been picked by eye. Now:
+- **Wireframes:** design/wireframes.html (rendered to design/wireframes.png), the five phone screens as gray boxes. Today is one hero (the hour), one object (the ticket), one action (psst).
+- **Phone grid:** 4 columns, 16px margins, 16px gutters. Trip's time takes column 1 and each stop spans columns 2 to 4; Events puts two flyers a row, two columns each; Kept puts four stickers across.
+- **Spacing:** every gap, padding and margin is on the 8-point scale (4, 8, 12, 16, 24, 32, 40), plus 1px hairlines. New CSS uses only these.
+
 ## Rejected (do not revive)
 - Hotel Piña (metaphor tax).
 - Ventanita as the whole product.
