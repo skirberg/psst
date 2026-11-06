@@ -1394,6 +1394,94 @@
     "verifiedOn": "2026-10-02"
   },
   {
+    "id": "marco-carola-silvie-loto-club-space-terrace-2026-12-11",
+    "title": "Marco Carola + Silvie Loto",
+    "date": "2026-12-11",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/E2f475b298f4",
+    "why": "Marco Carola, Silvie Loto on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:marco-carola-silvie-loto-11th-dec-club-space-miami-miami-tickets",
+    "price": "from $30",
+    "doors": "23:00"
+  },
+  {
+    "id": "max-styler-emanuel-satie-club-space-terrace-2026-12-12",
+    "title": "Max Styler + Emanuel Satie",
+    "date": "2026-12-12",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/ted0000daa48",
+    "why": "Max Styler, Emanuel Satie on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:max-styler-emanuel-satie-12th-dec-club-space-miami-miami-tickets",
+    "price": "from $30",
+    "doors": "23:00"
+  },
+  {
+    "id": "my-friend-misty-x-otherworld-present-sagittarius-soiree-club-space-2026-12-12",
+    "title": "My Friend Misty x OTHERWORLD Present: Sagittarius Soiree",
+    "date": "2026-12-12",
+    "venue": "Club Space",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/j1b3b7e118e9",
+    "why": "My Friend Misty x OTHERWORLD Present: Sagittarius Soiree across every room at Space. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:my-friend-misty-x-otherworld-present-sagittarius-soiree-12th-dec-the-ground-miami-miami-floyd-miami-miami-tickets",
+    "price": "from $14.99",
+    "doors": "23:00"
+  },
+  {
+    "id": "sagittarius-soiree-mareux-curses-live-more-club-space-2026-12-12",
+    "title": "Sagittarius Soiree: Mareux, Curses (live) & More",
+    "date": "2026-12-12",
+    "venue": "Club Space",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/j1b3b7e118e9",
+    "why": "Mareux, Curses across every room at Space. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:sagittarius-soiree-mareux-curses-live-more-12th-dec-the-ground-miami-miami-floyd-miami-miami-tickets",
+    "price": "from $14.99",
+    "doors": "23:00"
+  },
+  {
     "id": "dolphins-vs-bears-2026-12-13",
     "title": "Miami Dolphins vs Chicago Bears",
     "date": "2026-12-13",
@@ -1416,6 +1504,48 @@
     "verifiedOn": "2026-10-02"
   },
   {
+    "id": "nicole-henry-miami-beach-bandshel-2026-12-16",
+    "title": "Nicole Henry",
+    "date": "2026-12-16",
+    "venue": "Miami Beach Bandshell",
+    "address": "7275 Collins Ave, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.858123,
+    "lng": -80.120481,
+    "category": "concert",
+    "url": "https://miamibeachbandshell.com/event/nicole-henry/",
+    "why": "Miami's own international jazz/soul artist returns for her 13th annual fundraising holiday concert, in support of Miami Music Project and SAVE.",
+    "energy": 3,
+    "sources": [
+      "https://miamibeachbandshell.com/event/nicole-henry/",
+      "https://www.miamibeachbandshell.com/events/"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "bandshell:55291-2026-12-16",
+    "time": "19:30"
+  },
+  {
+    "id": "mr-pauer-friends-miami-beach-bandshel-2026-12-17",
+    "title": "Mr. Pauer & Friends",
+    "date": "2026-12-17",
+    "venue": "Miami Beach Bandshell",
+    "address": "7275 Collins Ave, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.858123,
+    "lng": -80.120481,
+    "category": "concert",
+    "url": "https://miamibeachbandshell.com/event/mr-pauer-friends/",
+    "why": "Celebrate the holidays with Electrópico Pioneer Mr.",
+    "energy": 3,
+    "sources": [
+      "https://miamibeachbandshell.com/event/mr-pauer-friends/",
+      "https://www.miamibeachbandshell.com/events/"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "bandshell:55294-2026-12-17",
+    "time": "20:00"
+  },
+  {
     "id": "miami-worldcenter-night-market-2026-12-18",
     "title": "Night Market at Miami Worldcenter",
     "date": "2026-12-18",
@@ -1435,6 +1565,28 @@
       "https://www.eventbrite.com/e/1997909900294"
     ],
     "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "sidepiece-westend-club-space-terrace-2026-12-18",
+    "title": "Sidepiece + Westend",
+    "date": "2026-12-18",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/M56c49c069d8",
+    "why": "SIDEPIECE, Westend on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:sidepiece-westend-18th-dec-club-space-miami-miami-tickets",
+    "price": "from $20",
+    "doors": "23:00"
   },
   {
     "id": "ryan-castro-kaseya-center-2026-12-19",
@@ -1474,6 +1626,115 @@
       "https://miamibeachbandshell.com/event/matisyahu/"
     ],
     "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "a-z-arodes-chris-avantgarde-genesi-j-rd-layla-benitez-club-space-terrace-2026-12-19",
+    "title": "(A-Z) Arodes + Chris Avantgarde + Genesi + Jørd + Layla Benitez",
+    "date": "2026-12-19",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/Y55e38e0e807",
+    "why": "Arodes, Chris Avantgarde, GENESI and more on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:a-z-arodes-chris-avantgarde-genesi-jrd-layla-benitez-19th-dec-club-space-miami-miami-tickets",
+    "price": "from $25",
+    "doors": "23:00"
+  },
+  {
+    "id": "midnight-service-the-ground-club-spac-2026-12-19",
+    "title": "Midnight Service",
+    "date": "2026-12-19",
+    "venue": "The Ground (Club Space)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/u83d6a141760",
+    "why": "Midnight Service in The Ground, Space's downstairs room. Doors 11pm, 21+.",
+    "energy": 4,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:midnight-service-19th-dec-the-ground-miami-miami-tickets",
+    "price": "from $20",
+    "doors": "23:00"
+  },
+  {
+    "id": "run-santa-run-miami-miami-beach-bandshel-2026-12-20",
+    "title": "Run Santa Run Miami",
+    "date": "2026-12-20",
+    "venue": "Miami Beach Bandshell",
+    "address": "7275 Collins Ave, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.858123,
+    "lng": -80.120481,
+    "category": "concert",
+    "url": "https://miamibeachbandshell.com/event/run-santa-run-miami/",
+    "why": "The holiday race series that brings the fun.",
+    "energy": 3,
+    "sources": [
+      "https://miamibeachbandshell.com/event/run-santa-run-miami/",
+      "https://www.miamibeachbandshell.com/events/"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "bandshell:53882-2026-12-20",
+    "time": "07:00"
+  },
+  {
+    "id": "perreo-del-futuro-the-ground-club-spac-2026-12-26",
+    "title": "Perreo Del Futuro",
+    "date": "2026-12-26",
+    "venue": "The Ground (Club Space)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/Scce009bcc42",
+    "why": "Perreo Del Futuro in The Ground, Space's downstairs room. Doors 11pm, 21+.",
+    "energy": 4,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:perreo-del-futuro-26th-dec-the-ground-miami-miami-tickets",
+    "price": "from $14.99",
+    "doors": "23:00"
+  },
+  {
+    "id": "whynotus-club-space-terrace-2026-12-26",
+    "title": "WHYNOTUS",
+    "date": "2026-12-26",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/v04f0ee9ae9c",
+    "why": "Nic Fanciulli, Malóne Morez, Calussa and more on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:whynotus-26th-dec-club-space-miami-miami-tickets",
+    "price": "from $20",
+    "doors": "23:00"
   },
   {
     "id": "heat-vs-hornets-2026-12-27",
@@ -1518,6 +1779,72 @@
     "verifiedOn": "2026-10-02"
   },
   {
+    "id": "groovers-only-the-ground-club-spac-2026-12-27",
+    "title": "Groovers Only",
+    "date": "2026-12-27",
+    "venue": "The Ground (Club Space)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/x613d23f61fa",
+    "why": "Groovers Only in The Ground, Space's downstairs room. Doors 11pm, 21+.",
+    "energy": 4,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:groovers-only-27th-dec-the-ground-miami-miami-tickets",
+    "price": "from $14.99",
+    "doors": "23:00"
+  },
+  {
+    "id": "sara-landry-tta-club-space-terrace-2026-12-27",
+    "title": "Sara Landry + ØTTA",
+    "date": "2026-12-27",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/g70448244789",
+    "why": "Sara Landry, ØTTA on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:sara-landry-tta-27th-dec-club-space-miami-miami-tickets",
+    "price": "from $30",
+    "doors": "23:00"
+  },
+  {
+    "id": "jamie-xx-avalon-emerson-club-space-terrace-2026-12-30",
+    "title": "Jamie xx + Avalon Emerson",
+    "date": "2026-12-30",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/i3d10f2d0595",
+    "why": "Jamie xx, Avalon Emerson on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:jamie-xx-avalon-emerson-30th-dec-club-space-miami-miami-tickets",
+    "price": "from $30",
+    "doors": "23:00"
+  },
+  {
     "id": "lettuce-nye-bandshell-2026-12-31",
     "title": "Lettuce (New Year's Eve)",
     "date": "2026-12-31",
@@ -1536,5 +1863,90 @@
       "https://miamibeachbandshell.com/event/lettuce/"
     ],
     "verifiedOn": "2026-10-02"
+  },
+  {
+    "id": "nye-dennis-cruz-dj-harvey-the-martinez-brothers-club-space-terrace-2026-12-31",
+    "title": "NYE: Dennis Cruz + DJ Harvey + The Martinez Brothers",
+    "date": "2026-12-31",
+    "venue": "Club Space (Terrace)",
+    "address": "34 NE 11th St, Miami, FL 33132",
+    "hood": "Downtown",
+    "lat": 25.784555,
+    "lng": -80.193153,
+    "category": "club",
+    "url": "https://link.dice.fm/Uc10cb892f42",
+    "why": "Dennis Cruz, DJ Harvey, The Martinez Brothers on Space's Terrace. Doors 11pm, 21+.",
+    "energy": 5,
+    "sources": [
+      "https://www.clubspace.com/shows",
+      "https://www.clubspace.com/events.json"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "clubspace:nye-dennis-cruz-dj-harvey-the-martinez-brothers-31st-dec-club-space-miami-miami-tickets",
+    "price": "from $48.01",
+    "doors": "23:00"
+  },
+  {
+    "id": "the-california-honeydrops-miami-beach-bandshel-2027-01-08",
+    "title": "The California Honeydrops",
+    "date": "2027-01-08",
+    "venue": "Miami Beach Bandshell",
+    "address": "7275 Collins Ave, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.858123,
+    "lng": -80.120481,
+    "category": "concert",
+    "url": "https://miamibeachbandshell.com/event/the-california-honeydrops/",
+    "why": "Join The California Honeydrops for a feel-good night of retro soul, infectious grooves, and musicianship that keeps the dance floor moving.",
+    "energy": 3,
+    "sources": [
+      "https://miamibeachbandshell.com/event/the-california-honeydrops/",
+      "https://www.miamibeachbandshell.com/events/"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "bandshell:57402-2027-01-08",
+    "time": "19:00"
+  },
+  {
+    "id": "shakedown-citi-miami-beach-bandshel-2027-01-09",
+    "title": "Shakedown Citi",
+    "date": "2027-01-09",
+    "venue": "Miami Beach Bandshell",
+    "address": "7275 Collins Ave, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.858123,
+    "lng": -80.120481,
+    "category": "concert",
+    "url": "https://miamibeachbandshell.com/event/shakedown-citi/",
+    "why": "More than a Tribute, it's the Dead reborn.",
+    "energy": 3,
+    "sources": [
+      "https://miamibeachbandshell.com/event/shakedown-citi/",
+      "https://www.miamibeachbandshell.com/events/"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "bandshell:54464-2027-01-09",
+    "time": "19:00"
+  },
+  {
+    "id": "delfeayo-marsalis-the-uptown-jazz-orchestra-miami-beach-bandshel-2027-01-16",
+    "title": "Delfeayo Marsalis & the Uptown Jazz Orchestra",
+    "date": "2027-01-16",
+    "venue": "Miami Beach Bandshell",
+    "address": "7275 Collins Ave, Miami Beach, FL 33141",
+    "hood": "North Beach",
+    "lat": 25.858123,
+    "lng": -80.120481,
+    "category": "concert",
+    "url": "https://miamibeachbandshell.com/event/delfeayo-marsalis-the-uptown-jazz-orchestra/",
+    "why": "Uptown Jazz Orchestra delivers a dynamic big-band experience rooted in swing, improvisation and the rich musical heritage of the Crescent City!",
+    "energy": 3,
+    "sources": [
+      "https://miamibeachbandshell.com/event/delfeayo-marsalis-the-uptown-jazz-orchestra/",
+      "https://www.miamibeachbandshell.com/events/"
+    ],
+    "verifiedOn": "2026-11-05",
+    "feed": "bandshell:57865-2027-01-16",
+    "time": "20:00"
   }
 ]
