@@ -170,8 +170,8 @@
   .here:active { transform: scale(0.96); }
   .here.on { background: var(--text); color: var(--sky); box-shadow: none; }
   .here:disabled { opacity: 0.7; }
-  .tabs { display: flex; gap: 4px; margin-top: -8px; flex-wrap: wrap; }
-  .tabs button { display: inline-flex; align-items: center; gap: 8px; font: 650 var(--fs-m) var(--body); padding: 8px 12px 8px 8px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
+  .tabs { display: flex; gap: 0; margin-top: -8px; flex-wrap: wrap; }
+  .tabs button { display: inline-flex; align-items: center; gap: 4px; font: 650 var(--fs-m) var(--body); padding: 8px 12px 8px 8px; border: 0; cursor: pointer; border-radius: 999px; background: transparent; color: var(--text); }
   .tabs button.on { background: var(--text); color: var(--sky); }
   .laterdock { z-index: 2; position: absolute; left: 520px; right: 24px; bottom: 18px; }
   .tabbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: space-around; padding: 8px 8px calc(env(safe-area-inset-bottom, 0px) + 8px); background: var(--paper); box-shadow: 0 -1px 0 rgba(5, 39, 57, 0.08), 0 -10px 24px rgba(5, 39, 57, 0.12); }
