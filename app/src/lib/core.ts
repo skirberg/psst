@@ -71,6 +71,9 @@ export function daylight(h: number, sun: Sun): number {
 
 // --- Weather -----------------------------------------------------------
 const WMO = (c: number): string => (c >= 95 ? 'storms' : c >= 80 ? 'showers' : c >= 61 ? 'rain' : c >= 51 ? 'drizzle' : c >= 45 ? 'fog' : c >= 3 ? 'cloudy' : c >= 1 ? 'some clouds' : 'clear');
+// One icon for the sky: from a forecast's words, or straight from an hourly WMO code.
+export const skyIcon = (sky: string): string => (sky === 'storms' ? 'storm' : ['showers', 'rain', 'drizzle'].includes(sky) ? 'showers' : ['cloudy', 'fog'].includes(sky) ? 'cloud' : sky === 'some clouds' ? 'partly' : 'sun');
+export const codeIcon = (code: number): string => skyIcon(WMO(code));
 export function weatherFor(date: ISODate): WeatherView | null {
   const fc = weather.days.find((d) => d.date === date && daySpan(weather.fetched, d.date) <= 4);
   if (fc) return { kind: 'forecast', hi: fc.hi, lo: fc.lo, rain: fc.rain, sky: WMO(fc.code), uv: fc.uv, hourly: weather.hourly[date] as HourCell[] | undefined };

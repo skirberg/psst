@@ -138,6 +138,15 @@ Sami asked whether psst was designed on a wireframe or grid. It was not: 23 diff
 - **Phone grid:** 4 columns, 16px margins, 16px gutters. Trip's time takes column 1 and each stop spans columns 2 to 4; Events puts two flyers a row, two columns each; Kept puts four stickers across.
 - **Spacing:** every gap, padding and margin is on the 8-point scale (4, 8, 12, 16, 24, 32, 40), plus 1px hairlines. New CSS uses only these.
 
+## Icons for words (2026-11-05)
+
+Sami: the text and UI can be better with icons. New icons in the same drawn set (24px grid, 2px rounded strokes): go, flip, sun, partly, cloud, showers, storm, sunset, land, takeoff, edit, send, check, route. Each icon-only button keeps its name for screen readers (aria-label) and on hover (title).
+- Stub: a pin before the neighborhood; More is a flip icon; Keep is the star (the Kept tab's star); Go is a direction arrow; the back face has Back as an arrow, Map and Send with icons.
+- Header: the sky icon for the hour (from the hourly forecast code) beside the temperature.
+- Trip: landing and takeoff icons with the times, edit for Change, sky and sunset icons in each day header, a ticket icon on Tickets, an arrow for Go, a route icon on Getting there, shuffle for Swap.
+- Kept: Go is an arrow, Went is a check.
+Words stay where an icon would be a guess: the move's title and line, Open till, prices, slot names, flyer tabs.
+
 ## Rejected (do not revive)
 - Hotel Piña (metaphor tax).
 - Ventanita as the whole product.

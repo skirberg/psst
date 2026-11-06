@@ -39,7 +39,7 @@
     <h2>Tonight</h2>
     <div class="row">
       {#each tonight as e (e.id)}
-        <button class="mini" onclick={() => app.setTab('wall', 'flyer')} aria-label="{e.title}, {e.venue}"><Flyer ev={e} /></button>
+        <button class="mini" onclick={() => app.setTab('wall', 'flyer')}><Flyer ev={e} /></button>
       {/each}
     </div>
   </section>

@@ -4,8 +4,9 @@
   // real sunsets, travel time and the events you pick.
   import Stub from './Stub.svelte';
   import Flyer from './Flyer.svelte';
+  import Icon from './Icon.svelte';
   import { app, trip } from '../lib/state.svelte';
-  import { fmtDate, fmtHour, hm, addDays, dowOf, daySpan, mapsHref } from '../lib/core';
+  import { fmtDate, fmtHour, hm, addDays, dowOf, daySpan, mapsHref, skyIcon } from '../lib/core';
   import { radioKeys } from '../lib/a11y';
   import type { PsstEvent } from '../lib/types';
 
@@ -53,8 +54,8 @@
   {#if !slipOpen}
     <button class="slipline" onclick={() => (editing = true)}>
       <b>{fmtDate(trip.start, { month: 'short', day: 'numeric' })} to {fmtDate(trip.end, { month: 'short', day: 'numeric' })}</b>
-      <span>Lands {fmtHour(trip.arrive, true)}, out {fmtHour(trip.depart, true)}</span>
-      <span class="chg">Change</span>
+      <span class="legs"><span title="Landing"><Icon name="land" size={16} />{fmtHour(trip.arrive, true)}</span><span title="Flight out"><Icon name="takeoff" size={16} />{fmtHour(trip.depart, true)}</span></span>
+      <span class="chg" aria-label="Change dates" title="Change"><Icon name="edit" size={18} /></span>
     </button>
   {:else}
   <div class="slip">
@@ -85,7 +86,7 @@
       <div class="day" class:focus={trip.focusDay === di}>
         <button class="dh" onclick={() => (trip.focusDay = di)}>
           <span class="dn">{fmtDate(d.date, { weekday: 'long', month: 'short', day: 'numeric' })}</span>
-          <span class="dm">{#if d.weather}<span title={d.weather.kind === 'typical' ? 'Typical for the date' : 'Forecast'}>{d.weather.kind === 'typical' ? '~' : ''}{d.weather.hi}°</span>{/if}<span>Sunset {fmtHour(d.sun.set, true)}</span></span><span class="vh">. Show on the map</span>
+          <span class="dm">{#if d.weather}<span title={d.weather.kind === 'typical' ? 'Typical for the date' : d.weather.sky}><Icon name={skyIcon(d.weather.sky)} size={16} />{d.weather.kind === 'typical' ? '~' : ''}{d.weather.hi}°</span>{/if}<span title="Sunset"><Icon name="sunset" size={16} />{fmtHour(d.sun.set, true)}</span></span><span class="vh">. Show on the map</span>
         </button>
         {#if d.wet}<p class="note">Rain likely. Covered spots only.</p>{/if}
         {#each d.slots as s (s.key)}
@@ -96,14 +97,14 @@
                 <div class="evstub">
                   <div class="art"><Flyer ev={s.event} mini /></div>
                   <div class="ev-t"><b>{s.event.title}</b><span class="venue">{s.event.venue}{s.event.doors && s.event.time ? `, show ${fmtHour(hm(s.event.time), true)}` : ''}</span>
-                    <span class="links">{#if s.event.url}<a href={s.event.url} target="_blank" rel="noopener">Tickets</a>{/if}<a href={mapsHref(s.event.venue, s.event.address, s.event.lat, s.event.lng)} target="_blank" rel="noopener">Go</a></span></div>
+                    <span class="links">{#if s.event.url}<a href={s.event.url} target="_blank" rel="noopener"><Icon name="events" size={18} />Tickets</a>{/if}<a href={mapsHref(s.event.venue, s.event.address, s.event.lat, s.event.lng)} target="_blank" rel="noopener" aria-label="Directions to {s.event.venue}" title="Go"><Icon name="go" size={18} /></a></span></div>
                   {#if s.event.getThere || s.event.bring || s.event.after}
-                    <details class="how"><summary>How to get there</summary><dl class="tips">{#each [['Get there', s.event.getThere], ['Bring', s.event.bring], ['After', s.event.after]].filter((x) => x[1]) as [k, t]}<dt>{k}</dt><dd>{t}</dd>{/each}</dl></details>
+                    <details class="how"><summary><Icon name="route" size={18} />Getting there</summary><dl class="tips">{#each [['Get there', s.event.getThere], ['Bring', s.event.bring], ['After', s.event.after]].filter((x) => x[1]) as [k, t]}<dt>{k}</dt><dd>{t}</dd>{/each}</dl></details>
                   {/if}
                 </div>
               {:else if s.move}
                 <Stub item={{ m: s.move, sealed: s.move.secret === 2 }} compact at={s.at % 24} dow={(d.dow + (s.at >= 24 ? 1 : 0)) % 7} />
-                {#if (s.options ?? 0) > 1}<button class="swap" onclick={() => trip.swap(d.date, s.key)}>Swap</button>{/if}
+                {#if (s.options ?? 0) > 1}<button class="swap" aria-label="Swap for another" title="Swap" onclick={() => trip.swap(d.date, s.key)}><Icon name="shuffle" size={16} /></button>{/if}
               {/if}
             </div>
           </div>
@@ -148,6 +149,8 @@
   .dh:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .dn { font: 400 var(--fs-xxl)/1 var(--display); }
   .focus .dn { text-decoration: underline; text-decoration-color: var(--mamey); text-decoration-thickness: 4px; text-underline-offset: 6px; }
+  .dm > span, .legs > span { display: inline-flex; align-items: center; gap: 4px; }
+  .legs { display: flex; gap: 16px; }
   .dm { display: flex; flex-wrap: wrap; gap: 4px 16px; font: 600 var(--fs-s) var(--body); opacity: 0.9; }
   /* The phone grid (4 columns, 16px gutters): the time takes column 1, the stop spans columns 2 to 4. */
   .slot { display: grid; grid-template-columns: calc((100% - 48px) / 4) 1fr; gap: 16px; align-items: start; }
@@ -157,14 +160,14 @@
   .obj { display: grid; gap: 8px; min-width: 0; }
   .swap { position: relative; }
   .swap::after { content: ''; position: absolute; inset: -6px -4px -11px; }
-  .swap { justify-self: start; font: 600 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
+  .swap { justify-self: start; width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); cursor: pointer; }
   .evstub { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 12px; background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 14px 16px -12px rgba(5, 39, 57, 0.45); }
   .ev-t { display: grid; gap: 4px; align-content: start; min-width: 0; }
   .ev-t b { font: 400 var(--fs-xl)/1.05 var(--display); }
   .ev-t .venue { font-size: var(--fs-s); color: var(--muted); }
   .ev-t .links { display: flex; gap: 16px; margin-top: 4px; }
   .how { grid-column: 1 / -1; border-top: 2px dashed var(--line); padding-top: 8px; }
-  .how summary { cursor: pointer; font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 8px 0; list-style: none; }
+  .how summary { display: flex; align-items: center; gap: 8px; cursor: pointer; font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 8px 0; list-style: none; }
   .how summary::-webkit-details-marker { display: none; }
   .how summary::after { content: ' +'; color: var(--muted); }
   .how[open] summary::after { content: ' −'; }
@@ -173,11 +176,11 @@
   .slipline:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .slipline b { font: 400 var(--fs-xl)/1.1 var(--display); }
   .slipline span { grid-column: 1; font: 550 var(--fs-s) var(--body); color: var(--muted); }
-  .slipline .chg { grid-column: 2; grid-row: 1 / span 2; font: 650 var(--fs-s) var(--body); color: var(--ink); padding: 8px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--line); }
+  .slipline .chg { grid-column: 2; grid-row: 1 / span 2; width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink); border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--line); }
   .done { grid-column: 1 / -1; font: 650 var(--fs-m) var(--body); padding: 12px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }
   .tips dt { font: 650 var(--fs-s)/1.45 var(--body); color: var(--muted); }
   .tips dd { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; }
-  .ev-t a { font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 8px 0; }
+  .ev-t a { display: inline-flex; align-items: center; gap: 4px; font: 650 var(--fs-m) var(--body); color: var(--ink); padding: 8px 0; }
   .note { margin: 0; font: 500 var(--fs-m)/1.4 var(--body); font-variation-settings: 'CASL' 1; opacity: 0.9; }
   .fallback { width: 100%; font: 500 var(--fs-s) var(--mono); font-variation-settings: 'MONO' 1; padding: 12px; border-radius: 4px; border: 0; background: var(--paper); color: var(--ink); }
   .copy { font: 700 var(--fs-l) var(--body); padding: 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; }

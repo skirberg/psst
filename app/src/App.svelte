@@ -14,13 +14,15 @@
   import BookView from './components/BookView.svelte';
   import Icon from './components/Icon.svelte';
   import { app, trip, codeFromUrl } from './lib/state.svelte';
-  import { miamiNow, fmtHour, weatherFor, moves, hm, hotels } from './lib/core';
+  import { miamiNow, fmtHour, weatherFor, skyIcon, codeIcon, moves, hm, hotels } from './lib/core';
   import { PAPER, INK, MAMEY } from './lib/sky';
 
   import type { Tab } from './lib/state.svelte';
   let wide = $state(false), map = $state<ReturnType<typeof MiamiMap>>(), scroller = $state<HTMLElement>();
   const wx = $derived(weatherFor(app.now.date));
   // The forecast's temperature at the hour on the clock; typical days show the usual high.
+  // The sky icon follows the hour on the clock when the forecast has it.
+  const wxIcon = $derived(wx ? (wx.hourly?.[Math.floor(app.hour) % 24] ? codeIcon(wx.hourly[Math.floor(app.hour) % 24][2]) : skyIcon(wx.sky)) : 'sun');
   const temp = $derived(wx?.hourly?.[Math.floor(app.hour) % 24]?.[0] ?? wx?.hi);
   const top = $derived(app.pad[app.padPos]);
   const focus = $derived(app.where || (app.tab === 'today' && top && !top.sealed ? top.m.id : null));
@@ -103,7 +105,7 @@
         <Wordmark size={wide ? 40 : 34} />
         <p class="today">
           <button class="here" class:on={app.inMiami} disabled={app.locating} onclick={() => app.locate()} aria-label={app.locating ? 'Finding you' : app.inMiami ? 'Near you, closest first' : 'Miami, tap to see what’s closest to you'}><Icon name="pin" size={15} />{app.locating ? 'Finding you' : app.inMiami ? 'Near you' : 'Miami'}</button>
-          {#if wx}<span title={wx.kind === 'typical' ? 'Typical for the date' : 'Forecast'}>{wx.kind === 'typical' ? '~' : ''}{temp}°</span>{/if}
+          {#if wx}<span class="wx" title={wx.kind === 'typical' ? 'Typical for the date' : wx.sky}><Icon name={wxIcon} size={18} />{wx.kind === 'typical' ? '~' : ''}{temp}°</span>{/if}
         </p>
       </header>
       {#if wide}
@@ -163,6 +165,7 @@
   .wide .col.full { right: 0; width: auto; padding-inline: 40px; }
   .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 42px; }
   .today { margin: 0; display: flex; align-items: center; gap: 12px; font: 600 var(--fs-s) var(--body); flex-wrap: wrap; justify-content: flex-end; }
+  .wx { display: inline-flex; align-items: center; gap: 4px; }
   .here { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 12px 0 8px; border: 0; border-radius: 999px; background: transparent; color: var(--text); font: 650 var(--fs-s) var(--body); cursor: pointer; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 35%, transparent); transition: transform 0.16s cubic-bezier(.23, 1, .32, 1); }
   .here:active { transform: scale(0.96); }
   .here.on { background: var(--text); color: var(--sky); box-shadow: none; }

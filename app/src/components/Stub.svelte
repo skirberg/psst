@@ -4,6 +4,7 @@
   import { tick } from 'svelte';
   import { track } from '@vercel/analytics';
   import Sticker from './Sticker.svelte';
+  import Icon from './Icon.svelte';
   import { app } from '../lib/state.svelte';
   import { inkOf } from '../lib/ink';
   import { openAt, closesAt, hm, fmtHour, fmtDate, mapsHref } from '../lib/core';
@@ -151,16 +152,16 @@
         <div class="emblem"><Sticker move={m} size={compact ? 66 : 88} /></div>
         <h2 class="title">{m.title}</h2>
         <p class="note">{m.theMove}</p>
-        <div class="meta"><span>{m.hood}</span><span>{'$'.repeat(m.cost)}</span><button class="more" onclick={() => flip(true)}>More</button></div>
+        <div class="meta"><span class="hood"><Icon name="pin" size={15} />{m.hood}</span><span>{'$'.repeat(m.cost)}</span><button class="more" aria-label="More about {m.place}" title="More" onclick={() => flip(true)}><Icon name="flip" size={18} /></button></div>
       </div>
       <div class="face back" id="back-{m.id}" inert={!flipped} onclick={faceClick} role="presentation">
-        <div class="b-top"><p class="b-title">{m.place}</p><button class="b-close" onclick={() => flip(false)}>Back</button></div>
+        <div class="b-top"><p class="b-title">{m.place}</p><button class="b-close" aria-label="Back to the front" title="Back" onclick={() => flip(false)}><Icon name="left" size={18} /></button></div>
         {#if m.getIn}<p class="b-line"><b>Get in:</b> {m.getIn}</p>{/if}
         <p class="b-line">{m.why}</p>
         <p class="b-line muted">{m.address}</p>
         <div class="b-actions">
-          <button class="pill" onclick={() => (app.where = m.id)}>On the map</button>
-          <button class="pill ghost" onclick={send} disabled={sending}>{sending ? 'Drawing...' : 'Send'}</button>
+          <button class="pill" onclick={() => (app.where = m.id)}><Icon name="map" size={16} />Map</button>
+          <button class="pill ghost" onclick={send} disabled={sending}><Icon name="send" size={16} />{sending ? 'Drawing...' : 'Send'}</button>
           {#if onApple}<a class="pill ghost" href={google} target="_blank" rel="noopener">Google Maps</a>{/if}
         </div>
         <p class="b-src">Checked {fmtDate(m.verifiedOn, { month: 'short', day: 'numeric' })}{#if m.sources?.length}: {#each m.sources.slice(0, 2) as s, i}{i ? ', ' : ''}<a href={s} target="_blank" rel="noopener">{host(s)}</a>{/each}{/if}</p>
@@ -173,8 +174,8 @@
       <div class="tearoff" style:--tint={tint} class:tearing bind:this={tearoff} style:transform={pull ? `translateY(${pull}px) rotate(${pull * 0.06}deg)` : undefined} onpointerdown={pullStart} onpointermove={pullMove} onpointerup={pullEnd} onpointercancel={pullEnd} role="presentation">
         <span class="grip" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 20M8.1 15.9 20 4"/></svg></span>
         <div class="acts">
-          <button class="keep" onclick={tear}>Keep</button>
-          <a class="go" href={go} target="_blank" rel="noopener">Go</a>
+          <button class="keep" aria-label="Keep {m.place}" title="Keep" onclick={tear}><Icon name="kept" size={22} /></button>
+          <a class="go" href={go} target="_blank" rel="noopener" aria-label="Directions to {m.place}" title="Go"><Icon name="go" size={22} /></a>
         </div>
       </div>
     {/if}
@@ -206,16 +207,17 @@
   .meta span:first-child { color: var(--ink); font-weight: 650; }
   .more, .b-close { position: relative; }
   .more::after, .b-close::after { content: ''; position: absolute; inset: -10px -6px; }
-  .more { margin-left: auto; font: 650 var(--fs-s) var(--body); padding: 4px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
+  .more { margin-left: auto; width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
+  .hood { display: inline-flex; align-items: center; gap: 4px; }
 
   .b-top { display: flex; justify-content: space-between; align-items: start; gap: 8px; margin-bottom: 12px; }
   .b-title { margin: 0; font: 400 var(--fs-xxl)/1.05 var(--display); }
-  .b-close { flex: none; font: 650 var(--fs-s) var(--body); padding: 4px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
+  .b-close { flex: none; width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 0; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
   .b-line { margin: 0 0 8px; font: 480 var(--fs-m)/1.4 var(--body); }
   .b-line b { font-weight: 700; }
   .b-line.muted { color: var(--muted); font-size: var(--fs-m); }
   .b-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }
-  .pill { font: 650 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; font: 650 var(--fs-s) var(--body); padding: 8px 12px; border-radius: 999px; border: 0; background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
   .pill.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
   .b-src { margin: 0; font: 450 var(--fs-s)/1.4 var(--body); color: var(--muted); }
   .b-src a { color: var(--ink); }
@@ -231,7 +233,7 @@
   .grip svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; transform: rotate(-90deg); }
   .ripped:focus { outline: none; }
   .acts { display: flex; gap: 8px; }
-  .keep, .go { min-height: 44px; display: inline-grid; place-items: center; font: 650 var(--fs-m) var(--body); padding: 0 16px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+  .keep, .go { width: 48px; height: 48px; display: inline-grid; place-items: center; padding: 0; border-radius: 50%; cursor: pointer; text-decoration: none; }
   .keep { background: transparent; color: var(--ink); border: 0; box-shadow: inset 0 0 0 1.5px var(--ink); }
   .go { background: var(--ink); color: var(--paper); }
   .keep:active, .go:active { transform: scale(0.97); }
@@ -243,7 +245,7 @@
   .compact .title { font-size: var(--fs-xl); }
   .compact .note { font-size: var(--fs-m); }
       .compact .tearoff { padding: 4px 16px 12px; }
-  .compact .keep, .compact .go { min-height: 38px; font-size: var(--fs-m); padding: 0 16px; }
+  .compact .keep, .compact .go { width: 40px; height: 40px; }
 
   .sealed { --focus: var(--paper); min-height: 260px; padding: 24px 24px; background: var(--ink); color: var(--paper); display: grid; align-content: end; gap: 8px; cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: manipulation; overflow: hidden; box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--paper) 30%, transparent); }
   .flap { position: absolute; inset: 0 0 auto; height: 56%; background: linear-gradient(to bottom right, transparent 49.6%, rgba(254, 250, 241, 0.3) 50%, transparent 50.4%), linear-gradient(to bottom left, transparent 49.6%, rgba(254, 250, 241, 0.3) 50%, transparent 50.4%); }

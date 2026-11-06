@@ -29,6 +29,20 @@
   {:else if name === 'pool'}<path d="M2.5 16c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 3-1.5M2.5 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 3-1.5"/><path d="M8 13V5a2 2 0 0 1 4 0M14 12V5a2 2 0 0 1 4 0M8 8h6"/>
   {:else if name === 'all'}<circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="7" r="2.5"/><circle cx="7" cy="17" r="2.5"/><circle cx="17" cy="17" r="2.5"/>
   {:else if name === 'external'}<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+  {:else if name === 'go'}<path d="M20.5 3.5 3.5 10.8l7 2.7 2.7 7z"/>
+  {:else if name === 'flip'}<path d="M4 9a8 8 0 0 1 14.2-3.5L20 7.5"/><path d="M20 3.5v4h-4"/><path d="M20 15a8 8 0 0 1-14.2 3.5L4 16.5"/><path d="M4 20.5v-4h4"/>
+  {:else if name === 'sun'}<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>
+  {:else if name === 'partly'}<path d="M8.5 3v1.5M3 8.5h1.5M4.6 4.6l1 1M12.4 4.6l-1 1"/><path d="M5.6 10.7a3.5 3.5 0 0 1 6.3-3.6"/><path d="M7.5 19.5a3.5 3.5 0 0 1-.4-7 5 5 0 0 1 9.6-1 4 4 0 0 1 .3 8z"/>
+  {:else if name === 'cloud'}<path d="M7 18.5a4 4 0 0 1-.4-8 5.5 5.5 0 0 1 10.6-1.2A4.5 4.5 0 0 1 17.5 18.5z"/>
+  {:else if name === 'showers'}<path d="M7 14.5a4 4 0 0 1-.4-8 5.5 5.5 0 0 1 10.6-1.2A4.5 4.5 0 0 1 17.5 14.5z"/><path d="M8 17.5l-1 2.5M12 17.5l-1 2.5M16 17.5l-1 2.5"/>
+  {:else if name === 'storm'}<path d="M7 14.5a4 4 0 0 1-.4-8 5.5 5.5 0 0 1 10.6-1.2A4.5 4.5 0 0 1 17.5 14.5z"/><path d="M12.5 14 10 18h3.5L11 21.5"/>
+  {:else if name === 'sunset'}<path d="M7 16a5 5 0 0 1 10 0"/><path d="M3 16h18M6 20h12"/><path d="M12 3v5M9.5 5.5 12 8l2.5-2.5"/>
+  {:else if name === 'land'}<path d="M3 20.5h18"/><path d="M4.5 6.5l1.2-.4 2.6 3.3 3.6 1.2-1.3-6.3 1.6-.5 3.6 7.1 4 1.3a1.5 1.5 0 0 1-.9 2.9L4.8 11.2z"/>
+  {:else if name === 'takeoff'}<path d="M3 20.5h18"/><path d="M4 13.8l1.2.5 3.2-2.4 3.7.3-3.7-5.3 1.7-.1 6 5.1 4.2-.3a1.5 1.5 0 0 1 .2 3L5.6 15.9z"/>
+  {:else if name === 'edit'}<path d="M15.5 4.5l4 4L8.5 19.5h-4v-4z"/><path d="M13 7l4 4"/>
+  {:else if name === 'send'}<path d="M21 3 10.5 13.5"/><path d="M21 3l-6.5 18-4-7.5L3 9.5z"/>
+  {:else if name === 'check'}<path d="M4.5 12.5l5 5 10-11"/>
+  {:else if name === 'route'}<circle cx="6" cy="5.5" r="2"/><circle cx="18" cy="18.5" r="2"/><path d="M8 5.5h7.5a3.5 3.5 0 0 1 0 7h-7a3.5 3.5 0 0 0 0 7H16"/>
   {/if}
 </svg>
 

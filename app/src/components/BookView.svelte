@@ -1,6 +1,7 @@
 <script lang="ts">
   // Kept: what you tore off, soonest first, and the stickers you've collected by neighborhood. No slots to fill, no count.
   import Sticker from './Sticker.svelte';
+  import Icon from './Icon.svelte';
   import { app } from '../lib/state.svelte';
   import { moves, events, fmtDate, fmtHour, hm, openAt, mapsHref } from '../lib/core';
   import { track } from '@vercel/analytics';
@@ -33,8 +34,8 @@
             <span class="rm"><span>{m.hood}</span><span class:live={open}>{open ? 'Open now' : `Best ${fmtHour(hm(m.best), true)}`}</span></span>
           </div>
           <div class="ra">
-            <a class="go" href={mapsHref(m.place, m.address, m.lat, m.lng)} target="_blank" rel="noopener">Go</a>
-            <button class="went" class:on={app.went.includes(m.id)} aria-pressed={app.went.includes(m.id)} onclick={() => went(m)}>{app.went.includes(m.id) ? 'Went' : 'Went?'}</button>
+            <a class="go" href={mapsHref(m.place, m.address, m.lat, m.lng)} target="_blank" rel="noopener" aria-label="Directions to {m.place}" title="Go"><Icon name="go" size={18} /></a>
+            <button class="went" class:on={app.went.includes(m.id)} aria-pressed={app.went.includes(m.id)} aria-label="Went to {m.place}" title="Went" onclick={() => went(m)}><Icon name="check" size={18} /></button>
           </div>
         </div>
       {/each}
@@ -77,7 +78,7 @@
   .slot { display: grid; justify-items: center; gap: 4px; text-align: center; padding: 8px 4px; }
   .sb { all: unset; cursor: pointer; border-radius: 12px; }
   .sb:focus-visible { outline: 3px solid var(--ink); }
-  .went { font: 600 var(--fs-s) var(--body); padding: 4px 12px; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); cursor: pointer; }
+  .went { width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); cursor: pointer; }
   .went.on { background: var(--ink); color: var(--paper); }
   .held { margin: 0; font-size: var(--fs-m); }
   .yours { background: var(--paper); color: var(--ink); border-radius: 4px; padding: 16px 16px 8px; display: grid; box-shadow: 0 14px 18px -14px rgba(5, 39, 57, 0.45); }
@@ -88,8 +89,8 @@
   .rm { display: flex; flex-wrap: wrap; gap: 4px 12px; font: 500 var(--fs-s) var(--body); color: var(--muted); }
   .rm .live { color: var(--ink); font-weight: 650; }
   .rm .live::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--mamey); box-shadow: 0 0 0 2px var(--ink); vertical-align: 1px; }
-  .ra { display: grid; gap: 8px; justify-items: stretch; }
-  .go { font: 650 var(--fs-s) var(--body); padding: 8px 16px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; text-align: center; }
+  .ra { display: flex; gap: 8px; }
+  .go { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--paper); text-decoration: none; }
   .hint { margin: 0; font: 520 var(--fs-l) var(--body); font-variation-settings: 'CASL' 1; }
   .credits { margin: 0; font: 500 var(--fs-s)/1.45 var(--body); opacity: 0.8; }
   .credits a { color: inherit; }
