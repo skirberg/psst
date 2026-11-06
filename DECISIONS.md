@@ -147,6 +147,10 @@ Sami: the text and UI can be better with icons. New icons in the same drawn set 
 - Kept: Go is an arrow, Went is a check.
 Words stay where an icon would be a guess: the move's title and line, Open till, prices, slot names, flyer tabs.
 
+## No page titles (2026-11-06)
+
+Sami: the big titles look awkward and could go. Trip, Events, Stay and Kept no longer show "Your trip", "Events", "Stay", "Kept" at 44px: the lit tab already says where you are, and each title cost about 70px above the content. Each stays as a hidden heading for screen readers.
+
 ## Rejected (do not revive)
 - Hotel Piña (metaphor tax).
 - Ventanita as the whole product.

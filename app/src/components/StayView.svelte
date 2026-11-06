@@ -32,7 +32,7 @@
 </script>
 
 <section class="stay">
-  <h1>Stay</h1>
+  <h1 class="vh">Stay</h1>
   <div class="tiers" role="radiogroup" aria-label="Price" tabindex="-1" onkeydown={radioKeys}>
     <button role="radio" aria-checked={only === 0} tabindex={only === 0 ? 0 : -1} class:on={only === 0} onclick={() => (app.stayTier = 0)}>Any</button>
     {#each TIERS as [t, sym]}<button role="radio" aria-checked={only === t} tabindex={only === t ? 0 : -1} class:on={only === t} onclick={() => { app.stayTier = t; if (sel && sel.tier !== t) app.stayFocus = null; }}>{sym}</button>{/each}
@@ -84,7 +84,6 @@
 
 <style>
   .stay { display: grid; gap: 16px; color: var(--text); }
-  h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); }
   .tiers { display: flex; gap: 8px; }
   .tiers button { min-width: 52px; height: 40px; font: 700 var(--fs-m) var(--mono); font-variation-settings: 'MONO' 1; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); }
   .tiers button.on { background: var(--text); color: var(--sky); box-shadow: none; }

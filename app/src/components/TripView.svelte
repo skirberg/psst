@@ -48,7 +48,7 @@
 </script>
 
 <section class="trip">
-  <h1>Your trip</h1>
+  <h1 class="vh">Your trip</h1>
   <div class="presets">{#each presets as p}<button class:on={preset === p.k} onclick={() => use(p)}>{p.label}</button>{/each}</div>
 
   {#if !slipOpen}
@@ -122,7 +122,6 @@
 
 <style>
   .trip { display: grid; gap: 16px; color: var(--text); }
-  h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); text-shadow: var(--shade, none); }
   h2 { margin: 0; font: 400 var(--fs-xl)/1 var(--display); }
   .presets, .evs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; margin: 0 -16px; padding-inline: 16px; }
   .presets::-webkit-scrollbar, .evs::-webkit-scrollbar { display: none; }

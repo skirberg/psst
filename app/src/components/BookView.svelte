@@ -23,7 +23,7 @@
 </script>
 
 <section class="book">
-  <h1>Kept</h1>
+  <h1 class="vh">Kept</h1>
 
   {#if yours.length}
     <section class="yours" aria-label="Yours">
@@ -71,8 +71,8 @@
 </section>
 
 <style>
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .book { display: grid; gap: 16px; color: var(--text); }
-  h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); }
   .page { background: var(--paper); color: var(--ink); border-radius: 4px; padding: 16px; display: grid; gap: 12px; box-shadow: 0 14px 18px -14px rgba(5, 39, 57, 0.45); }
   h2 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; font: 400 var(--fs-xxl)/1 var(--display); }
   /* Four stickers across, one per grid column. */

@@ -59,7 +59,7 @@
 {/snippet}
 
 <section class="wall" class:wide>
-  <h1>Events</h1>
+  <h1 class="vh">Events</h1>
   <div class="chips" role="radiogroup" aria-label="When" tabindex="-1" onkeydown={radioKeys}>
     {#each ranges as [k, label]}<button role="radio" aria-checked={r[0] === k} tabindex={r[0] === k ? 0 : -1} class:on={r[0] === k} onclick={() => (pick = k)}>{label}</button>{/each}
   </div>
@@ -72,8 +72,8 @@
 </section>
 
 <style>
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .wall { display: grid; gap: 16px; color: var(--text); }
-  h1 { margin: 0; font: 400 var(--fs-title)/0.95 var(--display); }
   .chips { display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 4px; scrollbar-width: none; }
   .chips::-webkit-scrollbar { display: none; }
   .chips button { flex: none; font: 650 var(--fs-m) var(--body); padding: 8px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px color-mix(in oklch, var(--text) 30%, transparent); cursor: pointer; }
