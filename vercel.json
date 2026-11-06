@@ -27,7 +27,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'none'"
+          "value": "frame-ancestors 'self' https://samikirberg.com"
         }
       ]
     },
