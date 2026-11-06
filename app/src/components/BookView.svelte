@@ -17,6 +17,8 @@
   const yours = $derived(moves.filter((m) => app.kept.includes(m.id))
     .map((m) => ({ m, open: openAt(m, app.now.dow, app.now.hour), wait: (hm(m.best) - app.now.hour + 24) % 24 }))
     .sort((a, b) => a.wait - b.wait));
+  // The date most places were last checked, from the data itself (re-checks move it forward).
+  const checked = moves.map((m) => m.verifiedOn).sort().at(Math.floor(moves.length / 2)) ?? '2026-10-02';
   const went = (m: Move): void => { if (!app.went.includes(m.id)) track('Went'); app.toggle('went', m.id); };
 </script>
 
@@ -64,7 +66,7 @@
     </div>
   {/if}
 
-  <p class="credits">Checked Oct 2, 2026. Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>. Weather <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>.</p>
+  <p class="credits">Checked {fmtDate(checked, { month: 'short', day: 'numeric', year: 'numeric' })}. Map <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>. Weather <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>.</p>
 
 </section>
 
