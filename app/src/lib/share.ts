@@ -100,19 +100,6 @@ export async function drawStubCard(o: StubCardInput): Promise<Blob> {
   // Front of the stub: the printer line, the hour bar, sticker, title, note, meta.
   c.fillStyle = MUTED; c.font = '650 30px Recursive'; spaced(c, 2.5);
   c.fillText(top.toUpperCase(), x + 48, y + 78); spaced(c, 0);
-  // The hour bar, read from the stub: open half hours, the best hour, and now (the one mamey mark).
-  const bar = o.front.querySelector<HTMLElement>('.bar');
-  if (bar) {
-    const bx = x + 48, by = y + 104, bw = inner - 250, bh = 16;
-    c.fillStyle = '#ECE7DE'; c.beginPath(); c.roundRect(bx, by, bw, bh, 8); c.fill();
-    c.save(); c.beginPath(); c.roundRect(bx, by, bw, bh, 8); c.clip();
-    c.fillStyle = mix(INK, PAPER, 0.18);
-    for (const i of bar.querySelectorAll<HTMLElement>('i')) c.fillRect(bx + (parseFloat(i.style.left) / 100) * bw, by, bw / 48 + 1, bh);
-    const at = (sel: string): number | null => { const e = bar.querySelector<HTMLElement>(sel); return e ? bx + (parseFloat(e.style.left) / 100) * bw : null; };
-    const best = at('.best'); if (best != null) { c.fillStyle = INK; c.fillRect(best - 2, by, 4, bh); }
-    c.restore();
-    const now = at('.now'); if (now != null) { c.fillStyle = MAMEY; c.beginPath(); c.roundRect(now - 3, by - 3, 6, bh + 6, 3); c.fill(); }
-  }
   const svg = o.front.querySelector<SVGSVGElement>('.emblem svg');
   if (svg) drawSticker(c, svg, x + w - 150, y + 200, 240);
   c.fillStyle = INK; c.font = '400 88px "Tilt Warp"';

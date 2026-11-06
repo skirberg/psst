@@ -62,13 +62,6 @@ export function sunFor(date: ISODate): Sun {
   return { rise: miamiHourOf(toD(Jt - w / 360)), set: miamiHourOf(toD(Jt + w / 360)), source: 'calc' };
 }
 
-// Sky phase 0 (deep night) .. 1 (full day), smooth around sunrise/sunset.
-export function daylight(h: number, sun: Sun): number {
-  const ramp = (x: number) => Math.min(1, Math.max(0, x));
-  if (h < 12) return ramp((h - sun.rise + 0.6) / 1.4);
-  return ramp((sun.set + 0.7 - h) / 1.4);
-}
-
 // --- Weather -----------------------------------------------------------
 const WMO = (c: number): string => (c >= 95 ? 'storms' : c >= 80 ? 'showers' : c >= 61 ? 'rain' : c >= 51 ? 'drizzle' : c >= 45 ? 'fog' : c >= 3 ? 'cloudy' : c >= 1 ? 'some clouds' : 'clear');
 // One icon for the sky: from a forecast's words, or straight from an hourly WMO code.

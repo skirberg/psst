@@ -29,9 +29,7 @@ class AppState {
   now = $state(miamiNow());
   hour = $state(miamiNow().hour);
   following = $state(true);
-  padIndex = $state(0);
   flipped = $state<string | null>(null);
-  selectedEvent = $state<string | null>(null);
   where = $state<string | null>(null);          // move id shown full-screen on the map
   whereHotel = $state<string | null>(null);     // hotel id shown full-screen on the map
   stayFocus = $state<string | null>(null);
@@ -122,7 +120,7 @@ class AppState {
   }
   toggle(list: 'kept' | 'went' | 'unlocked' | 'heldEvents', id: string): void { this[list] = this[list].includes(id) ? this[list].filter((x) => x !== id) : [...this[list], id]; this.persist(); }
   keep(id: string): void { if (!this.kept.includes(id)) { this.kept = [...this.kept, id]; this.persist(); track('Move kept'); } }
-  setTab(t: Tab, source = 'tabbar'): void { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t, source }); this.tab = t; this.flipped = null; this.selectedEvent = null; this.where = null; this.whereHotel = null; try { replaceState('#' + t, {}); } catch { try { history.replaceState(null, '', '#' + t); } catch {} } } // native only before SvelteKit's router starts (a shared link at load)
+  setTab(t: Tab, source = 'tabbar'): void { if (t !== this.tab && /^[a-z]{1,16}$/.test(t)) track('Tab opened', { tab: t, source }); this.tab = t; this.flipped = null; this.where = null; this.whereHotel = null; try { replaceState('#' + t, {}); } catch { try { history.replaceState(null, '', '#' + t); } catch {} } } // native only before SvelteKit's router starts (a shared link at load)
   scrubTo(h: number, id: string | null = null): void { this.hour = ((h % 24) + 24) % 24; this.following = false; this.padId = id; this.flipped = null; }
   backToNow() { this.following = true; this.hour = this.now.hour; this.padId = null; }
   private _t: ReturnType<typeof setTimeout> | undefined;
